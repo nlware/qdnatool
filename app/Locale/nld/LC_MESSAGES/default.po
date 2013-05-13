@@ -1,0 +1,2201 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Vragentool\n"
+"POT-Creation-Date: 2013-04-09 08:19+0000\n"
+"PO-Revision-Date: 2013-04-09 10:20+0100\n"
+"Last-Translator: Mark van Driel <mvdriel@nlware.com>\n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Dutch\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: Console/Command/QueueShell.php:18;21
+msgid "tries to call the cli `add()` function on a task."
+msgstr ""
+
+#: Console/Command/QueueShell.php:22
+msgid "tasks may or may not provide this functionality."
+msgstr ""
+
+#: Console/Command/QueueShell.php:29
+msgid "run a queue worker"
+msgstr ""
+
+#: Console/Command/QueueShell.php:32
+msgid "run a queue worker, which will look for a pending task it can execute."
+msgstr ""
+
+#: Console/Command/QueueShell.php:33
+msgid "the worker will always try to find jobs matching its installed tasks."
+msgstr ""
+
+#: Console/Command/QueueShell.php:34
+msgid "see \"Available tasks\" below."
+msgstr ""
+
+#: Console/Command/QueueShell.php:38;40
+msgid "display some general statistics."
+msgstr ""
+
+#: Console/Command/QueueShell.php:43;45
+msgid "manually call cleanup function to delete task data of completed tasks."
+msgstr ""
+
+#: Console/Command/QueueShell.php:48
+msgid "List available tasks"
+msgstr ""
+
+#: Console/Command/QueueShell.php:49
+msgid "CakePHP Queue."
+msgstr ""
+
+#: Console/Command/RemoteContentShell.php:15
+msgid "Refresh \"tips of the day\""
+msgstr ""
+
+#: Console/Command/RemoteContentShell.php:17
+msgid "Refresh instructions"
+msgstr ""
+
+#: Console/Command/RemoteContentShell.php:18
+msgid "Remote Content"
+msgstr ""
+
+#: Console/Command/Task/QueueAnalyseExamTask.php:14;21
+#: Console/Command/Task/QueueAnalysisToReportTask.php:14;21
+#: Console/Command/Task/QueueImportExamTask.php:16;23
+#: Console/Command/Task/QueueReanalyseExamTask.php:14;21
+#: Controller/ExamsController.php:50;99;144;157;177;181;233;242
+msgid "Invalid exam"
+msgstr "Ongeldige tentamen"
+
+#: Controller/AppController.php:79
+#: Controller/ExamsController.php:13
+msgid "Sorry, something went wrong. Please, try again."
+msgstr ""
+
+#: Controller/ExamsController.php:75
+msgid "The exam has been saved"
+msgstr "Het tentamen is opgeslagen"
+
+#: Controller/ExamsController.php:78
+msgid "The exam could not be saved. Please, try again."
+msgstr "Het tentamen kon niet worden opgeslagen. Probeer het nog eens."
+
+#: Controller/ExamsController.php:102
+msgid "Exam deleted"
+msgstr "Tentamen verwijderd"
+
+#: Controller/ExamsController.php:105
+msgid "Exam was not deleted"
+msgstr "Tentamen is niet verwijderd"
+
+#: Controller/ExamsController.php:160
+msgid "Exam is scheduled to report"
+msgstr "Tentamen is gepland voor rapportage"
+
+#: Controller/ExamsController.php:163
+msgid "Exam was not scheduled to report"
+msgstr "Tentamen is niet gepland voor rapportage"
+
+#: Controller/ExamsController.php:212
+#, fuzzy
+msgid "The exam has been scheduled to reanalyse"
+msgstr "Tentamen is niet verwijderd"
+
+#: Controller/ExamsController.php:215
+msgid "The exam could not be reanalysed. Please, try again."
+msgstr "Het tentamen kon niet opnieuw worden geanalyseerd. Probeer het nog eens."
+
+#: Controller/ImagesController.php:104
+msgid "Upload failed."
+msgstr ""
+
+#: Controller/ImagesController.php:143;177;207
+msgid "Invalid image"
+msgstr "Ongeldige afbeelding"
+
+#: Controller/ImagesController.php:157;181
+msgid "The image has been saved"
+msgstr "De afbeelding is opgeslagen"
+
+#: Controller/ImagesController.php:160;184
+msgid "The image could not be saved. Please, try again."
+msgstr "De afbeelding kon niet worden opgeslagen. Probeer het nog eens."
+
+#: Controller/ImagesController.php:210
+msgid "Image deleted"
+msgstr "Afbeelding verwijderd"
+
+#: Controller/ImagesController.php:213
+msgid "Image was not deleted"
+msgstr "Afbeelding was niet verwijderd"
+
+#: Controller/QuestionFormatsController.php:29;44
+msgid "Invalid question format"
+msgstr "Ongeldig vraagtype"
+
+#: Controller/QuestionFormatsController.php:48
+msgid "The question format has been saved"
+msgstr "Het vraagtype is opgeslagen"
+
+#: Controller/QuestionFormatsController.php:51
+msgid "The question format could not be saved. Please, try again."
+msgstr "Het vraagtype kon niet worden opgeslagen. Probeer het nog eens."
+
+#: Controller/QuestionsController.php:52;105;145
+msgid "Invalid question"
+msgstr "Ongeldige vraag"
+
+#: Controller/QuestionsController.php:69;109
+msgid "The question has been saved"
+msgstr "De vraag is opgeslagen"
+
+#: Controller/QuestionsController.php:72;112
+msgid "The question could not be saved. Please, try again."
+msgstr "De vraag kon niet worden opgeslagen. Probeer het nog eens."
+
+#: Controller/QuestionsController.php:148
+msgid "Question deleted"
+msgstr "Vraag verwijderd."
+
+#: Controller/QuestionsController.php:153
+msgid "Question was not deleted"
+msgstr "Vraag is niet verwijderd"
+
+#: Controller/QuestionsTagsController.php:18;34;50
+#, fuzzy
+msgid "Invalid questionstag"
+msgstr "Ongeldige vraag"
+
+#: Controller/QuestionsTagsController.php:21
+msgid "Question removed from tag"
+msgstr "Vraag is verwijderd uit tag"
+
+#: Controller/QuestionsTagsController.php:24
+msgid "Question was not removed from tag"
+msgstr "Vraag is niet verwijderd uit tag"
+
+#: Controller/QuestionsTagsController.php:37
+msgid "Question moved down"
+msgstr "Vraag is omlaag verplaatst"
+
+#: Controller/QuestionsTagsController.php:40
+msgid "Question was not moved down"
+msgstr "Vraag is niet omlaag verplaatst"
+
+#: Controller/QuestionsTagsController.php:53
+msgid "Question moved up"
+msgstr "Vraag is omhoog verplaatst."
+
+#: Controller/QuestionsTagsController.php:56
+msgid "Question was not moved up"
+msgstr "Vraag is niet omhoog verplaatst"
+
+#: Controller/UsersController.php:39;73;103
+msgid "Invalid user"
+msgstr "Ongeldige gebruiker"
+
+#: Controller/UsersController.php:53;77
+msgid "The user has been saved"
+msgstr "De gebruiker is opgeslagen"
+
+#: Controller/UsersController.php:56;80
+msgid "The user could not be saved. Please, try again."
+msgstr "De gebruiker kon niet worden opgeslagen. Probeer het nog eens."
+
+#: Controller/UsersController.php:106
+msgid "User deleted"
+msgstr "Gebruiker verwijderd"
+
+#: Controller/UsersController.php:109
+msgid "User was not deleted"
+msgstr "Gebruiker is niet verwijderd"
+
+#: Controller/UsersController.php:139
+msgid "Invalid username or password, try again"
+msgstr "Ongeldige gebruikersnaam of wachtwoord. Probeer het nog eens."
+
+#: Controller/UsersController.php:191
+msgid "Successful login via SURFconext."
+msgstr "Succesvol aangemeld via SURFconext"
+
+#: Controller/UsersController.php:196
+msgid "Failed to login via SURFconext. Please, try again."
+msgstr "Inloggen via SURFconext is mislukt. Probeer het nog eens."
+
+#: Controller/UsersController.php:215
+msgid "Password has been changed."
+msgstr "Wachtwoord is gewijzigd."
+
+#: Controller/UsersController.php:218
+msgid "Password could not be changed. Plaese try again."
+msgstr "Wachtwoord kon niet worden gewijzigd. Probeer het nog eens."
+
+#: Model/Item.php:146
+msgid "Has the correct alternative been assessed as correct? Most students choose the alternative %s."
+msgstr "Is het juiste alternatief wel goed gerekend? De meeste studenten kiezen voor alternatief %s."
+
+#: Model/Item.php:147
+msgid "In case the correct alternative has been assessed as correct, remove the question (it is probably a so called ‘trick question’: these type of questions do not measure the knowledge of the student)."
+msgstr "Indien het goede alternatief is goed gerekend , verwijder dan de vraag (waarschijnlijk is deze vraag een zogenaamd ‘instinkertje’: deze vragen meten niet het kennisniveau van de student)."
+
+#: Model/Item.php:149
+msgid "Good students generally answer this question incorrectly. The advice is to remove this question from the test."
+msgstr "Goede studenten hebben over het algemeen deze vraag fout. Geadviseerd wordt om deze vraag uit de toets te verwijderen."
+
+#: Model/Item.php:175
+msgid "This question has been answered incorrectly by many students. Has the alternative correct answer been included as correct?"
+msgstr "Deze vraag is door veel studenten fout beantwoord. Is het juiste alternatief wel goed gerekend?"
+
+#: Model/Item.php:176
+msgid "In case the alternative correct answer has been included in the assessment, remove the question from the test. In case the incorrect alternative has been assessed as correct, include this as a correct answer and asses the test again."
+msgstr "Indien het juiste alternatief is goed gerekend, verwijder dan de vraag uit de toets. Indien het foute alternatief is goed gerekend, reken dit dan alsnog goed en beoordeel de toets opnieuw."
+
+#: Model/Item.php:183
+msgid "Instead of choosing the correct alternative, students are choosing the alternative %s."
+msgstr "In plaats van dat studenten kiezen voor het juiste alternatief, kiezen studenten voor het alternatief %s."
+
+#: Model/Item.php:184
+msgid "Is it possible that the alternative answer should also be assessed as correct? Examine why many students are choosing the alternative answer %s."
+msgstr "Kan het zijn dat dit alternatief (ook) goed gerekend moet worden? Ga na waarom veel studenten kiezen voor alternatief %s."
+
+#: Model/Item.php:186
+msgid "This question does not distinguish between good and less good students: guessing has taken place. Has the content been covered in class?"
+msgstr "Deze vraag maakt geen onderscheid tussen goede en minder goede studenten: men heeft gegokt. Is de stof wel behandeld?"
+
+#: Model/Item.php:187
+msgid "It is not necessary to remove this question from the exam."
+msgstr "Het is niet noodzakelijk om deze vraag uit het tentamen te verwijderen."
+
+#: Model/Question.php:524
+msgid "A - Weten en Begrijpen"
+msgstr ""
+
+#: Model/Question.php:525
+msgid "Wat is de beste definitie voor ....?"
+msgstr ""
+
+#: Model/Question.php:525
+msgid "A1 - Wat is de beste definitie voor ....?"
+msgstr ""
+
+#: Model/Question.php:526
+msgid "Wat is (niet) karakteristiek voor ....?"
+msgstr ""
+
+#: Model/Question.php:526
+msgid "A2 - Wat is (niet) karakteristiek voor ....?"
+msgstr ""
+
+#: Model/Question.php:527
+msgid "Uit welke onderdelen bestaat het probleem?"
+msgstr ""
+
+#: Model/Question.php:527
+msgid "A3 - Uit welke onderdelen bestaat het probleem?"
+msgstr ""
+
+#: Model/Question.php:528
+msgid "Wat is de geschiedenis van het probleem?"
+msgstr ""
+
+#: Model/Question.php:528
+msgid "A4 - Wat is de geschiedenis van het probleem?"
+msgstr ""
+
+#: Model/Question.php:529
+msgid "Welke verschillende categorieën zijn er in het probleem?"
+msgstr ""
+
+#: Model/Question.php:529
+msgid "A5 - Welke verschillende categorieën zijn er in het probleem?"
+msgstr ""
+
+#: Model/Question.php:531
+msgid "B - Wat is het meest effectief (gepast) voor ....?"
+msgstr ""
+
+#: Model/Question.php:532
+msgid "Wat is beter (slechter) ....?"
+msgstr ""
+
+#: Model/Question.php:532
+msgid "B1 - Wat is beter (slechter) ....?"
+msgstr ""
+
+#: Model/Question.php:533
+msgid "Wat is het meest effectief voor ....?"
+msgstr ""
+
+#: Model/Question.php:533
+msgid "B2 - Wat is het meest effectief voor ....?"
+msgstr ""
+
+#: Model/Question.php:534
+msgid "Wat is de meest kritieke stap in aan procedure?"
+msgstr ""
+
+#: Model/Question.php:534
+msgid "B3 - Wat is de meest kritieke stap in aan procedure?"
+msgstr ""
+
+#: Model/Question.php:535
+msgid "Als je weet dat X waar is, wat is dan tevens waar over Y?"
+msgstr ""
+
+#: Model/Question.php:535
+msgid "B4 - Als je weet dat X waar is, wat is dan tevens waar over Y?"
+msgstr ""
+
+#: Model/Question.php:536
+msgid "Wat is (niet) nodig in een procedure?"
+msgstr ""
+
+#: Model/Question.php:536
+msgid "B5 - Wat is (niet) nodig in een procedure?"
+msgstr ""
+
+#: Model/Question.php:537
+msgid "Kritisch denken (evalueren)"
+msgstr ""
+
+#: Model/Question.php:537
+msgid "B6 - Kritisch denken (evalueren)"
+msgstr ""
+
+#: Model/Question.php:538
+msgid "Wat is het belang van het probleem ? So what ?"
+msgstr ""
+
+#: Model/Question.php:538
+msgid "B6 - Wat is het belang van het probleem ? So what ?"
+msgstr ""
+
+#: Model/Question.php:540
+msgid "C - Kritisch denken (voorspellen)"
+msgstr ""
+
+#: Model/Question.php:541
+msgid "Wat zou er gebeuren als ....?"
+msgstr ""
+
+#: Model/Question.php:541
+msgid "C1 - Wat zou er gebeuren als ....?"
+msgstr ""
+
+#: Model/Question.php:542
+msgid "Als dit gebeurt, wat zou je doen?"
+msgstr ""
+
+#: Model/Question.php:542
+msgid "C2 - Als dit gebeurt, wat zou je doen?"
+msgstr ""
+
+#: Model/Question.php:543
+msgid "Op basis van wat ...., wat zou je doen?"
+msgstr ""
+
+#: Model/Question.php:543
+msgid "C3 - Op basis van wat ...., wat zou je doen?"
+msgstr ""
+
+#: Model/Question.php:544
+msgid "Gegeven ... wat is belangrijkste reden dat ...."
+msgstr ""
+
+#: Model/Question.php:544
+msgid "C4 - Gegeven ... wat is belangrijkste reden dat ...."
+msgstr ""
+
+#: Model/Question.php:546
+msgid "D - Probleem oplossen (gegeven een scenario)"
+msgstr ""
+
+#: Model/Question.php:547
+msgid "Wat is de aard van het probleem?"
+msgstr ""
+
+#: Model/Question.php:547
+msgid "D1 - Wat is de aard van het probleem?"
+msgstr ""
+
+#: Model/Question.php:548
+msgid "Wat heb je nodig om dit probleem op te lossen?"
+msgstr ""
+
+#: Model/Question.php:548
+msgid "D2 - Wat heb je nodig om dit probleem op te lossen?"
+msgstr ""
+
+#: Model/Question.php:549
+msgid "Wat is een mogelijke oplossing?"
+msgstr ""
+
+#: Model/Question.php:549
+msgid "D3 - Wat is een mogelijke oplossing?"
+msgstr ""
+
+#: Model/Question.php:550
+msgid "Wat is de meeste effectieve (efficiente) oplossing?"
+msgstr ""
+
+#: Model/Question.php:550
+msgid "D4 - Wat is de meeste effectieve (efficiente) oplossing?"
+msgstr ""
+
+#: Model/Question.php:551
+msgid "Waarom is .... de meest effectieve (efficiënte) oplossing?"
+msgstr ""
+
+#: Model/Question.php:551
+msgid "D5 - Waarom is .... de meest effectieve (efficiënte) oplossing?"
+msgstr ""
+
+#: Model/Question.php:553
+msgid "E - Andere manieren om vragen te bedenken waarbij kritisch denken of probleemoplossing gevraagd worden zijn."
+msgstr ""
+
+#: Model/Question.php:554
+msgid "Premise - Consequence"
+msgstr ""
+
+#: Model/Question.php:554
+msgid "E1 - Premise - Consequence"
+msgstr ""
+
+#: Model/Question.php:555
+msgid "Analogie"
+msgstr "Analogie"
+
+#: Model/Question.php:555
+msgid "E2 - Analogie"
+msgstr ""
+
+#: Model/Question.php:556
+msgid "Case Study"
+msgstr ""
+
+#: Model/Question.php:556
+msgid "E3 - Case Study"
+msgstr ""
+
+#: Model/Question.php:557
+msgid "Incompleet Scenario"
+msgstr ""
+
+#: Model/Question.php:557
+msgid "E4 - Incompleet Scenario"
+msgstr ""
+
+#: Model/Question.php:558
+msgid "Probleem / Oplossing evaluatie"
+msgstr ""
+
+#: Model/Question.php:558
+msgid "E5 - Probleem / Oplossing evaluatie"
+msgstr ""
+
+#: Model/Question.php:605
+msgid "Selection Name"
+msgstr ""
+
+#: Model/Question.php:609;621
+msgid "Selection Identifier"
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:10
+msgid "Set theme to place Bootstrap files in."
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:15
+msgid "Set file output to webroot Theme dir (use with theme option)."
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:22
+msgid "TwitterBootstrap Copy Shell Help."
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:29
+msgid "Copies Less, Js & Img source from Bootstrap submodule in plugin Vendor dir"
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:31
+msgid "files will be placed in webroot of App or named Theme"
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:39
+msgid "Copies Less source from Bootstrap submodule in plugin Vendor dir"
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:41
+msgid "files will be placed in webroot/css/lib/ of App or named Theme"
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:49
+msgid "Copies Img source from Bootstrap submodule in plugin Vendor dir"
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:51
+msgid "files will be placed in webroot/img/ of App or named Theme"
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:59
+msgid "Copies Js source from Bootstrap submodule in plugin Vendor dir"
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:61
+msgid "files will be placed in webroot/js/lib of App or named Theme"
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:108
+msgid "Success."
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:110
+msgid "Error!"
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Controller/TwitterBootstrapController.php:18
+msgid "Debug setting does not allow access to this url."
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Controller/TwitterBootstrapController.php:24
+msgid "Alert notice message testing..."
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Controller/TwitterBootstrapController.php:27
+msgid "Alert success message testing..."
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Controller/TwitterBootstrapController.php:31
+msgid "Alert error message testing..."
+msgstr ""
+
+#: Plugin/TwitterBootstrap/View/Layouts/default.ctp:6
+msgid "CakePHP: the rapid development php framework:"
+msgstr ""
+
+#: Plugin/TwitterBootstrap/View/Layouts/default.ctp:51
+msgid "CakePHP"
+msgstr ""
+
+#: View/Elements/analyses.ctp:12
+msgid "The question doesn't seem to include common structural errors."
+msgstr "De vraag lijkt geen veelvoorkomende constructiefouten te bevatten."
+
+#: View/Elements/header.ctp:8;76
+msgid "About qDNAtool"
+msgstr "Over qDNAtool"
+
+#: View/Elements/header.ctp:11
+msgid "This project was made possible by the support of SURF, the higher education and research partnership organisation for Information and Communications Technology (ICT). For more information about SURF, please visit %s."
+msgstr "Dit project is tot stand gekomen met steun van Stichting SURF, de organisatie die ICT vernieuwingen in het hoger onderwijs en onderzoek initieert, regisseert en stimuleert door onder meer het financieren van projecten. Meer informatie over SURF is te vinden op de website (%s)."
+
+#: View/Elements/header.ctp:22
+msgid "Close"
+msgstr "Sluiten"
+
+#: View/Elements/header.ctp:33
+msgid "Settings"
+msgstr "Instellingen"
+
+#: View/Elements/header.ctp:34
+msgid "Sign Out"
+msgstr "Afmelden"
+
+#: View/Elements/header.ctp:41;43
+msgid "Login"
+msgstr "Login"
+
+#: View/Elements/header.ctp:46
+msgid "qDNAtool"
+msgstr "qDNAtool"
+
+#: View/Elements/header.ctp:54;56;65
+#: View/Users/home.ctp:4;6
+#: View/Users/login.ctp:8
+msgid "Design"
+msgstr "Ontwerpen"
+
+#: View/Elements/header.ctp:57;62;64
+#: View/Users/home.ctp:11;13
+msgid "Analyse"
+msgstr "Analyseren"
+
+#: View/Elements/header.ctp:73
+#: View/Questions/add.ctp:334
+#: View/Questions/edit.ctp:339
+msgid "Help"
+msgstr "Help"
+
+#: View/Elements/header.ctp:75
+msgid "qDNAtool Help"
+msgstr "qDNAtool Help"
+
+#: View/Exams/__index.ctp:3
+#: View/Exams/_index.ctp:3
+#: View/Exams/index.ctp:3
+msgid "Add Exam"
+msgstr "Tentamen toevoegen"
+
+#: View/Exams/__index.ctp:3
+#: View/Exams/_index.ctp:3
+#: View/Exams/index.ctp:3
+msgid "Exams"
+msgstr "Tentamens"
+
+#: View/Exams/__index.ctp:7
+#: View/Exams/_index.ctp:18
+#: View/Exams/index.ctp:7
+#: View/Exams/reanalyse.ctp:12
+#: View/Exams/view.ctp:7
+#: View/QuestionFormats/admin_view.ctp:11
+#: View/Users/admin_edit.ctp:12
+#: View/Users/view.ctp:20
+msgid "Name"
+msgstr "Naam"
+
+#: View/Exams/__index.ctp:8
+#: View/Exams/_index.ctp:19
+#: View/Exams/index.ctp:8
+msgid "State"
+msgstr "Status"
+
+#: View/Exams/__index.ctp:9
+#: View/Exams/_index.ctp:20
+#: View/Exams/index.ctp:9
+#: View/Exams/view.ctp:21
+msgid "Created"
+msgstr "Aangemaakt"
+
+#: View/Exams/__index.ctp:10
+#: View/Exams/_index.ctp:21
+#: View/Exams/index.ctp:10
+#: View/Exams/view.ctp:23
+msgid "Modified"
+msgstr "Gewijzigd"
+
+#: View/Exams/__index.ctp:11
+#: View/Exams/_index.ctp:22
+#: View/Exams/index.ctp:11
+#: View/Images/add.ctp:16
+#: View/Images/edit.ctp:17
+#: View/Images/index.ctp:11;49
+#: View/Images/view.ctp:37
+#: View/QuestionFormats/admin_index.ctp:9
+#: View/Users/account.ctp:4
+#: View/Users/index.ctp:15
+msgid "Actions"
+msgstr "Acties"
+
+#: View/Exams/__index.ctp:29;91
+#: View/Exams/_index.ctp:57;123
+#: View/Exams/index.ctp:27;90
+msgid "The status will update automatically."
+msgstr ""
+
+#: View/Exams/__index.ctp:44;54;106;116
+#: View/Exams/_index.ctp:70;80;134;144
+#: View/Exams/index.ctp:42;52;105;115
+msgid "Start interpretation"
+msgstr "Interpretatie starten"
+
+#: View/Exams/__index.ctp:46;70;108;124
+#: View/Exams/_index.ctp:72;97;136;153
+#: View/Exams/index.ctp:44;69;107;124
+#: View/Images/edit.ctp:20
+#: View/Images/index.ctp:28
+#: View/Questions/index.ctp:110
+#: View/Users/admin_edit.ctp:5
+#: View/Users/index.ctp:60;67
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: View/Exams/__index.ctp:46;70;108;124
+#: View/Exams/_index.ctp:72;97;136;153
+#: View/Exams/index.ctp:44;69;107;124
+msgid "Are you sure you want to delete exam \"%s\"?"
+msgstr "Weet je zeker dat je tentamen \"%s\" wilt verwijderen?"
+
+#: View/Exams/__index.ctp:59;121
+#: View/Exams/_index.ctp:85;149
+#: View/Exams/index.ctp:57;120
+msgid "Download report"
+msgstr "Rapport downloaden"
+
+#: View/Exams/__index.ctp:60;122
+#: View/Exams/_index.ctp:86;150
+#: View/Exams/index.ctp:58;121
+msgid "Download scores"
+msgstr "Scores downloaden"
+
+#: View/Exams/__index.ctp:65
+#: View/Exams/_index.ctp:92
+#: View/Exams/index.ctp:64
+msgid "Reanalyse"
+msgstr "Heranalyseren"
+
+#: View/Exams/_index.ctp:87;151
+#: View/Exams/index.ctp:59;122
+msgid "Show missings"
+msgstr "Missings tonen"
+
+#: View/Exams/add.ctp:9
+msgid "Add exam"
+msgstr "Tentamen toevoegen"
+
+#: View/Exams/add.ctp:11
+msgid "Exam name"
+msgstr "Naam tentamen"
+
+#: View/Exams/add.ctp:14;16
+msgid "Format"
+msgstr "Formaat"
+
+#: View/Exams/add.ctp:16
+msgid "Format."
+msgstr "Formaat."
+
+#: View/Exams/add.ctp:22;23
+msgid "# Answer options"
+msgstr "# Antwoordopties"
+
+#: View/Exams/add.ctp:23
+msgid "How many answers are available for the multiple choice questions? The total amount of answers should include the correct answer."
+msgstr "Uit hoeveel alternatieven bestaan de meerkeuzevragen? Het aantal alternatieven is inclusief het juiste antwoord."
+
+#: View/Exams/add.ctp:30
+msgid "Data file"
+msgstr "Databestand"
+
+#: View/Exams/add.ctp:31
+msgid "Data file."
+msgstr "Databestand."
+
+#: View/Exams/add.ctp:31
+msgid "This file contains test result data from Blackboard, Teleform or Questionark Perception."
+msgstr "Dit bevat de data van de toetsuitslagen zoals deze uit Blackboard, Teleform of Questionmark Perception komen."
+
+#: View/Exams/add.ctp:36
+msgid "Mapping file"
+msgstr "Mappingbestand"
+
+#: View/Exams/add.ctp:37
+msgid "Mapping file (Teleform only)."
+msgstr "Mappingbestand (alleen Teleform)."
+
+#: View/Exams/add.ctp:37
+msgid "The mapping file contains data in case there are two (or more) versions of an exam being used. It ‘maps’ one version of the exam to the other."
+msgstr "Het mappingbestand bevat de informatie indien er twee (of meer) versies van tentamens gebruikt worden. Het ‘mapt’ de ene versie van het tentamen aan het andere."
+
+#: View/Exams/add.ctp:44
+#: View/Exams/reanalyse.ctp:51
+#: View/Images/add.ctp:13
+#: View/Images/edit.ctp:14
+#: View/QuestionFormats/admin_edit.ctp:11
+#: View/Questions/add.ctp:131;327
+#: View/Questions/edit.ctp:116;332
+#: View/Users/admin_add.ctp:11
+#: View/Users/admin_edit.ctp:17
+#: View/Users/change_password.ctp:10
+msgid "Save"
+msgstr "Opslaan"
+
+#: View/Exams/add.ctp:45
+#: View/Exams/reanalyse.ctp:52
+#: View/QuestionFormats/admin_edit.ctp:12
+#: View/Questions/add.ctp:328
+#: View/Questions/edit.ctp:333
+#: View/Users/admin_add.ctp:12
+#: View/Users/admin_edit.ctp:18
+#: View/Users/change_password.ctp:11
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: View/Exams/missings.ctp:5
+#: View/Exams/csv/scores.ctp:3
+msgid "Subject"
+msgstr ""
+
+#: View/Exams/missings.ctp:6
+msgid "Version"
+msgstr "Versie"
+
+#: View/Exams/missings.ctp:7
+#: View/Exams/view.ctp:37
+msgid "Item"
+msgstr "Item"
+
+#: View/Exams/missings.ctp:14
+msgid "2"
+msgstr ""
+
+#: View/Exams/missings.ctp:14
+msgid "1"
+msgstr ""
+
+#: View/Exams/reanalyse.ctp:9
+msgid "Reanalyse exam"
+msgstr "Tentamen heranalyseren"
+
+#: View/Exams/reanalyse.ctp:18
+msgid "Include items"
+msgstr "Items meenemen"
+
+#: View/Exams/reanalyse.ctp:19
+msgid "Correct answer options"
+msgstr "Juiste antwoordopties"
+
+#: View/Exams/stevie.ctp:13
+msgid "Are you sure you want to close this wizard?"
+msgstr "Weet je zeker dat je de wizard wilt sluiten?"
+
+#: View/Exams/stevie.ctp:14
+msgid "Interpretation of exam \"%s\""
+msgstr "Interpretatie van tentamen \"%s\""
+
+#: View/Exams/stevie.ctp:19
+#: View/Exams/view.ctp:3
+msgid "Exam"
+msgstr "Tentamen"
+
+#: View/Exams/stevie.ctp:35
+msgid "More"
+msgstr "Meer"
+
+#: View/Exams/stevie.ctp:39;81
+msgid "Item %s"
+msgstr "Item %s"
+
+#: View/Exams/stevie.ctp:51;61
+msgid "Conclusion"
+msgstr "Conclusie"
+
+#: View/Exams/stevie.ctp:63;121
+msgid "Reliability of the exam: low"
+msgstr "Betrouwbaarheid van het tentamen: laag"
+
+#: View/Exams/stevie.ctp:64;122
+msgid "The reliability of the test is too low to give a decisive result: there are too many incorrect fail or pass decisions being made."
+msgstr "De betrouwbaarheid van deze toets is te laag om doorslaggevende beslissingen op te baseren: er worden nu te veel onjuiste zak- of slaagbeslissingen genomen."
+
+#: View/Exams/stevie.ctp:65;123
+msgid "The reliability of the test can be increased by executing an item analysis and removing or editing incorrect items from the test results."
+msgstr "De betrouwbaarheid van de toets kan vergroot worden door een itemanalyse uit te voeren en onjuiste items te wijzigen of te verwijderen uit de toetsuitslag."
+
+#: View/Exams/stevie.ctp:66;70;74;124;128;132
+msgid "Press on ‘next’ to start the item analysis. Only items which can increase reliability will be shown. Reliable questions will not be shown."
+msgstr "Druk op ‘volgende’ om de itemanalyse te starten. Alleen de items waarmee de betrouwbaarheid vergroot kan worden, worden besproken. De goede vragen worden niet besproken."
+
+#: View/Exams/stevie.ctp:68;126
+msgid "Reliability of the exam: doubtful"
+msgstr "Betrouwbaarheid van het tentamen: discutabel"
+
+#: View/Exams/stevie.ctp:69;127
+msgid "The reliability of this test is debatable. An item analysis should be executed to increase the reliability of the test: there are too many incorrect fail or pass decisions being made.In case this is a mid term test, the reliability is sufficient."
+msgstr "De betrouwbaarheid van deze toets is discutabel. Er moet een itemanalyse verricht worden om de betrouwbaarheid van de toets te vergroten: er worden anders te veel onjuiste zak- of slaagbeslissingen genomen. Indien deze toets een deeltoets is, is deze betrouwbaarheid voldoende."
+
+#: View/Exams/stevie.ctp:72;130
+msgid "Reliability of the exam: adequate"
+msgstr "Betrouwbaarheid van het tentamen: voldoende"
+
+#: View/Exams/stevie.ctp:73;131
+msgid "Reliability of the test is sufficient. An item analysis can increase the reliability but is not strictly necessary."
+msgstr "De betrouwbaarheid van de toets is voldoende. Een itemanalyse kan de betrouwbaarheid van de toets vergroten maar is niet strikt noodzakelijk."
+
+#: View/Exams/stevie.ctp:91
+msgid "Item %s / %s"
+msgstr "Item %s / %s"
+
+#: View/Exams/stevie.ctp:105
+msgid "Rit correct answer"
+msgstr "Rit juiste antwoord"
+
+#: View/Exams/stevie.ctp:107;103
+#: View/Questions/index.ctp:85
+msgid "Correct answer"
+msgid_plural "Correct answers"
+msgstr[0] "Juiste antwoord"
+msgstr[1] "Juiste antwoorden"
+
+#: View/Exams/stevie.ctp:108;115
+msgid "%s %%"
+msgstr ""
+
+#: View/Exams/stevie.ctp:114
+msgid "Incorrect answer %s"
+msgstr "Onjuist antwoord %s"
+
+#: View/Exams/stevie.ctp:141;143
+msgid "< Previous"
+msgstr "< Vorige"
+
+#: View/Exams/stevie.ctp:148
+msgid "Finish"
+msgstr "Voltooien"
+
+#: View/Exams/stevie.ctp:150
+msgid "Next >"
+msgstr "Volgende >"
+
+#: View/Exams/view.ctp:2
+msgid "List Exams"
+msgstr "Tentamenoverzicht"
+
+#: View/Exams/view.ctp:5
+#: View/Images/view.ctp:4
+#: View/QuestionFormats/admin_view.ctp:9
+#: View/Users/view.ctp:16
+msgid "Id"
+msgstr "Id"
+
+#: View/Exams/view.ctp:9
+msgid "Average Score"
+msgstr "Gemiddelde Score"
+
+#: View/Exams/view.ctp:11
+msgid "Standard Deviation"
+msgstr ""
+
+#: View/Exams/view.ctp:13
+msgid "Cronbachs Alpha"
+msgstr ""
+
+#: View/Exams/view.ctp:15
+#, fuzzy
+msgid "Default Answer Option Count"
+msgstr "# Antwoordopties"
+
+#: View/Exams/view.ctp:17
+#, fuzzy
+msgid "Maximum Answer Option Count"
+msgstr "# Antwoordopties"
+
+#: View/Exams/view.ctp:19
+#: View/Users/view.ctp:1
+msgid "User"
+msgstr "Gebruiker"
+
+#: View/Exams/view.ctp:25
+msgid "Uploaded"
+msgstr "Geupload"
+
+#: View/Exams/view.ctp:27
+msgid "Imported"
+msgstr "Geïmporteerd"
+
+#: View/Exams/view.ctp:29
+msgid "Analysed"
+msgstr "Geanalyseerd"
+
+#: View/Exams/view.ctp:31
+msgid "Report Generated"
+msgstr "Rapport Gegenereerd"
+
+#: View/Exams/view.ctp:38
+msgid "# Correct Answers"
+msgstr "# Juiste Antwoorden"
+
+#: View/Exams/view.ctp:39
+msgid "% Correct Answers"
+msgstr "% Juiste Antwoorden"
+
+#: View/Exams/view.ctp:40
+msgid "Rit Correct Answers"
+msgstr "Rit Juiste Antwoorden"
+
+#: View/Exams/view.ctp:41
+msgid "# Missing Answers"
+msgstr "# Ontbrekende Antwoorden"
+
+#: View/Exams/view.ctp:42
+msgid "% Missing Answers"
+msgstr "% Ontbrekende Antwoorden"
+
+#: View/Exams/view.ctp:44
+msgid "# Answer %s"
+msgstr "# Antwoord %s"
+
+#: View/Exams/view.ctp:45
+msgid "%% Answer %s"
+msgstr "%% Antwoord %s"
+
+#: View/Exams/view.ctp:46
+msgid "Rit Answer %s"
+msgstr "Rit Antwoord %s"
+
+#: View/Exams/csv/scores.ctp:3
+msgid "Total score"
+msgstr ""
+
+#: View/Helper/OutputHelper.php:8;28
+msgid "n/a"
+msgstr ""
+
+#: View/Helper/OutputHelper.php:8
+msgid "Y-m-d"
+msgstr ""
+
+#: View/Helper/OutputHelper.php:12
+msgid "%DECIMAL_POINT%"
+msgstr ","
+
+#: View/Helper/OutputHelper.php:13
+msgid "%THOUSANDS_SEPARATOR%"
+msgstr "."
+
+#: View/Helper/OutputHelper.php:26
+msgid "No"
+msgstr "Nee"
+
+#: View/Helper/OutputHelper.php:27
+msgid "Yes"
+msgstr "Ja"
+
+#: View/Images/add.ctp:4
+msgid "Add Image"
+msgstr "Afbeelding toevoegen"
+
+#: View/Images/add.ctp:19
+#: View/Images/edit.ctp:21
+#: View/Images/view.ctp:41
+msgid "List Images"
+msgstr "Afbeeldingenoverzicht"
+
+#: View/Images/add.ctp:20
+#: View/Images/edit.ctp:22
+#: View/Images/index.ctp:52
+#: View/Images/view.ctp:43
+msgid "List Questions"
+msgstr "Vragenoverzicht"
+
+#: View/Images/add.ctp:21
+#: View/Images/edit.ctp:23
+#: View/Images/index.ctp:53
+#: View/Images/view.ctp:44
+msgid "New Question"
+msgstr "Vraag toevoegen"
+
+#: View/Images/edit.ctp:4
+#: View/Images/view.ctp:39
+msgid "Edit Image"
+msgstr "Afbeelding bewerken"
+
+#: View/Images/edit.ctp:20
+#: View/Images/index.ctp:28
+#: View/Images/view.ctp:40
+msgid "Are you sure you want to delete # %s?"
+msgstr "Weet je zeker dat je # %s wilt verwijderen?"
+
+#: View/Images/index.ctp:2
+msgid "Images"
+msgstr "Afbeeldingen"
+
+#: View/Images/index.ctp:26
+#: View/QuestionFormats/admin_index.ctp:20;26
+#: View/Questions/index.ctp:104
+#: View/Users/index.ctp:30;36
+msgid "View"
+msgstr "Bekijken"
+
+#: View/Images/index.ctp:27
+#: View/QuestionFormats/admin_index.ctp:34;41
+#: View/QuestionFormats/admin_view.ctp:4
+#: View/Questions/index.ctp:109
+#: View/Questions/view.ctp:3
+#: View/Users/index.ctp:45;52
+msgid "Edit"
+msgstr "Bewerken"
+
+#: View/Images/index.ctp:36
+#: View/QuestionFormats/admin_index.ctp:54
+msgid "Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}"
+msgstr "Pagina {:page} van {:pages}, tonend {:current} records van in totaal {:count}, vanaf record {:start} tot en met {:end}"
+
+#: View/Images/index.ctp:42
+#: View/QuestionFormats/admin_index.ctp:60
+msgid "previous"
+msgstr "vorige"
+
+#: View/Images/index.ctp:44
+#: View/QuestionFormats/admin_index.ctp:62
+msgid "next"
+msgstr "volgende"
+
+#: View/Images/index.ctp:51
+#: View/Images/view.ctp:42
+msgid "New Image"
+msgstr "Afbeelding toevoegen"
+
+#: View/Images/view.ctp:2
+msgid "Image"
+msgstr "Afbeelding"
+
+#: View/Images/view.ctp:9
+msgid "Question"
+msgstr "Vraag"
+
+#: View/Images/view.ctp:14
+msgid "Filename"
+msgstr "Bestand"
+
+#: View/Images/view.ctp:19
+msgid "Filetype"
+msgstr "Bestandstype"
+
+#: View/Images/view.ctp:24
+msgid "File"
+msgstr "Bestand"
+
+#: View/Images/view.ctp:29
+msgid "Filesize"
+msgstr "Bestandsgrootte"
+
+#: View/Images/view.ctp:40
+msgid "Delete Image"
+msgstr "Afbeelding verwijderen"
+
+#: View/QuestionFormats/admin_edit.ctp:2
+#: View/QuestionFormats/admin_index.ctp:1
+msgid "Question Formats"
+msgstr "Vraagtypes"
+
+#: View/QuestionFormats/admin_view.ctp:1
+#: View/Questions/view.ctp:9
+msgid "Question Format"
+msgstr "Vraagtype"
+
+#: View/QuestionFormats/admin_view.ctp:13
+msgid "Question Info Diverge Url"
+msgstr "Url bij genereren"
+
+#: View/QuestionFormats/admin_view.ctp:15
+msgid "Question Info Converge Url"
+msgstr "Url bij convergeren"
+
+#: View/Questions/add.ctp:133
+#: View/Questions/edit.ctp:118
+#: View/Questions/view.ctp:4
+msgid "Go back one page"
+msgstr ""
+
+#: View/Questions/add.ctp:134
+#: View/Questions/index.ctp:38
+msgid "Add Question"
+msgstr "Vraag toevoegen"
+
+#: View/Questions/add.ctp:149
+#: View/Questions/edit.ctp:134
+msgid "Start sentence"
+msgstr "Startzin"
+
+#: View/Questions/add.ctp:160;220
+#: View/Questions/edit.ctp:145;205
+#: View/Questions/view.ctp:54
+msgid "Answer"
+msgstr "Antwoord"
+
+#: View/Questions/add.ctp:200
+#: View/Questions/edit.ctp:185
+msgid "Are you sure you wish to delete this answer?"
+msgstr "Weet je zeker dat je dit antwoord wilt verwijderen?"
+
+#: View/Questions/add.ctp:211
+#: View/Questions/edit.ctp:196
+msgid "Answer %s"
+msgstr "Antwoord %s"
+
+#: View/Questions/add.ctp:219
+#: View/Questions/edit.ctp:204
+msgid "Correct"
+msgstr "Correct"
+
+#: View/Questions/add.ctp:221
+#: View/Questions/edit.ctp:206
+msgid "Feedback"
+msgstr "Feedback"
+
+#: View/Questions/add.ctp:227
+#: View/Questions/edit.ctp:212
+msgid "Add Answer"
+msgstr "Antwoord Toevoegen"
+
+#: View/Questions/add.ctp:249
+#: View/Questions/edit.ctp:234
+#: View/Questions/view.ctp:50
+msgid "Feedback when wrong answer"
+msgstr "Feedback als antwoord incorrect"
+
+#: View/Questions/add.ctp:258
+#: View/Questions/edit.ctp:243
+#: View/Questions/view.ctp:44
+msgid "Feedback when correct answer"
+msgstr "Feedback als antwoord correct"
+
+#: View/Questions/add.ctp:271
+#: View/Questions/edit.ctp:256
+#: View/Questions/index.ctp:21
+#: View/Questions/view.ctp:73
+msgid "Tags"
+msgstr "Tags"
+
+#: View/Questions/add.ctp:284
+#: View/Questions/edit.ctp:268
+msgid "Are you sure you wish to delete this tag?"
+msgstr "Weet je zeker dat je deze tag wilt verwijderen?"
+
+#: View/Questions/add.ctp:319
+#: View/Questions/edit.ctp:306
+msgid "Add Tag"
+msgstr "Tag toevoegen"
+
+#: View/Questions/add.ctp:323
+#: View/Questions/edit.ctp:327
+#: View/Questions/view.ctp:84
+msgid "Comments"
+msgstr "Opmerkingen"
+
+#: View/Questions/add.ctp:335
+#: View/Questions/edit.ctp:340
+#: View/Questions/view.ctp:98
+msgid "Analyses"
+msgstr "Analyses"
+
+#: View/Questions/download.ctp:52
+msgid "Correct answers"
+msgstr "Juiste antwoorden"
+
+#: View/Questions/index.ctp:29
+msgid "Filter"
+msgstr ""
+
+#: View/Questions/index.ctp:40
+msgid "Export"
+msgstr "Exporteren"
+
+#: View/Questions/index.ctp:46
+msgid "HTML"
+msgstr "HTML"
+
+#: View/Questions/index.ctp:47
+msgid "Respondus"
+msgstr ""
+
+#: View/Questions/index.ctp:48
+msgid "QMP"
+msgstr "QMP"
+
+#: View/Questions/index.ctp:51
+msgid "Questions"
+msgstr "Vragen"
+
+#: View/Questions/index.ctp:85
+msgid "Wrong answer"
+msgstr "Foute antwoordoptie"
+
+#: View/Questions/index.ctp:110
+#: View/Users/admin_edit.ctp:5
+#: View/Users/index.ctp:70
+#: View/Users/view.ctp:6
+msgid "Are you sure you want to delete # %s \"%s\"?"
+msgstr "Weet je zeker dat je # %s \"%s\" wilt verwijderen?"
+
+#: View/Questions/index.ctp:123
+msgid "Tip of the Day"
+msgstr "Tip van de Dag"
+
+#: View/Questions/view.ctp:11
+msgid "Development Phase"
+msgstr "Ontwikkelingsfase"
+
+#: View/Questions/view.ctp:27
+msgid "Correct Answer(s)"
+msgstr "Juiste antwoord(en)"
+
+#: View/Questions/view.ctp:37
+msgid "and"
+msgstr ""
+
+#: View/Questions/view.ctp:62
+msgid "Feedback Option %s"
+msgstr "Feedback optie %s"
+
+#: View/Questions/view.ctp:88
+msgid "Created at"
+msgstr "Aangemaakt op"
+
+#: View/Questions/view.ctp:90
+msgid "Updated at"
+msgstr "Gewijzigd op"
+
+#: View/Users/account.ctp:6
+#: View/Users/change_password.ctp:2
+msgid "Change Password"
+msgstr "Wachtwoord wijzigen"
+
+#: View/Users/admin_add.ctp:2
+#: View/Users/index.ctp:4
+msgid "Add User"
+msgstr "Gebruiker toevoegen"
+
+#: View/Users/admin_edit.ctp:2
+#: View/Users/view.ctp:5
+msgid "Edit User"
+msgstr "Gebruiker bewerken"
+
+#: View/Users/admin_edit.ctp:11
+#: View/Users/classic_login.ctp:8
+#: View/Users/view.ctp:18
+msgid "Username"
+msgstr "Gebruikersnaam"
+
+#: View/Users/admin_edit.ctp:13
+#: View/Users/classic_login.ctp:9
+msgid "Password"
+msgstr "Wachtwoord"
+
+#: View/Users/admin_edit.ctp:14
+#: View/Users/view.ctp:22
+msgid "Role"
+msgstr "Rol"
+
+#: View/Users/change_password.ctp:5
+msgid "Current password"
+msgstr "Huidig wachtwoord"
+
+#: View/Users/change_password.ctp:6
+msgid "New password"
+msgstr "Nieuw wachtwoord"
+
+#: View/Users/change_password.ctp:7
+msgid "Confirm new password"
+msgstr "Nieuw wachtwoord (nogmaals)"
+
+#: View/Users/classic_login.ctp:4;18
+msgid "Sign in"
+msgstr "Aanmelden"
+
+#: View/Users/classic_login.ctp:15
+msgid "Sign in via SURFconext"
+msgstr "Aanmelden via SURFconext"
+
+#: View/Users/home.ctp:5
+msgid "Through this part of the qDNAtool gives you access to the powerful demand development. The qDNA tool allows you to create true-false questions (two-choice questions), multiple-choice questions, multiple-response questions and open questions. The qDNA tool provides help to question ideas and to get questions as clearly and precisely as possible. You can ask brands, select and export based on tags. Everything for optimal test to compile."
+msgstr "Via dit gedeelte van de qDNAtool krijgt u toegang tot de krachtige vraagontwikkelomgeving. Met de qDNA tool kunt u juist-onjuist vragen aanmaken (twee-keuze vragen), multiple-choicevragen, multiple-responsvragen en open vragen. De qDNA tool biedt u hulp om op vraagideeën te komen en om vragen zo helder en precies mogelijk te formuleren. U kunt vragen merken, selecteren en exporteren op basis van tags. Alles om een optimale toets te kunnen samenstellen."
+
+#: View/Users/home.ctp:12
+msgid "The QDNA analyse tool allows various “raw” test results to be uploaded, for example those provided by Teleform, Blackboard or Questionmark Perception. This tool analyses the reliability of the whole test and of individual questions. An interpretation wizard will guide novice users through this process and the results are also offered in PDF format."
+msgstr "Met de analysetool van QDNA is het mogelijk om verschillende soorten “ruwe” toetsuitslagen te uploaden zoals die uit Teleform, Blackboard of Questionmark Perception komen. Deze tool berekent vervolgens de betrouwbaarheid van de hele toets en van individuele vragen. Onervaren gebruikers worden door middel van een “wizard” door dit proces geleid. De resultaten zijn tevens te downloaden in PDF formaat."
+
+#: View/Users/index.ctp:7
+msgid "Users"
+msgstr "Gebruikers"
+
+#: View/Users/index.ctp:77;82
+msgid "Change password"
+msgstr "Wachtwoord wijzigen"
+
+#: View/Users/login.ctp:2
+msgid "Welcome at the qDNA tool"
+msgstr "Welkom bij de qDNA tool"
+
+#: View/Users/login.ctp:3
+msgid "A site to support you to think up test questions and analyze tests and exams."
+msgstr "Een site voor het bedenken van vragen en analyseren van toetsen"
+
+#: View/Users/login.ctp:7
+msgid "What does the program do?"
+msgstr "Wat doet het?"
+
+#: View/Users/login.ctp:10
+msgid "Getting ideas to conceive ideas for test questions"
+msgstr "Ideeën om toetsvragen te bedenken"
+
+#: View/Users/login.ctp:11
+msgid "Supporting the constructing of clear, unambiguous and non-leading questions"
+msgstr "Aanwijzingen om vragen helder en eenduidig te formuleren"
+
+#: View/Users/login.ctp:12
+msgid "Examples of test questions, do’s and dont’s"
+msgstr "Voorbeelden van toetsvragen"
+
+#: View/Users/login.ctp:14
+msgid "Analyze"
+msgstr "Analyseren"
+
+#: View/Users/login.ctp:16
+msgid "Performing a psychometric analyses of tests delivered via Blackboard or Questionmark Perception"
+msgstr "Een psychometrisch analyse van toetsen en toetsvragen maken van Blackboard en Questionmark Perception toetsen"
+
+#: View/Users/login.ctp:17
+msgid "Getting support to interpret these psychometric results"
+msgstr "Hulp krijgen bij het interpreteren van deze analyse"
+
+#: View/Users/login.ctp:21
+msgid "More information"
+msgstr "Meer informatie"
+
+#: View/Users/login.ctp:22
+msgid "Use the support site %s for tips, tricks, examples and more"
+msgstr "Gebruik de supportsite %s voor tips, voorbeelden, trucs, hulp e.d."
+
+#: View/Users/login.ctp:23
+msgid "Log-in automatically via SURFconext if your institution has licensed the qDNA tool."
+msgstr "Aanmelden kan automatisch via SURFconext als uw instelling via SURFconext toegang biedt tot de qDNA tool."
+
+#: View/Users/login.ctp:24
+msgid "Read more information about access via SURFconext: %s"
+msgstr "Lees hier meer informatie over toegang via SURFconext: %s"
+
+#: View/Users/view.ctp:6
+msgid "Delete User"
+msgstr "Gebruiker verwijderen"
+
+#: View/Users/view.ctp:8
+msgid "List Users"
+msgstr "Gebruikersoverzicht"
+
+#: View/Users/view.ctp:10
+msgid "New User"
+msgstr "Gebruiker toevoegen"
+
+#: Model/Exam.php:validation
+#: for field name;validation exam_format_id
+#: Model/Question.php:validation
+#: code;validation question_format_id;validation
+#: development_phase_id;validation stimulus
+#: Model/QuestionAnswer.php:validation
+#: name
+#: Model/QuestionFormat.php:validation
+#: Model/Tag.php:validation
+#: user_id
+#: Model/User.php:validation
+#: role_id
+msgid "This field cannot be left blank"
+msgstr "Dit veld is verplicht."
+
+#: Model/Exam.php:validation
+#: for field exam_format_id
+msgid "Please supply a valid exam format"
+msgstr "Vul een geldig tentamenformaat in."
+
+#: Model/Exam.php:validation
+#: for field data_file
+msgid "Please supply a csv or txt file."
+msgstr "Voeg een csv of txt-bestand toe."
+
+#: Model/Exam.php:validation
+#: for field data_file
+msgid "File must be less than 8 MB"
+msgstr "Bestand mag niet groter zijn dan 8 MB"
+
+#: Model/Exam.php:validation
+#: for field data_file;validation mapping_file
+msgid "Something went wrong with the upload."
+msgstr ""
+
+#: Model/Exam.php:validation
+#: for field mapping_file
+msgid "Please supply a csv file."
+msgstr "Voeg een csv-bestand toe."
+
+#: Model/Exam.php:validation
+#: for field mapping_file
+msgid "File must be less than 1 MB"
+msgstr "Bestand mag niet groter zijn dan 1 MB"
+
+#: Model/Exam.php:validation
+#: for field answer_option_count
+msgid "Please supply the default number of answer options."
+msgstr "Vul het standaard aantal antwoordopties in."
+
+#: Model/Exam.php:validation
+#: for field answer_option_count
+msgid "Allowed maximum is 8."
+msgstr "Toegestaan maximum is 8."
+
+#: Model/Exam.php:validation
+#: for field user_id
+msgid "numeric"
+msgstr ""
+
+#: Model/Exam.php:validation
+#: for field Item
+msgid "Include at least one item."
+msgstr "Neem minstens één item mee"
+
+#: Model/QuestionFormat.php:validation
+#: for field name Model/Tag.php:validation
+#: Model/User.php:validation
+#: username;validation name;validation
+#: password;validation role_id
+msgid "required"
+msgstr ""
+
+#: Model/User.php:validation
+#: for field username
+msgid "Please supply a valid email address."
+msgstr "Vul een geldig e-mailadres in."
+
+#: Model/User.php:validation
+#: for field username
+msgid "This username has already been taken."
+msgstr "Deze gebruikersnaam is al toegewezen."
+
+#: Model/User.php:validation
+#: for field current_password
+msgid "Wrong password"
+msgstr "Nieuw wachtwoord herhalen"
+
+#: Model/User.php:validation
+#: for field confirm_password
+msgid "Require the same value to password."
+msgstr ""
+
+#: Model/User.php:validation
+#: for field password
+msgid "Passwords must be at least 8 characters long."
+msgstr "Wachtwoorden moeten minimaal 8 karakters lang zijn."
+
+#~ msgid "This field should a valid url"
+#~ msgstr "Dit veld moet een geldige url zijn."
+
+#~ msgid "Contributions"
+#~ msgstr "Bijdragen"
+
+#~ msgid "The exam has been reanalysed"
+#~ msgstr "Het tentamen is opnieuw geanalyseerd"
+
+#~ msgid "Generate report"
+#~ msgstr "Rapport genereren"
+
+#~ msgid "Are you sure you want to generate a report for exam \"%s\"?"
+#~ msgstr ""
+#~ "Weet je zeker dat je een rapport wilt genereren voor tentamen \"%s\"?"
+
+#~ msgid ""
+#~ "The answer key for this question is suspect. Has the correct answer been "
+#~ "assessed as correct?"
+#~ msgstr ""
+#~ "De sleutel van dit antwoord is verdacht. Is het juiste antwoord wel goed "
+#~ "gerekend?"
+
+#~ msgid "Are you sure you want to download the report of exam \"%s\"?"
+#~ msgstr ""
+#~ "Weet je zeker dat je het rapport van tentamen \"%s\" wilt downloaden?"
+
+#~ msgid "low"
+#~ msgstr "laag"
+
+#~ msgid "doubtful"
+#~ msgstr "discutabel"
+
+#~ msgid "adequate"
+#~ msgstr "voldoende"
+
+#~ msgid "Exam format"
+#~ msgstr "Stijlbreuk"
+
+#~ msgid "Default number of answer options."
+#~ msgstr "Vul het standaard aantal antwoordopties in."
+
+#~ msgid "QTI"
+#~ msgstr "QTI"
+
+#~ msgid "Correct Answer"
+#~ msgstr "Juiste Antwoord"
+
+#, fuzzy
+#~ msgid "% Correct Answer"
+#~ msgstr "% Juiste Antwoorden"
+
+#, fuzzy
+#~ msgid "Are you sure you want to start the Stevie wizard for exam \"%s\"?"
+#~ msgstr ""
+#~ "Weet je zeker dat je de Stevie wizard voor tentamen \"%s\" wilt starten?"
+
+#~ msgid "Stevie"
+#~ msgstr "Stevie"
+
+#~ msgid "%s Correct"
+#~ msgstr "%s Correct"
+
+#~ msgid "%s"
+#~ msgstr "%s"
+
+#~ msgid "%s Feedback"
+#~ msgstr "%s Feedback"
+
+#~ msgid "Are you sure you want to analyse exam \"%s\"?"
+#~ msgstr "Weet je zeker dat je tentamen \"%s\" wilt verwijderen?"
+
+#~ msgid "Delete Exam"
+#~ msgstr "Tentamen Verwijderen"
+
+#~ msgid "Analysis"
+#~ msgstr "Analyse"
+
+#~ msgid "Invalid tag"
+#~ msgstr "Ongeldige tag"
+
+#~ msgid "The tag has been saved"
+#~ msgstr "De tag is opgeslagen"
+
+#~ msgid "Tag deleted"
+#~ msgstr "Tag verwijderd"
+
+#~ msgid "Tag was not deleted"
+#~ msgstr "Tag is niet verwijderd"
+
+#~ msgid "Phase"
+#~ msgstr "Fase"
+
+#~ msgid "Edit Tag"
+#~ msgstr "Tag bewerken"
+
+#~ msgid "Export Tag"
+#~ msgstr "Tag exporteren"
+
+#~ msgid "List Tags"
+#~ msgstr "Tagoverzicht"
+
+#~ msgid "Show correct answer inline"
+#~ msgstr "Juiste antwoord inline tonen"
+
+#~ msgid "Show correct answer at the ending"
+#~ msgstr "Juiste antwoord aan het eind tonen"
+
+#~ msgid "Show all tags per question"
+#~ msgstr "Alle tags per vraag tonen"
+
+#~ msgid "Show question format"
+#~ msgstr "Vraagtype tonen"
+
+#~ msgid "Download"
+#~ msgstr "Downloaden"
+
+#~ msgid "Tag: %s (%s)"
+#~ msgstr "Tag: %s (%s)"
+
+#~ msgid "Preview"
+#~ msgstr "Exportvoorbeeld"
+
+#~ msgid "Related Questions"
+#~ msgstr "Bijbehorende vragen"
+
+#~ msgid "Created By"
+#~ msgstr "Aangemaakt door"
+
+#~ msgid "Updated By"
+#~ msgstr "Gewijzigd door"
+
+#~ msgid "Remove from tag"
+#~ msgstr "Uit tag verwijderen"
+
+#~ msgid "Move Up"
+#~ msgstr "Omhoog verplaatsen"
+
+#~ msgid "Move Down"
+#~ msgstr "Omlaag verplaatsen"
+
+#~ msgid "Url"
+#~ msgstr "Url"
+
+#~ msgid "Description"
+#~ msgstr "Omschrijving"
+
+#~ msgid "Add Group"
+#~ msgstr "Groep toevoegen"
+
+#~ msgid "List Groups"
+#~ msgstr "Groepenoverzicht"
+
+#~ msgid "Information Items"
+#~ msgstr "Informatieitems"
+
+#~ msgid "Edit Group"
+#~ msgstr "Groep bewerken"
+
+#~ msgid "Taxonomy Groups"
+#~ msgstr "Taxonomiegroepen"
+
+#~ msgid "Groups"
+#~ msgstr "Groepen"
+
+#~ msgid "New"
+#~ msgstr "Toevoegen"
+
+#~ msgid "Group: %s (%s)"
+#~ msgstr "Groep: %s (%s)"
+
+#~ msgid "Delete Group"
+#~ msgstr "Groep verwijderen"
+
+#~ msgid "Related Users"
+#~ msgstr "Bijbehorende gebruikers"
+
+#~ msgid "Related Tags"
+#~ msgstr "Bijbehorende tags"
+
+#~ msgid "Related Information Items"
+#~ msgstr "Bijbehorende informatieitems"
+
+#~ msgid "Related Taxonomy Groups"
+#~ msgstr "Bijbehorende taxonomiegroepen"
+
+#~ msgid "Order"
+#~ msgstr "Volgnummer"
+
+#~ msgid "Add Information Item"
+#~ msgstr "Informatieitem toevoegen"
+
+#~ msgid "List Information Items"
+#~ msgstr "Informatieitemoverzicht"
+
+#~ msgid "Edit Information Item"
+#~ msgstr "Informatieitem bewerken"
+
+#~ msgid "Visible To Everyone"
+#~ msgstr "Zichtbaar voor iedereen"
+
+#~ msgid "Divider"
+#~ msgstr "Scheider"
+
+#~ msgid "Visible to everyone"
+#~ msgstr "Zichtbaar voor iedereen"
+
+#~ msgid "Information Item"
+#~ msgstr "Informatieitem"
+
+#~ msgid "Delete Information Item"
+#~ msgstr "Informatieitem verwijderen"
+
+#~ msgid "New Information Item"
+#~ msgstr "Informatieitem toevoegen"
+
+#~ msgid "Is Divider"
+#~ msgstr "Is scheider?"
+
+#~ msgid "Related Groups"
+#~ msgstr "Bijbehorende groepen"
+
+#~ msgid "Add Taxonomy"
+#~ msgstr "Taxonomie toevoegen"
+
+#~ msgid "List Taxonomies"
+#~ msgstr "Taxonomieoverzicht"
+
+#~ msgid "Edit Taxonomy"
+#~ msgstr "Taxonomie bewerken"
+
+#~ msgid "Taxonomies"
+#~ msgstr "Taxonomieën"
+
+#~ msgid "Taxonomy"
+#~ msgstr "Taxonomie"
+
+#~ msgid "Delete Taxonomy"
+#~ msgstr "Taxonomie verwijderen"
+
+#~ msgid "New Taxonomy"
+#~ msgstr "Taxonomie toevoegen"
+
+#~ msgid "Taxonomy Group"
+#~ msgstr "Taxonomiegroep"
+
+#~ msgid "Add Taxonomy Group"
+#~ msgstr "Taxonomiegroep toevoegen"
+
+#~ msgid "Edit Taxonomy Group"
+#~ msgstr "Taxonomiegroep bewerken"
+
+#~ msgid "List Taxonomy Groups"
+#~ msgstr "Taxonomiegroepenoverzicht"
+
+#~ msgid "Delete Taxonomy Group"
+#~ msgstr "Taxonomiegroep verwijderen"
+
+#~ msgid "New Taxonomy Group"
+#~ msgstr "Taxonomiegroep toevoegen"
+
+#~ msgid "Related Taxonomies"
+#~ msgstr "Bijbehorende taxonomieën"
+
+#~ msgid "Edit Exam"
+#~ msgstr "Tentamen bewerken"
+
+#~ msgid "Add"
+#~ msgstr "Toevoegen"
+
+#~ msgid "Answer A"
+#~ msgstr "Antwoord A"
+
+#~ msgid "Answer B"
+#~ msgstr "Antwoord B"
+
+#~ msgid "Answer C"
+#~ msgstr "Antwoord C"
+
+#~ msgid "Answer D"
+#~ msgstr "Antwoord D"
+
+#~ msgid "Answer E"
+#~ msgstr "Antwoord E"
+
+#~ msgid "a"
+#~ msgstr "a"
+
+#~ msgid "b"
+#~ msgstr "b"
+
+#~ msgid "c"
+#~ msgstr "c"
+
+#~ msgid "d"
+#~ msgstr "d"
+
+#~ msgid "e"
+#~ msgstr "e"
+
+#~ msgid "A"
+#~ msgstr "A"
+
+#~ msgid "B Correct"
+#~ msgstr "B is correct"
+
+#~ msgid "B"
+#~ msgstr "B"
+
+#~ msgid "C Correct"
+#~ msgstr "C is correct"
+
+#~ msgid "C"
+#~ msgstr "C"
+
+#~ msgid "D Correct"
+#~ msgstr "D is correct"
+
+#~ msgid "D"
+#~ msgstr "D"
+
+#~ msgid "E Correct"
+#~ msgstr "E is correct"
+
+#~ msgid "E"
+#~ msgstr "E"
+
+#~ msgid "Logout"
+#~ msgstr "Afmelden"
+
+#~ msgid "Overview"
+#~ msgstr "Overzicht"
+
+#, fuzzy
+#~ msgid "Subscriptions"
+#~ msgstr "Omschrijving"
+
+#, fuzzy
+#~ msgid "Are you sure you want to create invoices for all subscriptions?"
+#~ msgstr "Weet je zeker dat je # %s wilt verwijderen?"
+
+#~ msgid "Reports"
+#~ msgstr "Rapporten"
+
+#~ msgid "Answer A is correct"
+#~ msgstr "Antwoord A is correct"
+
+#~ msgid "Answer B is correct"
+#~ msgstr "Antwoord B is correct"
+
+#~ msgid "Feedback at answer B"
+#~ msgstr "Feedback bij antwoord B"
+
+#~ msgid "Answer C is correct"
+#~ msgstr "Antwoord C is correct"
+
+#~ msgid "Feedback at answer C"
+#~ msgstr "Feedback bij antwoord C"
+
+#~ msgid "Answer D is correct"
+#~ msgstr "Antwoord D is correct"
+
+#~ msgid "Feedback at answer D"
+#~ msgstr "Feedback bij antwoord D"
+
+#~ msgid "Answer E is correct"
+#~ msgstr "Antwoord E is correct"
+
+#~ msgid "Feedback at answer E"
+#~ msgstr "Feedback bij antwoord E"
+
+#~ msgid "Tag"
+#~ msgstr "Tag"
+
+#~ msgid "Search"
+#~ msgstr "Zoeken"
+
+#~ msgid "Edit Question"
+#~ msgstr "Vraag bewerken"
+
+#~ msgid "Delete Question"
+#~ msgstr "Vraag verwijderen"
+
+#~ msgid "Stimulus"
+#~ msgstr "Stimulus"
+
+#~ msgid "Comment"
+#~ msgstr "Commentaar"
+
+#, fuzzy
+#~ msgid "Tags/Questions"
+#~ msgstr "Vragen"
+
+#~ msgid "Created by"
+#~ msgstr "Aangemaakt door"
+
+#~ msgid "Invalid group"
+#~ msgstr "Ongeldige groep"
+
+#~ msgid "The group has been saved"
+#~ msgstr "De groep is opgeslagen"
+
+#~ msgid "The group could not be saved. Please, try again."
+#~ msgstr "De groep kon niet worden opgeslagen. Probeer het nog eens."
+
+#~ msgid "Group deleted"
+#~ msgstr "Groep verwijderd"
+
+#~ msgid "Group was not deleted"
+#~ msgstr "Groep was niet verwijderd"
+
+#~ msgid "Invalid information item"
+#~ msgstr "Ongelding informatieitem"
+
+#~ msgid "Information item moved down"
+#~ msgstr "Informatieitem omlaag verplaatst"
+
+#~ msgid "Information item was not moved down"
+#~ msgstr "Informatieitem is niet omlaag verplaatst"
+
+#~ msgid "Information item moved up"
+#~ msgstr "Informatieitem omhoog verplaatst"
+
+#~ msgid "Information item was not moved up"
+#~ msgstr "Informatieitem is niet omhoog verplaatst"
+
+#~ msgid "The information item has been saved"
+#~ msgstr "Het informatieitem is opgeslagen"
+
+#~ msgid "The information item could not be saved. Please, try again."
+#~ msgstr ""
+#~ "Het informatieitem kon niet worden opgeslagen. Probeer het nog eens."
+
+#~ msgid "Information item deleted"
+#~ msgstr "Het informatieitem verwijderd"
+
+#~ msgid "Information item was not deleted"
+#~ msgstr "Het informatieitem is niet verwijderd"
+
+#~ msgid "Tag moved down"
+#~ msgstr "Tag is omlaag verplaatst"
+
+#~ msgid "Tag was not moved down"
+#~ msgstr "Tag is niet omlaag verplaatst"
+
+#~ msgid "Tag moved up"
+#~ msgstr "Tag is omhoog verplaatst."
+
+#~ msgid "Tag was not moved up"
+#~ msgstr "Tag is niet omhoog verplaatst"
+
+#~ msgid "Invalid Taxonomy"
+#~ msgstr "Ongeldige taxonomie"
+
+#~ msgid "Taxonomy moved down"
+#~ msgstr "Taxanomie is omlaag verplaatst"
+
+#~ msgid "Taxonomy was not moved down"
+#~ msgstr "Taxanomie is niet omlaag verplaatst"
+
+#~ msgid "Taxonomy moved up"
+#~ msgstr "Taxanomie omhoog verplaatst"
+
+#~ msgid "Taxonomy was not moved up"
+#~ msgstr "Taxanomie is niet omhoog verplaatst"
+
+#~ msgid "Invalid taxonomy"
+#~ msgstr "Ongeldige taxonomie"
+
+#~ msgid "The taxonomy has been saved"
+#~ msgstr "De taxonomie is opgeslagen"
+
+#~ msgid "The taxonomy could not be saved. Please, try again."
+#~ msgstr "De taxonomie kon niet worden opgeslagen. Probeer het nog eens."
+
+#~ msgid "Taxonomy deleted"
+#~ msgstr "Taxonomie opgeslagen"
+
+#~ msgid "Taxonomy was not deleted"
+#~ msgstr "Taxonomie is niet verwijderd"
+
+#~ msgid "Invalid Taxonomy Group"
+#~ msgstr "Ongeldige taxonomiegroep"
+
+#~ msgid "Taxonomy Group moved down"
+#~ msgstr "Taxonomiegroep omlaag verplaatst"
+
+#~ msgid "Taxonomy Group was not moved down"
+#~ msgstr "Taxanomiegroep is niet omlaag verplaatst"
+
+#~ msgid "Taxonomy Group moved up"
+#~ msgstr "Taxonomiegroep omhoog verplaatst"
+
+#~ msgid "Taxonomy Group was not moved up"
+#~ msgstr "Taxonomiegroep is niet omhoog verplaatst"
+
+#~ msgid "Invalid taxonomy group"
+#~ msgstr "Ongeldige taxonomiegroep"
+
+#~ msgid "The taxonomy group has been saved"
+#~ msgstr "De taxonomiegroep is opgeslagen"
+
+#~ msgid "The taxonomy group could not be saved. Please, try again."
+#~ msgstr "De taxonomiegroep kon niet worden opgeslagen. Probeer het nog eens."
+
+#~ msgid "Taxonomy group deleted"
+#~ msgstr "Taxonomiegroep verwijderd"
+
+#~ msgid "Taxonomy group was not deleted"
+#~ msgstr "Taxonomiegroep is niet verwijderd"
+
+#~ msgid "List Question Formats"
+#~ msgstr "Vraagtypesoverzicht"
+
+#~ msgid "Updated by"
+#~ msgstr "Gewijzigd door"
+
+#~ msgid "This name has already been taken."
+#~ msgstr "Deze naam is al in gebruik."
+
+#~ msgid "This field should be a numeric value."
+#~ msgstr "Dit veld kan alleen een numerieke waarde bevatten."
+
+#, fuzzy
+#~ msgid "order"
+#~ msgstr "Volgnummer"
+
+#~ msgid "No analyses."
+#~ msgstr "Geen analyses."
+
+#~ msgid "Invalid direct comment"
+#~ msgstr "Ongeldige direct comment"
+
+#~ msgid "True"
+#~ msgstr "Waar"
+
+#~ msgid "False"
+#~ msgstr "Onwaar"
+
+#~ msgid "Submit"
+#~ msgstr "Versturen"
+
+#~ msgid "Group"
+#~ msgstr "Groep"
+
+#~ msgid "New Group"
+#~ msgstr "Groep toevoegen"
+
+#~ msgid "Edit Question Format"
+#~ msgstr "Vraagtype bewerken"
+
+#~ msgid "Home"
+#~ msgstr "Home"
+
+#, fuzzy
+#~ msgid "Is correct"
+#~ msgstr "A is correct"
+
+#, fuzzy
+#~ msgid "Show direct comments"
+#~ msgstr "Ongeldige direct comment"
+
+#~ msgid "View Question"
+#~ msgstr "Vraag bekijken"
+
+#~ msgid "Analyze Question"
+#~ msgstr "Vraag analyseren"
+
+#, fuzzy
+#~ msgid "Add Information Items Group"
+#~ msgstr "Informatieitem toevoegen"
+
+#, fuzzy
+#~ msgid "List Information Items Groups"
+#~ msgstr "Informatieitemoverzicht"
+
+#, fuzzy
+#~ msgid "Edit Information Items Group"
+#~ msgstr "Informatieitem bewerken"
+
+#, fuzzy
+#~ msgid "Information Items Groups"
+#~ msgstr "Informatieitems"
+
+#, fuzzy
+#~ msgid "New Information Items Group"
+#~ msgstr "Informatieitem toevoegen"
+
+#, fuzzy
+#~ msgid "Delete Information Items Group"
+#~ msgstr "Informatieitem verwijderen"
+
+#, fuzzy
+#~ msgid "Add Questions Tag"
+#~ msgstr "Vraag toevoegen"
+
+#, fuzzy
+#~ msgid "List Questions Tags"
+#~ msgstr "Vragenoverzicht"
+
+#, fuzzy
+#~ msgid "Edit Questions Tag"
+#~ msgstr "Vraag bewerken"
+
+#, fuzzy
+#~ msgid "Questions Tags"
+#~ msgstr "Vragen"
+
+#, fuzzy
+#~ msgid "New Questions Tag"
+#~ msgstr "Vraag toevoegen"
+
+#, fuzzy
+#~ msgid "Questions Tag"
+#~ msgstr "Vragen"
+
+#, fuzzy
+#~ msgid "Delete Questions Tag"
+#~ msgstr "Vraag verwijderen"
+
+#, fuzzy
+#~ msgid "Updated"
+#~ msgstr "Gewijzigd op"
+
+#, fuzzy
+#~ msgid "Development Phase Id"
+#~ msgstr "Ontwikkelingsfase"
+
+#, fuzzy
+#~ msgid "Created By Id"
+#~ msgstr "Aangemaakt door"
+
+#, fuzzy
+#~ msgid "Updated By Id"
+#~ msgstr "Gewijzigd door"

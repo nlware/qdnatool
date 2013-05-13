@@ -1,0 +1,1538 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2013-04-09 08:19+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Console/Command/QueueShell.php:18;21
+msgid "tries to call the cli `add()` function on a task."
+msgstr ""
+
+#: Console/Command/QueueShell.php:22
+msgid "tasks may or may not provide this functionality."
+msgstr ""
+
+#: Console/Command/QueueShell.php:29
+msgid "run a queue worker"
+msgstr ""
+
+#: Console/Command/QueueShell.php:32
+msgid "run a queue worker, which will look for a pending task it can execute."
+msgstr ""
+
+#: Console/Command/QueueShell.php:33
+msgid "the worker will always try to find jobs matching its installed tasks."
+msgstr ""
+
+#: Console/Command/QueueShell.php:34
+msgid "see \"Available tasks\" below."
+msgstr ""
+
+#: Console/Command/QueueShell.php:38;40
+msgid "display some general statistics."
+msgstr ""
+
+#: Console/Command/QueueShell.php:43;45
+msgid "manually call cleanup function to delete task data of completed tasks."
+msgstr ""
+
+#: Console/Command/QueueShell.php:48
+msgid "List available tasks"
+msgstr ""
+
+#: Console/Command/QueueShell.php:49
+msgid "CakePHP Queue."
+msgstr ""
+
+#: Console/Command/RemoteContentShell.php:15
+msgid "Refresh \"tips of the day\""
+msgstr ""
+
+#: Console/Command/RemoteContentShell.php:17
+msgid "Refresh instructions"
+msgstr ""
+
+#: Console/Command/RemoteContentShell.php:18
+msgid "Remote Content"
+msgstr ""
+
+#: Console/Command/Task/QueueAnalyseExamTask.php:14;21
+#: Console/Command/Task/QueueAnalysisToReportTask.php:14;21
+#: Console/Command/Task/QueueImportExamTask.php:16;23
+#: Console/Command/Task/QueueReanalyseExamTask.php:14;21
+#: Controller/ExamsController.php:50;99;144;157;177;181;233;242
+msgid "Invalid exam"
+msgstr ""
+
+#: Controller/AppController.php:79
+#: Controller/ExamsController.php:13
+msgid "Sorry, something went wrong. Please, try again."
+msgstr ""
+
+#: Controller/ExamsController.php:75
+msgid "The exam has been saved"
+msgstr ""
+
+#: Controller/ExamsController.php:78
+msgid "The exam could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/ExamsController.php:102
+msgid "Exam deleted"
+msgstr ""
+
+#: Controller/ExamsController.php:105
+msgid "Exam was not deleted"
+msgstr ""
+
+#: Controller/ExamsController.php:160
+msgid "Exam is scheduled to report"
+msgstr ""
+
+#: Controller/ExamsController.php:163
+msgid "Exam was not scheduled to report"
+msgstr ""
+
+#: Controller/ExamsController.php:212
+msgid "The exam has been scheduled to reanalyse"
+msgstr ""
+
+#: Controller/ExamsController.php:215
+msgid "The exam could not be reanalysed. Please, try again."
+msgstr ""
+
+#: Controller/ImagesController.php:104
+msgid "Upload failed."
+msgstr ""
+
+#: Controller/ImagesController.php:143;177;207
+msgid "Invalid image"
+msgstr ""
+
+#: Controller/ImagesController.php:157;181
+msgid "The image has been saved"
+msgstr ""
+
+#: Controller/ImagesController.php:160;184
+msgid "The image could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/ImagesController.php:210
+msgid "Image deleted"
+msgstr ""
+
+#: Controller/ImagesController.php:213
+msgid "Image was not deleted"
+msgstr ""
+
+#: Controller/QuestionFormatsController.php:29;44
+msgid "Invalid question format"
+msgstr ""
+
+#: Controller/QuestionFormatsController.php:48
+msgid "The question format has been saved"
+msgstr ""
+
+#: Controller/QuestionFormatsController.php:51
+msgid "The question format could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/QuestionsController.php:52;105;145
+msgid "Invalid question"
+msgstr ""
+
+#: Controller/QuestionsController.php:69;109
+msgid "The question has been saved"
+msgstr ""
+
+#: Controller/QuestionsController.php:72;112
+msgid "The question could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/QuestionsController.php:148
+msgid "Question deleted"
+msgstr ""
+
+#: Controller/QuestionsController.php:153
+msgid "Question was not deleted"
+msgstr ""
+
+#: Controller/QuestionsTagsController.php:18;34;50
+msgid "Invalid questionstag"
+msgstr ""
+
+#: Controller/QuestionsTagsController.php:21
+msgid "Question removed from tag"
+msgstr ""
+
+#: Controller/QuestionsTagsController.php:24
+msgid "Question was not removed from tag"
+msgstr ""
+
+#: Controller/QuestionsTagsController.php:37
+msgid "Question moved down"
+msgstr ""
+
+#: Controller/QuestionsTagsController.php:40
+msgid "Question was not moved down"
+msgstr ""
+
+#: Controller/QuestionsTagsController.php:53
+msgid "Question moved up"
+msgstr ""
+
+#: Controller/QuestionsTagsController.php:56
+msgid "Question was not moved up"
+msgstr ""
+
+#: Controller/UsersController.php:39;73;103
+msgid "Invalid user"
+msgstr ""
+
+#: Controller/UsersController.php:53;77
+msgid "The user has been saved"
+msgstr ""
+
+#: Controller/UsersController.php:56;80
+msgid "The user could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/UsersController.php:106
+msgid "User deleted"
+msgstr ""
+
+#: Controller/UsersController.php:109
+msgid "User was not deleted"
+msgstr ""
+
+#: Controller/UsersController.php:139
+msgid "Invalid username or password, try again"
+msgstr ""
+
+#: Controller/UsersController.php:191
+msgid "Successful login via SURFconext."
+msgstr ""
+
+#: Controller/UsersController.php:196
+msgid "Failed to login via SURFconext. Please, try again."
+msgstr ""
+
+#: Controller/UsersController.php:215
+msgid "Password has been changed."
+msgstr ""
+
+#: Controller/UsersController.php:218
+msgid "Password could not be changed. Plaese try again."
+msgstr ""
+
+#: Model/Item.php:146
+msgid "Has the correct alternative been assessed as correct? Most students choose the alternative %s."
+msgstr ""
+
+#: Model/Item.php:147
+msgid "In case the correct alternative has been assessed as correct, remove the question (it is probably a so called ‘trick question’: these type of questions do not measure the knowledge of the student)."
+msgstr ""
+
+#: Model/Item.php:149
+msgid "Good students generally answer this question incorrectly. The advice is to remove this question from the test."
+msgstr ""
+
+#: Model/Item.php:175
+msgid "This question has been answered incorrectly by many students. Has the alternative correct answer been included as correct?"
+msgstr ""
+
+#: Model/Item.php:176
+msgid "In case the alternative correct answer has been included in the assessment, remove the question from the test. In case the incorrect alternative has been assessed as correct, include this as a correct answer and asses the test again."
+msgstr ""
+
+#: Model/Item.php:183
+msgid "Instead of choosing the correct alternative, students are choosing the alternative %s."
+msgstr ""
+
+#: Model/Item.php:184
+msgid "Is it possible that the alternative answer should also be assessed as correct? Examine why many students are choosing the alternative answer %s."
+msgstr ""
+
+#: Model/Item.php:186
+msgid "This question does not distinguish between good and less good students: guessing has taken place. Has the content been covered in class?"
+msgstr ""
+
+#: Model/Item.php:187
+msgid "It is not necessary to remove this question from the exam."
+msgstr ""
+
+#: Model/Question.php:524
+msgid "A - Weten en Begrijpen"
+msgstr ""
+
+#: Model/Question.php:525
+msgid "Wat is de beste definitie voor ....?"
+msgstr ""
+
+#: Model/Question.php:525
+msgid "A1 - Wat is de beste definitie voor ....?"
+msgstr ""
+
+#: Model/Question.php:526
+msgid "Wat is (niet) karakteristiek voor ....?"
+msgstr ""
+
+#: Model/Question.php:526
+msgid "A2 - Wat is (niet) karakteristiek voor ....?"
+msgstr ""
+
+#: Model/Question.php:527
+msgid "Uit welke onderdelen bestaat het probleem?"
+msgstr ""
+
+#: Model/Question.php:527
+msgid "A3 - Uit welke onderdelen bestaat het probleem?"
+msgstr ""
+
+#: Model/Question.php:528
+msgid "Wat is de geschiedenis van het probleem?"
+msgstr ""
+
+#: Model/Question.php:528
+msgid "A4 - Wat is de geschiedenis van het probleem?"
+msgstr ""
+
+#: Model/Question.php:529
+msgid "Welke verschillende categorieën zijn er in het probleem?"
+msgstr ""
+
+#: Model/Question.php:529
+msgid "A5 - Welke verschillende categorieën zijn er in het probleem?"
+msgstr ""
+
+#: Model/Question.php:531
+msgid "B - Wat is het meest effectief (gepast) voor ....?"
+msgstr ""
+
+#: Model/Question.php:532
+msgid "Wat is beter (slechter) ....?"
+msgstr ""
+
+#: Model/Question.php:532
+msgid "B1 - Wat is beter (slechter) ....?"
+msgstr ""
+
+#: Model/Question.php:533
+msgid "Wat is het meest effectief voor ....?"
+msgstr ""
+
+#: Model/Question.php:533
+msgid "B2 - Wat is het meest effectief voor ....?"
+msgstr ""
+
+#: Model/Question.php:534
+msgid "Wat is de meest kritieke stap in aan procedure?"
+msgstr ""
+
+#: Model/Question.php:534
+msgid "B3 - Wat is de meest kritieke stap in aan procedure?"
+msgstr ""
+
+#: Model/Question.php:535
+msgid "Als je weet dat X waar is, wat is dan tevens waar over Y?"
+msgstr ""
+
+#: Model/Question.php:535
+msgid "B4 - Als je weet dat X waar is, wat is dan tevens waar over Y?"
+msgstr ""
+
+#: Model/Question.php:536
+msgid "Wat is (niet) nodig in een procedure?"
+msgstr ""
+
+#: Model/Question.php:536
+msgid "B5 - Wat is (niet) nodig in een procedure?"
+msgstr ""
+
+#: Model/Question.php:537
+msgid "Kritisch denken (evalueren)"
+msgstr ""
+
+#: Model/Question.php:537
+msgid "B6 - Kritisch denken (evalueren)"
+msgstr ""
+
+#: Model/Question.php:538
+msgid "Wat is het belang van het probleem ? So what ?"
+msgstr ""
+
+#: Model/Question.php:538
+msgid "B6 - Wat is het belang van het probleem ? So what ?"
+msgstr ""
+
+#: Model/Question.php:540
+msgid "C - Kritisch denken (voorspellen)"
+msgstr ""
+
+#: Model/Question.php:541
+msgid "Wat zou er gebeuren als ....?"
+msgstr ""
+
+#: Model/Question.php:541
+msgid "C1 - Wat zou er gebeuren als ....?"
+msgstr ""
+
+#: Model/Question.php:542
+msgid "Als dit gebeurt, wat zou je doen?"
+msgstr ""
+
+#: Model/Question.php:542
+msgid "C2 - Als dit gebeurt, wat zou je doen?"
+msgstr ""
+
+#: Model/Question.php:543
+msgid "Op basis van wat ...., wat zou je doen?"
+msgstr ""
+
+#: Model/Question.php:543
+msgid "C3 - Op basis van wat ...., wat zou je doen?"
+msgstr ""
+
+#: Model/Question.php:544
+msgid "Gegeven ... wat is belangrijkste reden dat ...."
+msgstr ""
+
+#: Model/Question.php:544
+msgid "C4 - Gegeven ... wat is belangrijkste reden dat ...."
+msgstr ""
+
+#: Model/Question.php:546
+msgid "D - Probleem oplossen (gegeven een scenario)"
+msgstr ""
+
+#: Model/Question.php:547
+msgid "Wat is de aard van het probleem?"
+msgstr ""
+
+#: Model/Question.php:547
+msgid "D1 - Wat is de aard van het probleem?"
+msgstr ""
+
+#: Model/Question.php:548
+msgid "Wat heb je nodig om dit probleem op te lossen?"
+msgstr ""
+
+#: Model/Question.php:548
+msgid "D2 - Wat heb je nodig om dit probleem op te lossen?"
+msgstr ""
+
+#: Model/Question.php:549
+msgid "Wat is een mogelijke oplossing?"
+msgstr ""
+
+#: Model/Question.php:549
+msgid "D3 - Wat is een mogelijke oplossing?"
+msgstr ""
+
+#: Model/Question.php:550
+msgid "Wat is de meeste effectieve (efficiente) oplossing?"
+msgstr ""
+
+#: Model/Question.php:550
+msgid "D4 - Wat is de meeste effectieve (efficiente) oplossing?"
+msgstr ""
+
+#: Model/Question.php:551
+msgid "Waarom is .... de meest effectieve (efficiënte) oplossing?"
+msgstr ""
+
+#: Model/Question.php:551
+msgid "D5 - Waarom is .... de meest effectieve (efficiënte) oplossing?"
+msgstr ""
+
+#: Model/Question.php:553
+msgid "E - Andere manieren om vragen te bedenken waarbij kritisch denken of probleemoplossing gevraagd worden zijn."
+msgstr ""
+
+#: Model/Question.php:554
+msgid "Premise - Consequence"
+msgstr ""
+
+#: Model/Question.php:554
+msgid "E1 - Premise - Consequence"
+msgstr ""
+
+#: Model/Question.php:555
+msgid "Analogie"
+msgstr ""
+
+#: Model/Question.php:555
+msgid "E2 - Analogie"
+msgstr ""
+
+#: Model/Question.php:556
+msgid "Case Study"
+msgstr ""
+
+#: Model/Question.php:556
+msgid "E3 - Case Study"
+msgstr ""
+
+#: Model/Question.php:557
+msgid "Incompleet Scenario"
+msgstr ""
+
+#: Model/Question.php:557
+msgid "E4 - Incompleet Scenario"
+msgstr ""
+
+#: Model/Question.php:558
+msgid "Probleem / Oplossing evaluatie"
+msgstr ""
+
+#: Model/Question.php:558
+msgid "E5 - Probleem / Oplossing evaluatie"
+msgstr ""
+
+#: Model/Question.php:605
+msgid "Selection Name"
+msgstr ""
+
+#: Model/Question.php:609;621
+msgid "Selection Identifier"
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:10
+msgid "Set theme to place Bootstrap files in."
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:15
+msgid "Set file output to webroot Theme dir (use with theme option)."
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:22
+msgid "TwitterBootstrap Copy Shell Help."
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:29
+msgid "Copies Less, Js & Img source from Bootstrap submodule in plugin Vendor dir"
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:31
+msgid "files will be placed in webroot of App or named Theme"
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:39
+msgid "Copies Less source from Bootstrap submodule in plugin Vendor dir"
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:41
+msgid "files will be placed in webroot/css/lib/ of App or named Theme"
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:49
+msgid "Copies Img source from Bootstrap submodule in plugin Vendor dir"
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:51
+msgid "files will be placed in webroot/img/ of App or named Theme"
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:59
+msgid "Copies Js source from Bootstrap submodule in plugin Vendor dir"
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:61
+msgid "files will be placed in webroot/js/lib of App or named Theme"
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:108
+msgid "Success."
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:110
+msgid "Error!"
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Controller/TwitterBootstrapController.php:18
+msgid "Debug setting does not allow access to this url."
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Controller/TwitterBootstrapController.php:24
+msgid "Alert notice message testing..."
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Controller/TwitterBootstrapController.php:27
+msgid "Alert success message testing..."
+msgstr ""
+
+#: Plugin/TwitterBootstrap/Controller/TwitterBootstrapController.php:31
+msgid "Alert error message testing..."
+msgstr ""
+
+#: Plugin/TwitterBootstrap/View/Layouts/default.ctp:6
+msgid "CakePHP: the rapid development php framework:"
+msgstr ""
+
+#: Plugin/TwitterBootstrap/View/Layouts/default.ctp:51
+msgid "CakePHP"
+msgstr ""
+
+#: View/Elements/analyses.ctp:12
+msgid "The question doesn't seem to include common structural errors."
+msgstr ""
+
+#: View/Elements/header.ctp:8;76
+msgid "About qDNAtool"
+msgstr ""
+
+#: View/Elements/header.ctp:11
+msgid "This project was made possible by the support of SURF, the higher education and research partnership organisation for Information and Communications Technology (ICT). For more information about SURF, please visit %s."
+msgstr ""
+
+#: View/Elements/header.ctp:22
+msgid "Close"
+msgstr ""
+
+#: View/Elements/header.ctp:33
+msgid "Settings"
+msgstr ""
+
+#: View/Elements/header.ctp:34
+msgid "Sign Out"
+msgstr ""
+
+#: View/Elements/header.ctp:41;43
+msgid "Login"
+msgstr ""
+
+#: View/Elements/header.ctp:46
+msgid "qDNAtool"
+msgstr ""
+
+#: View/Elements/header.ctp:54;56;65
+#: View/Users/home.ctp:4;6
+#: View/Users/login.ctp:8
+msgid "Design"
+msgstr ""
+
+#: View/Elements/header.ctp:57;62;64
+#: View/Users/home.ctp:11;13
+msgid "Analyse"
+msgstr ""
+
+#: View/Elements/header.ctp:73
+#: View/Questions/add.ctp:334
+#: View/Questions/edit.ctp:339
+msgid "Help"
+msgstr ""
+
+#: View/Elements/header.ctp:75
+msgid "qDNAtool Help"
+msgstr ""
+
+#: View/Exams/__index.ctp:3
+#: View/Exams/_index.ctp:3
+#: View/Exams/index.ctp:3
+msgid "Add Exam"
+msgstr ""
+
+#: View/Exams/__index.ctp:3
+#: View/Exams/_index.ctp:3
+#: View/Exams/index.ctp:3
+msgid "Exams"
+msgstr ""
+
+#: View/Exams/__index.ctp:7
+#: View/Exams/_index.ctp:18
+#: View/Exams/index.ctp:7
+#: View/Exams/reanalyse.ctp:12
+#: View/Exams/view.ctp:7
+#: View/QuestionFormats/admin_view.ctp:11
+#: View/Users/admin_edit.ctp:12
+#: View/Users/view.ctp:20
+msgid "Name"
+msgstr ""
+
+#: View/Exams/__index.ctp:8
+#: View/Exams/_index.ctp:19
+#: View/Exams/index.ctp:8
+msgid "State"
+msgstr ""
+
+#: View/Exams/__index.ctp:9
+#: View/Exams/_index.ctp:20
+#: View/Exams/index.ctp:9
+#: View/Exams/view.ctp:21
+msgid "Created"
+msgstr ""
+
+#: View/Exams/__index.ctp:10
+#: View/Exams/_index.ctp:21
+#: View/Exams/index.ctp:10
+#: View/Exams/view.ctp:23
+msgid "Modified"
+msgstr ""
+
+#: View/Exams/__index.ctp:11
+#: View/Exams/_index.ctp:22
+#: View/Exams/index.ctp:11
+#: View/Images/add.ctp:16
+#: View/Images/edit.ctp:17
+#: View/Images/index.ctp:11;49
+#: View/Images/view.ctp:37
+#: View/QuestionFormats/admin_index.ctp:9
+#: View/Users/account.ctp:4
+#: View/Users/index.ctp:15
+msgid "Actions"
+msgstr ""
+
+#: View/Exams/__index.ctp:29;91
+#: View/Exams/_index.ctp:57;123
+#: View/Exams/index.ctp:27;90
+msgid "The status will update automatically."
+msgstr ""
+
+#: View/Exams/__index.ctp:44;54;106;116
+#: View/Exams/_index.ctp:70;80;134;144
+#: View/Exams/index.ctp:42;52;105;115
+msgid "Start interpretation"
+msgstr ""
+
+#: View/Exams/__index.ctp:46;70;108;124
+#: View/Exams/_index.ctp:72;97;136;153
+#: View/Exams/index.ctp:44;69;107;124
+#: View/Images/edit.ctp:20
+#: View/Images/index.ctp:28
+#: View/Questions/index.ctp:110
+#: View/Users/admin_edit.ctp:5
+#: View/Users/index.ctp:60;67
+msgid "Delete"
+msgstr ""
+
+#: View/Exams/__index.ctp:46;70;108;124
+#: View/Exams/_index.ctp:72;97;136;153
+#: View/Exams/index.ctp:44;69;107;124
+msgid "Are you sure you want to delete exam \"%s\"?"
+msgstr ""
+
+#: View/Exams/__index.ctp:59;121
+#: View/Exams/_index.ctp:85;149
+#: View/Exams/index.ctp:57;120
+msgid "Download report"
+msgstr ""
+
+#: View/Exams/__index.ctp:60;122
+#: View/Exams/_index.ctp:86;150
+#: View/Exams/index.ctp:58;121
+msgid "Download scores"
+msgstr ""
+
+#: View/Exams/__index.ctp:65
+#: View/Exams/_index.ctp:92
+#: View/Exams/index.ctp:64
+msgid "Reanalyse"
+msgstr ""
+
+#: View/Exams/_index.ctp:87;151
+#: View/Exams/index.ctp:59;122
+msgid "Show missings"
+msgstr ""
+
+#: View/Exams/add.ctp:9
+msgid "Add exam"
+msgstr ""
+
+#: View/Exams/add.ctp:11
+msgid "Exam name"
+msgstr ""
+
+#: View/Exams/add.ctp:14;16
+msgid "Format"
+msgstr ""
+
+#: View/Exams/add.ctp:16
+msgid "Format."
+msgstr ""
+
+#: View/Exams/add.ctp:22;23
+msgid "# Answer options"
+msgstr ""
+
+#: View/Exams/add.ctp:23
+msgid "How many answers are available for the multiple choice questions? The total amount of answers should include the correct answer."
+msgstr ""
+
+#: View/Exams/add.ctp:30
+msgid "Data file"
+msgstr ""
+
+#: View/Exams/add.ctp:31
+msgid "Data file."
+msgstr ""
+
+#: View/Exams/add.ctp:31
+msgid "This file contains test result data from Blackboard, Teleform or Questionark Perception."
+msgstr ""
+
+#: View/Exams/add.ctp:36
+msgid "Mapping file"
+msgstr ""
+
+#: View/Exams/add.ctp:37
+msgid "Mapping file (Teleform only)."
+msgstr ""
+
+#: View/Exams/add.ctp:37
+msgid "The mapping file contains data in case there are two (or more) versions of an exam being used. It ‘maps’ one version of the exam to the other."
+msgstr ""
+
+#: View/Exams/add.ctp:44
+#: View/Exams/reanalyse.ctp:51
+#: View/Images/add.ctp:13
+#: View/Images/edit.ctp:14
+#: View/QuestionFormats/admin_edit.ctp:11
+#: View/Questions/add.ctp:131;327
+#: View/Questions/edit.ctp:116;332
+#: View/Users/admin_add.ctp:11
+#: View/Users/admin_edit.ctp:17
+#: View/Users/change_password.ctp:10
+msgid "Save"
+msgstr ""
+
+#: View/Exams/add.ctp:45
+#: View/Exams/reanalyse.ctp:52
+#: View/QuestionFormats/admin_edit.ctp:12
+#: View/Questions/add.ctp:328
+#: View/Questions/edit.ctp:333
+#: View/Users/admin_add.ctp:12
+#: View/Users/admin_edit.ctp:18
+#: View/Users/change_password.ctp:11
+msgid "Cancel"
+msgstr ""
+
+#: View/Exams/missings.ctp:5
+#: View/Exams/csv/scores.ctp:3
+msgid "Subject"
+msgstr ""
+
+#: View/Exams/missings.ctp:6
+msgid "Version"
+msgstr ""
+
+#: View/Exams/missings.ctp:7
+#: View/Exams/view.ctp:37
+msgid "Item"
+msgstr ""
+
+#: View/Exams/missings.ctp:14
+msgid "2"
+msgstr ""
+
+#: View/Exams/missings.ctp:14
+msgid "1"
+msgstr ""
+
+#: View/Exams/reanalyse.ctp:9
+msgid "Reanalyse exam"
+msgstr ""
+
+#: View/Exams/reanalyse.ctp:18
+msgid "Include items"
+msgstr ""
+
+#: View/Exams/reanalyse.ctp:19
+msgid "Correct answer options"
+msgstr ""
+
+#: View/Exams/stevie.ctp:13
+msgid "Are you sure you want to close this wizard?"
+msgstr ""
+
+#: View/Exams/stevie.ctp:14
+msgid "Interpretation of exam \"%s\""
+msgstr ""
+
+#: View/Exams/stevie.ctp:19
+#: View/Exams/view.ctp:3
+msgid "Exam"
+msgstr ""
+
+#: View/Exams/stevie.ctp:35
+msgid "More"
+msgstr ""
+
+#: View/Exams/stevie.ctp:39;81
+msgid "Item %s"
+msgstr ""
+
+#: View/Exams/stevie.ctp:51;61
+msgid "Conclusion"
+msgstr ""
+
+#: View/Exams/stevie.ctp:63;121
+msgid "Reliability of the exam: low"
+msgstr ""
+
+#: View/Exams/stevie.ctp:64;122
+msgid "The reliability of the test is too low to give a decisive result: there are too many incorrect fail or pass decisions being made."
+msgstr ""
+
+#: View/Exams/stevie.ctp:65;123
+msgid "The reliability of the test can be increased by executing an item analysis and removing or editing incorrect items from the test results."
+msgstr ""
+
+#: View/Exams/stevie.ctp:66;70;74;124;128;132
+msgid "Press on ‘next’ to start the item analysis. Only items which can increase reliability will be shown. Reliable questions will not be shown."
+msgstr ""
+
+#: View/Exams/stevie.ctp:68;126
+msgid "Reliability of the exam: doubtful"
+msgstr ""
+
+#: View/Exams/stevie.ctp:69;127
+msgid "The reliability of this test is debatable. An item analysis should be executed to increase the reliability of the test: there are too many incorrect fail or pass decisions being made.In case this is a mid term test, the reliability is sufficient."
+msgstr ""
+
+#: View/Exams/stevie.ctp:72;130
+msgid "Reliability of the exam: adequate"
+msgstr ""
+
+#: View/Exams/stevie.ctp:73;131
+msgid "Reliability of the test is sufficient. An item analysis can increase the reliability but is not strictly necessary."
+msgstr ""
+
+#: View/Exams/stevie.ctp:91
+msgid "Item %s / %s"
+msgstr ""
+
+#: View/Exams/stevie.ctp:105
+msgid "Rit correct answer"
+msgstr ""
+
+#: View/Exams/stevie.ctp:107;103
+#: View/Questions/index.ctp:85
+msgid "Correct answer"
+msgid_plural "Correct answers"
+msgstr[0] ""
+msgstr[1] ""
+
+#: View/Exams/stevie.ctp:108;115
+msgid "%s %%"
+msgstr ""
+
+#: View/Exams/stevie.ctp:114
+msgid "Incorrect answer %s"
+msgstr ""
+
+#: View/Exams/stevie.ctp:141;143
+msgid "< Previous"
+msgstr ""
+
+#: View/Exams/stevie.ctp:148
+msgid "Finish"
+msgstr ""
+
+#: View/Exams/stevie.ctp:150
+msgid "Next >"
+msgstr ""
+
+#: View/Exams/view.ctp:2
+msgid "List Exams"
+msgstr ""
+
+#: View/Exams/view.ctp:5
+#: View/Images/view.ctp:4
+#: View/QuestionFormats/admin_view.ctp:9
+#: View/Users/view.ctp:16
+msgid "Id"
+msgstr ""
+
+#: View/Exams/view.ctp:9
+msgid "Average Score"
+msgstr ""
+
+#: View/Exams/view.ctp:11
+msgid "Standard Deviation"
+msgstr ""
+
+#: View/Exams/view.ctp:13
+msgid "Cronbachs Alpha"
+msgstr ""
+
+#: View/Exams/view.ctp:15
+msgid "Default Answer Option Count"
+msgstr ""
+
+#: View/Exams/view.ctp:17
+msgid "Maximum Answer Option Count"
+msgstr ""
+
+#: View/Exams/view.ctp:19
+#: View/Users/view.ctp:1
+msgid "User"
+msgstr ""
+
+#: View/Exams/view.ctp:25
+msgid "Uploaded"
+msgstr ""
+
+#: View/Exams/view.ctp:27
+msgid "Imported"
+msgstr ""
+
+#: View/Exams/view.ctp:29
+msgid "Analysed"
+msgstr ""
+
+#: View/Exams/view.ctp:31
+msgid "Report Generated"
+msgstr ""
+
+#: View/Exams/view.ctp:38
+msgid "# Correct Answers"
+msgstr ""
+
+#: View/Exams/view.ctp:39
+msgid "% Correct Answers"
+msgstr ""
+
+#: View/Exams/view.ctp:40
+msgid "Rit Correct Answers"
+msgstr ""
+
+#: View/Exams/view.ctp:41
+msgid "# Missing Answers"
+msgstr ""
+
+#: View/Exams/view.ctp:42
+msgid "% Missing Answers"
+msgstr ""
+
+#: View/Exams/view.ctp:44
+msgid "# Answer %s"
+msgstr ""
+
+#: View/Exams/view.ctp:45
+msgid "%% Answer %s"
+msgstr ""
+
+#: View/Exams/view.ctp:46
+msgid "Rit Answer %s"
+msgstr ""
+
+#: View/Exams/csv/scores.ctp:3
+msgid "Total score"
+msgstr ""
+
+#: View/Helper/OutputHelper.php:8;28
+msgid "n/a"
+msgstr ""
+
+#: View/Helper/OutputHelper.php:8
+msgid "Y-m-d"
+msgstr ""
+
+#: View/Helper/OutputHelper.php:12
+msgid "%DECIMAL_POINT%"
+msgstr ""
+
+#: View/Helper/OutputHelper.php:13
+msgid "%THOUSANDS_SEPARATOR%"
+msgstr ""
+
+#: View/Helper/OutputHelper.php:26
+msgid "No"
+msgstr ""
+
+#: View/Helper/OutputHelper.php:27
+msgid "Yes"
+msgstr ""
+
+#: View/Images/add.ctp:4
+msgid "Add Image"
+msgstr ""
+
+#: View/Images/add.ctp:19
+#: View/Images/edit.ctp:21
+#: View/Images/view.ctp:41
+msgid "List Images"
+msgstr ""
+
+#: View/Images/add.ctp:20
+#: View/Images/edit.ctp:22
+#: View/Images/index.ctp:52
+#: View/Images/view.ctp:43
+msgid "List Questions"
+msgstr ""
+
+#: View/Images/add.ctp:21
+#: View/Images/edit.ctp:23
+#: View/Images/index.ctp:53
+#: View/Images/view.ctp:44
+msgid "New Question"
+msgstr ""
+
+#: View/Images/edit.ctp:4
+#: View/Images/view.ctp:39
+msgid "Edit Image"
+msgstr ""
+
+#: View/Images/edit.ctp:20
+#: View/Images/index.ctp:28
+#: View/Images/view.ctp:40
+msgid "Are you sure you want to delete # %s?"
+msgstr ""
+
+#: View/Images/index.ctp:2
+msgid "Images"
+msgstr ""
+
+#: View/Images/index.ctp:26
+#: View/QuestionFormats/admin_index.ctp:20;26
+#: View/Questions/index.ctp:104
+#: View/Users/index.ctp:30;36
+msgid "View"
+msgstr ""
+
+#: View/Images/index.ctp:27
+#: View/QuestionFormats/admin_index.ctp:34;41
+#: View/QuestionFormats/admin_view.ctp:4
+#: View/Questions/index.ctp:109
+#: View/Questions/view.ctp:3
+#: View/Users/index.ctp:45;52
+msgid "Edit"
+msgstr ""
+
+#: View/Images/index.ctp:36
+#: View/QuestionFormats/admin_index.ctp:54
+msgid "Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}"
+msgstr ""
+
+#: View/Images/index.ctp:42
+#: View/QuestionFormats/admin_index.ctp:60
+msgid "previous"
+msgstr ""
+
+#: View/Images/index.ctp:44
+#: View/QuestionFormats/admin_index.ctp:62
+msgid "next"
+msgstr ""
+
+#: View/Images/index.ctp:51
+#: View/Images/view.ctp:42
+msgid "New Image"
+msgstr ""
+
+#: View/Images/view.ctp:2
+msgid "Image"
+msgstr ""
+
+#: View/Images/view.ctp:9
+msgid "Question"
+msgstr ""
+
+#: View/Images/view.ctp:14
+msgid "Filename"
+msgstr ""
+
+#: View/Images/view.ctp:19
+msgid "Filetype"
+msgstr ""
+
+#: View/Images/view.ctp:24
+msgid "File"
+msgstr ""
+
+#: View/Images/view.ctp:29
+msgid "Filesize"
+msgstr ""
+
+#: View/Images/view.ctp:40
+msgid "Delete Image"
+msgstr ""
+
+#: View/QuestionFormats/admin_edit.ctp:2
+#: View/QuestionFormats/admin_index.ctp:1
+msgid "Question Formats"
+msgstr ""
+
+#: View/QuestionFormats/admin_view.ctp:1
+#: View/Questions/view.ctp:9
+msgid "Question Format"
+msgstr ""
+
+#: View/QuestionFormats/admin_view.ctp:13
+msgid "Question Info Diverge Url"
+msgstr ""
+
+#: View/QuestionFormats/admin_view.ctp:15
+msgid "Question Info Converge Url"
+msgstr ""
+
+#: View/Questions/add.ctp:133
+#: View/Questions/edit.ctp:118
+#: View/Questions/view.ctp:4
+msgid "Go back one page"
+msgstr ""
+
+#: View/Questions/add.ctp:134
+#: View/Questions/index.ctp:38
+msgid "Add Question"
+msgstr ""
+
+#: View/Questions/add.ctp:149
+#: View/Questions/edit.ctp:134
+msgid "Start sentence"
+msgstr ""
+
+#: View/Questions/add.ctp:160;220
+#: View/Questions/edit.ctp:145;205
+#: View/Questions/view.ctp:54
+msgid "Answer"
+msgstr ""
+
+#: View/Questions/add.ctp:200
+#: View/Questions/edit.ctp:185
+msgid "Are you sure you wish to delete this answer?"
+msgstr ""
+
+#: View/Questions/add.ctp:211
+#: View/Questions/edit.ctp:196
+msgid "Answer %s"
+msgstr ""
+
+#: View/Questions/add.ctp:219
+#: View/Questions/edit.ctp:204
+msgid "Correct"
+msgstr ""
+
+#: View/Questions/add.ctp:221
+#: View/Questions/edit.ctp:206
+msgid "Feedback"
+msgstr ""
+
+#: View/Questions/add.ctp:227
+#: View/Questions/edit.ctp:212
+msgid "Add Answer"
+msgstr ""
+
+#: View/Questions/add.ctp:249
+#: View/Questions/edit.ctp:234
+#: View/Questions/view.ctp:50
+msgid "Feedback when wrong answer"
+msgstr ""
+
+#: View/Questions/add.ctp:258
+#: View/Questions/edit.ctp:243
+#: View/Questions/view.ctp:44
+msgid "Feedback when correct answer"
+msgstr ""
+
+#: View/Questions/add.ctp:271
+#: View/Questions/edit.ctp:256
+#: View/Questions/index.ctp:21
+#: View/Questions/view.ctp:73
+msgid "Tags"
+msgstr ""
+
+#: View/Questions/add.ctp:284
+#: View/Questions/edit.ctp:268
+msgid "Are you sure you wish to delete this tag?"
+msgstr ""
+
+#: View/Questions/add.ctp:319
+#: View/Questions/edit.ctp:306
+msgid "Add Tag"
+msgstr ""
+
+#: View/Questions/add.ctp:323
+#: View/Questions/edit.ctp:327
+#: View/Questions/view.ctp:84
+msgid "Comments"
+msgstr ""
+
+#: View/Questions/add.ctp:335
+#: View/Questions/edit.ctp:340
+#: View/Questions/view.ctp:98
+msgid "Analyses"
+msgstr ""
+
+#: View/Questions/download.ctp:52
+msgid "Correct answers"
+msgstr ""
+
+#: View/Questions/index.ctp:29
+msgid "Filter"
+msgstr ""
+
+#: View/Questions/index.ctp:40
+msgid "Export"
+msgstr ""
+
+#: View/Questions/index.ctp:46
+msgid "HTML"
+msgstr ""
+
+#: View/Questions/index.ctp:47
+msgid "Respondus"
+msgstr ""
+
+#: View/Questions/index.ctp:48
+msgid "QMP"
+msgstr ""
+
+#: View/Questions/index.ctp:51
+msgid "Questions"
+msgstr ""
+
+#: View/Questions/index.ctp:85
+msgid "Wrong answer"
+msgstr ""
+
+#: View/Questions/index.ctp:110
+#: View/Users/admin_edit.ctp:5
+#: View/Users/index.ctp:70
+#: View/Users/view.ctp:6
+msgid "Are you sure you want to delete # %s \"%s\"?"
+msgstr ""
+
+#: View/Questions/index.ctp:123
+msgid "Tip of the Day"
+msgstr ""
+
+#: View/Questions/view.ctp:11
+msgid "Development Phase"
+msgstr ""
+
+#: View/Questions/view.ctp:27
+msgid "Correct Answer(s)"
+msgstr ""
+
+#: View/Questions/view.ctp:37
+msgid "and"
+msgstr ""
+
+#: View/Questions/view.ctp:62
+msgid "Feedback Option %s"
+msgstr ""
+
+#: View/Questions/view.ctp:88
+msgid "Created at"
+msgstr ""
+
+#: View/Questions/view.ctp:90
+msgid "Updated at"
+msgstr ""
+
+#: View/Users/account.ctp:6
+#: View/Users/change_password.ctp:2
+msgid "Change Password"
+msgstr ""
+
+#: View/Users/admin_add.ctp:2
+#: View/Users/index.ctp:4
+msgid "Add User"
+msgstr ""
+
+#: View/Users/admin_edit.ctp:2
+#: View/Users/view.ctp:5
+msgid "Edit User"
+msgstr ""
+
+#: View/Users/admin_edit.ctp:11
+#: View/Users/classic_login.ctp:8
+#: View/Users/view.ctp:18
+msgid "Username"
+msgstr ""
+
+#: View/Users/admin_edit.ctp:13
+#: View/Users/classic_login.ctp:9
+msgid "Password"
+msgstr ""
+
+#: View/Users/admin_edit.ctp:14
+#: View/Users/view.ctp:22
+msgid "Role"
+msgstr ""
+
+#: View/Users/change_password.ctp:5
+msgid "Current password"
+msgstr ""
+
+#: View/Users/change_password.ctp:6
+msgid "New password"
+msgstr ""
+
+#: View/Users/change_password.ctp:7
+msgid "Confirm new password"
+msgstr ""
+
+#: View/Users/classic_login.ctp:4;18
+msgid "Sign in"
+msgstr ""
+
+#: View/Users/classic_login.ctp:15
+msgid "Sign in via SURFconext"
+msgstr ""
+
+#: View/Users/home.ctp:5
+msgid "Through this part of the qDNAtool gives you access to the powerful demand development. The qDNA tool allows you to create true-false questions (two-choice questions), multiple-choice questions, multiple-response questions and open questions. The qDNA tool provides help to question ideas and to get questions as clearly and precisely as possible. You can ask brands, select and export based on tags. Everything for optimal test to compile."
+msgstr ""
+
+#: View/Users/home.ctp:12
+msgid "The QDNA analyse tool allows various “raw” test results to be uploaded, for example those provided by Teleform, Blackboard or Questionmark Perception. This tool analyses the reliability of the whole test and of individual questions. An interpretation wizard will guide novice users through this process and the results are also offered in PDF format."
+msgstr ""
+
+#: View/Users/index.ctp:7
+msgid "Users"
+msgstr ""
+
+#: View/Users/index.ctp:77;82
+msgid "Change password"
+msgstr ""
+
+#: View/Users/login.ctp:2
+msgid "Welcome at the qDNA tool"
+msgstr ""
+
+#: View/Users/login.ctp:3
+msgid "A site to support you to think up test questions and analyze tests and exams."
+msgstr ""
+
+#: View/Users/login.ctp:7
+msgid "What does the program do?"
+msgstr ""
+
+#: View/Users/login.ctp:10
+msgid "Getting ideas to conceive ideas for test questions"
+msgstr ""
+
+#: View/Users/login.ctp:11
+msgid "Supporting the constructing of clear, unambiguous and non-leading questions"
+msgstr ""
+
+#: View/Users/login.ctp:12
+msgid "Examples of test questions, do’s and dont’s"
+msgstr ""
+
+#: View/Users/login.ctp:14
+msgid "Analyze"
+msgstr ""
+
+#: View/Users/login.ctp:16
+msgid "Performing a psychometric analyses of tests delivered via Blackboard or Questionmark Perception"
+msgstr ""
+
+#: View/Users/login.ctp:17
+msgid "Getting support to interpret these psychometric results"
+msgstr ""
+
+#: View/Users/login.ctp:21
+msgid "More information"
+msgstr ""
+
+#: View/Users/login.ctp:22
+msgid "Use the support site %s for tips, tricks, examples and more"
+msgstr ""
+
+#: View/Users/login.ctp:23
+msgid "Log-in automatically via SURFconext if your institution has licensed the qDNA tool."
+msgstr ""
+
+#: View/Users/login.ctp:24
+msgid "Read more information about access via SURFconext: %s"
+msgstr ""
+
+#: View/Users/view.ctp:6
+msgid "Delete User"
+msgstr ""
+
+#: View/Users/view.ctp:8
+msgid "List Users"
+msgstr ""
+
+#: View/Users/view.ctp:10
+msgid "New User"
+msgstr ""
+
+#: Model/Exam.php:validation for field name;validation for field exam_format_id
+#: Model/Question.php:validation for field code;validation for field name;validation for field question_format_id;validation for field development_phase_id;validation for field stimulus
+#: Model/QuestionAnswer.php:validation for field name
+#: Model/QuestionFormat.php:validation for field name
+#: Model/Tag.php:validation for field name;validation for field user_id
+#: Model/User.php:validation for field name;validation for field role_id
+msgid "This field cannot be left blank"
+msgstr ""
+
+#: Model/Exam.php:validation for field exam_format_id
+msgid "Please supply a valid exam format"
+msgstr ""
+
+#: Model/Exam.php:validation for field data_file
+msgid "Please supply a csv or txt file."
+msgstr ""
+
+#: Model/Exam.php:validation for field data_file
+msgid "File must be less than 8 MB"
+msgstr ""
+
+#: Model/Exam.php:validation for field data_file;validation for field mapping_file
+msgid "Something went wrong with the upload."
+msgstr ""
+
+#: Model/Exam.php:validation for field mapping_file
+msgid "Please supply a csv file."
+msgstr ""
+
+#: Model/Exam.php:validation for field mapping_file
+msgid "File must be less than 1 MB"
+msgstr ""
+
+#: Model/Exam.php:validation for field answer_option_count
+msgid "Please supply the default number of answer options."
+msgstr ""
+
+#: Model/Exam.php:validation for field answer_option_count
+msgid "Allowed maximum is 8."
+msgstr ""
+
+#: Model/Exam.php:validation for field user_id
+msgid "numeric"
+msgstr ""
+
+#: Model/Exam.php:validation for field Item
+msgid "Include at least one item."
+msgstr ""
+
+#: Model/QuestionFormat.php:validation for field name
+#: Model/Tag.php:validation for field name
+#: Model/User.php:validation for field username;validation for field name;validation for field password;validation for field role_id
+msgid "required"
+msgstr ""
+
+#: Model/User.php:validation for field username
+msgid "Please supply a valid email address."
+msgstr ""
+
+#: Model/User.php:validation for field username
+msgid "This username has already been taken."
+msgstr ""
+
+#: Model/User.php:validation for field current_password
+msgid "Wrong password"
+msgstr ""
+
+#: Model/User.php:validation for field confirm_password
+msgid "Require the same value to password."
+msgstr ""
+
+#: Model/User.php:validation for field password
+msgid "Passwords must be at least 8 characters long."
+msgstr ""
+

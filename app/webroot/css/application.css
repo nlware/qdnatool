@@ -1,0 +1,42 @@
+@CHARSET "UTF-8";
+
+body
+{
+  padding-top: 70px; /* 60px to make the container go all the way to the bottom of the topbar */
+}
+
+.navbar .brand
+{
+    background: url("../img/logo.png") no-repeat scroll 0 0 transparent;
+    height: 0;
+    overflow: hidden;
+    padding:0;
+    padding-left: 60px;
+    padding-top: 80px;
+    position: absolute;
+    width: 0;
+    margin-left:0;
+}
+.navbar .nav
+{
+	margin-left:60px;
+}
+
+ul.answer-options
+{
+	margin: 0 0 10px;
+}
+
+ul.answer-options li
+{
+  list-style: none outside none;
+}
+
+.modal-body img {
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
+
+.span6 ul {
+    margin-bottom: 20px;
+}

@@ -1,0 +1,67 @@
+{
+	"minimum-stability": "dev",
+	"config" : {
+		"vendor-dir" : "vendors"
+	},
+	"repositories" : [
+		{
+			"type": "package",
+			"package": {
+				"name" : "cakephp/cakephp",
+				"version" : "2.3.5",
+				"source" : {
+					"type" : "git",
+					"url" : "git://github.com/cakephp/cakephp.git",
+					"reference" : "2.3.5"
+				},
+				"bin" : ["lib/Cake/Console/cake"]
+			}
+		},
+		{
+			"type": "package",
+			"package": {
+				"name": "htmlawed/htmlawed",
+				"version": "1.1.14",
+				"type": "cakephp-vendor",
+				"dist": {
+					"url": "http://www.bioinformatics.org/phplabware/downloads/htmLawed.zip",
+					"type": "zip"
+				},
+				"require": {
+					"composer/installers": "*"
+				}
+			}
+		},
+		{
+			"type": "package",
+			"package": {
+				"name": "rserve-php/rserve-php",
+				"version": "0.1",
+				"type": "cakephp-vendor",
+				"dist": {
+					"url": "http://rserve-php.googlecode.com/files/rserve-php-0.1.zip",
+					"type": "zip"
+				},
+				"require": {
+					"composer/installers": "*"
+				}
+			}
+		}
+	],
+	"extra": {
+		"installer-paths": {
+			"app/Plugin/DebugKit": ["cakephp/debug_kit"],
+			"app/Plugin/TwitterBootstrap": ["slywalker/twitter_bootstrap"],
+			"app/Vendor/htmLawed": ["htmlawed/htmlawed"],
+			"app/Vendor/rserve-php": ["rserve-php/rserve-php"]
+		}
+	},
+	"require" : {
+		"php": ">=5.2.8",
+		"cakephp/cakephp" : "2.3.5",
+		"cakephp/debug_kit": "2.2.*",
+		"slywalker/twitter_bootstrap": "1.5.5",
+		"htmlawed/htmlawed": "1.1.14",
+		"rserve-php/rserve-php": "0.1"
+	}
+}

@@ -1,4 +1,5 @@
-qdnatool
-========
+qDNAtool
+=======
 
-qdnatool
+[qDNAtool](https://www.qdnatool.org)
+

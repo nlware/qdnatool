@@ -1,0 +1,9 @@
+<?php
+$config = array(
+	'Rserve' => array(
+		'host' => 'localhost',
+		'port' => 6311,
+		'debug' => false
+	)
+);
+ 

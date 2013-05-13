@@ -1,0 +1,12 @@
+<?php
+
+$config = array(
+	'Queue' => array(
+		'sleeptime' => 10,				// seconds to sleep() when no executable job is found
+		'gcProp' => 10,					// Propability in percent of a old job cleanup happening
+		'defaultWorkerTimeout' => 120,	// Default timeout after which a job is requeued if the worker doesn’t report back
+		'defaultWorkerRetries' => 4,	// Default number of retries if a job fails or times out.
+		'workerMaxRuntime' => 3600,		// Seconds of runnig time after which the worker will terminate (0 = unlimited)
+		'exitWhenNothingTodo' => false	// Should a Workerprocess quit when there are no more tasks for it to execute (true = exit, false = keep running)
+	)
+);
