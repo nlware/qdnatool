@@ -57,9 +57,9 @@ if (!defined('APP_DIR')) {
  * Leaving this constant undefined will result in it being defined in Cake/bootstrap.php
  *
  * The following line differs from its sibling
- * /lib/Cake/Console/Templates/skel/webroot/test.php
+ * /app/webroot/test.php
  */
-//define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . 'lib');
+define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . APP_DIR . DS . 'Vendor' . DS . 'pear-pear.cakephp.org' . DS . 'CakePHP');
 
 /**
  * Editing below this line should not be necessary.
@@ -71,10 +71,6 @@ if (!defined('WEBROOT_DIR')) {
 }
 if (!defined('WWW_ROOT')) {
 	define('WWW_ROOT', dirname(__FILE__) . DS);
-}
-
-if (!defined('CAKE_CORE_INCLUDE_PATH')) {
-	define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . 'vendors' . DS . 'cakephp' . DS . 'cakephp' . DS . 'lib');
 }
 
 if (!defined('CAKE_CORE_INCLUDE_PATH')) {

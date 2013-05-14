@@ -1,21 +1,12 @@
 {
 	"minimum-stability": "dev",
 	"config" : {
-		"vendor-dir" : "vendors"
+		"vendor-dir" : "app/Vendor/"
 	},
 	"repositories" : [
 		{
-			"type": "package",
-			"package": {
-				"name" : "cakephp/cakephp",
-				"version" : "2.3.5",
-				"source" : {
-					"type" : "git",
-					"url" : "git://github.com/cakephp/cakephp.git",
-					"reference" : "2.3.5"
-				},
-				"bin" : ["lib/Cake/Console/cake"]
-			}
+			"type": "pear",
+			"url": "http://pear.cakephp.org"
 		},
 		{
 			"type": "package",
@@ -58,7 +49,7 @@
 	},
 	"require" : {
 		"php": ">=5.2.8",
-		"cakephp/cakephp" : "2.3.5",
+		"pear-cakephp/cakephp": "2.3.5",
 		"cakephp/debug_kit": "2.2.*",
 		"slywalker/twitter_bootstrap": "1.5.5",
 		"htmlawed/htmlawed": "1.1.14",

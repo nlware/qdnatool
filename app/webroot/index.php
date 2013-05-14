@@ -27,7 +27,7 @@ if (!defined('DS')) {
 }
 
 /**
- * These defines should only be edited if you have cake installed in
+ * These defines should only be edited if you have CakePHP installed in
  * a directory layout other than the way it is distributed.
  * When using custom settings be sure to use the DS and do not add a trailing DS.
  */
@@ -60,9 +60,9 @@ if (!defined('APP_DIR')) {
  * Leaving this constant undefined will result in it being defined in Cake/bootstrap.php
  *
  * The following line differs from its sibling
- * /lib/Cake/Console/Templates/skel/webroot/index.php
+ * /app/webroot/index.php
  */
-//define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . 'lib');
+define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . APP_DIR . DS . 'Vendor' . DS . 'pear-pear.cakephp.org' . DS . 'CakePHP');
 
 /**
  * Editing below this line should NOT be necessary.
@@ -77,15 +77,11 @@ if (!defined('WWW_ROOT')) {
 }
 
 // for built-in server
-if (php_sapi_name() == 'cli-server') {
+if (php_sapi_name() === 'cli-server') {
 	if ($_SERVER['REQUEST_URI'] !== '/' && file_exists(WWW_ROOT . $_SERVER['REQUEST_URI'])) {
 		return false;
 	}
 	$_SERVER['PHP_SELF'] = '/' . basename(__FILE__);
-}
-
-if (!defined('CAKE_CORE_INCLUDE_PATH')) {
-	define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . 'vendors' . DS . 'cakephp' . DS . 'cakephp' . DS . 'lib');
 }
 
 if (!defined('CAKE_CORE_INCLUDE_PATH')) {
