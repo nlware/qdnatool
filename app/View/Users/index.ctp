@@ -1,7 +1,7 @@
 <div class="users index">
 	<?php
 		if(AuthComponent::user('role_id') == Role::ADMIN):
-			echo $this->Html->link('<i class="icon-plus icon-white"></i> '.__('Add User'), array(	'admin' => true, 'action' => 'add'), array('class' => 'btn btn-primary pull-right', 'escape' => false));
+			echo $this->Html->link('<i class="icon-plus icon-white"></i> '.__('Add User'), array('admin' => true, 'action' => 'add'), array('class' => 'btn btn-primary pull-right', 'escape' => false));
 		endif;
 	?>
 	<h2><?php echo __('Users');?></h2>
