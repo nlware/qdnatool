@@ -1,7 +1,7 @@
 <div class="users index">
-  <?php 
+  <?php
     if(AuthComponent::user('role_id') == Role::ADMIN):
-      echo $this->Html->link('<i class="icon-plus icon-white"></i> '.__('Add User'), array('action' => 'add'), array('class' => 'btn btn-primary pull-right', 'escape' => false));
+      echo $this->Html->link('<i class="icon-plus icon-white"></i> '.__('Add User'), array(	'admin' => true, 'action' => 'add'), array('class' => 'btn btn-primary pull-right', 'escape' => false));
     endif;
   ?>
   <h2><?php echo __('Users');?></h2>
@@ -23,7 +23,7 @@
     		<td><?php echo h($user['User']['name']); ?>&nbsp;</td>
     		<td><?php echo h($user['Role']['name']); ?>&nbsp;</td>
     		<td class="actions">
-    			<?php 
+    			<?php
     				echo $this->Html->link
     				(	$this->Html->image
     					(	'view.png', array
@@ -60,7 +60,8 @@
     							(	'alt' => __('Delete')
     							)
     						), array
-    						(	'action' => 'delete',
+    						(	'admin' => true,
+    							'action' => 'delete',
     							$user['User']['id']
     						), array
     						(	'class' => 'actionIcon',
