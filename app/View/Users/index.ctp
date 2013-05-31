@@ -68,7 +68,7 @@
 									'title' => __('Delete'),
 									'escape' => false
 								),
-								__('Are you sure you want to delete # %s "%s"?', $user['User']['id'], $user['User']['username'])
+								h(__('Are you sure you want to delete # %s "%s"?', $user['User']['id'], $user['User']['username']))
 							);
 						endif;
 						if($user['User']['id'] == AuthComponent::user('id')):
