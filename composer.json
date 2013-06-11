@@ -1,7 +1,7 @@
 {
 	"minimum-stability": "dev",
 	"config" : {
-		"vendor-dir" : "app/Vendor/"
+		"vendor-dir" : "vendors/"
 	},
 	"repositories" : [
 		{
@@ -49,7 +49,7 @@
 	},
 	"require" : {
 		"php": ">=5.2.8",
-		"pear-cakephp/cakephp": "2.3.5",
+		"pear-cakephp/cakephp": "2.3.6",
 		"cakephp/debug_kit": "2.2.*",
 		"slywalker/twitter_bootstrap": "1.5.5",
 		"htmlawed/htmlawed": "1.1.14",

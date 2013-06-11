@@ -17,8 +17,9 @@
  * @link          http://cakephp.org CakePHP(tm) Project
  * @package       app.webroot
  * @since         CakePHP(tm) v 0.2.9
- * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
+
 /**
  * Use the DS to separate the directories in other defines
  */
@@ -27,7 +28,7 @@ if (!defined('DS')) {
 }
 
 /**
- * These defines should only be edited if you have CakePHP installed in
+ * These defines should only be edited if you have cake installed in
  * a directory layout other than the way it is distributed.
  * When using custom settings be sure to use the DS and do not add a trailing DS.
  */
@@ -60,9 +61,9 @@ if (!defined('APP_DIR')) {
  * Leaving this constant undefined will result in it being defined in Cake/bootstrap.php
  *
  * The following line differs from its sibling
- * /app/webroot/index.php
+ * /lib/Cake/Console/Templates/skel/webroot/index.php
  */
-define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . APP_DIR . DS . 'Vendor' . DS . 'pear-pear.cakephp.org' . DS . 'CakePHP');
+define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . 'vendors' . DS . 'pear-pear.cakephp.org' . DS . 'CakePHP');
 
 /**
  * Editing below this line should NOT be necessary.
@@ -77,7 +78,7 @@ if (!defined('WWW_ROOT')) {
 }
 
 // for built-in server
-if (php_sapi_name() === 'cli-server') {
+if (php_sapi_name() == 'cli-server') {
 	if ($_SERVER['REQUEST_URI'] !== '/' && file_exists(WWW_ROOT . $_SERVER['REQUEST_URI'])) {
 		return false;
 	}

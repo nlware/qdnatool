@@ -15,10 +15,12 @@
  * @link          http://book.cakephp.org/2.0/en/development/testing.html
  * @package       app.webroot
  * @since         CakePHP(tm) v 1.2.0.4433
- * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
+
 set_time_limit(0);
 ini_set('display_errors', 1);
+
 /**
  * Use the DS to separate the directories in other defines
  */
@@ -57,9 +59,9 @@ if (!defined('APP_DIR')) {
  * Leaving this constant undefined will result in it being defined in Cake/bootstrap.php
  *
  * The following line differs from its sibling
- * /app/webroot/test.php
+ * /lib/Cake/Console/Templates/skel/webroot/test.php
  */
-define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . APP_DIR . DS . 'Vendor' . DS . 'pear-pear.cakephp.org' . DS . 'CakePHP');
+define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . 'vendors' . DS . 'pear-pear.cakephp.org' . DS . 'CakePHP');
 
 /**
  * Editing below this line should not be necessary.
