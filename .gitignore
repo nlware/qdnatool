@@ -2,6 +2,8 @@
 #################################################
 /app/Config/database.php
 /app/Config/rserve.php
+/app/Config/email.php
+/app/Config/queue.php
 /app/tmp
 /lib/Cake/Console/Templates/skel/tmp/
 /plugins
@@ -12,8 +14,13 @@
 /.settings
 /.buildpath
 /.project
+/nbproject
+*.komodoproject
 /data
 /app/Plugin
+/app/Vendor
+/composer.phar
+/composer.lock
 
 # OS generated files #
 ######################
