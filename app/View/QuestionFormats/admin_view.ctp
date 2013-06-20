@@ -1,4 +1,4 @@
-<h2><?php  echo __('Question Format');?></h2>
+<h2><?php echo __('Question Format');?></h2>
 <div class="actions">
 	<ul>
 		<li><?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $questionFormat['QuestionFormat']['id'])); ?> </li>

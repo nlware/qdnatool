@@ -1,6 +1,6 @@
 <div class="exams view">
 <?php echo $this->Html->link(__('List Exams'), array('action' => 'index'), array('class' => 'btn btn-primary pull-right')); ?>
-	<h4><?php  echo __('Exam'); ?></h4>
+	<h4><?php echo __('Exam'); ?></h4>
 	<dl class="dl-horizontal">
 		<dt><?php echo __('Id'); ?></dt>
 		<dd><?php echo h($exam['Exam']['id']); ?>&nbsp;</dd>

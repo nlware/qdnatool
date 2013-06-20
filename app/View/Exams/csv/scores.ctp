@@ -12,7 +12,7 @@ endswitch;
 $fp = fopen("php://output", 'w');
 $headers = array(__('Subject'), __('Total score'));
 fputcsv($fp, $headers, $delimiter);
-if(!empty($scores)):
+if (!empty($scores)):
 	foreach ($scores as $score):
 		$fields = array();
 		$fields[] = $score['Subject']['value'];

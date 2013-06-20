@@ -253,7 +253,7 @@
 						</tr>
 					</thead>
 					<tbody>
-					<?php for($i = 0; $i < ((empty($this->request->data['QuestionsTag'])?0:count($this->request->data['QuestionsTag'])) + 10); $i++): ?>
+					<?php for ($i = 0; $i < ((empty($this->request->data['QuestionsTag'])?0:count($this->request->data['QuestionsTag'])) + 10); $i++): ?>
 						<tr<?php echo ($this->Form->value('QuestionsTag.' . $i . '.destroy') == '0')?'':' style="display:none;"'; ?>>
 							<td>
 							<?php
@@ -335,7 +335,7 @@
 		<div class="tab-content">
 			<div class="tab-pane active" id="help">
 				<div id="tabHelp">
-				<?php if(!empty($instruction)): ?>
+				<?php if (!empty($instruction)): ?>
 					<h4><?php echo h($instruction['Instruction']['name']); ?></h4>
 				<?php
 					echo $this->Output->html($instruction['Instruction']['content']);

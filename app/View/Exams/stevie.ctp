@@ -50,19 +50,19 @@ endif;
 					<li<?php echo (!empty($offset) && ($offset == 'conclusion')?' class="active"':''); ?>>
 					<?php echo $this->Html->link(__('Conclusion'), array('action' => 'stevie', $exam['Exam']['id'], 'conclusion')); ?>
 					</li>
-				<?php if($itemsWithMessagesCount > 6): ?>
+				<?php if ($itemsWithMessagesCount > 6): ?>
 				</ul>
 			</li>
 		<?php endif; ?>
 		</ul>
-	<?php if($offset == 'conclusion'): ?>
+	<?php if ($offset == 'conclusion'): ?>
 		<h5><?php echo __('Conclusion'); ?></h5>
 	<?php if ($exam['Exam']['cronbachs_alpha'] < 0.7): ?>
 		<h6><?php echo __('Reliability of the exam: low'); ?></h6>
 		<p><?php echo __('The reliability of the test is too low to give a decisive result: there are too many incorrect fail or pass decisions being made.'); ?></p>
 		<p><?php echo __('The reliability of the test can be increased by executing an item analysis and removing or editing incorrect items from the test results.'); ?></p>
 		<p><?php echo __('Press on ‘next’ to start the item analysis. Only items which can increase reliability will be shown. Reliable questions will not be shown.'); ?></p>
-	<?php elseif($exam['Exam']['cronbachs_alpha'] < 0.8): ?>
+	<?php elseif ($exam['Exam']['cronbachs_alpha'] < 0.8): ?>
 		<h6><?php echo __('Reliability of the exam: doubtful'); ?></h6>
 		<p><?php echo __('The reliability of this test is debatable. An item analysis should be executed to increase the reliability of the test: there are too many incorrect fail or pass decisions being made.In case this is a mid term test, the reliability is sufficient.'); ?></p>
 		<p><?php echo __('Press on ‘next’ to start the item analysis. Only items which can increase reliability will be shown. Reliable questions will not be shown.'); ?></p>
@@ -88,8 +88,8 @@ endif;
 	?>
 		<h5><?php echo __('Item %s / %s', $offset, count($exam['Item'])); ?></h5>
 	<?php
-	if (!empty($exam['Item'][$offset-1]['Messages'])):
-		foreach($exam['Item'][$offset-1]['Messages'] as $message):
+	if (!empty($exam['Item'][$offset - 1]['Messages'])):
+		foreach($exam['Item'][$offset - 1]['Messages'] as $message):
 	?>
 		<p><?php echo h($message); ?></p>
 	<?php
@@ -104,13 +104,13 @@ endif;
 			<dd><?php echo $this->Output->decimal($exam['Item'][$offset-1]['correct_answer_irc'], 3); ?></dd>
 			<dt><?php echo __('Correct answer'); ?></dt>
 			<dd><?php echo __('%s %%', $this->Output->decimal($exam['Item'][$offset-1]['correct_answer_percentage'])); ?></dd>
-    	<?php
+		<?php
 		foreach ($exam['Item'][$offset - 1]['AnswerOption'] as $i => $answerOption):
-			if($answerOption['is_correct']) continue;
+			if ($answerOption['is_correct']) continue;
 		?>
 			<dt><?php echo __('Incorrect answer %s', AnswerOption::printIndex($i)); ?></dt>
 			<dd><?php echo __('%s %%', $this->Output->decimal($answerOption['given_answer_percentage'])); ?>&nbsp;</dd>
-    	<?php endforeach; ?>
+		<?php endforeach; ?>
 		</dl>
 	<?php
 	else:
@@ -119,7 +119,7 @@ endif;
 		<p><?php echo __('The reliability of the test is too low to give a decisive result: there are too many incorrect fail or pass decisions being made.'); ?></p>
 		<p><?php echo __('The reliability of the test can be increased by executing an item analysis and removing or editing incorrect items from the test results.'); ?></p>
 		<p><?php echo __('Press on ‘next’ to start the item analysis. Only items which can increase reliability will be shown. Reliable questions will not be shown.'); ?></p>
-	<?php elseif($exam['Exam']['cronbachs_alpha'] < 0.8): ?>
+	<?php elseif ($exam['Exam']['cronbachs_alpha'] < 0.8): ?>
 		<h5><?php echo __('Reliability of the exam: doubtful'); ?></h5>
 		<p><?php echo __('The reliability of this test is debatable. An item analysis should be executed to increase the reliability of the test: there are too many incorrect fail or pass decisions being made.In case this is a mid term test, the reliability is sufficient.'); ?></p>
 		<p><?php echo __('Press on ‘next’ to start the item analysis. Only items which can increase reliability will be shown. Reliable questions will not be shown.'); ?></p>

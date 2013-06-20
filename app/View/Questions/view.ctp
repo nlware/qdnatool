@@ -40,7 +40,7 @@
 					endif;
 					?>
 					</dd>
-				<?php if(!empty($question['Question']['feedback_when_correct'])): ?>
+				<?php if (!empty($question['Question']['feedback_when_correct'])): ?>
 					<dt><?php echo __('Feedback when correct answer'); ?></dt>
 					<dd><?php echo $this->HtmLawed->display($question['Question']['feedback_when_correct']); ?>&nbsp;</dd>
 				<?php

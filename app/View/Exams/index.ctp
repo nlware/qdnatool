@@ -41,7 +41,7 @@
 					<?php
 					if (!empty($exam['Exam']['analysed'])):
 						echo $this->Html->link(__('Start interpretation'), array('action' => 'stevie', $exam['Exam']['id']), array('class' => 'btn'));
-					elseif(empty($exam['Child'])):
+					elseif (empty($exam['Child'])):
 						echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $exam['Exam']['id']), array('class' => 'btn'), __('Are you sure you want to delete exam "%s"?', $exam['Exam']['name']));
 					endif;
 					?>
@@ -49,7 +49,7 @@
 							<span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu">
-						<?php if(!empty($exam['Exam']['analysed'])): ?>
+						<?php if (!empty($exam['Exam']['analysed'])): ?>
 							<li><?php echo $this->Html->link(__('Start interpretation'), array('action' => 'stevie', $exam['Exam']['id'])); ?></li>
 						<?php
 						endif;
@@ -123,12 +123,12 @@
 							<li><?php echo $this->Html->link(__('Download scores'), array('action' => 'scores', $exam['Exam']['id'], 'ext' => 'csv')); ?></li>
 							<li><?php echo $this->Html->link(__('Download scores (Dutch format)'), array('action' => 'scores', $exam['Exam']['id'], 'nld', 'ext' => 'csv')); ?></li>
 							<li><?php echo $this->Html->link(__('Show missings'), array('action' => 'missings', $child['id'])); ?></li>
-    					<?php endif; ?>
+						<?php endif; ?>
 							<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $child['id']), null, __('Are you sure you want to delete exam "%s"?', $child['name'])); ?></li>
 						</ul>
 					</div>
 				</td>
-    		</tr>
+			</tr>
 		<?php
 				endforeach;
 			endif;

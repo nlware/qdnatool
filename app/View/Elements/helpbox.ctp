@@ -1,6 +1,6 @@
 <div id="tabHelp">
 <?php
-if(!empty($url)):
+if (!empty($url)):
 	$html = file_get_contents($url);
 	$dom = new DOMDocument();
 	$dom->loadHTML($html);

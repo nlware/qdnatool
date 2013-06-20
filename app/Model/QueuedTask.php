@@ -114,10 +114,10 @@ class QueuedTask extends AppModel {
 			// try to update one of the found tasks with the key of this worker.
 			$this->query('UPDATE ' . $this->tablePrefix . $this->table . ' SET worker_key = "' . $key . '", fetched = "' . date('Y-m-d H:i:s') . '" WHERE id in(' . implode(',', $idlist) . ') AND (worker_key IS NULL OR		 fetched <= "' . date('Y-m-d H:i:s', time() - $task['timeout']) . '") ORDER BY timediff(NOW(),not_before) DESC LIMIT 1');
 			// read which one actually got updated, which is the job we are supposed to execute.
-			$data = $this->find
-			( 'first', array
-				( 'conditions' => array
-					( 'worker_key' => $key
+			$data = $this->find(
+				'first', array(
+					'conditions' => array(
+						'worker_key' => $key
 					)
 				)
 			);
@@ -235,8 +235,8 @@ class QueuedTask extends AppModel {
 
 	protected function _findProgress($state, $query = array(), $results = array()) {
 		if ($state == 'before') {
-			$query['fields'] = array
-			( $this->alias . '.reference',
+			$query['fields'] = array(
+				$this->alias . '.reference',
 				'(CASE WHEN ' . $this->alias . '.not_before > NOW() THEN \'NOT_READY\' WHEN ' . $this->alias . '.fetched IS NULL THEN \'NOT_STARTED\' WHEN ' . $this->alias . '.fetched IS NOT NULL AND ' . $this->alias . '.completed IS NULL AND ' . $this->alias . '.failed = 0 THEN \'IN_PROGRESS\' WHEN ' . $this->alias . '.fetched IS NOT NULL AND ' . $this->alias . '.completed IS NULL AND ' . $this->alias . '.failed > 0 THEN \'FAILED\' WHEN ' . $this->alias . '.fetched IS NOT NULL AND ' . $this->alias . '.completed IS NOT NULL THEN \'COMPLETED\' ELSE \'UNKNOWN\' END) AS status',
 				$this->alias . '.failure_message'
 			);

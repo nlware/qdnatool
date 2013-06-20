@@ -937,7 +937,7 @@ class Question extends AppModel {
 		$response->appendChild($rtiming);
 		$rtiming->appendChild($dom->createTextNode('No'));
 
-		switch($question['Question']['question_format_id']) {
+		switch ($question['Question']['question_format_id']) {
 			case QuestionFormat::TRUE_FALSE:
 				$responseChoice = $dom->createElement("render_choice");
 				$shuffle = $dom->createAttribute("shuffle");
@@ -1046,7 +1046,7 @@ class Question extends AppModel {
 		$response->appendChild($rtiming);
 		$rtiming->appendChild($dom->createTextNode('No'));
 
-		switch($question['Question']['question_format_id']) {
+		switch ($question['Question']['question_format_id']) {
 			case QuestionFormat::TRUE_FALSE:
 				$responseChoice = $dom->createElement("render_choice");
 				$response->appendChild($responseChoice);
@@ -1162,10 +1162,10 @@ class Question extends AppModel {
 				$prefix = Router::url(array('controller' => 'images', 'action' => 'get')) . DS;
 				if (strpos($imageSource, $prefix) === 0) {
 					$imageId = substr($imageSource, strlen($prefix));
-					$image = $this->Image->find
-					( 'first', array
-						( 'conditions' => array
-							( 'Image.id' => $imageId
+					$image = $this->Image->find(
+						'first', array(
+							'conditions' => array(
+								'Image.id' => $imageId
 							)
 						)
 					);

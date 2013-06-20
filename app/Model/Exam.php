@@ -559,7 +559,7 @@ class Exam extends AppModel {
 		$success = false;
 		$exam = $this->find('first', array('conditions' => array('Exam.id' => $id)));
 		if (!empty($exam['Exam']['exam_format_id'])) {
-			switch($exam['Exam']['exam_format_id']) {
+			switch ($exam['Exam']['exam_format_id']) {
 				case ExamFormat::BLACKBOARD:
 					$success = $this->importBlackboard($exam);
 					break;
