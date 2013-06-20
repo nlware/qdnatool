@@ -1,4 +1,6 @@
 <?php
+App::uses('NumberHelper', 'View/Helper');
+App::uses('OutputHelper', 'View/Helper');
 App::uses('AppController', 'Controller');
 /**
  * Exams Controller
@@ -7,7 +9,7 @@ App::uses('AppController', 'Controller');
  */
 class ExamsController extends AppController {
 
-	public $helpers = array('Output');
+	public $helpers = array('Number', 'Output');
 
 	public function blackhole($type) {
 		$this->Session->setFlash(__('Sorry, something went wrong. Please, try again.'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-error'));
