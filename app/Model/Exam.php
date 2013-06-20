@@ -519,51 +519,89 @@ class Exam extends AppModel {
 			$script[] = sprintf('correct_percentage = c(%s);', implode(',', $correctAnswerPercentage));
 			$script[] = sprintf('corrected_item_tot_cor = c(%s);', implode(',', $correctAnswerIRC));
 
-			$script[] = 'frequency_answer_options = matrix(, max_number_answeroptions + 1, number_questions);';
-			$script[] = 'percentage_answer_options = matrix(, max_number_answeroptions + 1, number_questions);';
-			$script[] = 'corrected_item_tot_cor_answ_option = matrix(, max_number_answeroptions + 1, number_questions);';
-			$script[] = sprintf('item_names = rep(NA, %d);', count($exam['Item']));
+			$frequencyAnswerOptionsMatrix = array();
+			$percentageAnswerOptionsMatrix = array();
+			$correctedItemTotCorAnswOptionMatrix = array();
+			$itemNamesVector = array();
 
 			foreach ($exam['Item'] as $i => $item) {
-				$script[] = sprintf('frequency_answer_options[1, %d] = %s;', ($i + 1), $item['missing_answer_count']);
-				$script[] = sprintf('percentage_answer_options[1, %d] = %s;', ($i + 1), $item['missing_answer_percentage']);
-				$script[] = sprintf('corrected_item_tot_cor_answ_option[1, %d] = 0;', ($i + 1));
-				$script[] = sprintf('item_names[%d] = %s;', ($i + 1), $item['value']);
+				$frequencyAnswerOptionsMatrix[] = $item['missing_answer_count'];
+				$percentageAnswerOptionsMatrix[] = $item['missing_answer_percentage'];
+				$correctedItemTotCorAnswOptionMatrix[] = 0;
+				$itemNamesVector[] = $item['value'];
 
 				foreach ($item['AnswerOption'] as $j => $answerOption) {
-					$script[] = sprintf(
-						'frequency_answer_options[%d, %d] = %s;',
-						($j + 2), ($i + 1), $answerOption['given_answer_count']
-					);
-					$script[] = sprintf(
-						'percentage_answer_options[%d, %d] = %s;',
-						($j + 2), ($i + 1), $answerOption['given_answer_percentage']
-					);
-					$script[] = sprintf(
-						'corrected_item_tot_cor_answ_option[%d, %d] = %s;',
-						($j + 2), ($i + 1), (empty($answerOption['given_answer_irc']) ? '0' : $answerOption['given_answer_irc'])
-					);
-				}
-			}
-
-			$script[] = 'input_correct = matrix(0, number_students, number_questions);';
-			foreach ($exam['Subject'] as $i => $subject) {
-				foreach ($subject['GivenAnswer'] as $j => $givenAnswer) {
-					$script[] = sprintf(
-						'input_correct[%d, %d] = %s;',
-						($i + 1), ($j + 1), (empty($givenAnswer['score']) ? '0' : $givenAnswer['score'])
-					);
-				}
-			}
-
-			$script[] = 'key = matrix(0, max_number_answeroptions, number_questions);';
-			foreach ($exam['Item'] as $i => $item) {
-				foreach ($item['AnswerOption'] as $j => $answerOption) {
-					if ($answerOption['is_correct']) {
-						$script[] = sprintf('key[%d, %d] = 1;', ($j + 1), ($i + 1));
+					$frequencyAnswerOptionsMatrix[] = $answerOption['given_answer_count'];
+					$percentageAnswerOptionsMatrix[] = $answerOption['given_answer_percentage'];
+					if (empty($answerOption['given_answer_irc'])) {
+						$correctedItemTotCorAnswOptionMatrix[] = '0';
+					} else {
+						$correctedItemTotCorAnswOptionMatrix[] = $answerOption['given_answer_irc'];
 					}
 				}
 			}
+
+			// Create the frequency_answer_options matrix (with given dimensions)
+			// by filling it with a vector (by column)
+			$script[] = sprintf(
+				'frequency_answer_options = matrix(' .
+				'c(%s), max_number_answeroptions + 1, number_questions, byrow = FALSE' .
+				');',
+				implode(',', $frequencyAnswerOptionsMatrix)
+			);
+			// Create the percentage_answer_options matrix (with given dimensions)
+			// by filling it with a vector (by column)
+			$script[] = sprintf(
+				'percentage_answer_options = matrix(' .
+				'c(%s), max_number_answeroptions + 1, number_questions, byrow = FALSE' .
+				');',
+				implode(',', $percentageAnswerOptionsMatrix)
+			);
+			// Create the corrected_item_tot_cor_answ_option matrix (with given dimensions)
+			// by filling it with a vector (by column)
+			$script[] = sprintf(
+				'corrected_item_tot_cor_answ_option = matrix(' .
+				'c(%s), max_number_answeroptions + 1, number_questions, byrow = FALSE' .
+				');',
+				implode(',', $correctedItemTotCorAnswOptionMatrix)
+			);
+			$script[] = sprintf('item_names = c(%s);', implode(',', $itemNamesVector));
+
+			$inputCorrectMatrix = array();
+
+			foreach ($exam['Subject'] as $i => $subject) {
+				foreach ($subject['GivenAnswer'] as $j => $givenAnswer) {
+					if (empty($givenAnswer['score'])) {
+						$inputCorrectMatrix[] = '0';
+					} else {
+						$inputCorrectMatrix[] = $givenAnswer['score'];
+					}
+				}
+			}
+
+			// Create the input_correct matrix (with given dimensions) by filling it with a vector (by row)
+			$script[] = sprintf(
+				'input_correct = matrix(c(%s), number_students, number_questions, byrow = TRUE);',
+				implode(',', $inputCorrectMatrix)
+			);
+
+			$keyMatrix = array();
+
+			foreach ($exam['Item'] as $i => $item) {
+				foreach ($item['AnswerOption'] as $j => $answerOption) {
+					if ($answerOption['is_correct']) {
+						$keyMatrix[] = 1;
+					} else {
+						$keyMatrix[] = 0;
+					}
+				}
+			}
+
+			// Create the key matrix (with given dimensions) by filling it with a vector (by column)
+			$script[] = sprintf(
+				'key = matrix(c(%s), max_number_answeroptions, number_questions, byrow = FALSE);',
+				implode(',', $keyMatrix)
+			);
 
 			$script[] = sprintf(
 				'make_pdf(' .
