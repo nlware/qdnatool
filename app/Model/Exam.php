@@ -337,38 +337,69 @@ class Exam extends AppModel {
 			}
 		}
 
-		$script = '
-		source("' . APP . DS . 'Lib' . DS . 'Rscripts' . DS . 'analyse.R");
-		nvragen=' . $questionCount . ';
-		ndeel=' . $studentCount . ';
+		$script = array();
+		$script[] = 'source("' . APP . DS . 'Lib' . DS . 'Rscripts' . DS . 'analyse.R");';
+		$script[] = 'nvragen = ' . $questionCount . ';';
+		$script[] = 'ndeel = ' . $studentCount . ';';
 
-		number_answeroptions= rep(NA,' . $questionCount . ');';
-
-		$script .= 'key=matrix(0,' . $maxAnswerOptionCount . ',' . count($exam['Item']) . ');';
+		$keyMatrix = array();
 		foreach ($exam['Item'] as $i => $item) {
 			foreach ($item['AnswerOption'] as $j => $answerOption) {
 				if ($answerOption['is_correct']) {
-					$script .= 'key[' . ($j + 1) . ',' . ($i + 1) . ']=1;';
+					$keyMatrix[] = 1;
+				} else {
+					$keyMatrix[] = 0;
 				}
 			}
 		}
 
-		$script .= 'input_answers=matrix(,ndeel,nvragen);';
+		// Create the key matrix (with given dimensions) by filling it with a vector (by column)
 
+		// > matrix(1:4, 2, 2, byrow = FALSE)
+		//      [,1] [,2]
+		// [1,]    1    3
+		// [2,]    2    4
+
+		$script[] = sprintf(
+			'key = matrix(c(%s), %d, %d, byrow = FALSE);',
+			implode(',', $keyMatrix), $maxAnswerOptionCount, count($exam['Item'])
+		);
+
+		$inputAnswersMaxtrix = array();
 		foreach ($givenAnswers as $i => $givenAnswersByStudent) {
 			foreach ($givenAnswersByStudent as $j => $givenAnswer) {
-				if (empty($givenAnswer)) $givenAnswer = 0;
-				$script .= 'input_answers[' . ($i + 1) . ',' . ($j + 1) . '] = ' . $givenAnswer . ';';
+				if (empty($givenAnswer)) {
+					$givenAnswer = 0;
+				}
+				$inputAnswersMaxtrix[] = $givenAnswer;
 			}
 		}
 
+		// Create the input_answers matrix (with given dimensions) by filling it with a vector (by row)
+
+		// > matrix(1:4, 2, 2, byrow = TRUE)
+		//      [,1] [,2]
+		// [1,]    1    2
+		// [2,]    3    4
+
+		$script[] = sprintf(
+			'input_answers = matrix(c(%s), ndeel, nvragen, byrow = TRUE);',
+			implode(',', $inputAnswersMaxtrix)
+		);
+
+		$numberAnsweroptionsVector = array();
 		foreach ($answerOptionCount as $i => $count) {
-			if (empty($count)) $count = 0;
-			$script .= 'number_answeroptions[' . ($i + 1) . '] = ' . $count . ';';
+			if (empty($count)) {
+				$count = 0;
+			}
+			$numberAnsweroptionsVector[] = $count;
 		}
 
-		$script .= 'analyse(key, input_answers, number_answeroptions);';
-		$script = str_replace("\r\n", "", $script);
+		$script[] = sprintf('number_answeroptions = c(%s);', implode(',', $numberAnsweroptionsVector));
+
+		$script[] = 'analyse(key, input_answers, number_answeroptions);';
+
+		$script = implode("\n", $script);
 
 		$result = Rserve::execute($script);
 
