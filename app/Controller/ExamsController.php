@@ -198,13 +198,13 @@ class ExamsController extends AppController {
 		$this->set(compact('items'));
 	}
 
-	public function scores($id) {
+	public function scores($id, $format = null) {
 		$this->Exam->id = $id;
 		if (!$this->Exam->exists()) {
 			throw new NotFoundException(__('Invalid exam'));
 		}
 		$scores = $this->Exam->scores($id);
-		$this->set(compact('scores'));
+		$this->set(compact('scores', 'format'));
 	}
 
 	public function missings($id) {

@@ -57,6 +57,7 @@
 						?>
 							<li><?php echo $this->Html->link(__('Download report'), array('action' => 'report', $exam['Exam']['id'], 'ext' => 'pdf')); ?></li>
 							<li><?php echo $this->Html->link(__('Download scores'), array('action' => 'scores', $exam['Exam']['id'], 'ext' => 'csv')); ?></li>
+							<li><?php echo $this->Html->link(__('Download scores (Dutch format)'), array('action' => 'scores', $exam['Exam']['id'], 'nld', 'ext' => 'csv')); ?></li>
 							<li><?php echo $this->Html->link(__('Show missings'), array('action' => 'missings', $exam['Exam']['id'])); ?></li>
 						<?php
 						endif;
@@ -119,7 +120,8 @@
 						if ($child['exam_state_id'] == ExamState::REPORT_GENERATED):
 						?>
 							<li><?php echo $this->Html->link(__('Download report'), array('action' => 'report', $child['id'], 'ext' => 'pdf')); ?></li>
-							<li><?php echo $this->Html->link(__('Download scores'), array('action' => 'scores', $child['id'])); ?></li>
+							<li><?php echo $this->Html->link(__('Download scores'), array('action' => 'scores', $exam['Exam']['id'], 'ext' => 'csv')); ?></li>
+							<li><?php echo $this->Html->link(__('Download scores (Dutch format)'), array('action' => 'scores', $exam['Exam']['id'], 'nld', 'ext' => 'csv')); ?></li>
 							<li><?php echo $this->Html->link(__('Show missings'), array('action' => 'missings', $child['id'])); ?></li>
     					<?php endif; ?>
 							<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $child['id']), null, __('Are you sure you want to delete exam "%s"?', $child['name'])); ?></li>

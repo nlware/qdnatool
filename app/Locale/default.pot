@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2013-04-09 08:19+0000\n"
+"POT-Creation-Date: 2013-06-20 13:26+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -70,7 +70,7 @@ msgstr ""
 #: Console/Command/Task/QueueAnalysisToReportTask.php:14;21
 #: Console/Command/Task/QueueImportExamTask.php:16;23
 #: Console/Command/Task/QueueReanalyseExamTask.php:14;21
-#: Controller/ExamsController.php:50;99;144;157;177;181;233;242
+#: Controller/ExamsController.php:50;99;122;135;148;152;204;213
 msgid "Invalid exam"
 msgstr ""
 
@@ -95,19 +95,19 @@ msgstr ""
 msgid "Exam was not deleted"
 msgstr ""
 
-#: Controller/ExamsController.php:160
+#: Controller/ExamsController.php:138
 msgid "Exam is scheduled to report"
 msgstr ""
 
-#: Controller/ExamsController.php:163
+#: Controller/ExamsController.php:141
 msgid "Exam was not scheduled to report"
 msgstr ""
 
-#: Controller/ExamsController.php:212
+#: Controller/ExamsController.php:183
 msgid "The exam has been scheduled to reanalyse"
 msgstr ""
 
-#: Controller/ExamsController.php:215
+#: Controller/ExamsController.php:186
 msgid "The exam could not be reanalysed. Please, try again."
 msgstr ""
 
@@ -271,315 +271,334 @@ msgstr ""
 msgid "It is not necessary to remove this question from the exam."
 msgstr ""
 
-#: Model/Question.php:524
+#: Model/Question.php:535
 msgid "A - Weten en Begrijpen"
 msgstr ""
 
-#: Model/Question.php:525
+#: Model/Question.php:536
 msgid "Wat is de beste definitie voor ....?"
 msgstr ""
 
-#: Model/Question.php:525
+#: Model/Question.php:536
 msgid "A1 - Wat is de beste definitie voor ....?"
 msgstr ""
 
-#: Model/Question.php:526
+#: Model/Question.php:537
 msgid "Wat is (niet) karakteristiek voor ....?"
 msgstr ""
 
-#: Model/Question.php:526
+#: Model/Question.php:537
 msgid "A2 - Wat is (niet) karakteristiek voor ....?"
 msgstr ""
 
-#: Model/Question.php:527
+#: Model/Question.php:538
 msgid "Uit welke onderdelen bestaat het probleem?"
 msgstr ""
 
-#: Model/Question.php:527
+#: Model/Question.php:538
 msgid "A3 - Uit welke onderdelen bestaat het probleem?"
 msgstr ""
 
-#: Model/Question.php:528
+#: Model/Question.php:539
 msgid "Wat is de geschiedenis van het probleem?"
 msgstr ""
 
-#: Model/Question.php:528
+#: Model/Question.php:539
 msgid "A4 - Wat is de geschiedenis van het probleem?"
 msgstr ""
 
-#: Model/Question.php:529
+#: Model/Question.php:540
 msgid "Welke verschillende categorieën zijn er in het probleem?"
 msgstr ""
 
-#: Model/Question.php:529
+#: Model/Question.php:540
 msgid "A5 - Welke verschillende categorieën zijn er in het probleem?"
 msgstr ""
 
-#: Model/Question.php:531
+#: Model/Question.php:542
 msgid "B - Wat is het meest effectief (gepast) voor ....?"
 msgstr ""
 
-#: Model/Question.php:532
+#: Model/Question.php:543
 msgid "Wat is beter (slechter) ....?"
 msgstr ""
 
-#: Model/Question.php:532
+#: Model/Question.php:543
 msgid "B1 - Wat is beter (slechter) ....?"
 msgstr ""
 
-#: Model/Question.php:533
+#: Model/Question.php:544
 msgid "Wat is het meest effectief voor ....?"
 msgstr ""
 
-#: Model/Question.php:533
+#: Model/Question.php:544
 msgid "B2 - Wat is het meest effectief voor ....?"
 msgstr ""
 
-#: Model/Question.php:534
+#: Model/Question.php:545
 msgid "Wat is de meest kritieke stap in aan procedure?"
 msgstr ""
 
-#: Model/Question.php:534
+#: Model/Question.php:545
 msgid "B3 - Wat is de meest kritieke stap in aan procedure?"
 msgstr ""
 
-#: Model/Question.php:535
+#: Model/Question.php:546
 msgid "Als je weet dat X waar is, wat is dan tevens waar over Y?"
 msgstr ""
 
-#: Model/Question.php:535
+#: Model/Question.php:546
 msgid "B4 - Als je weet dat X waar is, wat is dan tevens waar over Y?"
 msgstr ""
 
-#: Model/Question.php:536
+#: Model/Question.php:547
 msgid "Wat is (niet) nodig in een procedure?"
 msgstr ""
 
-#: Model/Question.php:536
+#: Model/Question.php:547
 msgid "B5 - Wat is (niet) nodig in een procedure?"
 msgstr ""
 
-#: Model/Question.php:537
+#: Model/Question.php:548
 msgid "Kritisch denken (evalueren)"
 msgstr ""
 
-#: Model/Question.php:537
+#: Model/Question.php:548
 msgid "B6 - Kritisch denken (evalueren)"
 msgstr ""
 
-#: Model/Question.php:538
+#: Model/Question.php:549
 msgid "Wat is het belang van het probleem ? So what ?"
 msgstr ""
 
-#: Model/Question.php:538
+#: Model/Question.php:549
 msgid "B6 - Wat is het belang van het probleem ? So what ?"
 msgstr ""
 
-#: Model/Question.php:540
+#: Model/Question.php:551
 msgid "C - Kritisch denken (voorspellen)"
 msgstr ""
 
-#: Model/Question.php:541
+#: Model/Question.php:552
 msgid "Wat zou er gebeuren als ....?"
 msgstr ""
 
-#: Model/Question.php:541
+#: Model/Question.php:552
 msgid "C1 - Wat zou er gebeuren als ....?"
 msgstr ""
 
-#: Model/Question.php:542
+#: Model/Question.php:553
 msgid "Als dit gebeurt, wat zou je doen?"
 msgstr ""
 
-#: Model/Question.php:542
+#: Model/Question.php:553
 msgid "C2 - Als dit gebeurt, wat zou je doen?"
 msgstr ""
 
-#: Model/Question.php:543
+#: Model/Question.php:554
 msgid "Op basis van wat ...., wat zou je doen?"
 msgstr ""
 
-#: Model/Question.php:543
+#: Model/Question.php:554
 msgid "C3 - Op basis van wat ...., wat zou je doen?"
 msgstr ""
 
-#: Model/Question.php:544
+#: Model/Question.php:555
 msgid "Gegeven ... wat is belangrijkste reden dat ...."
 msgstr ""
 
-#: Model/Question.php:544
+#: Model/Question.php:555
 msgid "C4 - Gegeven ... wat is belangrijkste reden dat ...."
 msgstr ""
 
-#: Model/Question.php:546
+#: Model/Question.php:557
 msgid "D - Probleem oplossen (gegeven een scenario)"
 msgstr ""
 
-#: Model/Question.php:547
+#: Model/Question.php:558
 msgid "Wat is de aard van het probleem?"
 msgstr ""
 
-#: Model/Question.php:547
+#: Model/Question.php:558
 msgid "D1 - Wat is de aard van het probleem?"
 msgstr ""
 
-#: Model/Question.php:548
+#: Model/Question.php:559
 msgid "Wat heb je nodig om dit probleem op te lossen?"
 msgstr ""
 
-#: Model/Question.php:548
+#: Model/Question.php:559
 msgid "D2 - Wat heb je nodig om dit probleem op te lossen?"
 msgstr ""
 
-#: Model/Question.php:549
+#: Model/Question.php:560
 msgid "Wat is een mogelijke oplossing?"
 msgstr ""
 
-#: Model/Question.php:549
+#: Model/Question.php:560
 msgid "D3 - Wat is een mogelijke oplossing?"
 msgstr ""
 
-#: Model/Question.php:550
+#: Model/Question.php:561
 msgid "Wat is de meeste effectieve (efficiente) oplossing?"
 msgstr ""
 
-#: Model/Question.php:550
+#: Model/Question.php:561
 msgid "D4 - Wat is de meeste effectieve (efficiente) oplossing?"
 msgstr ""
 
-#: Model/Question.php:551
+#: Model/Question.php:562
 msgid "Waarom is .... de meest effectieve (efficiënte) oplossing?"
 msgstr ""
 
-#: Model/Question.php:551
+#: Model/Question.php:562
 msgid "D5 - Waarom is .... de meest effectieve (efficiënte) oplossing?"
 msgstr ""
 
-#: Model/Question.php:553
+#: Model/Question.php:564
 msgid "E - Andere manieren om vragen te bedenken waarbij kritisch denken of probleemoplossing gevraagd worden zijn."
 msgstr ""
 
-#: Model/Question.php:554
+#: Model/Question.php:565
 msgid "Premise - Consequence"
 msgstr ""
 
-#: Model/Question.php:554
+#: Model/Question.php:565
 msgid "E1 - Premise - Consequence"
 msgstr ""
 
-#: Model/Question.php:555
+#: Model/Question.php:566
 msgid "Analogie"
 msgstr ""
 
-#: Model/Question.php:555
+#: Model/Question.php:566
 msgid "E2 - Analogie"
 msgstr ""
 
-#: Model/Question.php:556
+#: Model/Question.php:567
 msgid "Case Study"
 msgstr ""
 
-#: Model/Question.php:556
+#: Model/Question.php:567
 msgid "E3 - Case Study"
 msgstr ""
 
-#: Model/Question.php:557
+#: Model/Question.php:568
 msgid "Incompleet Scenario"
 msgstr ""
 
-#: Model/Question.php:557
+#: Model/Question.php:568
 msgid "E4 - Incompleet Scenario"
 msgstr ""
 
-#: Model/Question.php:558
+#: Model/Question.php:569
 msgid "Probleem / Oplossing evaluatie"
 msgstr ""
 
-#: Model/Question.php:558
+#: Model/Question.php:569
 msgid "E5 - Probleem / Oplossing evaluatie"
 msgstr ""
 
-#: Model/Question.php:605
+#: Model/Question.php:615
 msgid "Selection Name"
 msgstr ""
 
-#: Model/Question.php:609;621
+#: Model/Question.php:619;631
 msgid "Selection Identifier"
 msgstr ""
 
 #: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:10
+#: Plugin/TwitterBootstrap/Console/Console/Command/CopyShell.php:10
 msgid "Set theme to place Bootstrap files in."
 msgstr ""
 
 #: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:15
+#: Plugin/TwitterBootstrap/Console/Console/Command/CopyShell.php:15
 msgid "Set file output to webroot Theme dir (use with theme option)."
 msgstr ""
 
 #: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:22
+#: Plugin/TwitterBootstrap/Console/Console/Command/CopyShell.php:22
 msgid "TwitterBootstrap Copy Shell Help."
 msgstr ""
 
 #: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:29
+#: Plugin/TwitterBootstrap/Console/Console/Command/CopyShell.php:29
 msgid "Copies Less, Js & Img source from Bootstrap submodule in plugin Vendor dir"
 msgstr ""
 
 #: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:31
+#: Plugin/TwitterBootstrap/Console/Console/Command/CopyShell.php:31
 msgid "files will be placed in webroot of App or named Theme"
 msgstr ""
 
 #: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:39
+#: Plugin/TwitterBootstrap/Console/Console/Command/CopyShell.php:39
 msgid "Copies Less source from Bootstrap submodule in plugin Vendor dir"
 msgstr ""
 
 #: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:41
+#: Plugin/TwitterBootstrap/Console/Console/Command/CopyShell.php:41
 msgid "files will be placed in webroot/css/lib/ of App or named Theme"
 msgstr ""
 
 #: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:49
+#: Plugin/TwitterBootstrap/Console/Console/Command/CopyShell.php:49
 msgid "Copies Img source from Bootstrap submodule in plugin Vendor dir"
 msgstr ""
 
 #: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:51
+#: Plugin/TwitterBootstrap/Console/Console/Command/CopyShell.php:51
 msgid "files will be placed in webroot/img/ of App or named Theme"
 msgstr ""
 
 #: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:59
+#: Plugin/TwitterBootstrap/Console/Console/Command/CopyShell.php:59
 msgid "Copies Js source from Bootstrap submodule in plugin Vendor dir"
 msgstr ""
 
 #: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:61
+#: Plugin/TwitterBootstrap/Console/Console/Command/CopyShell.php:61
 msgid "files will be placed in webroot/js/lib of App or named Theme"
 msgstr ""
 
 #: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:108
+#: Plugin/TwitterBootstrap/Console/Console/Command/CopyShell.php:108
 msgid "Success."
 msgstr ""
 
 #: Plugin/TwitterBootstrap/Console/Command/CopyShell.php:110
+#: Plugin/TwitterBootstrap/Console/Console/Command/CopyShell.php:110
 msgid "Error!"
 msgstr ""
 
 #: Plugin/TwitterBootstrap/Controller/TwitterBootstrapController.php:18
+#: Plugin/TwitterBootstrap/Controller/Controller/TwitterBootstrapController.php:18
 msgid "Debug setting does not allow access to this url."
 msgstr ""
 
 #: Plugin/TwitterBootstrap/Controller/TwitterBootstrapController.php:24
+#: Plugin/TwitterBootstrap/Controller/Controller/TwitterBootstrapController.php:24
 msgid "Alert notice message testing..."
 msgstr ""
 
 #: Plugin/TwitterBootstrap/Controller/TwitterBootstrapController.php:27
+#: Plugin/TwitterBootstrap/Controller/Controller/TwitterBootstrapController.php:27
 msgid "Alert success message testing..."
 msgstr ""
 
 #: Plugin/TwitterBootstrap/Controller/TwitterBootstrapController.php:31
+#: Plugin/TwitterBootstrap/Controller/Controller/TwitterBootstrapController.php:31
 msgid "Alert error message testing..."
 msgstr ""
 
 #: Plugin/TwitterBootstrap/View/Layouts/default.ctp:6
+#: Plugin/TwitterBootstrap/View/View/Layouts/default.ctp:6
 msgid "CakePHP: the rapid development php framework:"
 msgstr ""
 
 #: Plugin/TwitterBootstrap/View/Layouts/default.ctp:51
+#: Plugin/TwitterBootstrap/View/View/Layouts/default.ctp:51
 msgid "CakePHP"
 msgstr ""
 
@@ -628,120 +647,12 @@ msgstr ""
 
 #: View/Elements/header.ctp:73
 #: View/Questions/add.ctp:334
-#: View/Questions/edit.ctp:339
+#: View/Questions/edit.ctp:332
 msgid "Help"
 msgstr ""
 
 #: View/Elements/header.ctp:75
 msgid "qDNAtool Help"
-msgstr ""
-
-#: View/Exams/__index.ctp:3
-#: View/Exams/_index.ctp:3
-#: View/Exams/index.ctp:3
-msgid "Add Exam"
-msgstr ""
-
-#: View/Exams/__index.ctp:3
-#: View/Exams/_index.ctp:3
-#: View/Exams/index.ctp:3
-msgid "Exams"
-msgstr ""
-
-#: View/Exams/__index.ctp:7
-#: View/Exams/_index.ctp:18
-#: View/Exams/index.ctp:7
-#: View/Exams/reanalyse.ctp:12
-#: View/Exams/view.ctp:7
-#: View/QuestionFormats/admin_view.ctp:11
-#: View/Users/admin_edit.ctp:12
-#: View/Users/view.ctp:20
-msgid "Name"
-msgstr ""
-
-#: View/Exams/__index.ctp:8
-#: View/Exams/_index.ctp:19
-#: View/Exams/index.ctp:8
-msgid "State"
-msgstr ""
-
-#: View/Exams/__index.ctp:9
-#: View/Exams/_index.ctp:20
-#: View/Exams/index.ctp:9
-#: View/Exams/view.ctp:21
-msgid "Created"
-msgstr ""
-
-#: View/Exams/__index.ctp:10
-#: View/Exams/_index.ctp:21
-#: View/Exams/index.ctp:10
-#: View/Exams/view.ctp:23
-msgid "Modified"
-msgstr ""
-
-#: View/Exams/__index.ctp:11
-#: View/Exams/_index.ctp:22
-#: View/Exams/index.ctp:11
-#: View/Images/add.ctp:16
-#: View/Images/edit.ctp:17
-#: View/Images/index.ctp:11;49
-#: View/Images/view.ctp:37
-#: View/QuestionFormats/admin_index.ctp:9
-#: View/Users/account.ctp:4
-#: View/Users/index.ctp:15
-msgid "Actions"
-msgstr ""
-
-#: View/Exams/__index.ctp:29;91
-#: View/Exams/_index.ctp:57;123
-#: View/Exams/index.ctp:27;90
-msgid "The status will update automatically."
-msgstr ""
-
-#: View/Exams/__index.ctp:44;54;106;116
-#: View/Exams/_index.ctp:70;80;134;144
-#: View/Exams/index.ctp:42;52;105;115
-msgid "Start interpretation"
-msgstr ""
-
-#: View/Exams/__index.ctp:46;70;108;124
-#: View/Exams/_index.ctp:72;97;136;153
-#: View/Exams/index.ctp:44;69;107;124
-#: View/Images/edit.ctp:20
-#: View/Images/index.ctp:28
-#: View/Questions/index.ctp:110
-#: View/Users/admin_edit.ctp:5
-#: View/Users/index.ctp:60;67
-msgid "Delete"
-msgstr ""
-
-#: View/Exams/__index.ctp:46;70;108;124
-#: View/Exams/_index.ctp:72;97;136;153
-#: View/Exams/index.ctp:44;69;107;124
-msgid "Are you sure you want to delete exam \"%s\"?"
-msgstr ""
-
-#: View/Exams/__index.ctp:59;121
-#: View/Exams/_index.ctp:85;149
-#: View/Exams/index.ctp:57;120
-msgid "Download report"
-msgstr ""
-
-#: View/Exams/__index.ctp:60;122
-#: View/Exams/_index.ctp:86;150
-#: View/Exams/index.ctp:58;121
-msgid "Download scores"
-msgstr ""
-
-#: View/Exams/__index.ctp:65
-#: View/Exams/_index.ctp:92
-#: View/Exams/index.ctp:64
-msgid "Reanalyse"
-msgstr ""
-
-#: View/Exams/_index.ctp:87;151
-#: View/Exams/index.ctp:59;122
-msgid "Show missings"
 msgstr ""
 
 #: View/Exams/add.ctp:9
@@ -792,49 +703,136 @@ msgstr ""
 msgid "The mapping file contains data in case there are two (or more) versions of an exam being used. It ‘maps’ one version of the exam to the other."
 msgstr ""
 
-#: View/Exams/add.ctp:44
-#: View/Exams/reanalyse.ctp:51
+#: View/Exams/add.ctp:46
+#: View/Exams/reanalyse.ctp:50
 #: View/Images/add.ctp:13
 #: View/Images/edit.ctp:14
 #: View/QuestionFormats/admin_edit.ctp:11
 #: View/Questions/add.ctp:131;327
-#: View/Questions/edit.ctp:116;332
+#: View/Questions/edit.ctp:116;325
 #: View/Users/admin_add.ctp:11
 #: View/Users/admin_edit.ctp:17
 #: View/Users/change_password.ctp:10
 msgid "Save"
 msgstr ""
 
-#: View/Exams/add.ctp:45
-#: View/Exams/reanalyse.ctp:52
+#: View/Exams/add.ctp:47
+#: View/Exams/reanalyse.ctp:51
 #: View/QuestionFormats/admin_edit.ctp:12
 #: View/Questions/add.ctp:328
-#: View/Questions/edit.ctp:333
+#: View/Questions/edit.ctp:326
 #: View/Users/admin_add.ctp:12
 #: View/Users/admin_edit.ctp:18
 #: View/Users/change_password.ctp:11
 msgid "Cancel"
 msgstr ""
 
-#: View/Exams/missings.ctp:5
-#: View/Exams/csv/scores.ctp:3
-msgid "Subject"
+#: View/Exams/index.ctp:3
+msgid "Add Exam"
+msgstr ""
+
+#: View/Exams/index.ctp:4
+msgid "Exams"
+msgstr ""
+
+#: View/Exams/index.ctp:8
+#: View/Exams/reanalyse.ctp:12
+#: View/Exams/view.ctp:7
+#: View/QuestionFormats/admin_view.ctp:11
+#: View/Users/admin_edit.ctp:12
+#: View/Users/view.ctp:20
+msgid "Name"
+msgstr ""
+
+#: View/Exams/index.ctp:9
+msgid "State"
+msgstr ""
+
+#: View/Exams/index.ctp:10
+#: View/Exams/view.ctp:21
+msgid "Created"
+msgstr ""
+
+#: View/Exams/index.ctp:11
+#: View/Exams/view.ctp:23
+msgid "Modified"
+msgstr ""
+
+#: View/Exams/index.ctp:12
+#: View/Images/add.ctp:16
+#: View/Images/edit.ctp:17
+#: View/Images/index.ctp:11;50
+#: View/Images/view.ctp:37
+#: View/QuestionFormats/admin_index.ctp:9
+#: View/Users/account.ctp:4
+#: View/Users/index.ctp:15
+msgid "Actions"
+msgstr ""
+
+#: View/Exams/index.ctp:28;92
+msgid "The status will update automatically."
+msgstr ""
+
+#: View/Exams/index.ctp:43;53;107;117
+msgid "Start interpretation"
+msgstr ""
+
+#: View/Exams/index.ctp:45;71;109;127
+#: View/Images/edit.ctp:20
+#: View/Images/index.ctp:29
+#: View/Questions/index.ctp:87
+#: View/Users/admin_edit.ctp:5
+#: View/Users/index.ctp:60;68
+msgid "Delete"
+msgstr ""
+
+#: View/Exams/index.ctp:45;71;109;127
+msgid "Are you sure you want to delete exam \"%s\"?"
+msgstr ""
+
+#: View/Exams/index.ctp:58;122
+msgid "Download report"
+msgstr ""
+
+#: View/Exams/index.ctp:59;123
+msgid "Download scores"
+msgstr ""
+
+#: View/Exams/index.ctp:60;124
+msgid "Download scores (Dutch format)"
+msgstr ""
+
+#: View/Exams/index.ctp:61;125
+msgid "Show missings"
+msgstr ""
+
+#: View/Exams/index.ctp:66
+msgid "Reanalyse"
+msgstr ""
+
+#: View/Exams/missings.ctp:2
+msgid "Exam: %s"
 msgstr ""
 
 #: View/Exams/missings.ctp:6
-msgid "Version"
+#: View/Exams/csv/scores.ctp:13
+msgid "Subject"
 msgstr ""
 
 #: View/Exams/missings.ctp:7
+msgid "Version"
+msgstr ""
+
+#: View/Exams/missings.ctp:8
 #: View/Exams/view.ctp:37
 msgid "Item"
 msgstr ""
 
-#: View/Exams/missings.ctp:14
+#: View/Exams/missings.ctp:15
 msgid "2"
 msgstr ""
 
-#: View/Exams/missings.ctp:14
+#: View/Exams/missings.ctp:15
 msgid "1"
 msgstr ""
 
@@ -842,11 +840,11 @@ msgstr ""
 msgid "Reanalyse exam"
 msgstr ""
 
-#: View/Exams/reanalyse.ctp:18
+#: View/Exams/reanalyse.ctp:17
 msgid "Include items"
 msgstr ""
 
-#: View/Exams/reanalyse.ctp:19
+#: View/Exams/reanalyse.ctp:18
 msgid "Correct answer options"
 msgstr ""
 
@@ -867,78 +865,78 @@ msgstr ""
 msgid "More"
 msgstr ""
 
-#: View/Exams/stevie.ctp:39;81
+#: View/Exams/stevie.ctp:39;79
 msgid "Item %s"
 msgstr ""
 
-#: View/Exams/stevie.ctp:51;61
+#: View/Exams/stevie.ctp:51;59
 msgid "Conclusion"
 msgstr ""
 
-#: View/Exams/stevie.ctp:63;121
+#: View/Exams/stevie.ctp:61;118
 msgid "Reliability of the exam: low"
 msgstr ""
 
-#: View/Exams/stevie.ctp:64;122
+#: View/Exams/stevie.ctp:62;119
 msgid "The reliability of the test is too low to give a decisive result: there are too many incorrect fail or pass decisions being made."
 msgstr ""
 
-#: View/Exams/stevie.ctp:65;123
+#: View/Exams/stevie.ctp:63;120
 msgid "The reliability of the test can be increased by executing an item analysis and removing or editing incorrect items from the test results."
 msgstr ""
 
-#: View/Exams/stevie.ctp:66;70;74;124;128;132
+#: View/Exams/stevie.ctp:64;68;72;121;125;129
 msgid "Press on ‘next’ to start the item analysis. Only items which can increase reliability will be shown. Reliable questions will not be shown."
 msgstr ""
 
-#: View/Exams/stevie.ctp:68;126
+#: View/Exams/stevie.ctp:66;123
 msgid "Reliability of the exam: doubtful"
 msgstr ""
 
-#: View/Exams/stevie.ctp:69;127
+#: View/Exams/stevie.ctp:67;124
 msgid "The reliability of this test is debatable. An item analysis should be executed to increase the reliability of the test: there are too many incorrect fail or pass decisions being made.In case this is a mid term test, the reliability is sufficient."
 msgstr ""
 
-#: View/Exams/stevie.ctp:72;130
+#: View/Exams/stevie.ctp:70;127
 msgid "Reliability of the exam: adequate"
 msgstr ""
 
-#: View/Exams/stevie.ctp:73;131
+#: View/Exams/stevie.ctp:71;128
 msgid "Reliability of the test is sufficient. An item analysis can increase the reliability but is not strictly necessary."
 msgstr ""
 
-#: View/Exams/stevie.ctp:91
+#: View/Exams/stevie.ctp:89
 msgid "Item %s / %s"
 msgstr ""
 
-#: View/Exams/stevie.ctp:105
+#: View/Exams/stevie.ctp:103
 msgid "Rit correct answer"
 msgstr ""
 
-#: View/Exams/stevie.ctp:107;103
-#: View/Questions/index.ctp:85
+#: View/Exams/stevie.ctp:105;101
+#: View/Questions/index.ctp:61
 msgid "Correct answer"
 msgid_plural "Correct answers"
 msgstr[0] ""
 msgstr[1] ""
 
-#: View/Exams/stevie.ctp:108;115
+#: View/Exams/stevie.ctp:106;112
 msgid "%s %%"
 msgstr ""
 
-#: View/Exams/stevie.ctp:114
+#: View/Exams/stevie.ctp:111
 msgid "Incorrect answer %s"
 msgstr ""
 
-#: View/Exams/stevie.ctp:141;143
+#: View/Exams/stevie.ctp:138;140
 msgid "< Previous"
 msgstr ""
 
-#: View/Exams/stevie.ctp:148
+#: View/Exams/stevie.ctp:143
 msgid "Finish"
 msgstr ""
 
-#: View/Exams/stevie.ctp:150
+#: View/Exams/stevie.ctp:145
 msgid "Next >"
 msgstr ""
 
@@ -1026,7 +1024,7 @@ msgstr ""
 msgid "Rit Answer %s"
 msgstr ""
 
-#: View/Exams/csv/scores.ctp:3
+#: View/Exams/csv/scores.ctp:13
 msgid "Total score"
 msgstr ""
 
@@ -1066,14 +1064,14 @@ msgstr ""
 
 #: View/Images/add.ctp:20
 #: View/Images/edit.ctp:22
-#: View/Images/index.ctp:52
+#: View/Images/index.ctp:53
 #: View/Images/view.ctp:43
 msgid "List Questions"
 msgstr ""
 
 #: View/Images/add.ctp:21
 #: View/Images/edit.ctp:23
-#: View/Images/index.ctp:53
+#: View/Images/index.ctp:54
 #: View/Images/view.ctp:44
 msgid "New Question"
 msgstr ""
@@ -1084,7 +1082,7 @@ msgid "Edit Image"
 msgstr ""
 
 #: View/Images/edit.ctp:20
-#: View/Images/index.ctp:28
+#: View/Images/index.ctp:29
 #: View/Images/view.ctp:40
 msgid "Are you sure you want to delete # %s?"
 msgstr ""
@@ -1093,38 +1091,38 @@ msgstr ""
 msgid "Images"
 msgstr ""
 
-#: View/Images/index.ctp:26
+#: View/Images/index.ctp:27
 #: View/QuestionFormats/admin_index.ctp:20;26
-#: View/Questions/index.ctp:104
+#: View/Questions/index.ctp:81
 #: View/Users/index.ctp:30;36
 msgid "View"
 msgstr ""
 
-#: View/Images/index.ctp:27
+#: View/Images/index.ctp:28
 #: View/QuestionFormats/admin_index.ctp:34;41
 #: View/QuestionFormats/admin_view.ctp:4
-#: View/Questions/index.ctp:109
+#: View/Questions/index.ctp:86
 #: View/Questions/view.ctp:3
 #: View/Users/index.ctp:45;52
 msgid "Edit"
 msgstr ""
 
-#: View/Images/index.ctp:36
+#: View/Images/index.ctp:37
 #: View/QuestionFormats/admin_index.ctp:54
 msgid "Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}"
 msgstr ""
 
-#: View/Images/index.ctp:42
+#: View/Images/index.ctp:43
 #: View/QuestionFormats/admin_index.ctp:60
 msgid "previous"
 msgstr ""
 
-#: View/Images/index.ctp:44
+#: View/Images/index.ctp:45
 #: View/QuestionFormats/admin_index.ctp:62
 msgid "next"
 msgstr ""
 
-#: View/Images/index.ctp:51
+#: View/Images/index.ctp:52
 #: View/Images/view.ctp:42
 msgid "New Image"
 msgstr ""
@@ -1182,7 +1180,7 @@ msgid "Go back one page"
 msgstr ""
 
 #: View/Questions/add.ctp:134
-#: View/Questions/index.ctp:38
+#: View/Questions/index.ctp:35
 msgid "Add Question"
 msgstr ""
 
@@ -1192,117 +1190,117 @@ msgid "Start sentence"
 msgstr ""
 
 #: View/Questions/add.ctp:160;220
-#: View/Questions/edit.ctp:145;205
-#: View/Questions/view.ctp:54
+#: View/Questions/edit.ctp:145;202
+#: View/Questions/view.ctp:56
 msgid "Answer"
 msgstr ""
 
 #: View/Questions/add.ctp:200
-#: View/Questions/edit.ctp:185
+#: View/Questions/edit.ctp:183
 msgid "Are you sure you wish to delete this answer?"
 msgstr ""
 
 #: View/Questions/add.ctp:211
-#: View/Questions/edit.ctp:196
+#: View/Questions/edit.ctp:193
 msgid "Answer %s"
 msgstr ""
 
 #: View/Questions/add.ctp:219
-#: View/Questions/edit.ctp:204
+#: View/Questions/edit.ctp:201
 msgid "Correct"
 msgstr ""
 
 #: View/Questions/add.ctp:221
-#: View/Questions/edit.ctp:206
+#: View/Questions/edit.ctp:203
 msgid "Feedback"
 msgstr ""
 
 #: View/Questions/add.ctp:227
-#: View/Questions/edit.ctp:212
+#: View/Questions/edit.ctp:209
 msgid "Add Answer"
 msgstr ""
 
 #: View/Questions/add.ctp:249
-#: View/Questions/edit.ctp:234
+#: View/Questions/edit.ctp:230
 #: View/Questions/view.ctp:50
 msgid "Feedback when wrong answer"
 msgstr ""
 
 #: View/Questions/add.ctp:258
-#: View/Questions/edit.ctp:243
+#: View/Questions/edit.ctp:239
 #: View/Questions/view.ctp:44
 msgid "Feedback when correct answer"
 msgstr ""
 
 #: View/Questions/add.ctp:271
-#: View/Questions/edit.ctp:256
-#: View/Questions/index.ctp:21
-#: View/Questions/view.ctp:73
+#: View/Questions/edit.ctp:252
+#: View/Questions/index.ctp:19
+#: View/Questions/view.ctp:75
 msgid "Tags"
 msgstr ""
 
 #: View/Questions/add.ctp:284
-#: View/Questions/edit.ctp:268
+#: View/Questions/edit.ctp:264
 msgid "Are you sure you wish to delete this tag?"
 msgstr ""
 
 #: View/Questions/add.ctp:319
-#: View/Questions/edit.ctp:306
+#: View/Questions/edit.ctp:302
 msgid "Add Tag"
 msgstr ""
 
 #: View/Questions/add.ctp:323
-#: View/Questions/edit.ctp:327
-#: View/Questions/view.ctp:84
+#: View/Questions/edit.ctp:321
+#: View/Questions/view.ctp:86
 msgid "Comments"
 msgstr ""
 
 #: View/Questions/add.ctp:335
-#: View/Questions/edit.ctp:340
-#: View/Questions/view.ctp:98
+#: View/Questions/edit.ctp:333
+#: View/Questions/view.ctp:100
 msgid "Analyses"
 msgstr ""
 
-#: View/Questions/download.ctp:52
+#: View/Questions/download.ctp:51
 msgid "Correct answers"
 msgstr ""
 
-#: View/Questions/index.ctp:29
+#: View/Questions/index.ctp:27
 msgid "Filter"
 msgstr ""
 
-#: View/Questions/index.ctp:40
+#: View/Questions/index.ctp:37
 msgid "Export"
 msgstr ""
 
-#: View/Questions/index.ctp:46
+#: View/Questions/index.ctp:43
 msgid "HTML"
 msgstr ""
 
-#: View/Questions/index.ctp:47
+#: View/Questions/index.ctp:44
 msgid "Respondus"
 msgstr ""
 
-#: View/Questions/index.ctp:48
+#: View/Questions/index.ctp:45
 msgid "QMP"
 msgstr ""
 
-#: View/Questions/index.ctp:51
+#: View/Questions/index.ctp:48
 msgid "Questions"
 msgstr ""
 
-#: View/Questions/index.ctp:85
+#: View/Questions/index.ctp:61
 msgid "Wrong answer"
 msgstr ""
 
-#: View/Questions/index.ctp:110
+#: View/Questions/index.ctp:87
 #: View/Users/admin_edit.ctp:5
-#: View/Users/index.ctp:70
+#: View/Users/index.ctp:71
 #: View/Users/view.ctp:6
 msgid "Are you sure you want to delete # %s \"%s\"?"
 msgstr ""
 
-#: View/Questions/index.ctp:123
+#: View/Questions/index.ctp:99
 msgid "Tip of the Day"
 msgstr ""
 
@@ -1318,15 +1316,15 @@ msgstr ""
 msgid "and"
 msgstr ""
 
-#: View/Questions/view.ctp:62
+#: View/Questions/view.ctp:64
 msgid "Feedback Option %s"
 msgstr ""
 
-#: View/Questions/view.ctp:88
+#: View/Questions/view.ctp:90
 msgid "Created at"
 msgstr ""
 
-#: View/Questions/view.ctp:90
+#: View/Questions/view.ctp:92
 msgid "Updated at"
 msgstr ""
 
@@ -1373,7 +1371,7 @@ msgstr ""
 msgid "Confirm new password"
 msgstr ""
 
-#: View/Users/classic_login.ctp:4;18
+#: View/Users/classic_login.ctp:4;17
 msgid "Sign in"
 msgstr ""
 
@@ -1393,7 +1391,7 @@ msgstr ""
 msgid "Users"
 msgstr ""
 
-#: View/Users/index.ctp:77;82
+#: View/Users/index.ctp:78;83
 msgid "Change password"
 msgstr ""
 
