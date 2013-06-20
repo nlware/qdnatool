@@ -3,7 +3,8 @@ App::uses('AppModel', 'Model');
 /**
  * Tag Model
  *
- * @property Question $Question
+ * @property QuestionsTag $QuestionsTag
+ * @property QuestionsTag $QuestionsTagFilter
  */
 class Tag extends AppModel {
 
