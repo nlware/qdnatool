@@ -1,4 +1,4 @@
-<?php if(Configure::read('debug') == 0 && Configure::read('Config.googleAnalytics')): ?>
+<?php if (Configure::read('debug') == 0 && Configure::read('Config.googleAnalytics')): ?>
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', '<?php echo Configure::read('Config.googleAnalytics'); ?>']);
