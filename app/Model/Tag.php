@@ -39,31 +39,6 @@ class Tag extends AppModel {
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 /**
- * hasAndBelongsToMany associations
- *
- * @var array
- */
-	public $hasAndBelongsToMany = array(
-		/*,
-		'Question' => array
-		( 'className' => 'Question',
-			'with' => 'QuestionsTag',
-			'foreignKey' => 'tag_id',
-			'associationForeignKey' => 'question_id',
-			'unique' => true,
-			'conditions' => '',
-			'fields' => '',
-			'order' => 'QuestionsTag.order',
-			'limit' => '',
-			'offset' => '',
-			'finderQuery' => '',
-			'deleteQuery' => '',
-			'insertQuery' => ''
-		)
-		*/
-	);
-
-/**
  * hasMany associations
  *
  * @var array
