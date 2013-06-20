@@ -338,9 +338,9 @@ class Exam extends AppModel {
 		}
 
 		$script = array();
-		$script[] = 'source("' . APP . DS . 'Lib' . DS . 'Rscripts' . DS . 'analyse.R");';
-		$script[] = 'nvragen = ' . $questionCount . ';';
-		$script[] = 'ndeel = ' . $studentCount . ';';
+		$script[] = sprintf('source("%s");', APP . DS . 'Lib' . DS . 'Rscripts' . DS . 'analyse.R');
+		$script[] = sprintf('nvragen = %d;', $questionCount);
+		$script[] = sprintf('ndeel = %d;', $studentCount);
 
 		$keyMatrix = array();
 		foreach ($exam['Item'] as $i => $item) {
@@ -508,54 +508,73 @@ class Exam extends AppModel {
 			$correctAnswerPercentage = Set::extract('/Item/correct_answer_percentage', $exam);
 			$correctAnswerIRC = Set::extract('/Item/correct_answer_irc', $exam);
 
-			$script = 'source("' . APP . DS . 'Lib' . DS . 'Rscripts' . DS . 'report.R");
+			$script = array();
+			$script[] = sprintf('source("%s");', APP . DS . 'Lib' . DS . 'Rscripts' . DS . 'report.R');
+			$script[] = sprintf('number_students = %d;', count($exam['Subject']));
+			$script[] = sprintf('number_answeroptions = c(%s);', implode(',', $answerOptionCount));
+			$script[] = sprintf('max_number_answeroptions = %s;', $exam['Exam']['max_answer_option_count']);
+			$script[] = sprintf('number_questions = %d;', count($exam['Item']));
+			$script[] = sprintf('Cronbach = %s;', $exam['Exam']['cronbachs_alpha']);
+			$script[] = sprintf('correct_frequency = c(%s);', implode(',', $correctAnswerCount));
+			$script[] = sprintf('correct_percentage = c(%s);', implode(',', $correctAnswerPercentage));
+			$script[] = sprintf('corrected_item_tot_cor = c(%s);', implode(',', $correctAnswerIRC));
 
-			number_students=' . count($exam['Subject']) . ';
-			number_answeroptions=c(' . implode(',', $answerOptionCount) . ');
-			max_number_answeroptions=' . $exam['Exam']['max_answer_option_count'] . ';
-			number_questions=' . count($exam['Item']) . ';
-			Cronbach=' . $exam['Exam']['cronbachs_alpha'] . ';
-			correct_frequency=c(' . implode(',', $correctAnswerCount) . ');
-			correct_percentage=c(' . implode(',', $correctAnswerPercentage) . ');
-			corrected_item_tot_cor=c(' . implode(',', $correctAnswerIRC) . ');
-			';
-
-			$script .= 'frequency_answer_options=matrix(,max_number_answeroptions+1,number_questions);';
-			$script .= 'percentage_answer_options=matrix(,max_number_answeroptions+1,number_questions);';
-			$script .= 'corrected_item_tot_cor_answ_option=matrix(,max_number_answeroptions+1,number_questions);';
-			$script .= 'item_names= rep(NA,' . count($exam['Item']) . ');';
+			$script[] = 'frequency_answer_options = matrix(, max_number_answeroptions + 1, number_questions);';
+			$script[] = 'percentage_answer_options = matrix(, max_number_answeroptions + 1, number_questions);';
+			$script[] = 'corrected_item_tot_cor_answ_option = matrix(, max_number_answeroptions + 1, number_questions);';
+			$script[] = sprintf('item_names = rep(NA, %d);', count($exam['Item']));
 
 			foreach ($exam['Item'] as $i => $item) {
-				$script .= 'frequency_answer_options[1,' . ($i + 1) . '] = ' . $item['missing_answer_count'] . ';';
-				$script .= 'percentage_answer_options[1,' . ($i + 1) . '] = ' . $item['missing_answer_percentage'] . ';';
-				$script .= 'corrected_item_tot_cor_answ_option[1,' . ($i + 1) . '] = 0;';
-				$script .= 'item_names[' . ($i + 1) . '] = ' . $item['value'] . ';';
+				$script[] = sprintf('frequency_answer_options[1, %d] = %s;', ($i + 1), $item['missing_answer_count']);
+				$script[] = sprintf('percentage_answer_options[1, %d] = %s;', ($i + 1), $item['missing_answer_percentage']);
+				$script[] = sprintf('corrected_item_tot_cor_answ_option[1, %d] = 0;', ($i + 1));
+				$script[] = sprintf('item_names[%d] = %s;', ($i + 1), $item['value']);
 
 				foreach ($item['AnswerOption'] as $j => $answerOption) {
-					$script .= 'frequency_answer_options[' . ($j + 2) . ',' . ($i + 1) . '] = ' . $answerOption['given_answer_count'] . ';';
-					$script .= 'percentage_answer_options[' . ($j + 2) . ',' . ($i + 1) . '] = ' . $answerOption['given_answer_percentage'] . ';';
-					$script .= 'corrected_item_tot_cor_answ_option[' . ($j + 2) . ',' . ($i + 1) . '] = ' . (empty($answerOption['given_answer_irc'])?'0':$answerOption['given_answer_irc']) . ';';
+					$script[] = sprintf(
+						'frequency_answer_options[%d, %d] = %s;',
+						($j + 2), ($i + 1), $answerOption['given_answer_count']
+					);
+					$script[] = sprintf(
+						'percentage_answer_options[%d, %d] = %s;',
+						($j + 2), ($i + 1), $answerOption['given_answer_percentage']
+					);
+					$script[] = sprintf(
+						'corrected_item_tot_cor_answ_option[%d, %d] = %s;',
+						($j + 2), ($i + 1), (empty($answerOption['given_answer_irc']) ? '0' : $answerOption['given_answer_irc'])
+					);
 				}
 			}
 
-			$script .= 'input_correct=matrix(0,number_students,number_questions);';
+			$script[] = 'input_correct = matrix(0, number_students, number_questions);';
 			foreach ($exam['Subject'] as $i => $subject) {
 				foreach ($subject['GivenAnswer'] as $j => $givenAnswer) {
-					$script .= 'input_correct[' . ($i + 1) . ',' . ($j + 1) . '] = ' . (empty($givenAnswer['score'])?'0':$givenAnswer['score']) . ';';
+					$script[] = sprintf(
+						'input_correct[%d, %d] = %s;',
+						($i + 1), ($j + 1), (empty($givenAnswer['score']) ? '0' : $givenAnswer['score'])
+					);
 				}
 			}
 
-			$script .= 'key=matrix(0,max_number_answeroptions,number_questions);';
+			$script[] = 'key = matrix(0, max_number_answeroptions, number_questions);';
 			foreach ($exam['Item'] as $i => $item) {
 				foreach ($item['AnswerOption'] as $j => $answerOption) {
 					if ($answerOption['is_correct']) {
-						$script .= 'key[' . ($j + 1) . ',' . ($i + 1) . ']=1;';
+						$script[] = sprintf('key[%d, %d] = 1;', ($j + 1), ($i + 1));
 					}
 				}
 			}
 
-			$script .= 'make_pdf("' . $tempFile . '",number_students,number_answeroptions,number_questions,Cronbach,frequency_answer_options,percentage_answer_options,input_correct,key,correct_frequency,correct_percentage, corrected_item_tot_cor,corrected_item_tot_cor_answ_option,"' . $exam['Exam']['name'] . '",item_names);';
-			$script = str_replace("\r\n", "", $script);
+			$script[] = sprintf(
+				'make_pdf(' .
+				'"%s", number_students, number_answeroptions, number_questions, Cronbach, frequency_answer_options, ' .
+				'percentage_answer_options, input_correct, key, correct_frequency, correct_percentage, ' .
+				'corrected_item_tot_cor, corrected_item_tot_cor_answ_option, "%s", item_names' .
+				');',
+				$tempFile, $exam['Exam']['name']
+			);
+
+			$script = implode("\n", $script);
 
 			$result = Rserve::execute($script);
 
