@@ -1,18 +1,20 @@
-# LANGUAGE translation of CakePHP Application
-# Copyright YEAR NAME <EMAIL@ADDRESS>
+# English (eng) translation of qDNAtool
+# Copyright (c) NLWare B.V. (http://www.nlware.com)
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: qDNAtool\n"
 "POT-Creation-Date: 2013-06-20 13:26+0000\n"
-"PO-Revision-Date: 2013-06-20 15:27+0100\n"
-"Last-Translator: Mark van Driel <mvdriel@nlware.com>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2013-07-19 10:38+0100\n"
+"Last-Translator: Mark van Driel\n"
+"Language-Team: NLWare B.V.\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
 
 #: Console/Command/QueueShell.php:18;21
 msgid "tries to call the cli `add()` function on a task."

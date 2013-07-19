@@ -17,6 +17,12 @@ $analysisControllers = array('exams');
 		echo $this->Html->link($this->Html->image('logo-surf.png'), 'http://www.surf.nl', array('target' => '_blank', 'escape' => false));
 		?>
 		</p>
+		<p>
+		<?php
+		echo __('CakePHP version %s', Configure::version());
+		echo $this->Html->link(__('GitHub'), 'https://github.com/nlware/qdnatool', array('target' => '_blank'));
+		?>
+		</p>
 	</div>
 	<div class="modal-footer">
 		<button class="btn btn-primary" data-dismiss="modal" aria-hidden="true"><?php echo __('Close'); ?></button>
