@@ -7,7 +7,8 @@ qDNAtool
 ### Requirements
 
 - PHP (5.2.8 or greater)
-- MySQL (4 or greater) 
+- MySQL (4 or greater)
+- R (version 2.14.1)
 
 ### Installation
 
