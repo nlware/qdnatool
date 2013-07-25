@@ -817,7 +817,11 @@ class Exam extends AppModel {
 								if (!empty($values[$questionIndex + 1]) || (isset($values[$questionIndex + 1]) && is_numeric($values[$questionIndex + 1]))) {
 									$givenAnswer = $values[$questionIndex + 1];
 									if (strlen($givenAnswer) > 1) $givenAnswer = substr($givenAnswer, 0, 1);
-									$givenAnswer++;
+									if (is_numeric($givenAnswer)) {
+										$givenAnswer++;
+									} else {
+										$givenAnswer = null;
+									}
 								}
 								if (!empty($values[$questionIndex + 2]) || (isset($values[$questionIndex + 2]) && is_numeric($values[$questionIndex + 2]))) {
 									$score = $values[$questionIndex + 2];
