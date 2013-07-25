@@ -110,8 +110,8 @@ class Item extends AppModel {
 			$itemId = $item['Item']['id'];
 
 			// update is_correct of answer_option if answer_option already exists
-			if ($isCorrect && isset($item['Item'][$givenAnswerOptionOrder - 1]['is_correct']) && !$item['Item'][$givenAnswerOptionOrder - 1]['is_correct']) {
-				$this->AnswerOption->id = $item['Item'][$givenAnswerOptionOrder - 1]['id'];
+			if ($isCorrect && isset($item['AnswerOption'][$givenAnswerOptionOrder - 1]['is_correct']) && !$item['AnswerOption'][$givenAnswerOptionOrder - 1]['is_correct']) {
+				$this->AnswerOption->id = $item['AnswerOption'][$givenAnswerOptionOrder - 1]['id'];
 				$this->AnswerOption->saveField('is_correct', true);
 			}
 
