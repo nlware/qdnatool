@@ -367,7 +367,7 @@ class Exam extends AppModel {
 			$script .= 'number_answeroptions[' . ($i + 1) . '] = ' . $count . ';';
 		}
 
-		$script .= 'analyse(key, input_answers, number_answeroptions);';
+		$script .= 'Analyse(key, input_answers, number_answeroptions);';
 		$script = str_replace("\r\n", "", $script);
 
 		$result = Rserve::execute($script);
@@ -523,7 +523,7 @@ class Exam extends AppModel {
 				}
 			}
 
-			$script .= 'make_pdf("' . $tempFile . '",number_students,number_answeroptions,number_questions,Cronbach,frequency_answer_options,percentage_answer_options,input_correct,key,correct_frequency,correct_percentage, corrected_item_tot_cor,corrected_item_tot_cor_answ_option,"' . $exam['Exam']['name'] . '",item_names);';
+			$script .= 'GenerateReport("' . $tempFile . '",number_students,number_answeroptions,number_questions,Cronbach,frequency_answer_options,percentage_answer_options,input_correct,key,correct_frequency,correct_percentage, corrected_item_tot_cor,corrected_item_tot_cor_answ_option,"' . $exam['Exam']['name'] . '",item_names);';
 			$script = str_replace("\r\n", "", $script);
 
 			$result = Rserve::execute($script);
