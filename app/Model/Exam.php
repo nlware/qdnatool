@@ -498,7 +498,7 @@ class Exam extends AppModel {
 				$script .= 'frequency_answer_options[1,' . ($i + 1) . '] = ' . $item['missing_answer_count'] . ';';
 				$script .= 'percentage_answer_options[1,' . ($i + 1) . '] = ' . $item['missing_answer_percentage'] . ';';
 				$script .= 'corrected_item_tot_cor_answ_option[1,' . ($i + 1) . '] = 0;';
-				$script .= 'item_names[' . ($i + 1) . '] = ' . $item['value'] . ';';
+				$script .= 'item_names[' . ($i + 1) . '] = ' . $item['order'] . ';';
 
 				foreach ($item['AnswerOption'] as $j => $answerOption) {
 					$script .= 'frequency_answer_options[' . ($j + 2) . ',' . ($i + 1) . '] = ' . $answerOption['given_answer_count'] . ';';
