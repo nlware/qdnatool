@@ -338,7 +338,7 @@ class Exam extends AppModel {
 		}
 
 		$script = '
-		source("' . APP . DS . 'Lib' . DS . 'Rscripts' . DS . 'analyse.R");
+		source("' . APP . 'Lib' . DS . 'Rscripts' . DS . 'analyse.R");
 		nvragen=' . $questionCount . ';
 		ndeel=' . $studentCount . ';
 
@@ -477,7 +477,7 @@ class Exam extends AppModel {
 			$correctAnswerPercentage = Set::extract('/Item/correct_answer_percentage', $exam);
 			$correctAnswerIRC = Set::extract('/Item/correct_answer_irc', $exam);
 
-			$script = 'source("' . APP . DS . 'Lib' . DS . 'Rscripts' . DS . 'report.R");
+			$script = 'source("' . APP . 'Lib' . DS . 'Rscripts' . DS . 'report.R");
 
 			number_students=' . count($exam['Subject']) . ';
 			number_answeroptions=c(' . implode(',', $answerOptionCount) . ');
