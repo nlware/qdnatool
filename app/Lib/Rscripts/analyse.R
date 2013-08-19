@@ -14,7 +14,7 @@ Analyse <- function(key, input.answers, number.answeroptions) {
       for (i in 1: number.students) {
         if (!is.null(input.answers[i, j]) & all(key[, j] == 0)) {
           input.correct[i, j] <- input.answers[i, j]
-        } else if(any(input.answers[i, j] == which(key[, j] == 1 ))) {
+        } else if(any(input.answers[i, j] == which(key[, j] == 1))) {
           input.correct[i, j] <- 1
         }
       }

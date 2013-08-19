@@ -58,7 +58,7 @@ GenerateReport <- function(file.name, number.students, number.answeroptions,
     #Create right order on the x-axis (Missingness last)
     if (any(key[, i] != 0) & number.answeroptions[i] < 15) {
       item.list1[[i]]$Ans_Factor <- factor(item.list1[[i]]$"Answer Option",
-                                          levels = c(LETTERS[1 : max(number.answeroptions)], "Missing"))
+                                           levels = c(LETTERS[1 : max(number.answeroptions)], "Missing"))
       item.list1[[i]]$Col_scale <- as.numeric(item.list1[[i]]$Correct) * 2 - 3
       item.list1[[i]]$IRC_col_scale <- with(item.list1[[i]], IRC * Col_scale)
       item.list1[[i]]$Perc_col_scale <- with(item.list1[[i]], Percentage)
@@ -150,7 +150,7 @@ GenerateReport <- function(file.name, number.students, number.answeroptions,
         title(items[i], line = 2)
         # Adding highlighting box for the right answeroption
         if (any(key[, i] == 1)) {
-          for (j in 1 : sum(key[, i] == 1 )) {
+          for (j in 1 : sum(key[, i] == 1)) {
             rect(.19, .92 - which(key[, i] == 1)[j] *.11 , .85, 1.02 - which(key[, i] == 1)[j] * .11, col = rgb(0, .9, 0, .5), density = NA)
           }
         }
@@ -163,7 +163,7 @@ GenerateReport <- function(file.name, number.students, number.answeroptions,
         title(items[i], line = -0.85)
 
         if (any(key[, i] == 1)) {
-          for (j in 1 : sum(key[, i] == 1 )) {
+          for (j in 1 : sum(key[, i] == 1)) {
             rect(.19, .92 - which(key[, i] == 1)[j] * .096, .85, 1.01 - which(key[, i] == 1)[j] * .096 , col = rgb(0, .9, 0, .5), density = NA)
           }
         }
@@ -182,8 +182,7 @@ GenerateReport <- function(file.name, number.students, number.answeroptions,
                     6, 6, 6, 7, 7, 7,
                     6, 6, 6, 7, 7, 7,
                     6, 6, 6, 7, 7, 7,
-                    6, 6, 6, 7, 7, 7
-    ), , 6, byrow = TRUE))
+                    6, 6, 6, 7, 7, 7), , 6, byrow = TRUE))
 
     # Title
     textplot(title, valign = "top", cex = 2)
@@ -200,7 +199,7 @@ GenerateReport <- function(file.name, number.students, number.answeroptions,
       # Adding highlighting box for the right answeroption
       if (any(key[, i] == 1) & number.answeroptions[i] < 15) {
         for (j in 1 : sum(key[, i] == 1)) {
-          rect(.19, .95 - .065 * which(key[, i] == 1)[j] , .85, 1.01 - .065*which(key[, i] == 1)[j], col = rgb(0, .9, 0, .5), density = NA)
+          rect(.19, .95 - .065 * which(key[, i] == 1)[j], .85, 1.01 - .065 * which(key[, i] == 1)[j], col = rgb(0, .9, 0, .5), density = NA)
         }
       }
     }
@@ -215,7 +214,7 @@ GenerateReport <- function(file.name, number.students, number.answeroptions,
 
       # Adding highlighting box for the right answeroption
       if (any(key[, i] == 1) &  number.answeroptions[i] < 15) {
-        for (j in 1 : sum(key[, i] == 1 )) {
+        for (j in 1 : sum(key[, i] == 1)) {
           rect(.19, .95 - .065 * which(key[, i] == 1)[j] , .85, 1.01 - .065 * which(key[, i] == 1)[j], col = rgb(0, .9, 0, .5), density = NA)
         }
       }
