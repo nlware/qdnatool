@@ -143,7 +143,9 @@ class User extends AppModel {
 	}
 
 	public function adminUpdate($data) {
-		if (empty($data['User']['password'])) unset($data['User']['password']);
+		if (empty($data['User']['password'])) {
+			unset($data['User']['password']);
+		}
 		return $this->save($data);
 	}
 

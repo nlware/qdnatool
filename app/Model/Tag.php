@@ -60,7 +60,9 @@ class Tag extends AppModel {
 
 	public function beforeValidate($options = array()) {
 		if ($userId = AuthComponent::user('id')) {
-			if (!$this->exists()) $this->data[$this->alias]['user_id'] = $userId;
+			if (!$this->exists()) {
+				$this->data[$this->alias]['user_id'] = $userId;
+			}
 		}
 		return true;
 	}
@@ -94,7 +96,9 @@ class Tag extends AppModel {
 
 	public function cleanupUnused($tagIds = array()) {
 		$conditions = array('QuestionsTagFilter.id' => null);
-		if (!empty($tagIds)) $conditions['Tag.id'] = $tagIds;
+		if (!empty($tagIds)) {
+			$conditions['Tag.id'] = $tagIds;
+		}
 
 		$tags = $this->find(
 			'all', array(

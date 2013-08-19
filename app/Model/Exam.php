@@ -184,8 +184,12 @@ class Exam extends AppModel {
 	public function add($data) {
 		$result = false;
 
-		if (!empty($data['Exam']['data_file']['error']) && $data['Exam']['data_file']['error'] == UPLOAD_ERR_NO_FILE) unset($data['Exam']['data_file']);
-		if (!empty($data['Exam']['mapping_file']['error']) && $data['Exam']['mapping_file']['error'] == UPLOAD_ERR_NO_FILE) unset($data['Exam']['mapping_file']);
+		if (!empty($data['Exam']['data_file']['error']) && $data['Exam']['data_file']['error'] == UPLOAD_ERR_NO_FILE) {
+			unset($data['Exam']['data_file']);
+		}
+		if (!empty($data['Exam']['mapping_file']['error']) && $data['Exam']['mapping_file']['error'] == UPLOAD_ERR_NO_FILE) {
+			unset($data['Exam']['mapping_file']);
+		}
 
 		$this->set($data);
 		if ($this->validates()) {
@@ -252,22 +256,22 @@ class Exam extends AppModel {
 	private function __decodeLine($line, $firstLine = false) {
 		if ($firstLine) {
 			$this->__encoding = null;
-			if (substr($line,0,3) == pack("CCC",0xef,0xbb,0xbf)) {
+			if (substr($line, 0, 3) == pack("CCC", 0xef, 0xbb, 0xbf)) {
 				$this->__encoding = 'UTF-8';
-				$line = substr($line,3);
-			} elseif (substr($line,0,2) == pack("CC",0xfe,0xff)) {
+				$line = substr($line, 3);
+			} elseif (substr($line, 0, 2) == pack("CC", 0xfe, 0xff)) {
 				$this->__encoding = 'UTF-16';
-				$line = substr($line,2);
-			} elseif (substr($line,0,2) == pack("CC",0xff,0xfe)) {
+				$line = substr($line, 2);
+			} elseif (substr($line, 0, 2) == pack("CC", 0xff, 0xfe)) {
 				$this->__encoding = 'UTF-16LE';
-				$line = substr($line,2);
+				$line = substr($line, 2);
 			}
 		}
 
 		$line = ltrim($line);
 
 		if (!empty($this->__encoding)) {
-			$line = mb_convert_encoding($line , 'UTF-8' , $this->__encoding);
+			$line = mb_convert_encoding($line, 'UTF-8', $this->__encoding);
 		}
 
 		return $line;
@@ -357,13 +361,17 @@ class Exam extends AppModel {
 
 		foreach ($givenAnswers as $i => $givenAnswersByStudent) {
 			foreach ($givenAnswersByStudent as $j => $givenAnswer) {
-				if (empty($givenAnswer)) $givenAnswer = 0;
+				if (empty($givenAnswer)) {
+					$givenAnswer = 0;
+				}
 				$script .= 'input_answers[' . ($i + 1) . ',' . ($j + 1) . '] = ' . $givenAnswer . ';';
 			}
 		}
 
 		foreach ($answerOptionCount as $i => $count) {
-			if (empty($count)) $count = 0;
+			if (empty($count)) {
+				$count = 0;
+			}
 			$script .= 'number_answeroptions[' . ($i + 1) . '] = ' . $count . ';';
 		}
 
@@ -574,7 +582,9 @@ class Exam extends AppModel {
 			}
 		}
 
-		if ($success) $this->scheduleAnalyse($id);
+		if ($success) {
+			$this->scheduleAnalyse($id);
+		}
 		return $success;
 	}
 
@@ -594,7 +604,7 @@ class Exam extends AppModel {
 
 				if ($i == 0) {
 					// first line contains column headings
-					$headings = str_getcsv($line,',','"','"');
+					$headings = str_getcsv($line, ',', '"', '"');
 
 					$data = array();
 					$answerIndex = 0;
@@ -633,10 +643,12 @@ class Exam extends AppModel {
 					}
 					$data = array();
 				} else {
-					$values = str_getcsv($line,',','"','"');
+					$values = str_getcsv($line, ',', '"', '"');
 
 					// check for empty last line
-					if (empty($values[0])) break;
+					if (empty($values[0])) {
+						break;
+					}
 
 					if (($index = array_search('Username', $headings)) !== false) {
 						if (empty($values[$index])) {
@@ -758,8 +770,12 @@ class Exam extends AppModel {
 			$this->id = $exam['Exam']['id'];
 			$this->save($data);
 
-			if (!empty($filename) && file_exists($filename)) unlink($filename);
-			if (!empty($versionMappingFilename) && file_exists($versionMappingFilename)) unlink($versionMappingFilename);
+			if (!empty($filename) && file_exists($filename)) {
+				unlink($filename);
+			}
+			if (!empty($versionMappingFilename) && file_exists($versionMappingFilename)) {
+				unlink($versionMappingFilename);
+			}
 		} else {
 			$this->id = $exam['Exam']['id'];
 			$this->saveField('exam_state_id', ($result?ExamState::IMPORTED:ExamState::IMPORT_FAILED));
@@ -784,14 +800,16 @@ class Exam extends AppModel {
 
 				if ($i == 0) {
 					// first line contains column headings
-					$headings = str_getcsv($line,';','"','"');
+					$headings = str_getcsv($line, ';', '"', '"');
 
 					$data = array();
 				} else {
-					$values = str_getcsv($line,';','"','"');
+					$values = str_getcsv($line, ';', '"', '"');
 
 					// check for empty last line
-					if (empty($values[0])) break;
+					if (empty($values[0])) {
+						break;
+					}
 
 					if (($index = array_search('Deelnemersnaam', $headings)) !== false) {
 						if (empty($values[$index])) {
@@ -813,10 +831,14 @@ class Exam extends AppModel {
 								$givenAnswer = null;
 								$score = 0;
 								$maximumScore = 0;
-								if (!empty($values[$questionIndex])) $question = $values[$questionIndex];
+								if (!empty($values[$questionIndex])) {
+									$question = $values[$questionIndex];
+								}
 								if (!empty($values[$questionIndex + 1]) || (isset($values[$questionIndex + 1]) && is_numeric($values[$questionIndex + 1]))) {
 									$givenAnswer = $values[$questionIndex + 1];
-									if (strlen($givenAnswer) > 1) $givenAnswer = substr($givenAnswer, 0, 1);
+									if (strlen($givenAnswer) > 1) {
+										$givenAnswer = substr($givenAnswer, 0, 1);
+									}
 									if (is_numeric($givenAnswer)) {
 										$givenAnswer++;
 									} else {
@@ -881,8 +903,12 @@ class Exam extends AppModel {
 			$this->id = $exam['Exam']['id'];
 			$this->save($data);
 
-			if (!empty($filename) && file_exists($filename)) unlink($filename);
-			if (!empty($versionMappingFilename) && file_exists($versionMappingFilename)) unlink($versionMappingFilename);
+			if (!empty($filename) && file_exists($filename)) {
+				unlink($filename);
+			}
+			if (!empty($versionMappingFilename) && file_exists($versionMappingFilename)) {
+				unlink($versionMappingFilename);
+			}
 		} else {
 			$this->id = $exam['Exam']['id'];
 			$this->saveField('exam_state_id', ($result?ExamState::IMPORTED:ExamState::IMPORT_FAILED));
@@ -900,7 +926,9 @@ class Exam extends AppModel {
 		$this->saveField('exam_state_id', ExamState::IMPORTING);
 
 		$filename = Exam::UPLOAD_DIRECTORY . $exam['Exam']['data_filename'];
-		if (!empty($exam['Exam']['mapping_filename'])) $versionMappingFilename = Exam::UPLOAD_DIRECTORY . $exam['Exam']['mapping_filename'];
+		if (!empty($exam['Exam']['mapping_filename'])) {
+			$versionMappingFilename = Exam::UPLOAD_DIRECTORY . $exam['Exam']['mapping_filename'];
+		}
 
 		if (!empty($versionMappingFilename)) {
 			ini_set('auto_detect_line_endings', true);
@@ -910,14 +938,16 @@ class Exam extends AppModel {
 					$line = $this->__decodeLine($line, $i == 0);
 
 					if ($i == 0) {
-						$header = str_getcsv($line,';','"','"');
+						$header = str_getcsv($line, ';', '"', '"');
 
 						$version1Index = array_search('Versie.1', $header);
 						$version2Index = array_search('Versie.2', $header);
 						$answerOptionCountIndex = array_search('Answer Option Count', $header);
 					} else {
-						$values = str_getcsv($line,';','"','"');
-						if (count($values) <= 1) continue;
+						$values = str_getcsv($line, ';', '"', '"');
+						if (count($values) <= 1) {
+							continue;
+						}
 						if ($version1Index !== false && $version2Index !== false) {
 							$versionMapping[2][$values[$version1Index]] = intval($values[$version2Index]);
 						}
@@ -942,15 +972,19 @@ class Exam extends AppModel {
 
 				if ($i == 0) {
 					// first line contains correct answers for first version
-					$header = str_getcsv($line,',','"','"');
+					$header = str_getcsv($line, ',', '"', '"');
 
 					$data = array();
 					$count = count($header);
 					for ($j = 2; $j < $count; $j++) {
-						if ($header[$j] == 9) break;
+						if ($header[$j] == 9) {
+							break;
+						}
 
 						$secondVersionOrder = null;
-						if (!empty($versionMapping[2][$j - 1])) $secondVersionOrder = $versionMapping[2][$j - 1];
+						if (!empty($versionMapping[2][$j - 1])) {
+							$secondVersionOrder = $versionMapping[2][$j - 1];
+						}
 
 						$item = array(
 							'exam_id' => $exam['Exam']['id'],
@@ -958,8 +992,11 @@ class Exam extends AppModel {
 							'second_version_order' => $secondVersionOrder,
 							'value' => $j - 1
 						);
-						if (empty($answerOptionCount[$j - 1])) $item['answer_option_count'] = $exam['Exam']['answer_option_count'];
-						else $item['answer_option_count'] = $answerOptionCount[$j - 1];
+						if (empty($answerOptionCount[$j - 1])) {
+							$item['answer_option_count'] = $exam['Exam']['answer_option_count'];
+						} else {
+							$item['answer_option_count'] = $answerOptionCount[$j - 1];
+						}
 
 						for ($k = 0; $k < $item['answer_option_count']; $k++) {
 							$item['AnswerOption'][] = array(
@@ -990,10 +1027,10 @@ class Exam extends AppModel {
 				} elseif ($i == 1) {
 					// second line contains correct answers for second version
 				} else {
-					$values = str_getcsv($line,',','"','"');
+					$values = str_getcsv($line, ',', '"', '"');
 
 					// only add versions 1 and 2
-					if (!empty($values[1]) && in_array($values[1], array(1,2))) {
+					if (!empty($values[1]) && in_array($values[1], array(1, 2))) {
 						$data = array(
 							'Subject' => array(
 								'exam_id' => $exam['Exam']['id'],
@@ -1016,7 +1053,9 @@ class Exam extends AppModel {
 
 							$value = $values[$index];
 							// missing value is 9
-							if ($value === 0 || $value == 9) $value = null;
+							if ($value === 0 || $value == 9) {
+								$value = null;
+							}
 
 							$score = (!empty($value) && !empty($exam['Item'][$j]['AnswerOption'][$value - 1]['is_correct']) && $exam['Item'][$j]['AnswerOption'][$value - 1]['is_correct']);
 
@@ -1054,8 +1093,12 @@ class Exam extends AppModel {
 			$this->id = $exam['Exam']['id'];
 			$this->save($data);
 
-			if (!empty($filename) && file_exists($filename)) unlink($filename);
-			if (!empty($versionMappingFilename) && file_exists($versionMappingFilename)) unlink($versionMappingFilename);
+			if (!empty($filename) && file_exists($filename)) {
+				unlink($filename);
+			}
+			if (!empty($versionMappingFilename) && file_exists($versionMappingFilename)) {
+				unlink($versionMappingFilename);
+			}
 		} else {
 			$this->id = $exam['Exam']['id'];
 			$this->saveField('exam_state_id', ($result?ExamState::IMPORTED:ExamState::IMPORT_FAILED));
@@ -1093,7 +1136,9 @@ class Exam extends AppModel {
 		$result = true;
 		$this->validator()->remove('data_file');
 		$this->validator()->remove('answer_option_count');
-		if (!$this->saveAll($data, array('validate' => 'only'))) $result = false;
+		if (!$this->saveAll($data, array('validate' => 'only'))) {
+			$result = false;
+		}
 
 		if ($result) {
 			$exam = $this->find(
@@ -1104,7 +1149,9 @@ class Exam extends AppModel {
 					)
 				)
 			);
-			if (empty($exam)) $result = false;
+			if (empty($exam)) {
+				$result = false;
+			}
 		}
 
 		if ($result) {
@@ -1224,7 +1271,9 @@ class Exam extends AppModel {
 							}
 						}
 					}
-					if (!$this->Item->GivenAnswer->saveAll($data)) $examId = false;
+					if (!$this->Item->GivenAnswer->saveAll($data)) {
+						$examId = false;
+					}
 				}
 			}
 		}

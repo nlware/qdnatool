@@ -135,9 +135,13 @@ class Question extends AppModel {
 	public function notContains($check, $keywords) {
 		$value = array_values($check);
 		$value = $value[0];
-		if (!is_array($keywords)) $keywords = array($keywords);
+		if (!is_array($keywords)) {
+			$keywords = array($keywords);
+		}
 		foreach ($keywords as $keyword) {
-			if (strpos($value, $keyword) !== false) return false;
+			if (strpos($value, $keyword) !== false) {
+				return false;
+			}
 		}
 		return true;
 	}
@@ -759,7 +763,9 @@ class Question extends AppModel {
 
 		list($itemFeedbacks, $extraFiles) = $this->__itemFeedbackToRespondus($question, $dom);
 		$files = array_merge($files, $extraFiles);
-		if (!is_array($itemFeedbacks)) $itemFeedbacks = array($itemFeedbacks);
+		if (!is_array($itemFeedbacks)) {
+			$itemFeedbacks = array($itemFeedbacks);
+		}
 		foreach ($itemFeedbacks as $itemFeedback) {
 			$item->appendChild($itemFeedback);
 		}
@@ -1190,7 +1196,7 @@ class Question extends AppModel {
 	}
 
 	private function __wordCount($str) {
-		return count(explode(" ",$str));
+		return count(explode(" ", $str));
 	}
 
 	private function __contains($check, $keywords) {
@@ -1198,7 +1204,9 @@ class Question extends AppModel {
 			$keywords = array($keywords);
 		}
 		foreach ($keywords as $keyword) {
-			if (strpos($check, $keyword) !== false) return true;
+			if (strpos($check, $keyword) !== false) {
+				return true;
+			}
 		}
 		return false;
 	}

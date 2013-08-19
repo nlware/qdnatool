@@ -22,7 +22,9 @@ class AppModel extends Model {
  * A workaround for CakePHP lack of support for recursive
  */
 	public function deleteAll($fields, $conditions = true, $recursive = null) {
-		if (!isset($recursive)) $recursive = $this->recursive;
+		if (!isset($recursive)) {
+			$recursive = $this->recursive;
+		}
 
 		if ($recursive == -1) {
 			$belongsTo = $this->belongsTo;
@@ -46,7 +48,9 @@ class AppModel extends Model {
 	}
 
 	public function updateAll($fields, $conditions = true, $recursive = null) {
-		if (!isset($recursive)) $recursive = $this->recursive;
+		if (!isset($recursive)) {
+			$recursive = $this->recursive;
+		}
 
 		if ($recursive == -1) {
 			$belongsTo = $this->belongsTo;

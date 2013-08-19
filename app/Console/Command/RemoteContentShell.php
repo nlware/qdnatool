@@ -38,8 +38,12 @@ class RemoteContentShell extends AppShell {
 					if (is_array($xml['rss']['channel']['item'])) {
 						foreach ($xml['rss']['channel']['item'] as $item) {
 							$record = array();
-							if (!empty($item['title'])) $record['name'] = $item['title'];
-							if (!empty($item['content:encoded'])) $record['content'] = $item['content:encoded'];
+							if (!empty($item['title'])) {
+								$record['name'] = $item['title'];
+							}
+							if (!empty($item['content:encoded'])) {
+								$record['content'] = $item['content:encoded'];
+							}
 							$data[] = $record;
 						}
 					}
@@ -72,8 +76,12 @@ class RemoteContentShell extends AppShell {
 							if (!empty($instructions)) {
 								foreach ($instructions as $instruction) {
 									$record = array('id' => $instruction['Instruction']['id']);
-									if (!empty($item['title'])) $record['name'] = $item['title'];
-									if (!empty($item['content:encoded'])) $record['content'] = $item['content:encoded'];
+									if (!empty($item['title'])) {
+										$record['name'] = $item['title'];
+									}
+									if (!empty($item['content:encoded'])) {
+										$record['content'] = $item['content:encoded'];
+									}
 									$data[] = $record;
 								}
 							}

@@ -31,7 +31,9 @@ $analysisControllers = array('exams');
 <div class="navbar navbar-inverse navbar-fixed-top">
 	<div class="navbar-inner">
 		<div class="container">
-		<?php if (AuthComponent::user('id')): ?>
+			<?php
+			if (AuthComponent::user('id')):
+			?>
 			<ul class="nav pull-right">
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo h(AuthComponent::user('username')); ?><b class="caret"></b></a>
@@ -41,21 +43,21 @@ $analysisControllers = array('exams');
 					</ul>
 				</li>
 			</ul>
-		<?php
-		else:
-			if (Configure::read('debug') > 0):
-				echo $this->Html->link(__('Login'), array('admin' => false, 'controller' => 'users', 'action' => 'classic_login'), array('class' => 'btn btn-primary pull-right'));
-			else:
-				echo $this->Html->link(__('Login'), 'https://www.qdnatool.org/simplesamlphp/module.php/core/as_login.php?AuthId=SURFconext&ReturnTo=https%3A%2F%2Fwww.qdnatool.org%2Fusers%2Fsaml_login', array('class' => 'btn btn-primary pull-right'));
-			endif;
-		endif;
-		echo $this->Html->link(__('qDNAtool'), '/', array('class' => 'brand'));
-		?>
-			<ul class="nav">
 			<?php
-			if (AuthComponent::user('id')):
-				if (in_array($this->request->controller, $designControllers)):
+			else:
+				if (Configure::read('debug') > 0):
+					echo $this->Html->link(__('Login'), array('admin' => false, 'controller' => 'users', 'action' => 'classic_login'), array('class' => 'btn btn-primary pull-right'));
+				else:
+					echo $this->Html->link(__('Login'), 'https://www.qdnatool.org/simplesamlphp/module.php/core/as_login.php?AuthId=SURFconext&ReturnTo=https%3A%2F%2Fwww.qdnatool.org%2Fusers%2Fsaml_login', array('class' => 'btn btn-primary pull-right'));
+				endif;
+			endif;
+			echo $this->Html->link(__('qDNAtool'), '/', array('class' => 'brand'));
 			?>
+			<ul class="nav">
+				<?php
+				if (AuthComponent::user('id')):
+					if (in_array($this->request->controller, $designControllers)):
+				?>
 				<li class="dropdown active">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo __('Design'); ?> <b class="caret"></b></a>
 					<ul class="dropdown-menu">
@@ -63,7 +65,7 @@ $analysisControllers = array('exams');
 						<li><?php echo $this->Html->link(__('Analyse'), array('admin' => false, 'controller' => 'exams', 'action' => 'index')); ?></li>
 					</ul>
 				</li>
-			<?php elseif (in_array($this->request->controller, $analysisControllers)): ?>
+				<?php elseif (in_array($this->request->controller, $analysisControllers)): ?>
 				<li class="dropdown active">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo __('Analyse'); ?> <b class="caret"></b></a>
 					<ul class="dropdown-menu">
@@ -71,10 +73,10 @@ $analysisControllers = array('exams');
 						<li><?php echo $this->Html->link(__('Design'), array('admin' => false, 'controller' => 'questions', 'action' => 'index')); ?></li>
 					</ul>
 				</li>
-			<?php
+				<?php
+					endif;
 				endif;
-			endif;
-			?>
+				?>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo __('Help'); ?> <b class="caret"></b></a>
 					<ul class="dropdown-menu">

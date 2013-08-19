@@ -52,7 +52,9 @@ class QuestionsController extends AppController {
 			throw new NotFoundException(__('Invalid question'));
 		}
 		$referer = $this->Session->read('_App.referer');
-		if (empty($referer)) $referer = array('action' => 'index');
+		if (empty($referer)) {
+			$referer = array('action' => 'index');
+		}
 		$question = $this->Question->view($id);
 		$analyses = $this->Question->analyse($question);
 		$this->set(compact('referer', 'question', 'analyses'));
@@ -81,7 +83,9 @@ class QuestionsController extends AppController {
 			}
 		}
 		$referer = $this->Session->read('_App.referer');
-		if (empty($referer)) $referer = array('action' => 'index');
+		if (empty($referer)) {
+			$referer = array('action' => 'index');
+		}
 		$instruction = $this->Instruction->get($this->request->data('Question.development_phase_id'), $this->request->data('Question.question_format_id'));
 		$analyses = $this->Question->analyse($this->request->data);
 		$questionFormats = $this->Question->QuestionFormat->find('list');
@@ -118,7 +122,9 @@ class QuestionsController extends AppController {
 			}
 		}
 		$referer = $this->Session->read('_App.referer');
-		if (empty($referer)) $referer = array('action' => 'index');
+		if (empty($referer)) {
+			$referer = array('action' => 'index');
+		}
 		$instruction = $this->Instruction->get($this->request->data('Question.development_phase_id'), $this->request->data('Question.question_format_id'));
 		$analyses = $this->Question->analyse($this->request->data);
 		$questionFormats = $this->Question->QuestionFormat->find('list');
@@ -147,12 +153,16 @@ class QuestionsController extends AppController {
 		if ($this->Question->delete($id)) {
 			$this->Session->setFlash(__('Question deleted'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-success'));
 			$referer = $this->Session->read('_App.referer');
-			if (empty($referer)) $referer = array('action' => 'index');
+			if (empty($referer)) {
+				$referer = array('action' => 'index');
+			}
 			return $this->redirect($referer);
 		}
 		$this->Session->setFlash(__('Question was not deleted'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-error'));
 		$referer = $this->Session->read('_App.referer');
-		if (empty($referer)) $referer = array('action' => 'index');
+		if (empty($referer)) {
+			$referer = array('action' => 'index');
+		}
 		return $this->redirect($referer);
 	}
 

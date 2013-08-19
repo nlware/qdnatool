@@ -11,7 +11,9 @@ class OutputHelper extends AppHelper {
 	public function decimal($value, $places = 1) {
 		$decimalPoint = __('%DECIMAL_POINT%');
 		$thousandSeperator = __('%THOUSANDS_SEPARATOR%');
-		if ($thousandSeperator == '%THOUSANDS_SEPARATOR%') $thousandSeperator = '';
+		if ($thousandSeperator == '%THOUSANDS_SEPARATOR%') {
+			$thousandSeperator = '';
+		}
 
 		/*
 		$value = round($value, 2);
@@ -23,8 +25,11 @@ class OutputHelper extends AppHelper {
 	}
 
 	public function boolean($value) {
-		if ($value === false) return __('No');
-		elseif ($value === true) return __('Yes');
+		if ($value === false) {
+			return __('No');
+		} elseif ($value === true) {
+			return __('Yes');
+		}
 		return __('n/a');
 	}
 

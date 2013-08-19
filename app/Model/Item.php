@@ -105,7 +105,9 @@ class Item extends AppModel {
 			}
 
 			$this->create();
-			if ($this->saveAll($item)) $itemId = $this->id;
+			if ($this->saveAll($item)) {
+				$itemId = $this->id;
+			}
 		} else {
 			$itemId = $item['Item']['id'];
 
@@ -149,7 +151,9 @@ class Item extends AppModel {
 				$item['Messages'][] = __('Good students generally answer this question incorrectly. The advice is to remove this question from the test.');
 			}
 		} elseif ($item['correct_answer_irc'] < 0.1) {
-			if (!empty($item['answer_option_count'])) $answerOptionCount = $item['answer_option_count'];
+			if (!empty($item['answer_option_count'])) {
+				$answerOptionCount = $item['answer_option_count'];
+			}
 
 			if (!empty($answerOptionCount)) {
 				switch ($answerOptionCount) {

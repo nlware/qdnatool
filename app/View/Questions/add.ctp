@@ -29,7 +29,7 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
             $(".nav-tabs a[href=\'#analyses\']").tab("show");
           },
           type:"post",
-          url:"'.addcslashes($this->Html->url(array('action' => 'analyse', $this->Form->value('Question.id'))), '/').'"
+          url:"' . addcslashes($this->Html->url(array('action' => 'analyse', $this->Form->value('Question.id'))), '/') . '"
         });
       }
 
@@ -43,7 +43,7 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
             $(".nav-tabs a[href=\'#help\']").tab("show");
           },
           type:"post",
-          url:"'.addcslashes($this->Html->url(array('action' => 'instruction', $this->Form->value('Question.id'))), '/').'"
+          url:"' . addcslashes($this->Html->url(array('action' => 'instruction', $this->Form->value('Question.id'))), '/') . '"
         });
       }
       $(document).ready(function() {
@@ -55,7 +55,7 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
 
       $(".typeahead").typeahead({
         source: function (query, process) {
-          $.get(\''.$this->Html->url(array('controller' => 'tags', 'action' => 'autocomplete', 'ext' => 'json')).'\', {
+          $.get(\'' . $this->Html->url(array('controller' => 'tags', 'action' => 'autocomplete', 'ext' => 'json')) . '\', {
             query: query }, function (data) {
               process(data)
           })
@@ -65,7 +65,7 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
       $("#QuestionQuestionFormatId").change
       ( function()
         {
-    			if($(this).val() == '.QuestionFormat::OPEN_ANSWER.')
+    			if($(this).val() == ' . QuestionFormat::OPEN_ANSWER.')
           {
             $(\'#btnAddAnswer\').hide();
             $(\'#QuestionAnswer\').parent().parent().show();
@@ -74,7 +74,7 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
             fieldsets.hide();
             fieldsets.find(\'input[type=hidden]:first\').val(\'1\');
           }
-          else if($(this).val() == '.QuestionFormat::TRUE_FALSE.')
+          else if($(this).val() == ' . QuestionFormat::TRUE_FALSE.')
           {
             $(\'#btnAddAnswer\').hide();
             $(\'#QuestionAnswer\').parent().parent().hide();
@@ -87,8 +87,8 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
             fieldsets.show();
             fieldsets.find(\'input[type=hidden]:first\').val(\'0\');
           }
-          else if(($(this).val() == '.QuestionFormat::MULTIPLE_CHOICE.') ||
-          	     ($(this).val() == '.QuestionFormat::MULTIPLE_RESPONSE.'))
+          else if(($(this).val() == ' . QuestionFormat::MULTIPLE_CHOICE.') ||
+          	     ($(this).val() == ' . QuestionFormat::MULTIPLE_RESPONSE.'))
           {
             $(\'#btnAddAnswer\').show();
             $(\'#QuestionAnswer\').parent().parent().hide();
@@ -164,7 +164,7 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
 						'blur' => 'function(){this.updateElement();analyse();}'
 					),
 					'div' => array(
-						'style' => (($this->Form->value('Question.question_format_id')==QuestionFormat::OPEN_ANSWER)?'':'display:none;')
+						'style' => (($this->Form->value('Question.question_format_id') == QuestionFormat::OPEN_ANSWER)?'':'display:none;')
 					)
 				)
 			);
@@ -187,7 +187,7 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
 			endswitch;
 			for ($i = 0; $i < 8; $i++):
 			?>
-				<fieldset<?php echo (($i < $minAnswerOptionCount) || ($i < $maxAnswerOptionCount && $this->Form->value('QuestionAnswer.'.$i.'.destroy')=='0'))?'':' style="display:none;"'; ?>>
+				<fieldset<?php echo (($i < $minAnswerOptionCount) || ($i < $maxAnswerOptionCount && $this->Form->value('QuestionAnswer.' . $i . '.destroy') == '0'))?'':' style="display:none;"'; ?>>
 					<legend>
 					<?php
 					if ($i > 2):
@@ -195,8 +195,8 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
 							'<i class="icon-trash"></i>',
 							'#', array(
 								'onclick' => '
-									if(confirm(\''.__('Are you sure you wish to delete this answer?').'\'))
-									{ $(\'#QuestionAnswer'.$i.'Destroy\').val(1);
+									if(confirm(\'' . __('Are you sure you wish to delete this answer?') . '\'))
+									{ $(\'#QuestionAnswer' . $i . 'Destroy\').val(1);
 										$(this).parent().parent().hide();
 									}
 									event.returnValue = false;
@@ -210,19 +210,19 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
 					?>
 					</legend>
 				<?php
-				echo $this->Form->input('QuestionAnswer.'.$i.'.destroy', array('type' => 'hidden', 'default' => 1));
-				$this->Form->unlockField('QuestionAnswer.'.$i.'.destroy');
-				echo $this->Form->input('QuestionAnswer.'.$i.'.id', array('type' => 'hidden'));
+				echo $this->Form->input('QuestionAnswer.' . $i . '.destroy', array('type' => 'hidden', 'default' => 1));
+				$this->Form->unlockField('QuestionAnswer.' . $i . '.destroy');
+				echo $this->Form->input('QuestionAnswer.' . $i . '.id', array('type' => 'hidden'));
 
-				echo $this->Form->input('QuestionAnswer.'.$i.'.is_correct', array('label' => __('Correct')));
-				echo $this->CkSource->ckeditor('QuestionAnswer.'.$i.'.name', array('label' => __('Answer'), 'class' => 'analyse', 'id' => 'QuestionAnswer'.$i.'Name', 'events' => array('blur' => 'function(){this.updateElement();analyse();}')));
-				echo $this->CkSource->ckeditor('QuestionAnswer.'.$i.'.feedback', array('label' => __('Feedback'), 'id' => 'QuestionAnswer'.$i.'Feedback', 'events' => array('blur' => 'function(){this.updateElement();analyse();}')));
+				echo $this->Form->input('QuestionAnswer.' . $i . '.is_correct', array('label' => __('Correct')));
+				echo $this->CkSource->ckeditor('QuestionAnswer.' . $i . '.name', array('label' => __('Answer'), 'class' => 'analyse', 'id' => 'QuestionAnswer' . $i . 'Name', 'events' => array('blur' => 'function(){this.updateElement();analyse();}')));
+				echo $this->CkSource->ckeditor('QuestionAnswer.' . $i . '.feedback', array('label' => __('Feedback'), 'id' => 'QuestionAnswer' . $i . 'Feedback', 'events' => array('blur' => 'function(){this.updateElement();analyse();}')));
 				?>
 				</fieldset>
 			<?php
 			endfor;
 			echo $this->Html->link(
-				'<i class="icon-plus icon-white"></i> '.__('Add Answer'),
+				'<i class="icon-plus icon-white"></i> ' . __('Add Answer'),
 				'#', array(
 					'class' => 'btn',
 					'onclick' => '
@@ -262,68 +262,68 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
 			</div>
 			<div class="span3">
 				<table class="table table-condensed">
-			<thead>
-				<tr>
-					<th></th>
-					<th><?php echo __('Tags');?></th>
-				</tr>
-			</thead>
-			<tbody>
-			<?php for ($i = 0; $i < ((empty($this->request->data['QuestionsTag'])?0:count($this->request->data['QuestionsTag'])) + 10); $i++): ?>
-				<tr<?php echo ($this->Form->value('QuestionsTag.'.$i.'.destroy')=='0')?'':' style="display:none;"'; ?>>
-					<td>
-					<?php
-					echo $this->Html->link(
-						'<i class="icon-trash"></i>',
-						'#', array(
-							'onclick' => '
-								if (confirm(\''.__('Are you sure you wish to delete this tag?').'\')) {
-									$(\'#QuestionsTag'.$i.'Destroy\').val(1);
-									$(this).parent().parent().hide();
-								}
-								event.returnValue = false;
-								return false;
-							',
-							'escape' => false
-						)
-					);
-					echo $this->Form->input('QuestionsTag.'.$i.'.destroy', array('type' => 'hidden', 'default' => 1));
-					$this->Form->unlockField('QuestionsTag.'.$i.'.destroy');
-					echo $this->Form->input('QuestionsTag.'.$i.'.id', array('type' => 'hidden'));
-					?>
-					</td>
-					<td>
-					<?php
-					if ($this->Form->value('QuestionsTag.'.$i.'.tag_id')):
-						echo $this->Form->input('QuestionsTag.'.$i.'.tag_id', array('type' => 'hidden'));
-						$this->Form->unlockField('QuestionsTag.'.$i.'.tag_id');
-						echo h($tags[$this->Form->value('QuestionsTag.'.$i.'.tag_id')]);
-					else:
-						echo $this->Form->input(
-							'QuestionsTag.'.$i.'.Tag.name', array(
-								'label' => false,
-								'autocomplete' => 'off',  // disable browser autocomplete
-								'class' => 'typeahead'
-							)
-						);
-					endif;
-					?>
-					</td>
+					<thead>
+						<tr>
+							<th></th>
+							<th><?php echo __('Tags');?></th>
 						</tr>
-					<?php endfor; ?>
+					</thead>
+					<tbody>
+						<?php for ($i = 0; $i < ((empty($this->request->data['QuestionsTag'])?0:count($this->request->data['QuestionsTag'])) + 10); $i++): ?>
+						<tr<?php echo ($this->Form->value('QuestionsTag.' . $i . '.destroy') == '0')?'':' style="display:none;"'; ?>>
+							<td>
+								<?php
+								echo $this->Html->link(
+									'<i class="icon-trash"></i>',
+									'#', array(
+										'onclick' => '
+											if (confirm(\'' . __('Are you sure you wish to delete this tag?') . '\')) {
+												$(\'#QuestionsTag' . $i . 'Destroy\').val(1);
+												$(this).parent().parent().hide();
+											}
+											event.returnValue = false;
+											return false;
+										',
+										'escape' => false
+									)
+								);
+								echo $this->Form->input('QuestionsTag.' . $i . '.destroy', array('type' => 'hidden', 'default' => 1));
+								$this->Form->unlockField('QuestionsTag.' . $i . '.destroy');
+								echo $this->Form->input('QuestionsTag.' . $i . '.id', array('type' => 'hidden'));
+								?>
+							</td>
+							<td>
+								<?php
+								if ($this->Form->value('QuestionsTag.' . $i . '.tag_id')):
+									echo $this->Form->input('QuestionsTag.' . $i . '.tag_id', array('type' => 'hidden'));
+									$this->Form->unlockField('QuestionsTag.' . $i . '.tag_id');
+									echo h($tags[$this->Form->value('QuestionsTag.' . $i . '.tag_id')]);
+								else:
+									echo $this->Form->input(
+										'QuestionsTag.' . $i . '.Tag.name', array(
+											'label' => false,
+											'autocomplete' => 'off', // disable browser autocomplete
+											'class' => 'typeahead'
+										)
+									);
+								endif;
+								?>
+							</td>
+						</tr>
+						<?php endfor; ?>
 						<tr>
 							<td colspan="2"><a href="#" onclick="$(this).parent().parent().parent().children(':hidden:first').children(':first').find('input[type=hidden]:first').val('0');$(this).parent().parent().parent().children(':hidden:first').show();return false;" class="btn"><i class="icon-plus"></i> <?php echo __('Add Tag'); ?></a></td>
 						</tr>
 					</tbody>
 				</table>
-			<?php echo $this->Form->input('comment', array('label' => __('Comments'), 'rows' => 10)); ?>
+				<?php echo $this->Form->input('comment', array('label' => __('Comments'), 'rows' => 10)); ?>
 			</div>
 		</div>
 		<div class="form-actions">
-		<?php echo $this->Form->submit(__('Save'), array('class' => 'btn btn-primary', 'div' => false)); ?>
-		<?php echo $this->Html->link(__('Cancel'), $referer, array('class' => 'btn')); ?>
+			<?php echo $this->Form->submit(__('Save'), array('class' => 'btn btn-primary', 'div' => false)); ?>
+			<?php echo $this->Html->link(__('Cancel'), $referer, array('class' => 'btn')); ?>
 		</div>
-	<?php echo $this->Form->end(); ?>
+		<?php echo $this->Form->end(); ?>
 	</div>
 	<div class="offset9 span3 affix">
 		<ul class="nav nav-tabs">
@@ -333,25 +333,27 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
 		<div class="tab-content">
 			<div class="tab-pane active" id="help">
 				<div id="tabHelp">
-				<?php if (!empty($instruction)): ?>
+					<?php
+					if (!empty($instruction)):
+					?>
 					<h4><?php echo h($instruction['Instruction']['name']); ?></h4>
-				<?php
-					echo $this->Output->html($instruction['Instruction']['content']);
-				endif;
-				?>
+					<?php
+						echo $this->Output->html($instruction['Instruction']['content']);
+					endif;
+					?>
 				</div>
 			</div>
 			<div class="tab-pane" id="analyses">
 				<ul>
-				<?php
-				if (!empty($analyses)):
-					foreach ($analyses as $analyse):
-				?>
+					<?php
+					if (!empty($analyses)):
+						foreach ($analyses as $analyse):
+					?>
 					<li><?php echo $this->HtmLawed->display($analyse); ?></li>
-				<?php
-					endforeach;
-				endif;
-				?>
+					<?php
+						endforeach;
+					endif;
+					?>
 				</ul>
 			</div>
 		</div>

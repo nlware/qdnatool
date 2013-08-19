@@ -55,7 +55,9 @@ class CkSourceHelper extends FormHelper {
 			// Config language
 			$lang = Configure::read('Config.language');
 			if (isset($lang)) {
-				if ($lang == 'nld') $lang = 'nl';
+				if ($lang == 'nld') {
+					$lang = 'nl';
+				}
 				// Load language
 				$script .= 'CKEDITOR.config.language = \'' . $lang . '\';';
 			}

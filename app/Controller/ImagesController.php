@@ -22,7 +22,9 @@ class ImagesController extends AppController {
 				$img = base64_decode($_POST["image"]);
 
 				$fileType = 'image/jpeg';
-				if ($type == 'PNG') $fileType = 'image/png';
+				if ($type == 'PNG') {
+					$fileType = 'image/png';
+				}
 
 				$data = array(
 					'filename' => $_POST["name"],
@@ -57,7 +59,9 @@ class ImagesController extends AppController {
 			)
 		);
 
-		if (empty($image)) return $this->redirect404Error();
+		if (empty($image)) {
+			return $this->redirect404Error();
+		}
 
 		$this->viewClass = 'Media';
 		$params = array(
@@ -93,7 +97,7 @@ class ImagesController extends AppController {
 			$this->Image->create();
 			if ($this->Image->save($data)) {
 				$file = Image::UPLOAD_DIRECTORY . $this->Image->id . '.' . $extension;
-				$result = move_uploaded_file ($_FILES['upload']['tmp_name'], $file);
+				$result = move_uploaded_file($_FILES['upload']['tmp_name'], $file);
 			}
 
 			// Check the $_FILES array and save the file. Assign the correct path to a variable ($url).
