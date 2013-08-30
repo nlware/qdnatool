@@ -588,6 +588,25 @@ class Exam extends AppModel {
 		return $success;
 	}
 
+	protected function _parseCsvFile($filename, $delimiter = ',', $enclosure = '"', $escape = '\\') {
+		$result = array();
+		ini_set('auto_detect_line_endings', true);
+		if (($handle = fopen($filename, "r")) !== false) {
+			for ($i = 0; !feof($handle); $i++) {
+				$line = fgets($handle);
+				$line = $this->__decodeLine($line, $i == 0);
+				if (!empty($line)) {
+					$row = str_getcsv($line, $delimiter, $enclosure, $escape);
+					if (!empty($row)) {
+						$result[$i] = $row;
+					}
+				}
+			}
+			fclose($handle);
+		}
+		return $result;
+	}
+
 	public function importBlackboard($exam) {
 		$result = true;
 		$this->id = $exam['Exam']['id'];
@@ -595,16 +614,13 @@ class Exam extends AppModel {
 
 		$filename = Exam::UPLOAD_DIRECTORY . $exam['Exam']['data_filename'];
 
-		ini_set('auto_detect_line_endings', true);
-		if (($handle = fopen($filename, "r")) !== false) {
-			for ($i = 0; !feof($handle); $i++) {
-				$skipLine = false;
-				$line = fgets($handle);
-				$line = $this->__decodeLine($line, $i == 0);
-
+		$csv = $this->_parseCsv($filename);
+		//TODO: validate csv
+		if (!empty($csv)) {
+			foreach ($csv as $i => $row) {
 				if ($i == 0) {
 					// first line contains column headings
-					$headings = str_getcsv($line, ',', '"', '"');
+					$headings = $row;
 
 					$data = array();
 					$answerIndex = 0;
@@ -643,7 +659,7 @@ class Exam extends AppModel {
 					}
 					$data = array();
 				} else {
-					$values = str_getcsv($line, ',', '"', '"');
+					$values = $row;
 
 					// check for empty last line
 					if (empty($values[0])) {
@@ -747,7 +763,6 @@ class Exam extends AppModel {
 					}
 				}
 			}
-			fclose($handle);
 		} else {
 			$result = false;
 		}
@@ -784,6 +799,11 @@ class Exam extends AppModel {
 		return $result;
 	}
 
+	protected function _validateQMPData($data) {
+		//TODO: validate QMP data
+		return $data;
+	}
+
 	public function importQMP($exam) {
 		$result = true;
 		$this->id = $exam['Exam']['id'];
@@ -791,34 +811,27 @@ class Exam extends AppModel {
 
 		$filename = Exam::UPLOAD_DIRECTORY . $exam['Exam']['data_filename'];
 
-		ini_set('auto_detect_line_endings', true);
-		if (($handle = fopen($filename, "r")) !== false) {
-			for ($i = 0; !feof($handle); $i++) {
-				$skipLine = false;
-				$line = fgets($handle);
-				$line = $this->__decodeLine($line, $i == 0);
+		$values = $this->_parseCsvFile($filename, ';', '"', '"');
+		if ($values) {
+			$values = $this->_validateQMPData($values);
+		}
+		if ($values) {
+			$headings = $values[0];
+			$data = array();
 
+			foreach ($values as $i => $row) {
 				if ($i == 0) {
 					// first line contains column headings
-					$headings = str_getcsv($line, ';', '"', '"');
-
-					$data = array();
+					continue;
 				} else {
-					$values = str_getcsv($line, ';', '"', '"');
-
-					// check for empty last line
-					if (empty($values[0])) {
-						break;
-					}
-
 					if (($index = array_search('Deelnemersnaam', $headings)) !== false) {
-						if (empty($values[$index])) {
+						if (empty($row[$index])) {
 							$result = false;
 						} else {
 							$data = array(
 								'Subject' => array(
 									'exam_id' => $exam['Exam']['id'],
-									'value' => $values[$index]
+									'value' => $row[$index]
 								)
 							);
 						}
@@ -831,11 +844,11 @@ class Exam extends AppModel {
 								$givenAnswer = null;
 								$score = 0;
 								$maximumScore = 0;
-								if (!empty($values[$questionIndex])) {
-									$question = $values[$questionIndex];
+								if (!empty($row[$questionIndex])) {
+									$question = $row[$questionIndex];
 								}
-								if (!empty($values[$questionIndex + 1]) || (isset($values[$questionIndex + 1]) && is_numeric($values[$questionIndex + 1]))) {
-									$givenAnswer = $values[$questionIndex + 1];
+								if (!empty($row[$questionIndex + 1]) || (isset($row[$questionIndex + 1]) && is_numeric($row[$questionIndex + 1]))) {
+									$givenAnswer = $row[$questionIndex + 1];
 									if (strlen($givenAnswer) > 1) {
 										$givenAnswer = substr($givenAnswer, 0, 1);
 									}
@@ -845,11 +858,11 @@ class Exam extends AppModel {
 										$givenAnswer = null;
 									}
 								}
-								if (!empty($values[$questionIndex + 2]) || (isset($values[$questionIndex + 2]) && is_numeric($values[$questionIndex + 2]))) {
-									$score = $values[$questionIndex + 2];
+								if (!empty($row[$questionIndex + 2]) || (isset($row[$questionIndex + 2]) && is_numeric($row[$questionIndex + 2]))) {
+									$score = $$row[$questionIndex + 2];
 								}
-								if (!empty($values[$questionIndex + 3]) || (isset($values[$questionIndex + 3]) && is_numeric($values[$questionIndex + 3]))) {
-									$maximumScore = $values[$questionIndex + 3];
+								if (!empty($row[$questionIndex + 3]) || (isset($row[$questionIndex + 3]) && is_numeric($row[$questionIndex + 3]))) {
+									$maximumScore = $row[$questionIndex + 3];
 								}
 								if (!empty($question) && $givenAnswer != null) {
 									$itemId = $this->Item->add($exam['Exam']['id'], $exam['Exam']['answer_option_count'], $question, $givenAnswer, $score, $maximumScore);
@@ -880,7 +893,6 @@ class Exam extends AppModel {
 					}
 				}
 			}
-			fclose($handle);
 		} else {
 			$result = false;
 		}
