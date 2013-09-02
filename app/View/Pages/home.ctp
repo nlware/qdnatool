@@ -117,13 +117,13 @@ if (isset($filePresent)):
 <?php endif; ?>
 <?php
 	App::uses('Validation', 'Utility');
-	if (!Validation::alphaNumeric('cakephp')) {
+	if (!Validation::alphaNumeric('cakephp')):
 		echo '<p><div class="alert alert-error">';
 			echo __d('cake_dev', 'PCRE has not been compiled with Unicode support.');
 			echo '<br/>';
 			echo __d('cake_dev', 'Recompile PCRE with Unicode support by adding <code>--enable-unicode-properties</code> when configuring');
 		echo '</div></p>';
-	}
+	endif;
 ?>
 
 <p>
