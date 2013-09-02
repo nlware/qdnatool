@@ -859,7 +859,7 @@ class Exam extends AppModel {
 									}
 								}
 								if (!empty($row[$questionIndex + 2]) || (isset($row[$questionIndex + 2]) && is_numeric($row[$questionIndex + 2]))) {
-									$score = $$row[$questionIndex + 2];
+									$score = $row[$questionIndex + 2];
 								}
 								if (!empty($row[$questionIndex + 3]) || (isset($row[$questionIndex + 3]) && is_numeric($row[$questionIndex + 3]))) {
 									$maximumScore = $row[$questionIndex + 3];
