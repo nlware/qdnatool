@@ -51,7 +51,7 @@
 		"php": ">=5.2.8",
 		"pear-cakephp/cakephp": "2.4.0",
 		"cakephp/debug_kit": "2.2.*",
-		"slywalker/twitter_bootstrap": "1.5.5",
+		"slywalker/twitter_bootstrap": "1.5.6",
 		"htmlawed/htmlawed": "1.1.14",
 		"rserve-php/rserve-php": "0.1"
 	}
