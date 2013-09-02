@@ -864,7 +864,7 @@ class Exam extends AppModel {
 								if (!empty($row[$questionIndex + 3]) || (isset($row[$questionIndex + 3]) && is_numeric($row[$questionIndex + 3]))) {
 									$maximumScore = $row[$questionIndex + 3];
 								}
-								if (!empty($question) && $givenAnswer != null) {
+								if (!empty($question)) {
 									$itemId = $this->Item->add($exam['Exam']['id'], $exam['Exam']['answer_option_count'], $question, $givenAnswer, $score, $maximumScore);
 								}
 

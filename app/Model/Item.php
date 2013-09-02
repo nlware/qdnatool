@@ -93,14 +93,14 @@ class Item extends AppModel {
 					'exam_id' => $examId,
 					'order' => empty($lastItem['Item']['order'])?1:$lastItem['Item']['order'] + 1,
 					'value' => $question,
-					'answer_option_count' => ($givenAnswerOptionOrder > $defaultAnswerOptionCount)?$givenAnswerOptionOrder:$defaultAnswerOptionCount
+					'answer_option_count' => (($givenAnswerOptionOrder != null) && ($givenAnswerOptionOrder > $defaultAnswerOptionCount))?$givenAnswerOptionOrder:$defaultAnswerOptionCount
 				)
 			);
 
 			for ($k = 0; $k < $item['Item']['answer_option_count']; $k++) {
 				$item['AnswerOption'][] = array(
 					'order' => $k + 1,
-					'is_correct' => ($isCorrect && ($givenAnswerOptionOrder == $k + 1))
+					'is_correct' => ($isCorrect && $givenAnswerOptionOrder != null && ($givenAnswerOptionOrder == $k + 1))
 				);
 			}
 
@@ -112,13 +112,13 @@ class Item extends AppModel {
 			$itemId = $item['Item']['id'];
 
 			// update is_correct of answer_option if answer_option already exists
-			if ($isCorrect && isset($item['AnswerOption'][$givenAnswerOptionOrder - 1]['is_correct']) && !$item['AnswerOption'][$givenAnswerOptionOrder - 1]['is_correct']) {
+			if ($isCorrect && $givenAnswerOptionOrder != null && isset($item['AnswerOption'][$givenAnswerOptionOrder - 1]['is_correct']) && !$item['AnswerOption'][$givenAnswerOptionOrder - 1]['is_correct']) {
 				$this->AnswerOption->id = $item['AnswerOption'][$givenAnswerOptionOrder - 1]['id'];
 				$this->AnswerOption->saveField('is_correct', true);
 			}
 
 			// update answer_option_count and add answer_option(s)
-			if ($givenAnswerOptionOrder > $item['Item']['answer_option_count']) {
+			if ($givenAnswerOptionOrder != null && ($givenAnswerOptionOrder > $item['Item']['answer_option_count'])) {
 				$this->id = $item['Item']['id'];
 				$this->saveField('answer_option_count', $givenAnswerOptionOrder);
 
