@@ -30,7 +30,7 @@ class AppController extends Controller {
 	);
 
 	public $helpers = array(
-		'Html' => array('className' => 'CustomBootstrapHtml'),
+		'Html' => array('className' => 'TwitterBootstrap.BootstrapHtml'),
 		'Form' => array('className' => 'CustomBootstrapForm'),
 		'Paginator' => array('className' => 'TwitterBootstrap.BootstrapPaginator'),
 		'Js',
