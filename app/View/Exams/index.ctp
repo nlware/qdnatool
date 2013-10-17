@@ -126,8 +126,8 @@
 							if ($child['exam_state_id'] == ExamState::REPORT_GENERATED):
 							?>
 							<li><?php echo $this->Html->link(__('Download report'), array('action' => 'report', $child['id'], 'ext' => 'pdf')); ?></li>
-							<li><?php echo $this->Html->link(__('Download scores'), array('action' => 'scores', $exam['Exam']['id'], 'ext' => 'csv')); ?></li>
-							<li><?php echo $this->Html->link(__('Download scores (Dutch format)'), array('action' => 'scores', $exam['Exam']['id'], 'nld', 'ext' => 'csv')); ?></li>
+							<li><?php echo $this->Html->link(__('Download scores'), array('action' => 'scores', $child['id'], 'ext' => 'csv')); ?></li>
+							<li><?php echo $this->Html->link(__('Download scores (Dutch format)'), array('action' => 'scores', $child['id'], 'nld', 'ext' => 'csv')); ?></li>
 							<li><?php echo $this->Html->link(__('Show missings'), array('action' => 'missings', $child['id'])); ?></li>
 							<?php
 							endif;
