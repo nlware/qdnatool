@@ -1276,18 +1276,12 @@ class Exam extends AppModel {
 										)
 									)
 								);
-								$answer = array(
+								$data[] = array(
 									'item_id' => $childExam['Item'][$i]['id'],
 									'value' => $givenAnswer['value'],
+									'score' => $childExam['Item'][$i]['AnswerOption'][($givenAnswer['value'] - 1)]['is_correct'],
 									'subject_id' => $subject['Subject']['id']
 								);
-								foreach ($childExam['Item'][$i]['AnswerOption'] as $answerOption) {
-									if ($givenAnswer['value'] == $answerOption['value']) {
-										$answer['score'] = $answerOption['is_correct'];
-										break;
-									}
-								}
-								$data[] = $answer;
 							}
 						}
 					}
