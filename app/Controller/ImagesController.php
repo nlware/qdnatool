@@ -63,17 +63,14 @@ class ImagesController extends AppController {
 			return $this->redirect404Error();
 		}
 
-		$this->viewClass = 'Media';
-		$params = array(
-			'id' => $image['Image']['id'] . '.' . $image['Image']['extension'],
-			'name' => $image['Image']['filename'],
-			'extension' => $image['Image']['extension'],
-			'path' => Image::UPLOAD_DIRECTORY,
-			'cache' => 2592000, // Allow caching for 30 days
-			'modified' => $image['Image']['created']//gmdate('D, d M Y H:i:s', filemtime($path.$file_name))
+		$this->response->file(
+			Image::UPLOAD_DIRECTORY . $image['Image']['id'] . '.' . $image['Image']['extension'], array(
+				'download' => true,
+				'name' => $image['Image']['filename']
+			)
 		);
-
-		$this->set($params);
+		$this->response->cache($image['Image']['created'], '+30 days');
+		return $this->response;
 	}
 
 	public function upload() {

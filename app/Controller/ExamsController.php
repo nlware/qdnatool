@@ -153,16 +153,13 @@ class ExamsController extends AppController {
 		if (empty($exam['Exam']['report_generated']) || !file_exists(Exam::REPORT_DIRECTORY . $exam['Exam']['id'] . '.pdf')) {
 			throw new NotFoundException(__('Invalid exam'));
 		}
-
-		$this->viewClass = 'Media';
-		$params = array(
-			'id' => $exam['Exam']['id'] . '.pdf',
-			'name' => $exam['Exam']['name'],
-			'download' => true,
-			'extension' => 'pdf',
-			'path' => Exam::REPORT_DIRECTORY
+		$this->response->file(
+			Exam::REPORT_DIRECTORY . $exam['Exam']['id'] . '.pdf', array(
+				'download' => true,
+				'name' => $exam['Exam']['name']
+			)
 		);
-		$this->set($params);
+		return $this->response;
 	}
 
 	public function reanalyse($id = null) {
