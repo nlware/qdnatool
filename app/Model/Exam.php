@@ -1258,7 +1258,9 @@ class Exam extends AppModel {
 						'conditions' => array(
 							'Exam.id' => $examId
 						),
-						'contain' => 'Item'
+						'contain' => array(
+							'Item' => 'AnswerOption'
+						)
 					)
 				);
 				if (!empty($parentExam['Item'])) {
@@ -1274,12 +1276,18 @@ class Exam extends AppModel {
 										)
 									)
 								);
-								$data[] = array(
+								$answer = array(
 									'item_id' => $childExam['Item'][$i]['id'],
 									'value' => $givenAnswer['value'],
-									'score' => $givenAnswer['score'],
 									'subject_id' => $subject['Subject']['id']
 								);
+								foreach ($childExam['Item'][$i]['AnswerOption'] as $answerOption) {
+									if ($givenAnswer['value'] == $answerOption['value']) {
+										$answer['score'] = $answerOption['is_correct'];
+										break;
+									}
+								}
+								$data[] = $answer;
 							}
 						}
 					}
