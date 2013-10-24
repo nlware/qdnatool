@@ -49,7 +49,7 @@
 	},
 	"require" : {
 		"php": ">=5.2.8",
-		"pear-cakephp/cakephp": "2.4.1",
+		"pear-cakephp/cakephp": "2.4.2",
 		"cakephp/debug_kit": "2.2.*",
 		"slywalker/twitter_bootstrap": "1.5.7",
 		"htmlawed/htmlawed": "1.1.14",

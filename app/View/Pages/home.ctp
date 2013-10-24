@@ -8,6 +8,7 @@
 if (!Configure::read('debug')):
 	throw new NotFoundException();
 endif;
+
 App::uses('Debugger', 'Utility');
 ?>
 <h2><?php echo __d('cake_dev', 'Release Notes for CakePHP %s.', Configure::version()); ?></h2>
@@ -19,6 +20,9 @@ if (Configure::read('debug') > 0):
 	Debugger::checkSecurityKeys();
 endif;
 ?>
+<?php
+if (file_exists(WWW_ROOT . 'css' . DS . 'cake.generic.css')):
+?>
 <div class="alert alert-error">
 	<?php echo __d('cake_dev', 'URL rewriting is not properly configured on your server.'); ?>
 	<ol>
@@ -26,6 +30,9 @@ endif;
 		<li><a target="_blank" href="http://book.cakephp.org/2.0/en/development/configuration.html#cakephp-core-configuration" style="color:#fff;">I don't / can't use URL rewriting</a></li>
 	</ol>
 </div>
+<?php
+endif;
+?>
 <p>
 <?php
 	if (version_compare(PHP_VERSION, '5.2.8', '>=')):
@@ -57,11 +64,11 @@ endif;
 		$settings = Cache::settings();
 		if (!empty($settings)):
 			echo '<div class="alert alert-success">';
-				echo __d('cake_dev', 'The %s is being used for core caching. To change the config edit APP/Config/core.php ', '<em>' . $settings['engine'] . 'Engine</em>');
+				echo __d('cake_dev', 'The %s is being used for core caching. To change the config edit %s', '<em>'. $settings['engine'] . 'Engine</em>', 'APP/Config/core.php');
 			echo '</div>';
 		else:
 			echo '<div class="alert alert-error">';
-				echo __d('cake_dev', 'Your cache is NOT working. Please check the settings in APP/Config/core.php');
+				echo __d('cake_dev', 'Your cache is NOT working. Please check the settings in %s', 'APP/Config/core.php');
 			echo '</div>';
 		endif;
 	?>
@@ -78,7 +85,7 @@ endif;
 			echo '<div class="alert alert-error">';
 				echo __d('cake_dev', 'Your database configuration file is NOT present.');
 				echo '<br/>';
-				echo __d('cake_dev', 'Rename APP/Config/database.php.default to APP/Config/database.php');
+				echo __d('cake_dev', 'Rename %s to %s', 'APP/Config/database.php.default', 'APP/Config/database.php');
 			echo '</div>';
 		endif;
 	?>
@@ -103,11 +110,11 @@ if (isset($filePresent)):
 	<?php
 		if ($connected && $connected->isConnected()):
 			echo '<div class="alert alert-success">';
-				echo __d('cake_dev', 'Cake is able to connect to the database.');
+				echo __d('cake_dev', 'CakePHP is able to connect to the database.');
 			echo '</div>';
 		else:
 			echo '<div class="alert alert-error">';
-				echo __d('cake_dev', 'Cake is NOT able to connect to the database.');
+				echo __d('cake_dev', 'CakePHP is NOT able to connect to the database.');
 				echo '<br /><br />';
 				echo $errorMsg;
 			echo '</div>';
