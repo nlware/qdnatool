@@ -54,16 +54,21 @@ class QueueShell extends AppShell {
  * Overwrite shell initialize to dynamically load all Queue Related Tasks.
  */
 	public function initialize() {
-		$this->_loadModels();
+		// Check for tasks inside plugins and application
+		$plugins = App::objects('plugin');
+		$plugins[] = '';
+		foreach ($plugins as $plugin) {
+			if (!empty($plugin)) {
+				$plugin .= '.';
+			}
 
-		foreach (App::path('shells') as $path) {
-			$folder = new Folder($path . DS . 'Task');
-			$this->tasks = array_merge($this->tasks, $folder->find('Queue.*\Task.php'));
-		}
-
-		// strip the extension fom the found task(file)s
-		foreach ($this->tasks as &$task) {
-			$task = basename($task, 'Task.php');
+			foreach (App::objects($plugin . 'Console/Command/Task') as $task) {
+				if (strpos($task, 'Queue') === 0 && substr($task, -4) === 'Task') {
+					$taskName = substr($task, 0, -4);
+					$this->{$taskName} = $this->Tasks->load($plugin . $taskName);
+					$this->tasks[] = $taskName;
+				}
+			}
 		}
 
 		//Config can be overwritten via local app config.
