@@ -2,6 +2,25 @@
 App::uses('Exam', 'Model');
 
 /**
+ * TestExam
+ *
+ */
+class TestExam extends Exam {
+
+/**
+ * Convenience method for testing protected method
+ *
+ * @param array $header Column headers of Teleform mapping file
+ * @param integer $version Requested veersion
+ * @return mixed Integer with the column index, or false on failure or requested version not found
+ */
+	public function getIndexOfVersionFromTeleformHeader($header, $version) {
+		return self::_getIndexOfVersionFromTeleformHeader($header, $version);
+	}
+
+}
+
+/**
  * Exam Test Case
  *
  */
@@ -21,7 +40,7 @@ class ExamTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
-		$this->Exam = ClassRegistry::init('Exam');
+		$this->Exam = ClassRegistry::init('TestExam');
 	}
 
 /**
@@ -33,6 +52,84 @@ class ExamTest extends CakeTestCase {
 		unset($this->Exam);
 
 		parent::tearDown();
+	}
+
+/**
+ * testGetIndexOfVersionFromTeleformHeader method
+ *
+ * @return void
+ */
+	public function testGetIndexOfVersionFromTeleformHeader() {
+		//
+		// Header doesn't contain requested versions
+		//
+
+		$header = array(
+			'Invalid Header 1',
+			'Invalid Header 2'
+		);
+		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 1);
+		$expected = false;
+		$this->assertIdentical($result, $expected);
+		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 2);
+		$expected = false;
+		$this->assertIdentical($result, $expected);
+
+		//
+		// Header does contain requested versions
+		//
+
+		$header = array(
+			'Versie.1',
+			'Versie.2'
+		);
+		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 1);
+		$expected = 0;
+		$this->assertIdentical($result, $expected);
+		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 2);
+		$expected = 1;
+		$this->assertIdentical($result, $expected);
+
+		$header = array(
+			'Versie.2',
+			'Versie.1'
+		);
+		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 1);
+		$expected = 1;
+		$this->assertIdentical($result, $expected);
+		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 2);
+		$expected = 0;
+		$this->assertIdentical($result, $expected);
+
+		//
+		// case insensitive
+		//
+
+		$header = array(
+			'veRSie.1',
+			'vErsIe.2'
+		);
+		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 1);
+		$expected = 0;
+		$this->assertIdentical($result, $expected);
+		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 2);
+		$expected = 1;
+		$this->assertIdentical($result, $expected);
+
+		//
+		// Seperator whitespace instead of dot and case insensitive
+		//
+
+		$header = array(
+			'veRSie 1',
+			'vErsIe 2'
+		);
+		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 1);
+		$expected = 0;
+		$this->assertIdentical($result, $expected);
+		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 2);
+		$expected = 1;
+		$this->assertIdentical($result, $expected);
 	}
 
 /**

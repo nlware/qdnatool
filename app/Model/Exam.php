@@ -929,6 +929,24 @@ class Exam extends AppModel {
 		return $result;
 	}
 
+/**
+ * Get column index of requested version in given header
+ *
+ * @param array $header Column headers of Teleform mapping file
+ * @param integer $version Requested veersion
+ * @return mixed Integer with the column index, or false on failure or requested version not found
+ */
+	protected function _getIndexOfVersionFromTeleformHeader($header, $version) {
+		$result = false;
+		foreach ($header as $key => $value) {
+			if (in_array(strtolower($value), array('versie.' . $version, 'versie ' . $version))) {
+				$result = $key;
+				break;
+			}
+		}
+		return $result;
+	}
+
 	public function importTeleform($exam) {
 		$versionMapping = null;
 		$versionMappingFilename = null;
@@ -952,8 +970,8 @@ class Exam extends AppModel {
 					if ($i == 0) {
 						$header = str_getcsv($line, ';', '"', '"');
 
-						$version1Index = array_search('Versie.1', $header);
-						$version2Index = array_search('Versie.2', $header);
+						$version1Index = $this->_getIndexOfVersionFromTeleformHeader($header, 1);
+						$version2Index = $this->_getIndexOfVersionFromTeleformHeader($header, 2);
 						$answerOptionCountIndex = array_search('Answer Option Count', $header);
 					} else {
 						$values = str_getcsv($line, ';', '"', '"');
