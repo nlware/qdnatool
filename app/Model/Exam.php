@@ -614,7 +614,7 @@ class Exam extends AppModel {
 
 		$filename = Exam::UPLOAD_DIRECTORY . $exam['Exam']['data_filename'];
 
-		$csv = $this->_parseCsv($filename);
+		$csv = $this->_parseCsvFile($filename);
 		//TODO: validate csv
 		if (!empty($csv)) {
 			foreach ($csv as $i => $row) {
