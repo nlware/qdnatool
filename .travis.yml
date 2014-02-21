@@ -1,0 +1,36 @@
+language: php
+
+php:
+  - 5.3
+
+env:
+  - DB=mysql
+
+matrix:
+  include:
+    - php: 5.3
+      env:
+        - PHPCS=1
+
+before_script:
+  - sh -c "mysql -e 'CREATE DATABASE qdnatool_test;'"
+  - chmod -R 777 ./app/tmp
+  - composer install --dev --no-interaction --prefer-source
+  - sh -c "if [ '$PHPCS' = '1' ]; then pear channel-discover pear.cakephp.org; fi"
+  - sh -c "if [ '$PHPCS' = '1' ]; then pear install --alldeps cakephp/CakePHP_CodeSniffer; fi"
+  - echo "<?php
+    class DATABASE_CONFIG {
+    public \$test = array(
+      'datasource' => 'Database/Mysql',
+      'database' => 'qdnatool_test',
+      'host' => '0.0.0.0',
+      'login' => 'travis',
+      'persistent' => false,
+    );
+    }" > app/Config/database.php
+ 
+script:
+  - sh -c "if [ '$PHPCS' = '1' ]; then phpcs -p --extensions=php --standard=CakePHP --ignore=Plugin --ignore=Vendor --ignore=webroot/js/ckeditor -n ./app; else cd ./app; ../vendors/bin/cake test app AllTests --stderr; fi"
+
+notifications:
+  email: false
