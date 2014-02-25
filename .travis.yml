@@ -18,6 +18,7 @@ before_script:
   - composer install --dev --no-interaction --prefer-source
   - sh -c "if [ '$PHPCS' = '1' ]; then pear channel-discover pear.cakephp.org; fi"
   - sh -c "if [ '$PHPCS' = '1' ]; then pear install --alldeps cakephp/CakePHP_CodeSniffer; fi"
+  - phpenv rehash
   - echo "<?php
     class DATABASE_CONFIG {
     public \$test = array(
