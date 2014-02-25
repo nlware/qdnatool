@@ -10,19 +10,38 @@ matrix:
   include:
     - php: 5.3
       env:
+        - COVERALLS=1        
+    - php: 5.3
+      env:
         - PHPCS=1
 
 before_script:
   - sh -c "mysql -e 'CREATE DATABASE qdnatool_test;'"
   - chmod -R 777 ./app/tmp
   - composer install --dev --no-interaction --prefer-source
+  - sh -c "if [ "$COVERALLS" = '1' ]; then composer require --dev satooshi/php-coveralls:dev-master; fi"
   - sh -c "if [ '$PHPCS' = '1' ]; then pear channel-discover pear.cakephp.org; fi"
   - sh -c "if [ '$PHPCS' = '1' ]; then pear install --alldeps cakephp/CakePHP_CodeSniffer; fi"
   - phpenv rehash
   - echo -e "<?php\nclass DATABASE_CONFIG {\n\n\tpublic \$test = array(\n\t\t'datasource' => 'Database/Mysql',\n\t\t'database' => 'qdnatool_test',\n\t\t'host' => '0.0.0.0',\n\t\t'login' => 'travis',\n\t\t'persistent' => false,\n\t);\n}" > app/Config/database.php
+  - echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<phpunit>
+<filter>
+	<whitelist>
+		<directory suffix=\".php\">app</directory>
+		<exclude>
+			<directory suffix=\".php\">app/Test</directory>
+		</exclude>
+	</whitelist>
+</filter>
+</phpunit>" > phpunit.xml
+  - echo "# for php-coveralls
+src_dir: app
+coverage_clover: build/logs/clover.xml
+json_path: build/logs/coveralls-upload.json" > .coveralls.yml
  
 script:
-  - sh -c "if [ '$PHPCS' = '1' ]; then phpcs -p --extensions=php --standard=CakePHP --ignore=Plugin --ignore=Vendor --ignore=webroot/js/ckeditor -n ./app; else cd ./app; ../vendors/bin/cake test app AllTests --stderr; fi"
+  - sh -c "if [ '$PHPCS' = '1' ]; then phpcs -p --extensions=php --standard=CakePHP --ignore=Plugin --ignore=Vendor --ignore=webroot/js/ckeditor -n ./app; elif [ "$COVERALLS" == 1 ]; then cd ./app; ../vendors/bin/cake test app AllTests --stderr --coverage-clover ../build/logs/clover.xml else cd ./app; ../vendors/bin/cake test app AllTests --stderr; fi"
 
 notifications:
   email: false
