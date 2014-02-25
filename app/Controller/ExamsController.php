@@ -267,16 +267,4 @@ class ExamsController extends AppController {
 		$this->set(compact('missings', 'exam'));
 	}
 
-	public function test() {
-		/*
-		$versionMappingFilename = ROOT . DS . 'tools' . DS . 'teleform' . DS . '611P_01062012_OM.csv';
-		$filename = ROOT . DS . 'tools' . DS . 'teleform' . DS . '611P_01062012.TXT';
-
-		$this->Exam->importTeleform($filename, $versionMappingFilename);
-		*/
-
-		$exam = $this->Exam->find('first', array('conditions' => array('Exam.id' => 119)));
-
-		$this->Exam->importQMP($exam);
-	}
 }
