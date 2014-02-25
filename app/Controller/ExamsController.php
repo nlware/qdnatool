@@ -108,10 +108,24 @@ class ExamsController extends AppController {
 		return $this->redirect(array('action' => 'index'));
 	}
 
+/**
+ * delete method
+ *
+ * @param string $id
+ * @return void
+ */
 	public function analyse($id = null) {
 		$this->Exam->analyse($id);
 	}
 
+/**
+ * stevie method
+ *
+ * @param string $id
+ * @param string $offset
+ * @return void
+ * @throws NotFoundException
+ */
 	public function stevie($id = null, $offset = 'overview') {
 		/*
 		if (!$this->request->is('post'))
@@ -128,6 +142,14 @@ class ExamsController extends AppController {
 		$this->set(compact('exam', 'offset'));
 	}
 
+/**
+ * generate_report method
+ *
+ * @param string $id
+ * @return void
+ * @throws MethodNotAllowedException
+ * @throws NotFoundException
+ */
 	public function generate_report($id = null) {
 		if (!$this->request->is('post')) {
 			throw new MethodNotAllowedException();
@@ -144,6 +166,14 @@ class ExamsController extends AppController {
 		return $this->redirect(array('action' => 'index'));
 	}
 
+/**
+ * generate_report method
+ *
+ * @param string $id
+ * @return void
+ * @throws NotFoundException
+ * @throws NotFoundException
+ */
 	public function report($id) {
 		$this->Exam->id = $id;
 		if (!$this->Exam->exists()) {
@@ -162,6 +192,12 @@ class ExamsController extends AppController {
 		return $this->response;
 	}
 
+/**
+ * reanalyse method
+ *
+ * @param string $id
+ * @return void
+ */
 	public function reanalyse($id = null) {
 		/*
 		if (!$this->request->is('post'))
@@ -197,6 +233,14 @@ class ExamsController extends AppController {
 		$this->set(compact('items'));
 	}
 
+/**
+ * scores method
+ *
+ * @param string $id
+ * @param string $format
+ * @return void
+ * @throws NotFoundException
+ */
 	public function scores($id, $format = null) {
 		$this->Exam->id = $id;
 		if (!$this->Exam->exists()) {
@@ -206,6 +250,13 @@ class ExamsController extends AppController {
 		$this->set(compact('scores', 'format'));
 	}
 
+/**
+ * missings method
+ *
+ * @param string $id
+ * @return void
+ * @throws NotFoundException
+ */
 	public function missings($id) {
 		$this->Exam->id = $id;
 		if (!$this->Exam->exists()) {
