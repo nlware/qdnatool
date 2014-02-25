@@ -442,7 +442,7 @@ class OrderedBehavior extends ModelBehavior {
 				}
 			}
 		}
-		return $Model->find('neighbors',array(
+		return $Model->find('neighbors', array(
 			'value' => $value,
 			'field' => $this->settings[$Model->alias]['field']
 		));
@@ -487,12 +487,12 @@ class OrderedBehavior extends ModelBehavior {
 					'recursive' => -1));
 			$foreignKeys = Set::extract($temp, '/' . $Model->alias . '/' . $this->settings[$Model->alias]['foreign_key']);
 			foreach ($foreignKeys as $fk) {
-				if (!$this->sortby($Model,$Model->displayField, $fk)) {
+				if (!$this->sortby($Model, $Model->displayField, $fk)) {
 					return false;
 				}
 			}
 		} else {
-			return $this->sortby($Model,$Model->displayField);
+			return $this->sortby($Model, $Model->displayField);
 		}
 		return true;
 	}
@@ -612,7 +612,7 @@ class OrderedBehavior extends ModelBehavior {
 					$Model->updateAll(array($this->settings[$Model->alias]['field'] => $Model->alias . '.' . $this->settings[$Model->alias]['field'] . ' - 1'), $conditions);
 				}
 			}
-			$Model->data[$Model->alias][$this->settings[$Model->alias]['field']] = $this->__newWeight($Model,$fk);
+			$Model->data[$Model->alias][$this->settings[$Model->alias]['field']] = $this->__newWeight($Model, $fk);
 		}
 		return true;
 	}
