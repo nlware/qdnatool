@@ -10,12 +10,16 @@ matrix:
   include:
     - php: 5.3
       env:
+        - COVERALLS=1  
+    - php: 5.3
+      env:
         - PHPCS=1
 
 before_script:
   - sh -c "mysql -e 'CREATE DATABASE qdnatool_test;'"
   - chmod -R 777 ./app/tmp
   - composer install --dev --no-interaction --prefer-source
+  - sh -c "if [ "$COVERALLS" = '1' ]; then composer require --dev satooshi/php-coveralls:dev-master; fi"
   - sh -c "if [ '$PHPCS' = '1' ]; then pear channel-discover pear.cakephp.org; fi"
   - sh -c "if [ '$PHPCS' = '1' ]; then pear install --alldeps cakephp/CakePHP_CodeSniffer; fi"
   - phpenv rehash
@@ -23,6 +27,9 @@ before_script:
  
 script:
   - sh -c "if [ '$PHPCS' = '1' ]; then phpcs -p --extensions=php --standard=CakePHP --ignore=Plugin --ignore=Vendor --ignore=webroot/js/ckeditor -n ./app; elif [ "$COVERALLS" == 1 ]; then cd ./app; ../vendors/bin/cake test app AllTests --stderr --coverage-clover ../build/logs/clover.xml else cd ./app; ../vendors/bin/cake test app AllTests --stderr; fi"
+
+after_success:
+  - sh -c "if [ "$COVERALLS" = '1' ]; then cd ..; php vendors/bin/coveralls -c .coveralls.yml -v; fi"
 
 notifications:
   email: false
