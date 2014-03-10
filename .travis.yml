@@ -29,7 +29,7 @@ script:
   - sh -c "if [ '$PHPCS' = '1' ]; then phpcs -p --extensions=php --standard=CakePHP --ignore=Plugin --ignore=Vendor --ignore=webroot/js/ckeditor -n ./app; elif [ '$COVERALLS' = 1 ]; then cd ./app; ../vendors/bin/cake test app AllTests --stderr --coverage-clover ../build/logs/clover.xml ; else cd ./app; ../vendors/bin/cake test app AllTests --stderr; fi"
 
 after_success:
-  - sh -c "if [ '$COVERALLS' = '1' ]; then cd ..; php vendors/bin/coveralls -c .coveralls.yml -v; fi"
+  - sh -c "if [ '$COVERALLS' = '1' ]; then php vendors/bin/coveralls -c .coveralls.yml -v; fi"
 
 notifications:
   email: false
