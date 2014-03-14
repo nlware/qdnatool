@@ -1,6 +1,8 @@
 qDNAtool
 ========
 
+[![Build Status](https://travis-ci.org/nlware/qdnatool.png?branch=master)](https://travis-ci.org/nlware/qdnatool) [![Coverage Status](https://coveralls.io/repos/nlware/qdnatool/badge.png?branch=master)](https://coveralls.io/r/nlware/qdnatool?branch=master)
+
 [qDNAtool](https://www.qdnatool.org)
 
 
@@ -15,7 +17,7 @@ qDNAtool
 Clone this project:
 
 	git clone https://github.com/nlware/qdnatool.git
-	
+
 Run this in your terminal to get the latest Composer version:
 
 	curl -sS https://getcomposer.org/installer | php
