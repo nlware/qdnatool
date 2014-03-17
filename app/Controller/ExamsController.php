@@ -109,16 +109,6 @@ class ExamsController extends AppController {
 	}
 
 /**
- * delete method
- *
- * @param string $id
- * @return void
- */
-	public function analyse($id = null) {
-		$this->Exam->analyse($id);
-	}
-
-/**
  * stevie method
  *
  * @param string $id
