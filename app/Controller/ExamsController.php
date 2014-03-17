@@ -133,31 +133,7 @@ class ExamsController extends AppController {
 	}
 
 /**
- * generate_report method
- *
- * @param string $id
- * @return void
- * @throws MethodNotAllowedException
- * @throws NotFoundException
- */
-	public function generate_report($id = null) {
-		if (!$this->request->is('post')) {
-			throw new MethodNotAllowedException();
-		}
-		$this->Exam->id = $id;
-		if (!$this->Exam->exists()) {
-			throw new NotFoundException(__('Invalid exam'));
-		}
-		if ($this->Exam->scheduleReport($id)) {
-			$this->Session->setFlash(__('Exam is scheduled to report'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-success'));
-			return $this->redirect(array('action' => 'index'));
-		}
-		$this->Session->setFlash(__('Exam was not scheduled to report'), 'alert', array('action' => 'index'), array('plugin' => 'TwitterBootstrap', 'class' => 'alert-error'));
-		return $this->redirect(array('action' => 'index'));
-	}
-
-/**
- * generate_report method
+ * report method
  *
  * @param string $id
  * @return void
