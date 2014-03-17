@@ -118,8 +118,8 @@ class UsersController extends AppController {
 	public function index() {
 		$conditions = array();
 		$contain = array('Role');
-		if (AuthComponent::user('role_id') != Role::ADMIN) {
-			$conditions = array('User.id' => AuthComponent::user('id'));
+		if ($this->Auth->user('role_id') != Role::ADMIN) {
+			$conditions = array('User.id' => $this->Auth->user('id'));
 		}
 		$this->paginate = compact('contain');
 		$this->set('users', $this->paginate($conditions));

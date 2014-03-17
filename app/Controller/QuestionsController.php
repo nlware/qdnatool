@@ -189,9 +189,9 @@ class QuestionsController extends AppController {
 			$this->request->data = array('Tag' => array('Tag' => $this->request->params['named']['tag_id']));
 		}
 
-		//if (AuthComponent::user('role_id') != Role::ADMIN)
+		//if ($this->Auth->user('role_id') != Role::ADMIN)
 		{
-			$options['conditions'][] = array('Question.user_id' => AuthComponent::user('id'));
+			$options['conditions'][] = array('Question.user_id' => $this->Auth->user('id'));
 		}
 		$options['contain'][] = 'Tag';
 
@@ -221,7 +221,7 @@ class QuestionsController extends AppController {
 			$this->request->data = array('Tag' => array('Tag' => $this->request->params['named']['tag_id']));
 		}
 
-		$options['conditions'][] = array('Question.user_id' => AuthComponent::user('id'));
+		$options['conditions'][] = array('Question.user_id' => $this->Auth->user('id'));
 		$options['contain'][] = 'QuestionAnswer';
 		$options['contain'][] = 'Tag';
 
@@ -248,7 +248,7 @@ class QuestionsController extends AppController {
 			$this->request->data = array('Tag' => array('Tag' => $this->request->params['named']['tag_id']));
 		}
 
-		$options['conditions'][] = array('Question.user_id' => AuthComponent::user('id'));
+		$options['conditions'][] = array('Question.user_id' => $this->Auth->user('id'));
 		$options['contain'][] = 'QuestionAnswer';
 		$options['contain'][] = 'Tag';
 
@@ -269,7 +269,7 @@ class QuestionsController extends AppController {
 			$this->request->data = array('Tag' => array('Tag' => $this->request->params['named']['tag_id']));
 		}
 
-		$options['conditions'][] = array('Question.user_id' => AuthComponent::user('id'));
+		$options['conditions'][] = array('Question.user_id' => $this->Auth->user('id'));
 		$options['contain'][] = 'QuestionAnswer';
 		$options['contain'][] = 'Tag';
 
@@ -289,7 +289,7 @@ class QuestionsController extends AppController {
 			$this->request->data = array('Tag' => array('Tag' => $this->request->params['named']['tag_id']));
 		}
 
-		$options['conditions'][] = array('Question.user_id' => AuthComponent::user('id'));
+		$options['conditions'][] = array('Question.user_id' => $this->Auth->user('id'));
 		$options['contain'][] = 'QuestionAnswer';
 		$options['contain'][] = 'Tag';
 

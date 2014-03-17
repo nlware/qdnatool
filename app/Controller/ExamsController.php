@@ -23,7 +23,7 @@ class ExamsController extends AppController {
  */
 	public function index() {
 		$conditions = array(
-			'Exam.user_id' => AuthComponent::user('id'),
+			'Exam.user_id' => $this->Auth->user('id'),
 			'Exam.parent_id' => null,
 			'Exam.deleted' => null
 		);
@@ -55,7 +55,7 @@ class ExamsController extends AppController {
 			'first', array(
 				'conditions' => array(
 					'Exam.id' => $id,
-					'Exam.user_id' => AuthComponent::user('id')
+					'Exam.user_id' => $this->Auth->user('id')
 				),
 				'contain' => array(
 					'Item' => 'AnswerOption',

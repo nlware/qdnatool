@@ -9,7 +9,7 @@ class TagsController extends AppController {
 
 	public function autocomplete() {
 		$conditions = array(
-			'Tag.user_id' => AuthComponent::user('id')
+			'Tag.user_id' => $this->Auth->user('id')
 		);
 		if (!empty($this->request->query['query'])) {
 			$conditions['Tag.name LIKE'] = $this->request->query['query'] . '%';
