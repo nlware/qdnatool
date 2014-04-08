@@ -8,9 +8,8 @@ App::uses('AppModel', 'Model');
 class Role extends AppModel {
 
 	const USER = 1;
-	const ADMIN = 2;
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
+	const ADMIN = 2;
 
 /**
  * hasMany associations

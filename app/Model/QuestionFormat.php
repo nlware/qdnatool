@@ -8,8 +8,11 @@ App::uses('AppModel', 'Model');
 class QuestionFormat extends AppModel {
 
 	const TRUE_FALSE = 1;
+
 	const MULTIPLE_CHOICE = 2;
+
 	const MULTIPLE_RESPONSE = 3;
+
 	const OPEN_ANSWER = 4;
 
 /**
@@ -31,8 +34,6 @@ class QuestionFormat extends AppModel {
 			)
 		)
 	);
-
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 /**
  * hasMany associations

@@ -8,8 +8,6 @@ App::uses('AppModel', 'Model');
  */
 class QuestionsTag extends AppModel {
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
 /**
  * belongsTo associations
  *

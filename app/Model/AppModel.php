@@ -14,12 +14,28 @@ App::uses('Model', 'Model');
  */
 class AppModel extends Model {
 
+/**
+ * actsAs behaviors
+ *
+ * @var array
+ */
 	public $actsAs = array('Containable');
 
+/**
+ * recursive
+ *
+ * @var integer
+ */
 	public $recursive = -1;
 
 /**
+ * Deletes multiple model records based on a set of conditions.
  * A workaround for CakePHP lack of support for recursive
+ *
+ * @param mixed $conditions Conditions to match
+ * @param boolean $cascade Set to true to delete records that depend on this record
+ * @param boolean $callbacks Run callbacks
+ * @return boolean True on success, false on failure
  */
 	public function deleteAll($fields, $conditions = true, $recursive = null) {
 		if (!isset($recursive)) {
@@ -47,6 +63,15 @@ class AppModel extends Model {
 		return $result;
 	}
 
+/**
+ * Updates multiple model records based on a set of conditions.
+ * A workaround for CakePHP lack of support for recursive
+ *
+ * @param array $fields Set of fields and values, indexed by fields.
+ *    Fields are treated as SQL snippets, to insert literal values manually escape your data.
+ * @param mixed $conditions Conditions to match, true for all records
+ * @return boolean True on success, false on failure
+ */
 	public function updateAll($fields, $conditions = true, $recursive = null) {
 		if (!isset($recursive)) {
 			$recursive = $this->recursive;

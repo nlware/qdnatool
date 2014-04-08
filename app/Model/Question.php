@@ -24,8 +24,18 @@ class Question extends AppModel {
  */
 	public $displayField = 'name';
 
+/**
+ * actsAs behaviors
+ *
+ * @var array
+ */
 	public $actsAs = array('I18n');
 
+/**
+ * Validation rules
+ *
+ * @var array
+ */
 	public $validate = array(
 		'code' => array(
 			'notEmpty' => array(
@@ -63,8 +73,6 @@ class Question extends AppModel {
 			)
 		)
 	);
-
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 /**
  * belongsTo associations
@@ -126,6 +134,11 @@ class Question extends AppModel {
 		)
 	);
 
+/**
+ * hasOne associations
+ *
+ * @var array
+ */
 	public $hasOne = array(
 		'QuestionsTagFilter' => array(
 			'className' => 'QuestionsTag'

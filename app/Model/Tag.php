@@ -8,6 +8,11 @@ App::uses('AppModel', 'Model');
  */
 class Tag extends AppModel {
 
+/**
+ * order
+ *
+ * @var string
+ */
 	public $order = array('name' => 'ASC');
 
 /**
@@ -37,8 +42,6 @@ class Tag extends AppModel {
 		)
 	);
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
 /**
  * hasMany associations
  *
@@ -52,6 +55,11 @@ class Tag extends AppModel {
 		)
 	);
 
+/**
+ * hasOne associations
+ *
+ * @var array
+ */
 	public $hasOne = array(
 		'QuestionsTagFilter' => array(
 			'className' => 'QuestionsTag'

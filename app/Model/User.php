@@ -7,6 +7,11 @@ App::uses('AppModel', 'Model');
  */
 class User extends AppModel {
 
+/**
+ * Validation rules
+ *
+ * @var array
+ */
 	public $validate = array(
 		'username' => array(
 			'email' => array(
@@ -73,8 +78,6 @@ class User extends AppModel {
 			)
 		)
 	);
-
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 /**
  * belongsTo associations

@@ -7,12 +7,16 @@ App::uses('AppModel', 'Model');
  */
 class DevelopmentPhase extends AppModel {
 
+/**
+ * actsAs behaviors
+ *
+ * @var array
+ */
 	public $actsAs = array('I18n' => array('fields' => array('name'), 'display' => 'name'));
 
 	const DIVERGE = 1;
-	const CONVERGE = 2;
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
+	const CONVERGE = 2;
 
 /**
  * hasMany associations

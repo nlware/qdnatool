@@ -16,13 +16,18 @@ App::uses('AppModel', 'Model');
  * @property ExamState $ExamState
  * @property Exam $Parent
  * @property Exam $Child
- *
  */
 class Exam extends AppModel {
 
+/**
+ * actsAs behaviors
+ *
+ * @var array
+ */
 	public $actsAs = array('I18n');
 
 	const UPLOAD_DIRECTORY = EXAM_UPLOAD_DIRECTORY;
+
 	const REPORT_DIRECTORY = EXAM_REPORT_DIRECTORY;
 
 /**
@@ -124,8 +129,6 @@ class Exam extends AppModel {
 			)
 		)
 	);
-
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 /**
  * belongsTo associations
