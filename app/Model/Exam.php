@@ -41,16 +41,14 @@ class Exam extends AppModel {
 			'notEmpty' => array(
 				'rule' => 'notEmpty',
 				'message' => 'This field cannot be left blank',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'required' => 'create'
 			),
 		),
 		'exam_format_id' => array(
 			'notEmpty' => array(
 				'rule' => 'notEmpty',
 				'message' => 'This field cannot be left blank',
+				'required' => 'create',
 				'last' => true
 			),
 			'inList' => array(
@@ -110,13 +108,13 @@ class Exam extends AppModel {
 			)
 		),
 		'user_id' => array(
+			'notEmpty' => array(
+				'rule' => 'notEmpty',
+				'message' => 'This field cannot be left blank',
+				'required' => 'create'
+			),
 			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'rule' => 'numeric'
 			)
 		),
 		'Item' => array(
