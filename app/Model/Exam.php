@@ -1,6 +1,7 @@
 <?php
 define('EXAM_UPLOAD_DIRECTORY', TMP . 'uploads' . DS);
 define('EXAM_REPORT_DIRECTORY', ROOT . DS . 'data' . DS . 'reports' . DS);
+App::uses('AuthComponent', 'Controller/Component');
 App::uses('Rserve', 'Lib');
 App::uses('ClassRegistry', 'Utility');
 App::uses('ExamFormat', 'Model');
