@@ -8,131 +8,235 @@ App::uses('ExamsController', 'Controller');
 class ExamsControllerTest extends ControllerTestCase {
 
 /**
- * Fixtures
+ * autoFixtures property
+ *
+ * @var boolean
+ */
+	public $autoFixtures = false;
+
+/**
+ * fixtures property
  *
  * @var array
  */
-	public $fixtures = array();
+	public $fixtures = array(
+		'app.exam', 'app.exam_format', 'app.exam_state', 'app.item', 'app.user'
+	);
 
 /**
- * testIndex method
+ * setUp method
  *
  * @return void
  */
-	public function testIndex() {
+	public function setUp() {
+		parent::setUp();
+
+		$this->Exams = $this->generate('Exams', array(
+			'components' => array(
+				'Auth',
+			)
+		));
+
+		$this->Exams->Auth->staticExpects($this->any())
+			->method('user')
+			->with('id')
+			->will($this->returnValue(1));
+
+		$this->loadFixtures('Exam');
+	}
+
+/**
+ * tearDown method
+ *
+ * @return void
+ */
+	public function tearDown() {
+		parent::tearDown();
+
+		unset($this->Exams);
+	}
+
+/**
+ * testIndexGet method
+ *
+ * @return void
+ */
+	public function testIndexGet() {
+		$this->loadFixtures('ExamState');
+
+		$this->testAction('/exams/index', array('method' => 'get', 'return' => 'contents'));
+		$this->assertInternalType('array', $this->vars['exams']);
+		$this->assertRegExp('/<html/', $this->contents);
+		$this->assertRegExp('/<table/', $this->view);
+	}
+
+/**
+ * testViewGet method
+ *
+ * @return void
+ */
+	public function testViewGet() {
+		$this->loadFixtures('Item', 'User');
+
+		$this->testAction('/exams/view/1', array('method' => 'get', 'return' => 'contents'));
+		$this->assertInternalType('array', $this->vars['exam']);
+		$this->assertRegExp('/<html/', $this->contents);
+		$this->assertRegExp('/<dl/', $this->view);
+	}
+
+/**
+ * testViewGetNotFound method
+ *
+ * @return void
+ */
+	public function testViewGetNotFound() {
+		$this->loadFixtures('Item', 'User');
+
+		$this->setExpectedException('NotFoundException');
+		$this->testAction('/exams/view/0', array('method' => 'get', 'return' => 'contents'));
+	}
+
+/**
+ * testAddGet method
+ *
+ * @return void
+ */
+	public function testAddGet() {
+		$this->loadFixtures('ExamFormat');
+
+		$this->testAction('/exams/add', array('method' => 'get', 'return' => 'contents'));
+		$this->assertInternalType('array', $this->vars['examFormats']);
+		$this->assertRegExp('/<html/', $this->contents);
+		$this->assertRegExp('/<form/', $this->view);
+	}
+
+/**
+ * testAddPost method
+ *
+ * @return void
+ */
+	public function testAddPost() {
 		$this->markTestIncomplete(
 			'This test has not been implemented yet.'
 		);
 	}
 
 /**
- * testView method
+ * testDeleteGet method
  *
  * @return void
  */
-	public function testView() {
+	public function testDeleteGet() {
+		$this->loadFixtures('ExamFormat');
+
+		$this->setExpectedException('MethodNotAllowedException');
+		$this->testAction('/exams/delete/1', array('method' => 'get', 'return' => 'contents'));
+	}
+
+/**
+ * testDeletePost method
+ *
+ * @return void
+ */
+	public function testDeletePost() {
 		$this->markTestIncomplete(
 			'This test has not been implemented yet.'
 		);
 	}
 
 /**
- * testAdd method
+ * testStevieGet method
  *
  * @return void
  */
-	public function testAdd() {
+	public function testStevieGet() {
 		$this->markTestIncomplete(
 			'This test has not been implemented yet.'
 		);
 	}
 
 /**
- * testDelete method
+ * testStevieGetNotFound method
  *
  * @return void
  */
-	public function testDelete() {
+	public function testStevieGetNotFound() {
+		$this->setExpectedException('NotFoundException');
+		$this->testAction('/exams/stevie/0', array('method' => 'get', 'return' => 'contents'));
+	}
+
+/**
+ * testReportGet method
+ *
+ * @return void
+ */
+	public function testReportGet() {
 		$this->markTestIncomplete(
 			'This test has not been implemented yet.'
 		);
 	}
 
 /**
- * testAnalyse method
+ * testReportGetNotFound method
  *
  * @return void
  */
-	public function testAnalyse() {
+	public function testReportGetNotFound() {
+		$this->setExpectedException('NotFoundException');
+		$this->testAction('/exams/report/0', array('method' => 'get', 'return' => 'contents'));
+	}
+
+/**
+ * testReanalyseGet method
+ *
+ * @return void
+ */
+	public function testReanalyseGet() {
 		$this->markTestIncomplete(
 			'This test has not been implemented yet.'
 		);
 	}
 
 /**
- * testStevie method
+ * testScoresGet method
  *
  * @return void
  */
-	public function testStevie() {
+	public function testScoresGet() {
 		$this->markTestIncomplete(
 			'This test has not been implemented yet.'
 		);
 	}
 
 /**
- * testGenerateReport method
+ * testScoresGetNotFound method
  *
  * @return void
  */
-	public function testGenerateReport() {
+	public function testScoresGetNotFound() {
+		$this->setExpectedException('NotFoundException');
+		$this->testAction('/exams/scores/0', array('method' => 'get', 'return' => 'contents'));
+	}
+
+/**
+ * testMissingsGet method
+ *
+ * @return void
+ */
+	public function testMissingsGet() {
 		$this->markTestIncomplete(
 			'This test has not been implemented yet.'
 		);
 	}
 
 /**
- * testReport method
+ * testMissingsGetNotFound method
  *
  * @return void
  */
-	public function testReport() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
-	}
-
-/**
- * testReanalyse method
- *
- * @return void
- */
-	public function testReanalyse() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
-	}
-
-/**
- * testScores method
- *
- * @return void
- */
-	public function testScores() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
-	}
-
-/**
- * testMissings method
- *
- * @return void
- */
-	public function testMissings() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+	public function testMissingsGetNotFound() {
+		$this->setExpectedException('NotFoundException');
+		$this->testAction('/exams/missings/0', array('method' => 'get', 'return' => 'contents'));
 	}
 
 }

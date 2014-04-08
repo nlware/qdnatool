@@ -8,6 +8,13 @@ App::uses('Exam', 'Model');
 class TestExam extends Exam {
 
 /**
+ * Table name
+ *
+ * @var string
+ */
+	public $useTable = 'exams';
+
+/**
  * Convenience method for testing protected method
  *
  * @param array $header Column headers of Teleform mapping file
@@ -31,7 +38,7 @@ class ExamTest extends CakeTestCase {
  *
  * @var array
  */
-	public $fixtures = array();
+	public $fixtures = array('app.exam');
 
 /**
  * setUp method
