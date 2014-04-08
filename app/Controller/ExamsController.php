@@ -45,6 +45,7 @@ class ExamsController extends AppController {
  * @throws NotFoundException
  * @param string $id
  * @return void
+ * @todo throw exception when exam doesn't belong to current user
  */
 	public function view($id = null) {
 		$this->Exam->id = $id;
