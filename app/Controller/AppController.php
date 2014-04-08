@@ -24,9 +24,7 @@ class AppController extends Controller {
 		),
 		'RequestHandler',
 		'Session',
-		'DebugKit.Toolbar' => array(
-			'cache' => array('engine' => 'Memcache')
-		)
+		'DebugKit.Toolbar'
 	);
 
 	public $helpers = array(
