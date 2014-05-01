@@ -54,5 +54,8 @@
 		"slywalker/twitter_bootstrap": "1.5.7",
 		"htmlawed/htmlawed": "1.1.14",
 		"rserve-php/rserve-php": "0.1"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "3.7.*"
 	}
 }
