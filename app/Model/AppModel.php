@@ -35,9 +35,10 @@ class AppModel extends Model {
  * @param mixed $conditions Conditions to match
  * @param boolean $cascade Set to true to delete records that depend on this record
  * @param boolean $callbacks Run callbacks
+ * @param integer $recursive (Optional) Overrides the default recursive level
  * @return boolean True on success, false on failure
  */
-	public function deleteAll($fields, $conditions = true, $recursive = null) {
+	public function deleteAll($conditions, $cascade = true, $callbacks = false, $recursive = null) {
 		if (!isset($recursive)) {
 			$recursive = $this->recursive;
 		}
@@ -51,7 +52,7 @@ class AppModel extends Model {
 			), true);
 		}
 
-		$result = parent::deleteAll($fields, $conditions);
+		$result = parent::deleteAll($conditions, $cascade, $callbacks);
 
 		if ($recursive == -1) {
 			$this->bindModel(array(
@@ -70,6 +71,7 @@ class AppModel extends Model {
  * @param array $fields Set of fields and values, indexed by fields.
  *    Fields are treated as SQL snippets, to insert literal values manually escape your data.
  * @param mixed $conditions Conditions to match, true for all records
+ * @param integer $recursive (Optional) Overrides the default recursive level
  * @return boolean True on success, false on failure
  */
 	public function updateAll($fields, $conditions = true, $recursive = null) {

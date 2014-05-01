@@ -115,6 +115,6 @@ class Tag extends AppModel {
 			)
 		);
 		$tagIds = Set::extract('/Tag/id', $tags);
-		$this->deleteAll(array('Tag.id' => $tagIds), false, false);
+		$this->deleteAll(array('Tag.id' => $tagIds), false);
 	}
 }
