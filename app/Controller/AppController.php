@@ -57,7 +57,22 @@ class AppController extends Controller {
 		if ($type == 'secure' && !$this->RequestHandler->isSSL()) {
 			return $this->redirect('https://' . env('SERVER_NAME') . $this->here);
 		}
-		$this->Session->setFlash(__('Sorry, something went wrong. Please, try again.'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-error'));
+		$this->setFlashError(__('Sorry, something went wrong. Please, try again.'));
 		return $this->redirect('/');
 	}
+
+	public function setFlashSuccess($message) {
+		$this->Session->setFlash($message, 'alert', array(
+			'plugin' => 'TwitterBootstrap',
+			'class' => 'alert-success'
+		));
+	}
+
+	public function setFlashError($message) {
+		$this->Session->setFlash($message, 'alert', array(
+			'plugin' => 'TwitterBootstrap',
+			'class' => 'alert-error'
+		));
+	}
+
 }

@@ -50,10 +50,10 @@ class UsersController extends AppController {
 		if ($this->request->is('post')) {
 			$this->User->create();
 			if ($this->User->save($this->request->data)) {
-				$this->Session->setFlash(__('The user has been saved'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-success'));
+				$this->setFlashSuccess(__('The user has been saved'));
 				return $this->redirect(array('admin' => false, 'action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The user could not be saved. Please, try again.'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-error'));
+				$this->setFlashError(__('The user could not be saved. Please, try again.'));
 			}
 		}
 		$roles = $this->User->Role->find('list');
@@ -74,10 +74,10 @@ class UsersController extends AppController {
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->User->adminUpdate($this->request->data)) {
-				$this->Session->setFlash(__('The user has been saved'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-success'));
+				$this->setFlashSuccess(__('The user has been saved'));
 				return $this->redirect(array('admin' => false, 'action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The user could not be saved. Please, try again.'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-error'));
+				$this->setFlashError(__('The user could not be saved. Please, try again.'));
 			}
 		} else {
 			$this->request->data = $this->User->adminEdit($id);
@@ -103,10 +103,10 @@ class UsersController extends AppController {
 			throw new NotFoundException(__('Invalid user'));
 		}
 		if ($this->User->delete()) {
-			$this->Session->setFlash(__('User deleted'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-success'));
+			$this->setFlashSuccess(__('User deleted'));
 			return $this->redirect(array('admin' => false, 'action' => 'index'));
 		}
-		$this->Session->setFlash(__('User was not deleted'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-error'));
+		$this->setFlashError(__('User was not deleted'));
 		return $this->redirect(array('admin' => false, 'action' => 'index'));
 	}
 
@@ -136,7 +136,7 @@ class UsersController extends AppController {
 			if ($this->Auth->login()) {
 				return $this->redirect($this->Auth->redirect());
 			} else {
-				$this->Session->setFlash(__('Invalid username or password, try again'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-error'));
+				$this->setFlashError(__('Invalid username or password, try again'));
 			}
 		}
 	}
@@ -188,12 +188,12 @@ class UsersController extends AppController {
 
 			if (!empty($user['User'])) {
 				if ($this->Auth->login($user['User'])) {
-					$this->Session->setFlash(__('Successful login via SURFconext.'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-success'));
+					$this->setFlashSuccess(__('Successful login via SURFconext.'));
 					return $this->redirect($this->Auth->redirect());
 				}
 			}
 		}
-		$this->Session->setFlash(__('Failed to login via SURFconext. Please, try again.'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-error'));
+		$this->setFlashError(__('Failed to login via SURFconext. Please, try again.'));
 		return $this->redirect('/');
 	}
 
@@ -212,10 +212,10 @@ class UsersController extends AppController {
 	public function change_password() {
 		if ($this->request->is('post')) {
 			if ($this->User->changePassword($this->request->data)) {
-				$this->Session->setFlash(__('Password has been changed.'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-success'));
+				$this->setFlashSuccess(__('Password has been changed.'));
 				return $this->redirect(array('action' => 'account'));
 			} else {
-				$this->Session->setFlash(__('Password could not be changed. Plaese try again.'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-error'));
+				$this->setFlashError(__('Password could not be changed. Plaese try again.'));
 			}
 		}
 	}

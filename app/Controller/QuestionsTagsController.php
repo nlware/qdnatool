@@ -18,10 +18,10 @@ class QuestionsTagsController extends AppController {
 			throw new NotFoundException(__('Invalid questionstag'));
 		}
 		if ($this->QuestionsTag->remove($id)) {
-			$this->Session->setFlash(__('Question removed from tag'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-success'));
+			$this->setFlashSuccess(__('Question removed from tag'));
 			return $this->redirect($this->referer());
 		}
-		$this->Session->setFlash(__('Question was not removed from tag'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-error'));
+		$this->setFlashError(__('Question was not removed from tag'));
 		return $this->redirect($this->referer());
 	}
 
@@ -34,10 +34,10 @@ class QuestionsTagsController extends AppController {
 			throw new NotFoundException(__('Invalid questionstag'));
 		}
 		if ($this->QuestionsTag->moveDown($id)) {
-			$this->Session->setFlash(__('Question moved down'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-success'));
+			$this->setFlashSuccess(__('Question moved down'));
 			return $this->redirect($this->referer());
 		}
-		$this->Session->setFlash(__('Question was not moved down'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-error'));
+		$this->setFlashError(__('Question was not moved down'));
 		return $this->redirect($this->referer());
 	}
 
@@ -50,10 +50,10 @@ class QuestionsTagsController extends AppController {
 			throw new NotFoundException(__('Invalid questionstag'));
 		}
 		if ($this->QuestionsTag->moveUp($id)) {
-			$this->Session->setFlash(__('Question moved up'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-success'));
+			$this->setFlashSuccess(__('Question moved up'));
 			return $this->redirect($this->referer());
 		}
-		$this->Session->setFlash(__('Question was not moved up'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-error'));
+		$this->setFlashError(__('Question was not moved up'));
 		return $this->redirect($this->referer());
 	}
 }

@@ -139,10 +139,10 @@ class ImagesController extends AppController {
 			throw new NotFoundException(__('Invalid image'));
 		}
 		if ($this->Image->delete()) {
-			$this->Session->setFlash(__('Image deleted'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-success'));
+			$this->setFlashSuccess(__('Image deleted'));
 			return $this->redirect(array('action' => 'index'));
 		}
-		$this->Session->setFlash(__('Image was not deleted'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-error'));
+		$this->setFlashError(__('Image was not deleted'));
 		return $this->redirect(array('action' => 'index'));
 	}
 }
