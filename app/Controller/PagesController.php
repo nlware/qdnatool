@@ -1,9 +1,14 @@
 <?php
 /**
+ * Static content controller.
+ *
+ * This file will render views from views/pages/
+ *
  * @copyright     Copyright (c) NLWare B.V. (http://www.nlware.com)
  * @link          http://docs.qdnatool.org qDNAtool(tm) Project
  * @license       http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB CC BY-NC-SA 3.0 License
  */
+
 App::uses('AppController', 'Controller');
 
 /**
@@ -23,10 +28,9 @@ class PagesController extends AppController {
 /**
  * Displays a view
  *
- * @param mixed What page to display
  * @return void
  * @throws NotFoundException When the view file could not be found
- *	or MissingViewException in debug mode.
+ *   or MissingViewException in debug mode.
  */
 	public function display() {
 		$path = func_get_args();
