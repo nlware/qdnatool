@@ -532,7 +532,9 @@ class OrderedBehavior extends ModelBehavior {
 		return $Model->saveAll($all);
 	}
 
-	/** CALLBACKS */
+/**
+ * CALLBACKS
+ */
 
 /**
  * updates weights after delete
@@ -617,7 +619,9 @@ class OrderedBehavior extends ModelBehavior {
 		return true;
 	}
 
-	/** Private functions */
+/**
+ * Private functions
+ */
 
 	private function __all(Model $Model) {
 		$options = array(
