@@ -11,7 +11,7 @@ matrix:
     - php: 5.3
       env:
         - COVERALLS=1  
-    - php: 5.3
+    - php: 5.4
       env:
         - PHPCS=1
 
