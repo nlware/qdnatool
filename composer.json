@@ -44,7 +44,7 @@
 		}
 	},
 	"require" : {
-		"cakephp/cakephp": "2.4.9",
+		"cakephp/cakephp": "2.5.*",
 		"cakephp/debug_kit": "2.2.*",
 		"slywalker/twitter_bootstrap": "1.5.7",
 		"htmlawed/htmlawed": "1.1.14",

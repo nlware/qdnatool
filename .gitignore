@@ -20,7 +20,6 @@
 /app/Plugin
 /app/Vendor
 /composer.phar
-/composer.lock
 
 # OS generated files #
 ######################
