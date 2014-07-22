@@ -25,11 +25,21 @@ class RemoteContentShell extends AppShell {
 		return $parser;
 	}
 
+/**
+ * refresh_all method
+ *
+ * @return void
+ */
 	public function refresh_all() {
 		$this->refresh_tips();
 		$this->refresh_instructions();
 	}
 
+/**
+ * refresh_tips method
+ *
+ * @return void
+ */
 	public function refresh_tips() {
 		$url = Configure::read('Config.tipsFeedUrl');
 
@@ -59,6 +69,11 @@ class RemoteContentShell extends AppShell {
 		}
 	}
 
+/**
+ * refresh_instructions method
+ *
+ * @return void
+ */
 	public function refresh_instructions() {
 		$url = Configure::read('Config.instructionsFeedUrl');
 
