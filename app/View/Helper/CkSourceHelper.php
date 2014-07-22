@@ -107,10 +107,12 @@ class CkSourceHelper extends FormHelper {
 	}
 
 /**
+ * Creates a textarea widget with CKeditor.
  *
- * It shows a textarea with CKeditor
- * @param string $fieldName
- * @param array $options
+ * @param string $fieldName Name of a field, in the form "Modelname.fieldname"
+ * @param array $options Array of HTML attributes, and special options.
+ * @return string A generated HTML text input element
+ * @see FormHelper::input()
  */
 	public function ckeditor($fieldName, $options = array()) {
 		$options = $this->_initInputField($fieldName, $options);

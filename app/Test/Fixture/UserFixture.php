@@ -34,6 +34,12 @@ class UserFixture extends CakeTestFixture {
  */
 	public $records = array();
 
+/**
+ * Initialize the fixture
+ *
+ * @return void
+ * @see CakeTestFixture::init()
+ */
 	public function init() {
 		$this->records = array(
 			array(

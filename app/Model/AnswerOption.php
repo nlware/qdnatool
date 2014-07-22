@@ -26,10 +26,22 @@ class AnswerOption extends AppModel {
 		)
 	);
 
+/**
+ * printIndex method
+ *
+ * @param integer $index Index
+ * @return string
+ */
 	public static function printIndex($index) {
 		return chr(65 + $index);
 	}
 
+/**
+ * printValue method
+ *
+ * @param integer $value Value
+ * @return string
+ */
 	public static function printValue($value) {
 		return chr(65 + $value - 1);
 	}

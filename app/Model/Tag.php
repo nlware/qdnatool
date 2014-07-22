@@ -66,6 +66,13 @@ class Tag extends AppModel {
 		)
 	);
 
+/**
+ * beforeValidate method
+ *
+ * @param array $options Options passed from Model::save().
+ * @return boolean True if validate operation should continue, false to abort
+ * @see Model::beforeValidate()
+ */
 	public function beforeValidate($options = array()) {
 		if ($userId = AuthComponent::user('id')) {
 			if (!$this->exists()) {
@@ -75,6 +82,14 @@ class Tag extends AppModel {
 		return true;
 	}
 
+/**
+ * Called before each save operation, after validation. Return a non-true result
+ * to halt the save.
+ *
+ * @param array $options Options passed from Model::save().
+ * @return bool True if the operation should continue, false if it should abort
+ * @see Model::save()
+ */
 	public function beforeSave($options = array()) {
 		if (empty($this->data[$this->alias]['id'])) {
 			$tag = $this->find(
@@ -92,6 +107,11 @@ class Tag extends AppModel {
 		}
 	}
 
+/**
+ * Get list
+ *
+ * @return array
+ */
 	public function getList() {
 		return $this->find(
 			'list', array(
@@ -102,6 +122,12 @@ class Tag extends AppModel {
 		);
 	}
 
+/**
+ * Cleanup unused tags
+ *
+ * @param array $tagIds Array with tag IDs
+ * @return void
+ */
 	public function cleanupUnused($tagIds = array()) {
 		$conditions = array('QuestionsTagFilter.id' => null);
 		if (!empty($tagIds)) {

@@ -7,6 +7,11 @@ App::uses('AppController', 'Controller');
  */
 class ImagesController extends AppController {
 
+/**
+ * beforeFilter
+ *
+ * @return void
+ */
 	public function beforeFilter() {
 		parent::beforeFilter();
 		if ($this->request->action == 'capture' || $this->request->action == 'upload') {
@@ -14,6 +19,11 @@ class ImagesController extends AppController {
 		}
 	}
 
+/**
+ * capture method
+ *
+ * @return void
+ */
 	public function capture() {
 		if ($_POST["save"]) {
 			$type = $_POST["type"];
@@ -50,6 +60,12 @@ class ImagesController extends AppController {
 		}
 	}
 
+/**
+ * get method
+ *
+ * @param string $id An image id
+ * @return void
+ */
 	public function get($id) {
 		$image = $this->Image->find(
 			'first', array(
@@ -73,6 +89,11 @@ class ImagesController extends AppController {
 		return $this->response;
 	}
 
+/**
+ * upload method
+ *
+ * @return void
+ */
 	public function upload() {
 		// Required: anonymous function reference number as explained above.
 		$funcNum = $_GET['CKEditorFuncNum'];
@@ -107,10 +128,22 @@ class ImagesController extends AppController {
 		$this->set(compact('funcNum', 'url', 'message'));
 	}
 
+/**
+ * Get extension of file
+ *
+ * @param string $filename A filename
+ * @return string
+ */
 	private function __getExtension($filename) {
 		return strtolower(end(explode('.', $filename)));
 	}
 
+/**
+ * browse method
+ *
+ * @param integer $questionId An question id
+ * @return void
+ */
 	public function browse($questionId) {
 		$images = $this->Image->find(
 			'all', array(
@@ -125,7 +158,7 @@ class ImagesController extends AppController {
 /**
  * delete method
  *
- * @param string $id
+ * @param string $id An image id
  * @return void
  * @throws MethodNotAllowedException
  * @throws NotFoundException

@@ -8,13 +8,13 @@ $(".tab-content").each(function()
 ';
 echo $this->Html->scriptBlock($script, array('inline' => false));
 if (empty($analyses)):
-?>
-<div class="alert alert-success"><?php echo __('The question doesn\'t seem to include common structural errors.'); ?></div>
-<?php
+	?>
+	<div class="alert alert-success"><?php echo __('The question doesn\'t seem to include common structural errors.'); ?></div>
+	<?php
 else:
 	foreach ($analyses as $analyse):
-?>
-<div class="alert alert-error"><?php echo $this->HtmLawed->display($analyse, array('elements' => 'a, i, p, u')); ?></div>
-<?php
+		?>
+		<div class="alert alert-error"><?php echo $this->HtmLawed->display($analyse, array('elements' => 'a, i, p, u')); ?></div>
+		<?php
 	endforeach;
 endif;

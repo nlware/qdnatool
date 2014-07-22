@@ -121,6 +121,13 @@ class OrderedBehavior extends ModelBehavior {
  */
 	private $__defaults = array('field' => 'weight', 'foreign_key' => 'order_id');
 
+/**
+ * Sets up the configuration for the model.
+ *
+ * @param Model $Model Model using this behavior.
+ * @param array $config Configuration options.
+ * @return void
+ */
 	public function setup(Model $Model, $config = array()) {
 		if (!is_array($config)) {
 			$config = array();
@@ -132,9 +139,9 @@ class OrderedBehavior extends ModelBehavior {
 /**
  * Returns true if the specified item is the first item
  *
- * @param Model $Model
- * @param Int $id
- * @return Boolean, true if it is the first item, false if not
+ * @param Model $Model Model using this behavior.
+ * @param integer $id Model using this behavior.
+ * @return boolean, true if it is the first item, false if not
  */
 	public function isfirst(Model $Model, $id = null) {
 		if (!$id) {
@@ -159,9 +166,9 @@ class OrderedBehavior extends ModelBehavior {
 /**
  * Returns true if the specified item is the last item
  *
- * @param Model $Model
- * @param Int $id
- * @return Boolean, true if it is the last item, false if not
+ * @param Model $Model Model using this behavior.
+ * @param integer $id The ID of the record
+ * @return boolean, true if it is the last item, false if not
  */
 	public function islast(Model $Model, $id = null) {
 		if (!$id) {
@@ -185,9 +192,9 @@ class OrderedBehavior extends ModelBehavior {
  * If the node is the last node (or less then $number spaces from last)
  * this method will return false.
  *
- * @param AppModel $Model
- * @param mixed $id The ID of the record to move
- * @param mixed $number how many places to move the node or true to move to last position
+ * @param Model $Model Model using this behavior.
+ * @param integer $id The ID of the record to move
+ * @param integer $number how many places to move the node or true to move to last position
  * @return boolean true on success, false on failure
  * @access public
  */
@@ -281,9 +288,9 @@ class OrderedBehavior extends ModelBehavior {
 /**
  * Moving a node to specific weight, it will shift the rest of the table to make room.
  *
- * @param Object $Model
- * @param int $id The id of the node to move
- * @param int $newWeight the new weight of the node
+ * @param Model $Model Model using this behavior.
+ * @param integer $id The id of the record to move
+ * @param integer $newWeight the new weight of the node
  * @return boolean True of move successful
  */
 	public function moveto(Model $Model, $id = null, $newWeight = null) {
@@ -342,9 +349,9 @@ class OrderedBehavior extends ModelBehavior {
  * If the node is the first node (or less then $number spaces from first)
  * this method will return false.
  *
- * @param AppModel $Model
- * @param mixed $id The ID of the record to move
- * @param mixed $number how many places to move the node or true to move to last position
+ * @param Model $Model Model using this behavior.
+ * @param integer $id The ID of the record to move
+ * @param integer $number how many places to move the node or true to move to last position
  * @return boolean true on success, false on failure
  * @access public
  */
@@ -426,8 +433,8 @@ class OrderedBehavior extends ModelBehavior {
 /**
  * Returns the next and previews rows relative to the behaviors weight
  *
- * @param object $Model
- * @param int $value
+ * @param Model $Model Model using this behavior.
+ * @param integer $value Value
  * @return boolean
  */
 	public function neighbors(Model $Model, $value = null) {
@@ -451,8 +458,8 @@ class OrderedBehavior extends ModelBehavior {
 /**
  * Removing an item from the list means to set its field to 0 and updating the other items to be "complete"
  *
- * @param Model $Model
- * @param int $id
+ * @param Model $Model Model using this behavior.
+ * @param integer $id The ID of the record to remove
  * @return boolean
  */
 	public function removefromlist(Model $Model, $id) {
@@ -477,7 +484,7 @@ class OrderedBehavior extends ModelBehavior {
  * This will create weights based on display field. The purpose of the method is to create
  * weights for tables that existed before this behavior was added.
  *
- * @param Object $Model
+ * @param Model $Model Model using this behavior.
  * @return boolean success
  */
 	public function resetweights(Model $Model) {
@@ -502,11 +509,11 @@ class OrderedBehavior extends ModelBehavior {
  * and creates new weights for it. If no foreign key is supplied, all lists
  * will be sorted.
  *
+ * @param Model $Model Model using this behavior.
+ * @param array $order Order conditions
+ * @param string $foreignKey Foreign key
+ * @return boolean true if successfull
  * @todo foreign key independent
- * @param Object $Model
- * @param array $order
- * @param mixed $foreignKey
- * $returns boolean true if successfull
  */
 	public function sortby(Model $Model, $order, $foreignKey = null) {
 		$fields = array($Model->primaryKey, $this->settings[$Model->alias]['field']);
@@ -539,7 +546,7 @@ class OrderedBehavior extends ModelBehavior {
 /**
  * updates weights after delete
  *
- * @param object $Model
+ * @param object $Model Model using this behavior.
  * @return boolean
  */
 	public function afterDelete(Model $Model) {
@@ -563,7 +570,8 @@ class OrderedBehavior extends ModelBehavior {
 /**
  * Reads in existing data in beforeDelete()
  *
- * @param object $Model
+ * @param object $Model Model using this behavior.
+ * @return boolean
  */
 	public function beforeDelete(Model $Model) {
 		$Model->read();
@@ -577,8 +585,9 @@ class OrderedBehavior extends ModelBehavior {
 /**
  * Sets the weight for new items so they end up at end
  *
+ * @param Model $Model Model using this behavior.
+ * @return boolean
  * @todo add new model with weight. clean up after
- * @param Model $Model
  */
 	public function beforeSave(Model $Model) {
 		//	Check if weight id is set. If not add to end, if set update all
@@ -623,6 +632,12 @@ class OrderedBehavior extends ModelBehavior {
  * Private functions
  */
 
+/**
+ * __all
+ *
+ * @param Model $Model Model using this behavior
+ * @return array
+ */
 	private function __all(Model $Model) {
 		$options = array(
 			'order' => $this->settings[$Model->alias]['field'] . ' DESC',
@@ -636,6 +651,13 @@ class OrderedBehavior extends ModelBehavior {
 		return $Model->find('all', $options);
 	}
 
+/**
+ * __findbyweight
+ *
+ * @param Model $Model Model using this behavior
+ * @param integer $weight Weight
+ * @return array
+ */
 	private function __findbyweight(Model $Model, $weight) {
 		$conditions = array($this->settings[$Model->alias]['field'] => $weight);
 		$fields = array($Model->primaryKey, $this->settings[$Model->alias]['field']);
@@ -650,6 +672,13 @@ class OrderedBehavior extends ModelBehavior {
 			'recursive' => -1));
 	}
 
+/**
+ * __highest
+ *
+ * @param Model $Model Model using this behavior
+ * @param string $foreignKey Foreign key
+ * @return array
+ */
 	private function __highest(Model $Model, $foreignKey = null) {
 		$options = array(
 			'order' => $this->settings[$Model->alias]['field'] . ' DESC',
@@ -673,6 +702,13 @@ class OrderedBehavior extends ModelBehavior {
 		return $last;
 	}
 
+/**
+ * __newWeight
+ *
+ * @param Model $Model Model using this behavior
+ * @param string $foreignKey Foreign key
+ * @return array
+ */
 	private function __newWeight($Model, $foreignKey = null) {
 		if ( $this->settings[$Model->alias]['foreign_key'] && !$foreignKey ) {
 			return false;
@@ -681,6 +717,12 @@ class OrderedBehavior extends ModelBehavior {
 		return $highest[$Model->alias][$this->settings[$Model->alias]['field']] + 1;
 	}
 
+/**
+ * __next
+ *
+ * @param Model $Model Model using this behavior
+ * @return array
+ */
 	private function __next(Model $Model) {
 		$conditions = array(
 				$this->settings[$Model->alias]['field'] => $Model->data[$Model->alias][$this->settings[$Model->alias]['field']] + 1);
@@ -696,6 +738,12 @@ class OrderedBehavior extends ModelBehavior {
 			'recursive' => -1));
 	}
 
+/**
+ * __previous
+ *
+ * @param Model $Model Model using this behavior
+ * @return array
+ */
 	private function __previous(Model $Model) {
 		$conditions = array(
 				$this->settings[$Model->alias]['field'] => $Model->data[$Model->alias][$this->settings[$Model->alias]['field']] - 1);
@@ -711,6 +759,13 @@ class OrderedBehavior extends ModelBehavior {
 			'recursive' => -1));
 	}
 
+/**
+ * __read
+ *
+ * @param Model $Model Model using this behavior
+ * @param integer $id The ID of the record to read
+ * @return array
+ */
 	private function __read(Model $Model, $id) {
 		$Model->id = $id;
 		$fields = array($Model->primaryKey, $this->settings[$Model->alias]['field']);

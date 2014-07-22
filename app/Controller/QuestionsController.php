@@ -13,6 +13,11 @@ class QuestionsController extends AppController {
 
 	public $helpers = array('CkSource');
 
+/**
+ * beforeFilter
+ *
+ * @return void
+ */
 	public function beforeFilter() {
 		parent::beforeFilter();
 		if ($this->request->action == 'analyse' || $this->request->action == 'instruction') {
@@ -20,6 +25,11 @@ class QuestionsController extends AppController {
 		}
 	}
 
+/**
+ * analyse method
+ *
+ * @return void
+ */
 	public function analyse() {
 		//if (!$this->request->is('post'))
 		//{
@@ -29,6 +39,11 @@ class QuestionsController extends AppController {
 		$this->set(compact('analyses'));
 	}
 
+/**
+ * instruction method
+ *
+ * @return void
+ */
 	public function instruction() {
 		//if (!$this->request->is('post'))
 		//{
@@ -42,7 +57,7 @@ class QuestionsController extends AppController {
 /**
  * view method
  *
- * @param string $id
+ * @param string $id A question id
  * @return void
  * @throws NotFoundException
  */
@@ -63,6 +78,7 @@ class QuestionsController extends AppController {
 /**
  * add method
  *
+ * @param integer $tagId A tag id
  * @return void
  */
 	public function add($tagId = null) {
@@ -98,7 +114,7 @@ class QuestionsController extends AppController {
 /**
  * edit method
  *
- * @param string $id
+ * @param string $id A question id
  * @return void
  * @throws NotFoundException
  * @throws ForbiddenException
@@ -137,7 +153,7 @@ class QuestionsController extends AppController {
 /**
  * delete method
  *
- * @param string $id
+ * @param string $id A question id
  * @return void
  * @throws MethodNotAllowedException
  * @throws NotFoundException
@@ -213,6 +229,11 @@ class QuestionsController extends AppController {
 		$this->set(compact('questions', 'tags', 'tip'));
 	}
 
+/**
+ * download method
+ *
+ * @return void
+ */
 	public function download() {
 		$options = array('contain' => array());
 
@@ -261,6 +282,11 @@ class QuestionsController extends AppController {
 	}
 	*/
 
+/**
+ * export_qmp method
+ *
+ * @return void
+ */
 	public function export_qmp() {
 		$options = array('contain' => array());
 
@@ -281,6 +307,11 @@ class QuestionsController extends AppController {
 		$this->response->header('Content-Disposition', 'attachment; filename="export.xml"');
 	}
 
+/**
+ * export_respondus method
+ *
+ * @return void
+ */
 	public function export_respondus() {
 		$options = array('contain' => array());
 
@@ -338,6 +369,13 @@ class QuestionsController extends AppController {
 		*/
 	}
 
+/**
+ * Generates XML of IMS manifest
+ *
+ * @param array $files Files to include in manifest
+ * @param string $name Name of the manifest
+ * @return string
+ */
 	private function __createImsManifest($files, $name = 'Test') {
 		$dom = new DOMDocument('1.0', 'UTF-8');
 		$manifest = $dom->createElement("manifest");

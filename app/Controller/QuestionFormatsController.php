@@ -19,7 +19,7 @@ class QuestionFormatsController extends AppController {
 /**
  * view method
  *
- * @param string $id
+ * @param string $id A question format id
  * @return void
  * @throws NotFoundException
  */
@@ -34,7 +34,7 @@ class QuestionFormatsController extends AppController {
 /**
  * edit method
  *
- * @param string $id
+ * @param string $id A question format id
  * @return void
  * @throws NotFoundException
  */

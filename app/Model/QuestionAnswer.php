@@ -41,6 +41,12 @@ class QuestionAnswer extends AppModel {
 		)
 	);
 
+/**
+ * printIndex method
+ *
+ * @param integer $index Index
+ * @return string
+ */
 	public static function printIndex($index) {
 		return chr(65 + $index);
 	}

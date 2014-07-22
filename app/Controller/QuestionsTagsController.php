@@ -9,6 +9,14 @@ App::uses('AppController', 'Controller');
  */
 class QuestionsTagsController extends AppController {
 
+/**
+ * delete method
+ *
+ * @param integer $id A questionsTag id
+ * @return void
+ * @throws MethodNotAllowedException
+ * @throws NotFoundException
+ */
 	public function delete($id = null) {
 		if (!$this->request->is('post')) {
 			throw new MethodNotAllowedException();
@@ -25,6 +33,14 @@ class QuestionsTagsController extends AppController {
 		return $this->redirect($this->referer());
 	}
 
+/**
+ * move_down method
+ *
+ * @param integer $id A questionsTag id
+ * @return void
+ * @throws MethodNotAllowedException
+ * @throws NotFoundException
+ */
 	public function move_down($id = null) {
 		if (!$this->request->is('post')) {
 			throw new MethodNotAllowedException();
@@ -41,6 +57,14 @@ class QuestionsTagsController extends AppController {
 		return $this->redirect($this->referer());
 	}
 
+/**
+ * move_up method
+ *
+ * @param integer $id A questionsTag id
+ * @return void
+ * @throws MethodNotAllowedException
+ * @throws NotFoundException
+ */
 	public function move_up($id = null) {
 		if (!$this->request->is('post')) {
 			throw new MethodNotAllowedException();

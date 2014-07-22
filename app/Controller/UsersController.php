@@ -8,6 +8,12 @@ App::uses('AppController', 'Controller');
  */
 class UsersController extends AppController {
 
+/**
+ * beforeFilter
+ *
+ * @return void
+ * @see AppController::beforeFilter()
+ */
 	public function beforeFilter() {
 		parent::beforeFilter();
 		$this->Auth->allow('logout', 'saml_login', 'classic_login');
@@ -29,7 +35,7 @@ class UsersController extends AppController {
 /**
  * view method
  *
- * @param string $id
+ * @param string $id A user id
  * @return void
  * @throws NotFoundException
  */
@@ -63,7 +69,7 @@ class UsersController extends AppController {
 /**
  * edit method
  *
- * @param string $id
+ * @param string $id A user id
  * @return void
  * @throws NotFoundException
  */
@@ -89,7 +95,7 @@ class UsersController extends AppController {
 /**
  * delete method
  *
- * @param string $id
+ * @param string $id A user id
  * @return void
  * @throws MethodNotAllowedException
  * @throws NotFoundException
@@ -125,12 +131,27 @@ class UsersController extends AppController {
 		$this->set('users', $this->paginate($conditions));
 	}
 
+/**
+ * account method
+ *
+ * @return void
+ */
 	public function account() {
 	}
 
+/**
+ * home method
+ *
+ * @return void
+ */
 	public function home() {
 	}
 
+/**
+ * classic_login method
+ *
+ * @return void
+ */
 	public function classic_login() {
 		if ($this->request->is('post')) {
 			if ($this->Auth->login()) {
@@ -141,9 +162,19 @@ class UsersController extends AppController {
 		}
 	}
 
+/**
+ * login method
+ *
+ * @return void
+ */
 	public function login() {
 	}
 
+/**
+ * saml_login method
+ *
+ * @return void
+ */
 	public function saml_login() {
 		//App::import('Vendor', 'simplesamlphp', array('file' => DS . 'usr' . DS . 'share' . DS . 'simplesamlphp' . DS . 'lib' . DS . '_autoload.php'));
 		require_once ('/usr/share/simplesamlphp/lib/_autoload.php');
@@ -197,6 +228,11 @@ class UsersController extends AppController {
 		return $this->redirect('/');
 	}
 
+/**
+ * logout method
+ *
+ * @return void
+ */
 	public function logout() {
 		//App::import('Vendor', 'simplesamlphp', array('file' => DS . 'usr' . DS . 'share' . DS . 'simplesamlphp' . DS . 'lib' . DS . '_autoload.php'));
 		require_once ('/usr/share/simplesamlphp/lib/_autoload.php');
@@ -209,6 +245,11 @@ class UsersController extends AppController {
 		}
 	}
 
+/**
+ * change_password method
+ *
+ * @return void
+ */
 	public function change_password() {
 		if ($this->request->is('post')) {
 			if ($this->User->changePassword($this->request->data)) {

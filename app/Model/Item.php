@@ -46,6 +46,12 @@ class Item extends AppModel {
 		)
 	);
 
+/**
+ * Get most given incorrect answer option
+ *
+ * @param array $item Item data
+ * @return array AnswerOption data
+ */
 	private function __getMostGivenIncorrectAnswerOption($item) {
 		$mostIncorrectAnswerOption = false;
 		foreach ($item['AnswerOption'] as $i => $answerOption) {
@@ -60,6 +66,17 @@ class Item extends AppModel {
 		return $mostIncorrectAnswerOption;
 	}
 
+/**
+ * Add item to exam
+ *
+ * @param integer $examId Exam id
+ * @param integer $defaultAnswerOptionCount Default number of answer options
+ * @param string $question Question
+ * @param integer $givenAnswerOptionOrder Order index of given answer option
+ * @param integer $score Score
+ * @param integer $maximumScore Maximum score
+ * @return integer Item id
+ */
 	public function add($examId, $defaultAnswerOptionCount, $question, $givenAnswerOptionOrder, $score, $maximumScore) {
 		$itemId = false;
 		$isCorrect = ($score == $maximumScore && $maximumScore > 0);
@@ -138,6 +155,13 @@ class Item extends AppModel {
 		return $itemId;
 	}
 
+/**
+ * stevie method
+ *
+ * @param array $item Item data
+ * @param integer[optional] $answerOptionCount Number of answer options
+ * @return array Enriched item data
+ */
 	public function stevie($item, $answerOptionCount = null) {
 		$item['Messages'] = array();
 		if ($item['correct_answer_irc'] < -0.1) {

@@ -16,6 +16,11 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 
+/**
+ * An array of names of components to load
+ *
+ * @var array
+ */
 	public $components = array(
 		'Security',
 		'Auth' => array(
@@ -29,6 +34,11 @@ class AppController extends Controller {
 		'DebugKit.Toolbar'
 	);
 
+/**
+ * An array of names of helpers to load
+ *
+ * @var mixed A single name as a string or a list of names as an array.
+ */
 	public $helpers = array(
 		'Html' => array('className' => 'TwitterBootstrap.BootstrapHtml'),
 		'Form' => array('className' => 'CustomBootstrapForm'),
@@ -39,6 +49,12 @@ class AppController extends Controller {
 		'HtmLawed'
 	);
 
+/**
+ * beforeFilter
+ *
+ * @return void
+ * @see Controller::beforeFilter()
+ */
 	public function beforeFilter() {
 		$this->Auth->allow('display');
 
@@ -48,6 +64,12 @@ class AppController extends Controller {
 		}
 	}
 
+/**
+ * isAuthorized
+ *
+ * @param array $user A user
+ * @return booleanl
+ */
 	public function isAuthorized($user) {
 		if (isset($this->request->params['admin'])) {
 			return ($user['role_id'] == Role::ADMIN);
@@ -55,6 +77,12 @@ class AppController extends Controller {
 		return true;
 	}
 
+/**
+ * Blackhole callback
+ *
+ * @param string $type Type of error
+ * @return void
+ */
 	public function blackhole($type) {
 		if ($type == 'secure' && !$this->RequestHandler->isSSL()) {
 			return $this->redirect('https://' . env('SERVER_NAME') . $this->here);
@@ -63,6 +91,12 @@ class AppController extends Controller {
 		return $this->redirect('/');
 	}
 
+/**
+ * Used to set a session variable that can be used to output success messages in the view.
+ *
+ * @param string $message Message to be flashed
+ * @return void
+ */
 	public function setFlashSuccess($message) {
 		$this->Session->setFlash($message, 'alert', array(
 			'plugin' => 'TwitterBootstrap',
@@ -70,6 +104,12 @@ class AppController extends Controller {
 		));
 	}
 
+/**
+ * Used to set a session variable that can be used to output error messages in the view.
+ *
+ * @param string $message Message to be flashed
+ * @return void
+ */
 	public function setFlashError($message) {
 		$this->Session->setFlash($message, 'alert', array(
 			'plugin' => 'TwitterBootstrap',
