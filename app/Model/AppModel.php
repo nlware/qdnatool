@@ -102,6 +102,12 @@ class AppModel extends Model {
 		return $result;
 	}
 
+/**
+ * removeFieldFromSchema method
+ *
+ * @param string $fieldname Fieldname
+ * @return void
+ */
 	public function removeFieldFromSchema($fieldname) {
 		unset($this->_schema[$fieldname]);
 	}

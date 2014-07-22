@@ -58,9 +58,13 @@ class I18nBehavior extends ModelBehavior {
 	public $fields = array();
 
 /**
- * Reads configuration of behavior.
+ * Sets up the configuration for the model.
  * Allowed values:
  * fields - array of I18n compatible field names;
+ *
+ * @param Model $model Model using this behavior.
+ * @param array $config Configuration options.
+ * @return void
  */
 	public function setup(Model $model, $config = array()) {
 		if (!defined('DEFAULT_LANGUAGE')) {
@@ -71,11 +75,24 @@ class I18nBehavior extends ModelBehavior {
 		}
 	}
 
+/**
+ * Cleanup Callback reset the cached database schema.
+ *
+ * @param Model $model Model being detached.
+ * @return void
+ */
 	public function cleanup(Model $model) {
 		$this->__refreshSchema($model);
 		//debug('I18n behaviour detached from '.$model->alias.' model.');
 	}
 
+/**
+ * beforeFind Callback
+ *
+ * @param Model $model Model find is being run on.
+ * @param array $query Array of Query parameters.
+ * @return array Modified query
+ */
 	public function beforeFind(Model $model, $query) {
 		$locale = $this->_getLocale($model);
 		//debug('I18n-'.$model->alias.'-beforeFind-'.$locale);
@@ -99,6 +116,14 @@ class I18nBehavior extends ModelBehavior {
 
 /**
  * Recursively replaces $localField values to $localAlias in $section array (or string)
+ *
+ * @param Model $model Model using this behavior
+ * @param array &$section Query conditions section
+ * @param string $localField Fieldname
+ * @param string $localAlias Field alias
+ * @param boolean $isPrimary Did the find originate on $model.
+ * @param integer &$level Recursion level
+ * @return void
  */
 	private function __localizeArrayInQuery($model, &$section, $localField, $localAlias, $isPrimary, &$level) {
 		if ($level <= 0) {
@@ -168,6 +193,12 @@ class I18nBehavior extends ModelBehavior {
 /**
  * Modifies query fielelds to load localized content for current locale.
  * isPrimary should be true only when localizing model that has afterFind event
+ *
+ * @param Model $model Model using this behavior
+ * @param string &$query Query conditions
+ * @param integer $recursive Recursion level
+ * @param boolean $isPrimary Did the find originate on $model.
+ * @return void
  */
 	public function localizeQuery($model, &$query, $recursive, $isPrimary) {
 		if ($model->Behaviors->attached('I18n') && isset($model->Behaviors->I18n->fields[$model->alias])) {
@@ -226,6 +257,12 @@ class I18nBehavior extends ModelBehavior {
 
 /**
  * Modifies theme to load localized content only for default and current locale.
+ *
+ * @param Model $model Model using this behavior
+ * @param string $locale Locale
+ * @param integer $recursive Recursion level
+ * @param array &$relation Relation properties
+ * @return void
  */
 	public function localizeScheme($model, $locale, $recursive, &$relation = null) {
 		$model->locale = $locale;
@@ -316,6 +353,15 @@ class I18nBehavior extends ModelBehavior {
 		}
 	}
 
+/**
+ * afterFind Callback
+ *
+ * @param Model $model Model find was run on
+ * @param array $results Array of model results.
+ * @param bool $primary Did the find originate on $model.
+ * @return array Modified results
+ * @see ModelBehavior::afterFind()
+ */
 	public function afterFind(Model $model, $results, $primary) {
 		//debug('I18n-'.$model->alias.'-afterFind');
 		if (is_array($results)) {
@@ -330,8 +376,13 @@ class I18nBehavior extends ModelBehavior {
  * Narrows fields of loaded data to locale independant names, e.g. fields <name>_def and <name>_eng will became just <name>.
  * It recurse as far as resulsts are exists. If you made find with recursive 2 then it will recurse till second level of results.
  * TODO: The reverse process should be made before model saved.
+ *
+ * @param Model $model Model using this behavior
+ * @param array &$result Model result
+ * @param string $locale Locale
+ * @return void
  */
-	public function unlocalizeResults($model, &$result, $locale) {
+	public function unlocalizeResults(Model $model, &$result, $locale) {
 		if ($model->Behaviors->attached('I18n') && isset($model->Behaviors->I18n->fields[$model->alias])) {
 
 			//collection of models
@@ -393,7 +444,15 @@ class I18nBehavior extends ModelBehavior {
 		}
 	}
 
-	public function beforeSave(Model $model) {
+/**
+ * beforeSave callback.
+ *
+ * @param Model $model Model save was called on.
+ * @param array $options Options passed from Model::save().
+ * @return bool true.
+ * @see Model::save()
+ */
+	public function beforeSave(Model $model, $options = array()) {
 		//get current locale
 		$locale = $this->_getLocale($model);
 
@@ -423,6 +482,12 @@ class I18nBehavior extends ModelBehavior {
 
 	private static $__i18n = null;
 
+/**
+ * _getLocale
+ *
+ * @param Model $model Model using this behavior
+ * @return string
+ */
 	protected function _getLocale($model) {
 		//instanciate current locale storage class
 		if (self::$__i18n == null) {
@@ -439,6 +504,12 @@ class I18nBehavior extends ModelBehavior {
 		return $locale;
 	}
 
+/**
+ * __refreshSchema
+ *
+ * @param Model $model Model using this behavior
+ * @return void
+ */
 	private function __refreshSchema($model) {
 		$model->schema(true);
 		//debug($model->alias.' schema renewed');

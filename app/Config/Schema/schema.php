@@ -8,12 +8,24 @@ App::uses('QuestionFormat', 'Model');
 App::uses('Role', 'Model');
 class AppSchema extends CakeSchema {
 
+/**
+ * Before event.
+ *
+ * @param array $event The event data.
+ * @return bool success
+ */
 	public function before($event = array()) {
 		$db = ConnectionManager::getDataSource('default');
 		$db->cacheSources = false;
 		return true;
 	}
 
+/**
+ * After event.
+ *
+ * @param array $event The event data.
+ * @return void
+ */
 	public function after($event = array()) {
 		if (isset($event['create'])) {
 			switch ($event['create']) {

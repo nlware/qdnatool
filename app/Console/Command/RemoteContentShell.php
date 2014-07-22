@@ -1,14 +1,20 @@
 <?php
 App::uses('AppShell', 'Console/Command');
 /**
- * Instruction Model
- * Tip Model
+ * Queue Shell
  *
+ * @property Instruction $Instruction
+ * @property Tip $Tip
  */
 class RemoteContentShell extends AppShell {
 
 	public $uses = array('Instruction', 'Tip');
 
+/**
+ * Gets and configures the option parser.
+ *
+ * @return ConsoleOptionParser
+ */
 	public function getOptionParser() {
 		$parser = parent::getOptionParser();
 		$parser->addSubcommand('refresh_tips', array(

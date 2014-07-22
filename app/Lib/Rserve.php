@@ -4,12 +4,21 @@ class Rserve {
 
 	public static $configs = null;
 
+/**
+ * __construct
+ */
 	public function __construct() {
 		if (empty(self::$config)) {
 			self::$configs = self::getConfig();
 		}
 	}
 
+/**
+ * getConfig
+ *
+ * @param string $key A key
+ * @return string
+ */
 	public static function getConfig($key = null) {
 		if (!empty($key)) {
 			if (isset(self::$configs[$key]) || (self::$configs[$key] = Configure::read("Rserve.$key"))) {
@@ -24,6 +33,11 @@ class Rserve {
 		return null;
 	}
 
+/**
+ * connect method
+ *
+ * @return Ambigous <boolean, Rserve_Connection>
+ */
 	public function connect() {
 		$connection = null;
 		try {
@@ -34,6 +48,12 @@ class Rserve {
 		return $connection;
 	}
 
+/**
+ * execute method
+ *
+ * @param string $script Script to execute
+ * @return boolean
+ */
 	public function execute($script) {
 		$result = false;
 		if ($connection = self::connect()) {

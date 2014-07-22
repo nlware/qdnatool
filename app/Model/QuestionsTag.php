@@ -24,6 +24,14 @@ class QuestionsTag extends AppModel {
 		)
 	);
 
+/**
+ * Called before each save operation, after validation. Return a non-true result
+ * to halt the save.
+ *
+ * @param array $options Options passed from Model::save().
+ * @return bool True if the operation should continue, false if it should abort
+ * @see Model::save()
+ */
 	public function beforeSave($options = array()) {
 		if (empty($this->data[$this->alias]['id'])) {
 			$questionsTag = $this->find(
@@ -41,6 +49,12 @@ class QuestionsTag extends AppModel {
 		}
 	}
 
+/**
+ * remove method
+ *
+ * @param integer $id A QuestionsTag ID
+ * @return boolean
+ */
 	public function remove($id) {
 		if ($this->__allowed($id)) {
 			return $this->delete($id);
@@ -48,6 +62,12 @@ class QuestionsTag extends AppModel {
 		return false;
 	}
 
+/**
+ * __allowed
+ *
+ * @param integer $id A QuestionsTag ID
+ * @return boolean
+ */
 	private function __allowed($id) {
 		return ($this->find(
 			'count', array(

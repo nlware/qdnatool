@@ -9,6 +9,12 @@ class QueueReanalyseExamTask extends Shell {
 
 	public $uses = array('Exam');
 
+/**
+ * Executed, when a worker is executing this task.
+ *
+ * @param mixed $data Job data (passed on creation)
+ * @return boolean Success
+ */
 	public function run($data) {
 		if (empty($data['Exam']['parent_id'])) {
 			$this->err(__('Invalid exam'));

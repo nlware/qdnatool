@@ -7,6 +7,11 @@ App::uses('AppController', 'Controller');
  */
 class TagsController extends AppController {
 
+/**
+ * autocomplete method
+ *
+ * @return void
+ */
 	public function autocomplete() {
 		$conditions = array(
 			'Tag.user_id' => $this->Auth->user('id')

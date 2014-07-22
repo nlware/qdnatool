@@ -31,6 +31,13 @@ class Instruction extends AppModel {
 		)
 	);
 
+/**
+ * get method
+ *
+ * @param integer $developmentPhaseId Development phase id
+ * @param integer $questionFormatId Question format id
+ * @return array
+ */
 	public function get($developmentPhaseId = null, $questionFormatId = null) {
 		return $this->find(
 			'first', array(

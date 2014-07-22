@@ -11,6 +11,13 @@ class ExamsController extends AppController {
 
 	public $helpers = array('Number', 'Output');
 
+/**
+ * Blackhole callback
+ *
+ * @param string $type Type of error
+ * @return void
+ * @see AppController::blackhole()
+ */
 	public function blackhole($type) {
 		$this->setFlashError(__('Sorry, something went wrong. Please, try again.'));
 		return $this->redirect(array('action' => 'index'));
@@ -42,9 +49,9 @@ class ExamsController extends AppController {
 /**
  * view method
  *
- * @throws NotFoundException
- * @param string $id
+ * @param string $id An exam id
  * @return void
+ * @throws NotFoundException
  * @todo throw exception when exam doesn't belong to current user
  */
 	public function view($id = null) {
@@ -88,7 +95,7 @@ class ExamsController extends AppController {
 /**
  * delete method
  *
- * @param string $id
+ * @param string $id An exam id
  * @return void
  * @throws MethodNotAllowedException
  * @throws NotFoundException
@@ -112,8 +119,8 @@ class ExamsController extends AppController {
 /**
  * stevie method
  *
- * @param string $id
- * @param string $offset
+ * @param string $id An exam id
+ * @param string $offset An offset
  * @return void
  * @throws NotFoundException
  */
@@ -136,7 +143,7 @@ class ExamsController extends AppController {
 /**
  * report method
  *
- * @param string $id
+ * @param string $id An exam id
  * @return void
  * @throws NotFoundException
  * @throws NotFoundException
@@ -162,7 +169,7 @@ class ExamsController extends AppController {
 /**
  * reanalyse method
  *
- * @param string $id
+ * @param string $id An exam id
  * @return void
  */
 	public function reanalyse($id = null) {
@@ -203,8 +210,8 @@ class ExamsController extends AppController {
 /**
  * scores method
  *
- * @param string $id
- * @param string $format
+ * @param string $id An exam id
+ * @param string $format A output format
  * @return void
  * @throws NotFoundException
  */
@@ -220,7 +227,7 @@ class ExamsController extends AppController {
 /**
  * missings method
  *
- * @param string $id
+ * @param string $id An exam id
  * @return void
  * @throws NotFoundException
  */

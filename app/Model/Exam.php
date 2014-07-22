@@ -176,6 +176,13 @@ class Exam extends AppModel {
 		)
 	);
 
+/**
+ * beforeValidate method
+ *
+ * @param array $options Options passed from Model::save().
+ * @return boolean True if validate operation should continue, false to abort
+ * @see Model::beforeValidate()
+ */
 	public function beforeValidate($options = array()) {
 		if (!$this->exists() && empty($this->data[$this->alias]['user_id']) && $userId = AuthComponent::user('id')) {
 			$this->data[$this->alias]['user_id'] = $userId;
@@ -183,6 +190,12 @@ class Exam extends AppModel {
 		return true;
 	}
 
+/**
+ * add method
+ *
+ * @param array $data Data
+ * @return boolean
+ */
 	public function add($data) {
 		$result = false;
 
@@ -234,6 +247,12 @@ class Exam extends AppModel {
 		return $result;
 	}
 
+/**
+ * remove method
+ *
+ * @param integer $id An exam id
+ * @return boolean
+ */
 	public function remove($id) {
 		$result = false;
 		$exam = $this->find(
@@ -255,6 +274,13 @@ class Exam extends AppModel {
 		return $result;
 	}
 
+/**
+ * Decode a line
+ *
+ * @param string $line Line
+ * @param boolean $firstLine Whether this is the first line
+ * @return string
+ */
 	private function __decodeLine($line, $firstLine = false) {
 		if ($firstLine) {
 			$this->__encoding = null;
@@ -279,6 +305,12 @@ class Exam extends AppModel {
 		return $line;
 	}
 
+/**
+ * scheduleAnalyse
+ *
+ * @param integer $id An exam id
+ * @return boolean
+ */
 	public function scheduleAnalyse($id) {
 		$this->id = $id;
 		if ($result = $this->saveField('exam_state_id', ExamState::WAITING_TO_ANALYSE)) {
@@ -290,6 +322,12 @@ class Exam extends AppModel {
 		return $result;
 	}
 
+/**
+ * analyse
+ *
+ * @param integer $id An exam id
+ * @return boolean
+ */
 	public function analyse($id) {
 		$exam = $this->find('first', array('conditions' => array('Exam.id' => $id)));
 		if (!empty($exam)) {
@@ -298,6 +336,12 @@ class Exam extends AppModel {
 		return false;
 	}
 
+/**
+ * __analyse
+ *
+ * @param array $exam Exam data
+ * @return boolean
+ */
 	private function __analyse($exam) {
 		$result = true;
 
@@ -441,6 +485,12 @@ class Exam extends AppModel {
 		return $result;
 	}
 
+/**
+ * scheduleReport
+ *
+ * @param integer $id An exam id
+ * @return boolean
+ */
 	public function scheduleReport($id) {
 		$this->id = $id;
 		if ($result = $this->saveField('exam_state_id', ExamState::WAITING_TO_GENERATE_REPORT)) {
@@ -451,6 +501,12 @@ class Exam extends AppModel {
 		return $result;
 	}
 
+/**
+ * report
+ *
+ * @param integer $id An exam id
+ * @return boolean
+ */
 	public function report($id) {
 		$exam = $this->find('first', array('conditions' => array('Exam.id' => $id)));
 		if (!empty($exam)) {
@@ -459,6 +515,12 @@ class Exam extends AppModel {
 		return false;
 	}
 
+/**
+ * __report
+ *
+ * @param array $exam Exam data
+ * @return boolean
+ */
 	private function __report($exam) {
 		$result = true;
 
@@ -565,6 +627,12 @@ class Exam extends AppModel {
 		return $result;
 	}
 
+/**
+ * import method
+ *
+ * @param integer $id An exam id
+ * @return boolean
+ */
 	public function import($id) {
 		$success = false;
 		$exam = $this->find('first', array('conditions' => array('Exam.id' => $id)));
@@ -590,6 +658,15 @@ class Exam extends AppModel {
 		return $success;
 	}
 
+/**
+ * _parseCsvFile
+ *
+ * @param string $filename Filename
+ * @param string[optional] $delimiter Set the field delimiter (one character only).
+ * @param string[optional] $enclosure Set the field enclosure character (one character only).
+ * @param string[optional] $escape Set the escape character (one character only).
+ * @return array
+ */
 	protected function _parseCsvFile($filename, $delimiter = ',', $enclosure = '"', $escape = '\\') {
 		$result = array();
 		ini_set('auto_detect_line_endings', true);
@@ -609,6 +686,12 @@ class Exam extends AppModel {
 		return $result;
 	}
 
+/**
+ * importBlackboard
+ *
+ * @param array $exam Exam data
+ * @return boolean
+ */
 	public function importBlackboard($exam) {
 		$result = true;
 		$this->id = $exam['Exam']['id'];
@@ -801,11 +884,23 @@ class Exam extends AppModel {
 		return $result;
 	}
 
+/**
+ * _validateQMPData
+ *
+ * @param array $data QMP data
+ * @return array
+ */
 	protected function _validateQMPData($data) {
 		//TODO: validate QMP data
 		return $data;
 	}
 
+/**
+ * importQMP method
+ *
+ * @param array $exam Exam data
+ * @return boolean
+ */
 	public function importQMP($exam) {
 		$result = true;
 		$this->id = $exam['Exam']['id'];
@@ -949,6 +1044,12 @@ class Exam extends AppModel {
 		return $result;
 	}
 
+/**
+ * importTeleform method
+ *
+ * @param array $exam Teleform data
+ * @return boolean
+ */
 	public function importTeleform($exam) {
 		$versionMapping = null;
 		$versionMappingFilename = null;
@@ -1139,6 +1240,13 @@ class Exam extends AppModel {
 		return $result;
 	}
 
+/**
+ * stevie method
+ *
+ * @param integer $id An exam id
+ * @param string $offset Offset
+ * @return array
+ */
 	public function stevie($id, $offset) {
 		$exam = $this->find(
 			'first', array(
@@ -1164,6 +1272,12 @@ class Exam extends AppModel {
 		return $exam;
 	}
 
+/**
+ * scheduleReanalyse method
+ *
+ * @param array $data Exam data
+ * @return boolean
+ */
 	public function scheduleReanalyse($data) {
 		$result = true;
 		$this->validator()->remove('data_file');
@@ -1193,6 +1307,12 @@ class Exam extends AppModel {
 		return $result;
 	}
 
+/**
+ * reanalyse method
+ *
+ * @param array $data Exam data
+ * @return boolean
+ */
 	public function reanalyse($data) {
 		$result = true;
 		if ($id = $this->__duplicate($data)) {
@@ -1203,6 +1323,12 @@ class Exam extends AppModel {
 		return $result;
 	}
 
+/**
+ * __duplicate method
+ *
+ * @param data $postData Exam data
+ * @return integer
+ */
 	private function __duplicate($postData) {
 		$examId = false;
 		$parentExam = $this->find(
@@ -1314,6 +1440,12 @@ class Exam extends AppModel {
 		return $examId;
 	}
 
+/**
+ * scores method
+ *
+ * @param integer $id An exam id
+ * @return void
+ */
 	public function scores($id) {
 		$scoring = false;
 		$exam = $this->find(
@@ -1347,6 +1479,12 @@ class Exam extends AppModel {
 		return $scoring;
 	}
 
+/**
+ * missings method
+ *
+ * @param integer $id An exam id
+ * @return void
+ */
 	public function missings($id) {
 		$missings = false;
 		$exam = $this->find(

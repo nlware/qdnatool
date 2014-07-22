@@ -3,8 +3,9 @@ App::uses('Folder', 'Utility');
 App::uses('QueuedTask', 'Model');
 App::uses('AppShell', 'Console/Command');
 /**
- * QueuedTask Model
+ * Queue Shell
  *
+ * @property QueuedTask $QueuedTask
  */
 class QueueShell extends AppShell {
 
@@ -12,6 +13,11 @@ class QueueShell extends AppShell {
 
 	private $__taskConf;
 
+/**
+ * Gets and configures the option parser.
+ *
+ * @return ConsoleOptionParser
+ */
 	public function getOptionParser() {
 		$parser = parent::getOptionParser();
 		$parser->addSubcommand('add', array(
@@ -52,6 +58,8 @@ class QueueShell extends AppShell {
 
 /**
  * Overwrite shell initialize to dynamically load all Queue Related Tasks.
+ *
+ * @return void
  */
 	public function initialize() {
 		// Check for tasks inside plugins and application
@@ -93,6 +101,8 @@ class QueueShell extends AppShell {
 
 /**
  * Output some basic usage Info.
+ *
+ * @return void
  */
 	public function help() {
 		$this->out('CakePHP Queue Plugin:');
@@ -125,6 +135,7 @@ class QueueShell extends AppShell {
  * Look for a Queue Task of hte passed name and try to call add() on it.
  * A QueueTask may provide an add function to enable the user to create new jobs via commandline.
  *
+ * @return void
  */
 	public function add() {
 		if (count($this->args) < 1) {
@@ -148,6 +159,8 @@ class QueueShell extends AppShell {
  * Run a QueueWorker loop.
  * Runs a Queue Worker process which will try to find unassigned jobs in the queue
  * which it may run and try to fetch and execute them.
+ *
+ * @return void
  */
 	public function runworker() {
 		// Enable Garbage Collector (PHP >= 5.3)
@@ -211,7 +224,8 @@ class QueueShell extends AppShell {
 
 /**
  * Manually trigger a Finished job cleanup.
- * @return null
+ *
+ * @return void
  */
 	public function clean() {
 		$this->out('Deleting old jobs, that have finished before ' . date('Y-m-d H:i:s', time() - Configure::read('Queue.cleanuptimeout')));
@@ -220,7 +234,8 @@ class QueueShell extends AppShell {
 
 /**
  * Display Some statistics about Finished Jobs.
- * @return null
+ *
+ * @return void
  */
 	public function stats() {
 		$this->out('Jobs currenty in the Queue:');
@@ -246,6 +261,7 @@ class QueueShell extends AppShell {
 
 /**
  * Returns a List of available QueueTasks and their individual configurations.
+ *
  * @return array
  */
 	private function __getTaskConf() {
@@ -271,6 +287,11 @@ class QueueShell extends AppShell {
 		return $this->__taskConf;
 	}
 
+/**
+ * List available tasks
+ *
+ * @return void
+ */
 	public function tasks() {
 		$this->out('Available tasks:');
 		foreach ($this->taskNames as $loadedTask) {
