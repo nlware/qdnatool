@@ -362,7 +362,7 @@ class I18nBehavior extends ModelBehavior {
  * @return array Modified results
  * @see ModelBehavior::afterFind()
  */
-	public function afterFind(Model $model, $results, $primary) {
+	public function afterFind(Model $model, $results, $primary = false) {
 		//debug('I18n-'.$model->alias.'-afterFind');
 		if (is_array($results)) {
 			foreach ($results as &$result) {
@@ -494,7 +494,7 @@ class I18nBehavior extends ModelBehavior {
 			//	if (!class_exists('I18n')) {
 			//		uses('I18n');
 			//	}
-			self::$__i18n =& I18n::getInstance();
+			self::$__i18n = I18n::getInstance();
 		}
 
 		//retreive current locale
