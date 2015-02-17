@@ -78,7 +78,7 @@ class QuestionsController extends AppController {
 /**
  * add method
  *
- * @param integer $tagId A tag id
+ * @param int $tagId A tag id
  * @return void
  */
 	public function add($tagId = null) {
@@ -494,4 +494,5 @@ class QuestionsController extends AppController {
 		}
 		return $dom->saveXML();
 	}
+
 }

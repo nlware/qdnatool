@@ -180,7 +180,7 @@ class Exam extends AppModel {
  * beforeValidate method
  *
  * @param array $options Options passed from Model::save().
- * @return boolean True if validate operation should continue, false to abort
+ * @return bool True if validate operation should continue, false to abort
  * @see Model::beforeValidate()
  */
 	public function beforeValidate($options = array()) {
@@ -194,7 +194,7 @@ class Exam extends AppModel {
  * add method
  *
  * @param array $data Data
- * @return boolean
+ * @return bool
  */
 	public function add($data) {
 		$result = false;
@@ -250,8 +250,8 @@ class Exam extends AppModel {
 /**
  * remove method
  *
- * @param integer $id An exam id
- * @return boolean
+ * @param int $id An exam id
+ * @return bool
  */
 	public function remove($id) {
 		$result = false;
@@ -278,7 +278,7 @@ class Exam extends AppModel {
  * Decode a line
  *
  * @param string $line Line
- * @param boolean $firstLine Whether this is the first line
+ * @param bool $firstLine Whether this is the first line
  * @return string
  */
 	private function __decodeLine($line, $firstLine = false) {
@@ -308,8 +308,8 @@ class Exam extends AppModel {
 /**
  * scheduleAnalyse
  *
- * @param integer $id An exam id
- * @return boolean
+ * @param int $id An exam id
+ * @return bool
  */
 	public function scheduleAnalyse($id) {
 		$this->id = $id;
@@ -325,8 +325,8 @@ class Exam extends AppModel {
 /**
  * analyse
  *
- * @param integer $id An exam id
- * @return boolean
+ * @param int $id An exam id
+ * @return bool
  */
 	public function analyse($id) {
 		$exam = $this->find('first', array('conditions' => array('Exam.id' => $id)));
@@ -340,7 +340,7 @@ class Exam extends AppModel {
  * __analyse
  *
  * @param array $exam Exam data
- * @return boolean
+ * @return bool
  */
 	private function __analyse($exam) {
 		$result = true;
@@ -488,8 +488,8 @@ class Exam extends AppModel {
 /**
  * scheduleReport
  *
- * @param integer $id An exam id
- * @return boolean
+ * @param int $id An exam id
+ * @return bool
  */
 	public function scheduleReport($id) {
 		$this->id = $id;
@@ -504,8 +504,8 @@ class Exam extends AppModel {
 /**
  * report
  *
- * @param integer $id An exam id
- * @return boolean
+ * @param int $id An exam id
+ * @return bool
  */
 	public function report($id) {
 		$exam = $this->find('first', array('conditions' => array('Exam.id' => $id)));
@@ -519,7 +519,7 @@ class Exam extends AppModel {
  * __report
  *
  * @param array $exam Exam data
- * @return boolean
+ * @return bool
  */
 	private function __report($exam) {
 		$result = true;
@@ -630,8 +630,8 @@ class Exam extends AppModel {
 /**
  * import method
  *
- * @param integer $id An exam id
- * @return boolean
+ * @param int $id An exam id
+ * @return bool
  */
 	public function import($id) {
 		$success = false;
@@ -690,7 +690,7 @@ class Exam extends AppModel {
  * importBlackboard
  *
  * @param array $exam Exam data
- * @return boolean
+ * @return bool
  */
 	public function importBlackboard($exam) {
 		$result = true;
@@ -899,7 +899,7 @@ class Exam extends AppModel {
  * importQMP method
  *
  * @param array $exam Exam data
- * @return boolean
+ * @return bool
  */
 	public function importQMP($exam) {
 		$result = true;
@@ -1030,7 +1030,7 @@ class Exam extends AppModel {
  * Get column index of requested version in given header
  *
  * @param array $header Column headers of Teleform mapping file
- * @param integer $version Requested veersion
+ * @param int $version Requested veersion
  * @return mixed Integer with the column index, or false on failure or requested version not found
  */
 	protected function _getIndexOfVersionFromTeleformHeader($header, $version) {
@@ -1048,7 +1048,7 @@ class Exam extends AppModel {
  * importTeleform method
  *
  * @param array $exam Teleform data
- * @return boolean
+ * @return bool
  */
 	public function importTeleform($exam) {
 		$versionMapping = null;
@@ -1243,7 +1243,7 @@ class Exam extends AppModel {
 /**
  * stevie method
  *
- * @param integer $id An exam id
+ * @param int $id An exam id
  * @param string $offset Offset
  * @return array
  */
@@ -1276,7 +1276,7 @@ class Exam extends AppModel {
  * scheduleReanalyse method
  *
  * @param array $data Exam data
- * @return boolean
+ * @return bool
  */
 	public function scheduleReanalyse($data) {
 		$result = true;
@@ -1311,7 +1311,7 @@ class Exam extends AppModel {
  * reanalyse method
  *
  * @param array $data Exam data
- * @return boolean
+ * @return bool
  */
 	public function reanalyse($data) {
 		$result = true;
@@ -1327,7 +1327,7 @@ class Exam extends AppModel {
  * __duplicate method
  *
  * @param data $postData Exam data
- * @return integer
+ * @return int
  */
 	private function __duplicate($postData) {
 		$examId = false;
@@ -1443,7 +1443,7 @@ class Exam extends AppModel {
 /**
  * scores method
  *
- * @param integer $id An exam id
+ * @param int $id An exam id
  * @return void
  */
 	public function scores($id) {
@@ -1482,7 +1482,7 @@ class Exam extends AppModel {
 /**
  * missings method
  *
- * @param integer $id An exam id
+ * @param int $id An exam id
  * @return void
  */
 	public function missings($id) {
@@ -1515,4 +1515,5 @@ class Exam extends AppModel {
 		}
 		return $missings;
 	}
+
 }

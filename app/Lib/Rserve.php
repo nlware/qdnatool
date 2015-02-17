@@ -52,7 +52,7 @@ class Rserve {
  * execute method
  *
  * @param string $script Script to execute
- * @return boolean
+ * @return bool
  */
 	public function execute($script) {
 		$result = false;
@@ -66,4 +66,5 @@ class Rserve {
 		}
 		return $result;
 	}
+
 }

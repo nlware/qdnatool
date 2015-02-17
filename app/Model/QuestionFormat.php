@@ -51,8 +51,8 @@ class QuestionFormat extends AppModel {
 /**
  * Returns the minimal number of required answer options for given QuestionFormat
  *
- * @param integer $questionFormatId A QuestionFormat ID
- * @return integer
+ * @param int $questionFormatId A QuestionFormat ID
+ * @return int
  */
 	public static function getMinimalQuestionAnswers($questionFormatId) {
 		$minimalQuestionAnswers = 0;

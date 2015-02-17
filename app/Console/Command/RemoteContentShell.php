@@ -1,7 +1,7 @@
 <?php
 App::uses('AppShell', 'Console/Command');
 /**
- * Queue Shell
+ * RemoteContent Shell
  *
  * @property Instruction $Instruction
  * @property Tip $Tip
@@ -113,4 +113,5 @@ class RemoteContentShell extends AppShell {
 			}
 		}
 	}
+
 }

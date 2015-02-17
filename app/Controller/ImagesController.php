@@ -141,7 +141,7 @@ class ImagesController extends AppController {
 /**
  * browse method
  *
- * @param integer $questionId An question id
+ * @param int $questionId An question id
  * @return void
  */
 	public function browse($questionId) {
@@ -178,4 +178,5 @@ class ImagesController extends AppController {
 		$this->setFlashError(__('Image was not deleted'));
 		return $this->redirect(array('action' => 'index'));
 	}
+
 }

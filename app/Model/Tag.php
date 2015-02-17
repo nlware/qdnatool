@@ -70,7 +70,7 @@ class Tag extends AppModel {
  * beforeValidate method
  *
  * @param array $options Options passed from Model::save().
- * @return boolean True if validate operation should continue, false to abort
+ * @return bool True if validate operation should continue, false to abort
  * @see Model::beforeValidate()
  */
 	public function beforeValidate($options = array()) {
@@ -143,4 +143,5 @@ class Tag extends AppModel {
 		$tagIds = Set::extract('/Tag/id', $tags);
 		$this->deleteAll(array('Tag.id' => $tagIds), false);
 	}
+
 }

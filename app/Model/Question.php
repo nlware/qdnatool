@@ -150,7 +150,7 @@ class Question extends AppModel {
  *
  * @param array $check Value to validate
  * @param array $keywords Keywords
- * @return boolean
+ * @return bool
  */
 	public function notContains($check, $keywords) {
 		$value = array_values($check);
@@ -170,7 +170,7 @@ class Question extends AppModel {
  * beforeValidate method
  *
  * @param array $options Options passed from Model::save().
- * @return boolean True if validate operation should continue, false to abort
+ * @return bool True if validate operation should continue, false to abort
  * @see Model::beforeValidate()
  */
 	public function beforeValidate($options = array()) {
@@ -255,7 +255,7 @@ class Question extends AppModel {
 /**
  * Get list of tag ids
  *
- * @param integer $id An question id
+ * @param int $id An question id
  * @return array List of tag ids
  */
 	private function __getTagsIds($id) {
@@ -415,8 +415,8 @@ class Question extends AppModel {
 				}
 
 				// Check Answers
-				if ( ($question['Question']['question_format_id'] == QuestionFormat::MULTIPLE_CHOICE) ||
-					($question['Question']['question_format_id'] == QuestionFormat::MULTIPLE_RESPONSE)) {
+				if (($question['Question']['question_format_id'] == QuestionFormat::MULTIPLE_CHOICE) ||
+						($question['Question']['question_format_id'] == QuestionFormat::MULTIPLE_RESPONSE)) {
 					$wordCountPerAnswer = array();
 					if (!empty($question['QuestionAnswer'])) {
 						foreach ($question['QuestionAnswer'] as $questionAnswer) {
@@ -494,7 +494,7 @@ class Question extends AppModel {
 /**
  * view method
  *
- * @param integer $id An quesiton id
+ * @param int $id An question id
  * @return Question data
  */
 	public function view($id) {
@@ -520,7 +520,7 @@ class Question extends AppModel {
  * add method
  *
  * @param array $data Question data
- * @return boolean
+ * @return bool
  */
 	public function add($data) {
 		$this->create();
@@ -530,7 +530,7 @@ class Question extends AppModel {
 /**
  * edit moethod
  *
- * @param integer $id A question id
+ * @param int $id A question id
  * @return array
  */
 	public function edit($id) {
@@ -571,7 +571,7 @@ class Question extends AppModel {
  * update method
  *
  * @param array $data Question data
- * @return boolean
+ * @return bool
  */
 	public function update($data) {
 		/*
@@ -594,9 +594,9 @@ class Question extends AppModel {
 /**
  * Removed question for given ID
  *
- * @param integer $id ID of question to delete
- * @param boolean $cascade Dummy parameter
- * @return boolean True on success
+ * @param int $id ID of question to delete
+ * @param bool $cascade Dummy parameter
+ * @return bool True on success
  * @see Model::delete()
  */
 	public function delete($id = null, $cascade = true) {
@@ -1376,7 +1376,7 @@ class Question extends AppModel {
  * Returns the number of words in given string
  *
  * @param string $str String
- * @return integer
+ * @return int
  */
 	private function __wordCount($str) {
 		return count(explode(" ", $str));
@@ -1387,7 +1387,7 @@ class Question extends AppModel {
  *
  * @param string $check Value to validate
  * @param array $keywords Keywords to check
- * @return boolean
+ * @return bool
  */
 	private function __contains($check, $keywords) {
 		if (!is_array($keywords)) {
@@ -1410,4 +1410,5 @@ class Question extends AppModel {
 	private function __average($array) {
 		return array_sum($array) / count($array);
 	}
+
 }
