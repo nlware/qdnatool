@@ -96,7 +96,7 @@ class User extends AppModel {
  *
  * @param array $check Value to validate
  * @param string $otherfield Fieldname of field to compare value with
- * @return boolean
+ * @return bool
  */
 	public function equalToField($check, $otherfield) {
 		//get name of field
@@ -112,7 +112,7 @@ class User extends AppModel {
  * checkCurrentPassword
  *
  * @param array $check Value to validate
- * @return boolean
+ * @return bool
  */
 	public function checkCurrentPassword($check) {
 		$password = array_values($check);
@@ -146,7 +146,7 @@ class User extends AppModel {
  * beforeValidate method
  *
  * @param array $options Options passed from Model::save().
- * @return boolean True if validate operation should continue, false to abort
+ * @return bool True if validate operation should continue, false to abort
  * @see Model::beforeValidate()
  */
 	public function beforeValidate($options = array()) {
@@ -161,7 +161,7 @@ class User extends AppModel {
 /**
  * view method
  *
- * @param integer $id A user id
+ * @param int $id A user id
  * @return array User data
  */
 	public function view($id) {
@@ -183,7 +183,7 @@ class User extends AppModel {
  * adminUpdate method
  *
  * @param array $data User data
- * @return boolean
+ * @return bool
  */
 	public function adminUpdate($data) {
 		if (empty($data['User']['password'])) {
@@ -195,8 +195,8 @@ class User extends AppModel {
 /**
  * adminEdit method
  *
- * @param integer $id A user ID
- * @return boolean
+ * @param int $id A user ID
+ * @return bool
  */
 	public function adminEdit($id) {
 		return $this->find(
@@ -212,10 +212,11 @@ class User extends AppModel {
  * changePassword method
  *
  * @param array $data User data
- * @return boolean
+ * @return bool
  */
 	public function changePassword($data) {
 		$this->id = AuthComponent::user('id');
 		return $this->save($data);
 	}
+
 }

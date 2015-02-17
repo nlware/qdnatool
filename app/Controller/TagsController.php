@@ -30,4 +30,5 @@ class TagsController extends AppController {
 		$this->set(compact('tags'));
 		$this->set('_serialize', 'tags');
 	}
+
 }

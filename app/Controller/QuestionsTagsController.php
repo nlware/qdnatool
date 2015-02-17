@@ -12,7 +12,7 @@ class QuestionsTagsController extends AppController {
 /**
  * delete method
  *
- * @param integer $id A questionsTag id
+ * @param int $id A questionsTag id
  * @return void
  * @throws MethodNotAllowedException
  * @throws NotFoundException
@@ -36,7 +36,7 @@ class QuestionsTagsController extends AppController {
 /**
  * move_down method
  *
- * @param integer $id A questionsTag id
+ * @param int $id A questionsTag id
  * @return void
  * @throws MethodNotAllowedException
  * @throws NotFoundException
@@ -60,7 +60,7 @@ class QuestionsTagsController extends AppController {
 /**
  * move_up method
  *
- * @param integer $id A questionsTag id
+ * @param int $id A questionsTag id
  * @return void
  * @throws MethodNotAllowedException
  * @throws NotFoundException
@@ -80,4 +80,5 @@ class QuestionsTagsController extends AppController {
 		$this->setFlashError(__('Question was not moved up'));
 		return $this->redirect($this->referer());
 	}
+
 }

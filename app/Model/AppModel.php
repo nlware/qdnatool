@@ -26,7 +26,7 @@ class AppModel extends Model {
 /**
  * recursive
  *
- * @var integer
+ * @var int
  */
 	public $recursive = -1;
 
@@ -35,10 +35,10 @@ class AppModel extends Model {
  * A workaround for CakePHP lack of support for recursive
  *
  * @param mixed $conditions Conditions to match
- * @param boolean $cascade Set to true to delete records that depend on this record
- * @param boolean $callbacks Run callbacks
- * @param integer $recursive (Optional) Overrides the default recursive level
- * @return boolean True on success, false on failure
+ * @param bool $cascade Set to true to delete records that depend on this record
+ * @param bool $callbacks Run callbacks
+ * @param int $recursive (Optional) Overrides the default recursive level
+ * @return bool True on success, false on failure
  */
 	public function deleteAll($conditions, $cascade = true, $callbacks = false, $recursive = null) {
 		if (!isset($recursive)) {
@@ -73,8 +73,8 @@ class AppModel extends Model {
  * @param array $fields Set of fields and values, indexed by fields.
  *    Fields are treated as SQL snippets, to insert literal values manually escape your data.
  * @param mixed $conditions Conditions to match, true for all records
- * @param integer $recursive (Optional) Overrides the default recursive level
- * @return boolean True on success, false on failure
+ * @param int $recursive (Optional) Overrides the default recursive level
+ * @return bool True on success, false on failure
  */
 	public function updateAll($fields, $conditions = true, $recursive = null) {
 		if (!isset($recursive)) {
@@ -111,4 +111,5 @@ class AppModel extends Model {
 	public function removeFieldFromSchema($fieldname) {
 		unset($this->_schema[$fieldname]);
 	}
+
 }

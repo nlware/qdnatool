@@ -54,4 +54,5 @@ class QuestionFormatsController extends AppController {
 			$this->request->data = $this->QuestionFormat->read(null, $id);
 		}
 	}
+
 }

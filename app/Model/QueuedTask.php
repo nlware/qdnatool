@@ -146,7 +146,7 @@ class QueuedTask extends AppModel {
 /**
  * Mark a job as Completed, removing it from the queue.
  *
- * @param integer $id A job ID
+ * @param int $id A job ID
  * @return bool Success
  */
 	public function markJobDone($id) {
@@ -157,9 +157,9 @@ class QueuedTask extends AppModel {
 /**
  * Mark a job as Failed, Incrementing the failed-counter and Requeueing it.
  *
- * @param integer $id A job ID
+ * @param int $id A job ID
  * @param string $failureMessage Optional message to append to the
- * @return boolean Success
+ * @return bool Success
  */
 	public function markJobFailed($id, $failureMessage = null) {
 		$db = $this->getDataSource();
@@ -176,7 +176,7 @@ class QueuedTask extends AppModel {
  * Either returns the number of ALL pending tasks, or the number of pending tasks of the passed Type
  *
  * @param string $type jobType to Count
- * @return integer
+ * @return int
  */
 	public function getLength($type = null) {
 		$options = array(
@@ -286,4 +286,5 @@ class QueuedTask extends AppModel {
 			return $results;
 		}
 	}
+
 }

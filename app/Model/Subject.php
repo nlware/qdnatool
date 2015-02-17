@@ -39,4 +39,5 @@ class Subject extends AppModel {
 			'dependent' => false
 		)
 	);
+
 }

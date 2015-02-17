@@ -42,7 +42,7 @@ class OutputHelper extends AppHelper {
 /**
  * Returns a formatted boolean string given a boolean.
  *
- * @param boolean $value A boolean
+ * @param bool $value A boolean
  * @return string Formatted boolean
  */
 	public function boolean($value) {

@@ -21,4 +21,5 @@ class Image extends AppModel {
 			'foreignKey' => 'question_id'
 		)
 	);
+
 }

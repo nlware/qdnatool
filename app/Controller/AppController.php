@@ -68,7 +68,7 @@ class AppController extends Controller {
  * isAuthorized
  *
  * @param array $user A user
- * @return booleanl
+ * @return bool
  */
 	public function isAuthorized($user) {
 		if (isset($this->request->params['admin'])) {

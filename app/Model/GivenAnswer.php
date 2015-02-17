@@ -30,4 +30,5 @@ class GivenAnswer extends AppModel {
 			'foreignKey' => 'subject_id'
 		)
 	);
+
 }

@@ -298,4 +298,5 @@ class QueueShell extends AppShell {
 			$this->out('	- ' . $loadedTask);
 		}
 	}
+
 }

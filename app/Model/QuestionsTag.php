@@ -52,8 +52,8 @@ class QuestionsTag extends AppModel {
 /**
  * remove method
  *
- * @param integer $id A QuestionsTag ID
- * @return boolean
+ * @param int $id A QuestionsTag ID
+ * @return bool
  */
 	public function remove($id) {
 		if ($this->__allowed($id)) {
@@ -65,8 +65,8 @@ class QuestionsTag extends AppModel {
 /**
  * __allowed
  *
- * @param integer $id A QuestionsTag ID
- * @return boolean
+ * @param int $id A QuestionsTag ID
+ * @return bool
  */
 	private function __allowed($id) {
 		return ($this->find(
@@ -78,4 +78,5 @@ class QuestionsTag extends AppModel {
 			)
 		) > 0);
 	}
+
 }

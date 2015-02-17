@@ -13,7 +13,7 @@ class QueueReanalyseExamTask extends Shell {
  * Executed, when a worker is executing this task.
  *
  * @param mixed $data Job data (passed on creation)
- * @return boolean Success
+ * @return bool Success
  */
 	public function run($data) {
 		if (empty($data['Exam']['parent_id'])) {
@@ -29,4 +29,5 @@ class QueueReanalyseExamTask extends Shell {
 			}
 		}
 	}
+
 }

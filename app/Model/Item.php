@@ -69,13 +69,13 @@ class Item extends AppModel {
 /**
  * Add item to exam
  *
- * @param integer $examId Exam id
- * @param integer $defaultAnswerOptionCount Default number of answer options
+ * @param int $examId Exam id
+ * @param int $defaultAnswerOptionCount Default number of answer options
  * @param string $question Question
- * @param integer $givenAnswerOptionOrder Order index of given answer option
- * @param integer $score Score
- * @param integer $maximumScore Maximum score
- * @return integer Item id
+ * @param int $givenAnswerOptionOrder Order index of given answer option
+ * @param int $score Score
+ * @param int $maximumScore Maximum score
+ * @return int Item id
  */
 	public function add($examId, $defaultAnswerOptionCount, $question, $givenAnswerOptionOrder, $score, $maximumScore) {
 		$itemId = false;
@@ -159,7 +159,7 @@ class Item extends AppModel {
  * stevie method
  *
  * @param array $item Item data
- * @param integer[optional] $answerOptionCount Number of answer options
+ * @param int[optional] $answerOptionCount Number of answer options
  * @return array Enriched item data
  */
 	public function stevie($item, $answerOptionCount = null) {
@@ -217,4 +217,5 @@ class Item extends AppModel {
 		}
 		return $item;
 	}
+
 }
