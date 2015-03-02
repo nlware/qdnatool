@@ -1,11 +1,11 @@
 <?php
 /**
- * AllTests file
+ * AllTest file
  *
  * This test group will run all tests.
  */
 
-class AllTestsTest extends CakeTestSuite {
+class AllTest extends CakeTestSuite {
 
 /**
  * Get the suite object.
@@ -13,8 +13,9 @@ class AllTestsTest extends CakeTestSuite {
  * @return CakeTestSuite Suite class instance.
  */
 	public static function suite() {
-		$suite = new CakeTestSuite('All application tests');
+		$suite = new CakeTestSuite('All tests');
 		$suite->addTestDirectoryRecursive(TESTS . 'Case');
 		return $suite;
 	}
+
 }

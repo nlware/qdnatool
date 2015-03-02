@@ -18,7 +18,7 @@ class TestExam extends Exam {
  * Convenience method for testing protected method
  *
  * @param array $header Column headers of Teleform mapping file
- * @param integer $version Requested veersion
+ * @param int $version Requested version
  * @return mixed Integer with the column index, or false on failure or requested version not found
  */
 	public function getIndexOfVersionFromTeleformHeader($header, $version) {
