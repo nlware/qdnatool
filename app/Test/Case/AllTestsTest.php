@@ -1,6 +1,6 @@
 <?php
 /**
- * AllTest file
+ * AllTestsTest file
  *
  * This test group will run all tests.
  */
