@@ -34,8 +34,8 @@ class Instruction extends AppModel {
 /**
  * get method
  *
- * @param int $developmentPhaseId Development phase id
- * @param int $questionFormatId Question format id
+ * @param int[optional] $developmentPhaseId Development phase id
+ * @param int[optional] $questionFormatId Question format id
  * @return array
  */
 	public function get($developmentPhaseId = null, $questionFormatId = null) {

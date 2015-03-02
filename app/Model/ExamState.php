@@ -7,6 +7,11 @@ App::uses('AppModel', 'Model');
  */
 class ExamState extends AppModel {
 
+/**
+ * actsAs behaviors
+ *
+ * @var array
+ */
 	public $actsAs = array('I18n' => array('fields' => array('name'), 'display' => 'name'));
 
 	const UPLOADED = 1;

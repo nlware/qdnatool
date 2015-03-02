@@ -16,4 +16,5 @@ class AllModelTest extends CakeTestSuite {
 		$suite->addTestDirectory(TESTS . 'Case' . DS . 'Model');
 		return $suite;
 	}
+
 }
