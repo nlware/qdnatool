@@ -38,7 +38,7 @@ class Rserve {
  *
  * @return Ambigous <boolean, Rserve_Connection>
  */
-	public function connect() {
+	public static function connect() {
 		$connection = null;
 		try {
 			$connection = new Rserve_Connection(self::getConfig('host'), self::getConfig('port'), self::getConfig('debug'));
@@ -54,7 +54,7 @@ class Rserve {
  * @param string $script Script to execute
  * @return bool
  */
-	public function execute($script) {
+	public static function execute($script) {
 		$result = false;
 		if ($connection = self::connect()) {
 			try {

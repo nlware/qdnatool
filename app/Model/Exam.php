@@ -387,12 +387,11 @@ class Exam extends AppModel {
 			}
 		}
 
-		$script = '
-		source("' . APP . 'Lib' . DS . 'Rscripts' . DS . 'analyse.R");
-		nvragen=' . $questionCount . ';
-		ndeel=' . $studentCount . ';
+		$script = file_get_contents(APP . 'Lib' . DS . 'Rscripts' . DS . 'analyse.R');
+		$script .= 'nvragen=' . $questionCount . ';';
+		$script .= 'ndeel=' . $studentCount . ';';
 
-		number_answeroptions= rep(NA,' . $questionCount . ');';
+		$script .= 'number_answeroptions= rep(NA,' . $questionCount . ');';
 
 		$script .= 'key=matrix(0,' . $maxAnswerOptionCount . ',' . count($exam['Item']) . ');';
 		foreach ($exam['Item'] as $i => $item) {
@@ -549,17 +548,16 @@ class Exam extends AppModel {
 			$correctAnswerPercentage = Set::extract('/Item/correct_answer_percentage', $exam);
 			$correctAnswerIRC = Set::extract('/Item/correct_answer_irc', $exam);
 
-			$script = 'source("' . APP . 'Lib' . DS . 'Rscripts' . DS . 'report.R");
+			$script = file_get_contents(APP . 'Lib' . DS . 'Rscripts' . DS . 'report.R');
 
-			number_students=' . count($exam['Subject']) . ';
-			number_answeroptions=c(' . implode(',', $answerOptionCount) . ');
-			max_number_answeroptions=' . $exam['Exam']['max_answer_option_count'] . ';
-			number_questions=' . count($exam['Item']) . ';
-			Cronbach=' . $exam['Exam']['cronbachs_alpha'] . ';
-			correct_frequency=c(' . implode(',', $correctAnswerCount) . ');
-			correct_percentage=c(' . implode(',', $correctAnswerPercentage) . ');
-			corrected_item_tot_cor=c(' . implode(',', $correctAnswerIRC) . ');
-			';
+			$script .= 'number_students=' . count($exam['Subject']) . ';';
+			$script .= 'number_answeroptions=c(' . implode(',', $answerOptionCount) . ');';
+			$script .= 'max_number_answeroptions=' . $exam['Exam']['max_answer_option_count'] . ';';
+			$script .= 'number_questions=' . count($exam['Item']) . ';';
+			$script .= 'Cronbach=' . $exam['Exam']['cronbachs_alpha'] . ';';
+			$script .= 'correct_frequency=c(' . implode(',', $correctAnswerCount) . ');';
+			$script .= 'correct_percentage=c(' . implode(',', $correctAnswerPercentage) . ');';
+			$script .= 'corrected_item_tot_cor=c(' . implode(',', $correctAnswerIRC) . ');';
 
 			$script .= 'frequency_answer_options=matrix(,max_number_answeroptions+1,number_questions);';
 			$script .= 'percentage_answer_options=matrix(,max_number_answeroptions+1,number_questions);';
@@ -1514,6 +1512,57 @@ class Exam extends AppModel {
 
 		}
 		return $missings;
+	}
+
+/**
+ * _executeAnalysis
+ *
+ * @param int $questionCount Number of questions
+ * @param int $studentCount Number of students
+ * @param int $maxAnswerOptionCount Maximum number of answer options
+ * @param array $exam
+ * @param array $givenAnswers
+ * @param array $answerOptionCount Array of number of answer options per question
+ * @return array
+ */
+	protected function _executeAnalysis($questionCount, $studentCount, $maxAnswerOptionCount, $exam, $givenAnswers, $answerOptionCount) {
+		$script = file_get_contents(APP . 'Lib' . DS . 'Rscripts' . DS . 'analyse.R');
+		$script .= 'nvragen=' . $questionCount . ';';
+		$script .= 'ndeel=' . $studentCount . ';';
+
+		$script .= 'number_answeroptions= rep(NA,' . $questionCount . ');';
+
+		$script .= 'key=matrix(0,' . $maxAnswerOptionCount . ',' . count($exam['Item']) . ');';
+		foreach ($exam['Item'] as $i => $item) {
+			foreach ($item['AnswerOption'] as $j => $answerOption) {
+				if ($answerOption['is_correct']) {
+					$script .= 'key[' . ($j + 1) . ',' . ($i + 1) . ']=1;';
+				}
+			}
+		}
+
+		$script .= 'input_answers=matrix(,ndeel,nvragen);';
+
+		foreach ($givenAnswers as $i => $givenAnswersByStudent) {
+			foreach ($givenAnswersByStudent as $j => $givenAnswer) {
+				if (empty($givenAnswer)) {
+					$givenAnswer = 0;
+				}
+				$script .= 'input_answers[' . ($i + 1) . ',' . ($j + 1) . '] = ' . $givenAnswer . ';';
+			}
+		}
+
+		foreach ($answerOptionCount as $i => $count) {
+			if (empty($count)) {
+				$count = 0;
+			}
+			$script .= 'number_answeroptions[' . ($i + 1) . '] = ' . $count . ';';
+		}
+
+		$script .= 'Analyse(key, input_answers, number_answeroptions);';
+		$script = str_replace("\r\n", "", $script);
+
+		return Rserve::execute($script);
 	}
 
 }
