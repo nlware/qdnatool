@@ -11,20 +11,18 @@ env:
 
 matrix:
   allow_failures:
-    - php: 5.4
-    - php: 5.5
     - php: 5.6
   include:
-    - php: 5.3
+    - php: 5.5
       env:
         - COVERALLS=1  
-    - php: 5.3
+    - php: 5.5
       env:
         - PHPCS=1
 
 before_script:
-  - sh -c "if [ '$TRAVIS_PHP_VERSION' != '5.2' ]; then composer global require 'phpunit/phpunit=3.7.33'; fi"
-  - sh -c "if [ '$TRAVIS_PHP_VERSION' != '5.2' ]; then ln -s ~/.composer/vendor/phpunit/phpunit/PHPUnit ./app/Vendor/PHPUnit; fi"
+  - sh -c "composer global require 'phpunit/phpunit=3.7.33'"
+  - sh -c "ln -s ~/.composer/vendor/phpunit/phpunit/PHPUnit ./app/Vendor/PHPUnit"
   - sh -c "mysql -e 'CREATE DATABASE qdnatool_test;'"
   - chmod -R 777 ./app/tmp
   - composer install --dev --no-interaction --prefer-source
