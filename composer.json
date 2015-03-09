@@ -1,7 +1,7 @@
 {
 	"minimum-stability": "dev",
 	"config" : {
-		"vendor-dir" : "vendors/"
+		"vendor-dir" : "app/Vendor/"
 	},
 	"repositories" : [
 		{
@@ -38,9 +38,7 @@
 	"extra": {
 		"installer-paths": {
 			"app/Plugin/DebugKit": ["cakephp/debug_kit"],
-			"app/Plugin/TwitterBootstrap": ["slywalker/twitter_bootstrap"],
-			"app/Vendor/htmLawed": ["htmlawed/htmlawed"],
-			"app/Vendor/rserve-php": ["rserve-php/rserve-php"]
+			"app/Plugin/TwitterBootstrap": ["slywalker/twitter_bootstrap"]
 		}
 	},
 	"require" : {
