@@ -36,7 +36,7 @@ class RserveTest extends CakeTestCase {
 
 	public function testConnect() {
 		$result = $this->Rserve->connect();
-		$this->assertTrue($result);
+		$this->assertTrue((bool)$result);
 	}
 
 }
