@@ -26,7 +26,7 @@
 				"version": "0.2",
 				"type": "cakephp-vendor",
 				"dist": {
-					"url": "http://rserve-php.googlecode.com/files/rserve-php-0.2.zip",
+					"url": "http://rserve-php.googlecode.com/files/rserve-php-0.2-rev41.zip",
 					"type": "zip"
 				},
 				"require": {
