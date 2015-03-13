@@ -1,7 +1,7 @@
 {
 	"minimum-stability": "dev",
 	"config" : {
-		"vendor-dir" : "vendors/"
+		"vendor-dir" : "app/Vendor/"
 	},
 	"repositories" : [
 		{
@@ -23,10 +23,10 @@
 			"type": "package",
 			"package": {
 				"name": "rserve-php/rserve-php",
-				"version": "0.2",
+				"version": "0.2.41",
 				"type": "cakephp-vendor",
 				"dist": {
-					"url": "https://rserve-php.googlecode.com/files/rserve-php-0.2-rev41.zip",
+					"url": "http://rserve-php.googlecode.com/files/rserve-php-0.2-rev41.zip",
 					"type": "zip"
 				},
 				"require": {
@@ -38,9 +38,7 @@
 	"extra": {
 		"installer-paths": {
 			"app/Plugin/DebugKit": ["cakephp/debug_kit"],
-			"app/Plugin/TwitterBootstrap": ["slywalker/twitter_bootstrap"],
-			"app/Vendor/htmLawed": ["htmlawed/htmlawed"],
-			"app/Vendor/rserve-php": ["rserve-php/rserve-php"]
+			"app/Plugin/TwitterBootstrap": ["slywalker/twitter_bootstrap"]
 		}
 	},
 	"require" : {
@@ -48,7 +46,7 @@
 		"cakephp/debug_kit": "2.2.*",
 		"slywalker/twitter_bootstrap": "1.5.7",
 		"htmlawed/htmlawed": "1.1.14",
-		"rserve-php/rserve-php": "0.2"
+		"rserve-php/rserve-php": "0.2.41"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "3.7.*"

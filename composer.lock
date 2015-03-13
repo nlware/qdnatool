@@ -4,7 +4,11 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "hash": "93cdd490bb6c77f0d9d508485e522a2e",
+=======
+    "hash": "a7e0222a3bd29d7c77e813eb09799d29",
+>>>>>>> master
     "packages": [
         {
             "name": "cakephp/cakephp",
@@ -203,10 +207,10 @@
         },
         {
             "name": "rserve-php/rserve-php",
-            "version": "0.2",
+            "version": "0.2.41",
             "dist": {
                 "type": "zip",
-                "url": "https://rserve-php.googlecode.com/files/rserve-php-0.2-rev41.zip",
+                "url": "http://rserve-php.googlecode.com/files/rserve-php-0.2-rev41.zip",
                 "reference": null,
                 "shasum": null
             },

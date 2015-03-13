@@ -1,5 +1,5 @@
 <?php
-App::import('Vendor', 'RserveConnection', array('file' => 'rserve-php' . DS . 'Connection.php'));
+App::import('Vendor', 'RserveConnection', array('file' => 'rserve-php' . DS . 'rserve-php' . DS . 'Connection.php'));
 class Rserve {
 
 	public static $configs = null;
