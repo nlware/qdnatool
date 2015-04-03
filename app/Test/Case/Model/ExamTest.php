@@ -8,25 +8,41 @@ App::uses('Exam', 'Model');
 class TestExam extends Exam {
 
 /**
- * Table name
+ * Set alias for sql.
  *
  * @var string
+ */
+	public $alias = 'Exam';
+
+/**
+ * Use table.
+ *
+ * @var mixed False or table name
  */
 	public $useTable = 'exams';
 
 /**
- * Convenience method for testing protected method
+ * Public test double of `parent::_getIndexOfVersionFromTeleformHeader`.
  *
- * @param array $header Column headers of Teleform mapping file
- * @param int $version Requested version
- * @return mixed Integer with the column index, or false on failure or requested version not found
  */
 	public function getIndexOfVersionFromTeleformHeader($header, $version) {
 		return self::_getIndexOfVersionFromTeleformHeader($header, $version);
 	}
 
+/**
+ * Public test double of `parent::_executeAnalysis`.
+ *
+ */
 	public function executeAnalysis($questionCount, $studentCount, $maxAnswerOptionCount, $exam, $givenAnswers, $answerOptionCount) {
 		return self::_executeAnalysis($questionCount, $studentCount, $maxAnswerOptionCount, $exam, $givenAnswers, $answerOptionCount);
+	}
+
+/**
+ * Public test double of `parent::_duplicate`.
+ *
+ */
+	public function duplicate($postData) {
+		return parent::_duplicate($postData);
 	}
 
 }
@@ -38,11 +54,18 @@ class TestExam extends Exam {
 class ExamTest extends CakeTestCase {
 
 /**
+ * Auto fixtures.
+ *
+ * @var bool
+ */
+	public $autoFixtures = false;
+
+/**
  * Fixtures
  *
  * @var array
  */
-	public $fixtures = array('app.exam');
+	public $fixtures = array('app.answer_option', 'app.exam', 'app.given_answer', 'app.item', 'app.subject');
 
 /**
  * setUp method
@@ -117,7 +140,6 @@ class ExamTest extends CakeTestCase {
 		);
 		$answerOptionCount = array(3, 3);
 		$result = $this->Exam->executeAnalysis($questionCount, $studentCount, $maxAnswerOptionCount, $exam, $givenAnswers, $answerOptionCount);
-debug($result);
 	}
 
 
@@ -362,6 +384,33 @@ debug($result);
 		$this->markTestIncomplete(
 			'This test has not been implemented yet.'
 		);
+	}
+
+/**
+ * testDuplicate method
+ *
+ * @return void
+ */
+	public function testDuplicate() {
+		$this->loadFixtures('AnswerOption', 'Exam', 'GivenAnswer', 'Item', 'Subject');
+
+		$expected = 748;
+
+		$examId = 747;
+		$conditions = array('Exam.id' => $examId);
+		$contain = array('Item' => 'AnswerOption');
+		$postData = $this->Exam->find('first', compact('conditions', 'contain'));
+
+		$postData['Exam']['parent_id'] = $postData['Exam']['id'];
+		unset($postData['Exam']['id']);
+		$postData['Exam']['name'] = 'test';
+
+		foreach ($postData['Item'] as $i => $item) {
+			$postData['Item'][$i]['include'] = '1';
+		}
+
+		$result = $this->Exam->duplicate($postData);
+		$this->assertEquals($expected, $result);
 	}
 
 }
