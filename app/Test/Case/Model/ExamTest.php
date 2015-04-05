@@ -117,9 +117,8 @@ class ExamTest extends CakeTestCase {
 		);
 		$answerOptionCount = array(3, 3);
 		$result = $this->Exam->executeAnalysis($questionCount, $studentCount, $maxAnswerOptionCount, $exam, $givenAnswers, $answerOptionCount);
-debug($result);
+		$this->assertTrue((bool)$result);
 	}
-
 
 /**
  * testGetIndexOfVersionFromTeleformHeader method
