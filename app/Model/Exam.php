@@ -1316,7 +1316,7 @@ class Exam extends AppModel {
  */
 	public function reanalyse($data) {
 		$result = true;
-		if ($id = $this->__duplicate($data)) {
+		if ($id = $this->_duplicate($data)) {
 			$result = $this->scheduleAnalyse($id);
 		} else {
 			$result = false;
@@ -1325,12 +1325,12 @@ class Exam extends AppModel {
 	}
 
 /**
- * __duplicate method
+ * _duplicate method
  *
  * @param data $postData Exam data
  * @return int
  */
-	private function __duplicate($postData) {
+	protected function _duplicate($postData) {
 		$examId = false;
 		$parentExam = $this->find(
 			'first', array(
