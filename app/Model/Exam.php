@@ -1280,6 +1280,7 @@ class Exam extends AppModel {
 		$result = true;
 		$this->validator()->remove('data_file');
 		$this->validator()->remove('answer_option_count');
+		$this->validator()->remove('exam_format_id');
 		if (!$this->saveAll($data, array('validate' => 'only'))) {
 			$result = false;
 		}
