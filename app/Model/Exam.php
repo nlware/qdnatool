@@ -1314,7 +1314,7 @@ class Exam extends AppModel {
  */
 	public function reanalyse($data) {
 		$result = true;
-		if ($id = $this->__duplicate($data)) {
+		if ($id = $this->_duplicate($data)) {
 			$result = $this->scheduleAnalyse($id);
 		} else {
 			$result = false;
@@ -1323,12 +1323,12 @@ class Exam extends AppModel {
 	}
 
 /**
- * __duplicate method
+ * _duplicate method
  *
  * @param data $postData Exam data
  * @return int
  */
-	private function __duplicate($postData) {
+	protected function _duplicate($postData) {
 		$examId = false;
 		$parentExam = $this->find(
 			'first', array(
@@ -1421,10 +1421,14 @@ class Exam extends AppModel {
 										)
 									)
 								);
+								$score = 0;
+								if ($givenAnswer['value'] !== null) {
+									$score = $childExam['Item'][$i]['AnswerOption'][($givenAnswer['value'] - 1)]['is_correct'];
+								}
 								$data[] = array(
 									'item_id' => $childExam['Item'][$i]['id'],
 									'value' => $givenAnswer['value'],
-									'score' => $childExam['Item'][$i]['AnswerOption'][($givenAnswer['value'] - 1)]['is_correct'],
+									'score' => $score,
 									'subject_id' => $subject['Subject']['id']
 								);
 							}
