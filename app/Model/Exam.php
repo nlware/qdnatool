@@ -1423,10 +1423,14 @@ class Exam extends AppModel {
 										)
 									)
 								);
+								$score = 0;
+								if ($givenAnswer['value'] !== null) {
+									$score = $childExam['Item'][$i]['AnswerOption'][($givenAnswer['value'] - 1)]['is_correct'];
+								}
 								$data[] = array(
 									'item_id' => $childExam['Item'][$i]['id'],
 									'value' => $givenAnswer['value'],
-									'score' => $childExam['Item'][$i]['AnswerOption'][($givenAnswer['value'] - 1)]['is_correct'],
+									'score' => $score,
 									'subject_id' => $subject['Subject']['id']
 								);
 							}
