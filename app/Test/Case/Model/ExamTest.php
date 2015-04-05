@@ -30,14 +30,6 @@ class TestExam extends Exam {
 	}
 
 /**
- * Public test double of `parent::_executeAnalysis`.
- *
- */
-	public function executeAnalysis($questionCount, $studentCount, $maxAnswerOptionCount, $exam, $givenAnswers, $answerOptionCount) {
-		return self::_executeAnalysis($questionCount, $studentCount, $maxAnswerOptionCount, $exam, $givenAnswers, $answerOptionCount);
-	}
-
-/**
  * Public test double of `parent::_duplicate`.
  *
  */
@@ -87,61 +79,6 @@ class ExamTest extends CakeTestCase {
 
 		parent::tearDown();
 	}
-
-	public function testExecuteAnalysis() {
-		/*
-		> nvragen=2;
-		> ndeel=6;
-		> number_answeroptions= rep(NA,2);
-		> key=matrix(0,3,2);
-		> key[1,1]=1;
-		> key[1,2]=1;
-		> input_answers=matrix(,ndeel,nvragen);
-		> input_answers[1,1] = 2;
-		> input_answers[1,2] = 1;
-		> input_answers[2,1] = 3;
-		> input_answers[2,2] = 1;
-		> input_answers[3,1] = 1;
-		> input_answers[3,2] = 1;
-		> input_answers[4,1] = 2;
-		> input_answers[4,2] = 1;
-		> input_answers[5,1] = 2;
-		> input_answers[5,2] = 3;
-		> input_answers[6,1] = 1;
-		> input_answers[6,2] = 1;
-		> number_answeroptions[1] = 3;
-		> number_answeroptions[2] = 3;
-*/
-
-		$questionCount = 2;
-		$studentCount = 6;
-		$maxAnswerOptionCount = 3;
-		$exam = array(
-			'Item' => array(
-				array(
-					'AnswerOption' => array(
-						array('is_correct' => true)
-					)
-				),
-				array(
-					'AnswerOption' => array(
-						array('is_correct' => true)
-					)
-				)
-			)
-		);
-		$givenAnswers = array(
-			array(2, 1),
-			array(3, 1),
-			array(1, 1),
-			array(2, 1),
-			array(2, 3),
-			array(1, 1),
-		);
-		$answerOptionCount = array(3, 3);
-		$result = $this->Exam->executeAnalysis($questionCount, $studentCount, $maxAnswerOptionCount, $exam, $givenAnswers, $answerOptionCount);
-	}
-
 
 /**
  * testGetIndexOfVersionFromTeleformHeader method
