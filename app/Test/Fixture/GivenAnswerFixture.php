@@ -32,6 +32,16 @@ class GivenAnswerFixture extends CakeTestFixture {
  */
 	public $records = array(
 		array(
+			'id' => 1,
+			'item_id' => 1,
+			'subject_id' => 1
+		),
+		array(
+			'id' => 2,
+			'item_id' => 1,
+			'subject_id' => 2
+		),
+		array(
 			'id' => 2881298,
 			'item_id' => 21773,
 			'subject_id' => 100843,

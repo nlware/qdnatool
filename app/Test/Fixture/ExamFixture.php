@@ -77,6 +77,15 @@ class ExamFixture extends CakeTestFixture {
 			'modified' => '2000-01-01 00:00:00'
 		),
 		array(
+			'id' => 2,
+			'name' => 'test',
+			'user_id' => 1,
+			'exam_format_id' => ExamFormat::TELEFORM,
+			'answer_option_count' => 4,
+			'created' => '2000-01-01 00:00:00',
+			'modified' => '2000-01-01 00:00:00'
+		),
+		array(
 			'id' => 747,
 			'parent_id' => null,
 			'name' => 'Algera v2',
