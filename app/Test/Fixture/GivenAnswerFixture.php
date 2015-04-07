@@ -34,12 +34,14 @@ class GivenAnswerFixture extends CakeTestFixture {
 		array(
 			'id' => 1,
 			'item_id' => 1,
-			'subject_id' => 1
+			'subject_id' => 1,
+			'score' => 0
 		),
 		array(
 			'id' => 2,
 			'item_id' => 1,
-			'subject_id' => 2
+			'subject_id' => 2,
+			'score' => 0
 		),
 		array(
 			'id' => 2881298,

@@ -331,7 +331,7 @@ class ExamTest extends CakeTestCase {
 	public function testDuplicate() {
 		$this->_testDuplicateExamWithSubjectsWithNonUniqueIdentifiers();
 
-//		$this->_testDuplicateExamWithMissingGivenAnswers();
+		$this->_testDuplicateExamWithMissingGivenAnswers();
 	}
 
 	protected function _testDuplicateExamWithSubjectsWithNonUniqueIdentifiers() {
@@ -342,14 +342,12 @@ class ExamTest extends CakeTestCase {
 		$result = $this->Exam->duplicate($postData);
 		$this->assertTrue((bool)$result);
 
-		$contain = array(
-			'Subject' => 'GivenAnswer'
-		);
+		$contain = array('Subject' => 'GivenAnswer');
 
 		$conditions = array('Exam.id' => $examId);
 		$originalExam = $this->Exam->find('first', compact('conditions', 'contain'));
 		$originalExam = $this->_stripIds($originalExam);
-debug($originalExam);
+
 		$conditions = array('Exam.id' => $result);
 		$duplicateExam = $this->Exam->find('first', compact('conditions', 'contain'));
 
@@ -357,20 +355,8 @@ debug($originalExam);
 		$duplicateExam['Exam']['duplicated'] = null;
 
 		$duplicateExam = $this->_stripIds($duplicateExam);
-debug($duplicateExam);
 
 		$this->assertEquals($originalExam, $duplicateExam);
-	}
-
-	protected function _stripIds($data) {
-		foreach ($data as $key => $value) {
-			if (in_array($key, array('id', 'created', 'modified'), true) || (strpos($key, '_id') === (strlen($key) - 3))) {
-				$data[$key] = null;
-			} elseif (is_array($value)) {
-				$data[$key] = $this->_stripIds($value);
-			}
-		}
-		return $data;
 	}
 
 	protected function _testDuplicateExamWithMissingGivenAnswers() {
@@ -398,6 +384,17 @@ debug($duplicateExam);
 			$postData['Item'][$i]['include'] = '1';
 		}
 		return $postData;
+	}
+
+	protected function _stripIds($data) {
+		foreach ($data as $key => $value) {
+			if (in_array($key, array('id', 'created', 'modified'), true) || (strpos($key, '_id') === (strlen($key) - 3))) {
+				$data[$key] = null;
+			} elseif (is_array($value)) {
+				$data[$key] = $this->_stripIds($value);
+			}
+		}
+		return $data;
 	}
 
 }

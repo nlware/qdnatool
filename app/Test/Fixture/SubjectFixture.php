@@ -37,7 +37,7 @@ class SubjectFixture extends CakeTestFixture {
 		array(
 			'id' => 2,
 			'exam_id' => 2,
-			'value' => '456',
+			'value' => '123',
 			'is_second_version' => true
 		),
 		array(
