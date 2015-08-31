@@ -387,8 +387,8 @@ class Exam extends AppModel {
 			}
 		}
 
-		$script = '
-		source("' . APP . 'Lib' . DS . 'Rscripts' . DS . 'analyse.R");
+		$script = file_get_contents(APP . 'Lib' . DS . 'Rscripts' . DS . 'analyse.R");
+		$script .= '
 		nvragen=' . $questionCount . ';
 		ndeel=' . $studentCount . ';
 
@@ -549,8 +549,8 @@ class Exam extends AppModel {
 			$correctAnswerPercentage = Set::extract('/Item/correct_answer_percentage', $exam);
 			$correctAnswerIRC = Set::extract('/Item/correct_answer_irc', $exam);
 
-			$script = 'source("' . APP . 'Lib' . DS . 'Rscripts' . DS . 'report.R");
-
+			$script = file_get_contents(APP . 'Lib' . DS . 'Rscripts' . DS . 'report.R');
+			$script .= '
 			number_students=' . count($exam['Subject']) . ';
 			number_answeroptions=c(' . implode(',', $answerOptionCount) . ');
 			max_number_answeroptions=' . $exam['Exam']['max_answer_option_count'] . ';
