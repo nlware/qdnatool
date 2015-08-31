@@ -1280,6 +1280,7 @@ class Exam extends AppModel {
  */
 	public function scheduleReanalyse($data) {
 		$result = true;
+		$this->validator()->remove('exam_format_id');
 		$this->validator()->remove('data_file');
 		$this->validator()->remove('answer_option_count');
 		$this->validator()->remove('exam_format_id');
