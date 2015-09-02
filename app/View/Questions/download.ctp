@@ -5,67 +5,67 @@ $this->addScript('<style type="text/css">body {font-family: \'Arial\',sans-serif
 <?php foreach ($questions as $i => $question): ?>
 	<li>
 		<p><?php echo $this->HtmLawed->display($question['Question']['stimulus']); ?></p>
-	<?php
-	switch ($question['Question']['question_format_id']):
-		case QuestionFormat::TRUE_FALSE:
-	?>
+		<?php
+		switch ($question['Question']['question_format_id']):
+			case QuestionFormat::TRUE_FALSE:
+		?>
 		<ol>
-	<?php
+			<?php
 			if (!empty($question['QuestionAnswer'])):
 				foreach ($question['QuestionAnswer'] as $questionAnswer):
-	?>
+			?>
 			<li><?php echo $this->HtmLawed->display($questionAnswer['name']); ?></li>
-	<?php
+			<?php
 				endforeach;
 			endif;
-	?>
+			?>
 		</ol>
-	<?php
-			break;
-		case QuestionFormat::MULTIPLE_CHOICE:
-		case QuestionFormat::MULTIPLE_RESPONSE:
-	?>
+		<?php
+				break;
+			case QuestionFormat::MULTIPLE_CHOICE:
+			case QuestionFormat::MULTIPLE_RESPONSE:
+		?>
 		<ol>
-	<?php
+			<?php
 			if (!empty($question['QuestionAnswer'])):
 				foreach ($question['QuestionAnswer'] as $questionAnswer):
-	?>
+			?>
 			<li><?php echo $this->HtmLawed->display($questionAnswer['name']); ?></li>
-	<?php
+			<?php
 				endforeach;
 			endif;
-	?>
+			?>
 		</ol>
-	<?php
-			break;
-		case QuestionFormat::OPEN_ANSWER:
-	?>
+		<?php
+				break;
+			case QuestionFormat::OPEN_ANSWER:
+		?>
 		<p><?php echo $this->HtmLawed->display($question['Question']['answer']); ?></p>
-	<?php
+		<?php
 			break;
-	endswitch;
-	?>
+		endswitch;
+		?>
 	</li>
-<?php endforeach; ?>
+	<?php endforeach; ?>
 </ol>
 <p><strong><?php echo __('Correct answers'); ?></strong></p>
 <ol>
     <?php foreach ($questions as $question): ?>
 	<li>
-	<?php
-	$correctAnswers = array();
-	if (!empty($question['QuestionAnswer'])):
-		foreach ($question['QuestionAnswer'] as $i => $questionAnswer):
-			if ($questionAnswer['is_correct']):
-				$correctAnswers[] = QuestionAnswer::printIndex($i);
-			endif;
-		endforeach;
-	endif;
-	if ($question['Question']['question_format_id'] == QuestionFormat::OPEN_ANSWER):
-		$correctAnswers[] = $this->HtmLawed->display($question['Question']['answer']);
-	endif;
-	echo implode(', ', $correctAnswers);
-	?>
+		<?php
+		$correctAnswers = array();
+		if (!empty($question['QuestionAnswer'])):
+			foreach ($question['QuestionAnswer'] as $i => $questionAnswer):
+				if ($questionAnswer['is_correct']):
+					$correctAnswers[] = QuestionAnswer::printIndex($i);
+				endif;
+			endforeach;
+		endif;
+		if ($question['Question']['question_format_id'] == QuestionFormat::OPEN_ANSWER):
+			$correctAnswers[] = $this->HtmLawed->display($question['Question']['answer']);
+		endif;
+		echo implode(', ', $correctAnswers);
+		?>
 	</li>
-<?php endforeach; ?>
+	<?php endforeach; ?>
 </ol>

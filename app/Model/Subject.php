@@ -15,8 +15,6 @@ class Subject extends AppModel {
  */
 	public $displayField = 'value';
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
 /**
  * belongsTo associations
  *
@@ -41,4 +39,5 @@ class Subject extends AppModel {
 			'dependent' => false
 		)
 	);
+
 }

@@ -4,20 +4,9 @@
  *
  * The Front Controller for handling every request
  *
- * PHP 5
- *
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          http://cakephp.org CakePHP(tm) Project
  * @package       app.webroot
  * @since         CakePHP(tm) v 0.2.9
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
 /**
@@ -28,7 +17,7 @@ if (!defined('DS')) {
 }
 
 /**
- * These defines should only be edited if you have cake installed in
+ * These defines should only be edited if you have CakePHP installed in
  * a directory layout other than the way it is distributed.
  * When using custom settings be sure to use the DS and do not add a trailing DS.
  */
@@ -61,9 +50,9 @@ if (!defined('APP_DIR')) {
  * Leaving this constant undefined will result in it being defined in Cake/bootstrap.php
  *
  * The following line differs from its sibling
- * /lib/Cake/Console/Templates/skel/webroot/index.php
+ * /app/webroot/index.php
  */
-define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . 'vendors' . DS . 'pear-pear.cakephp.org' . DS . 'CakePHP');
+define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . APP_DIR . DS . 'Vendor' . DS . 'cakephp' . DS . 'cakephp' . DS . 'lib');
 
 /**
  * Editing below this line should NOT be necessary.
@@ -78,8 +67,8 @@ if (!defined('WWW_ROOT')) {
 }
 
 // for built-in server
-if (php_sapi_name() == 'cli-server') {
-	if ($_SERVER['REQUEST_URI'] !== '/' && file_exists(WWW_ROOT . $_SERVER['REQUEST_URI'])) {
+if (php_sapi_name() === 'cli-server') {
+	if ($_SERVER['REQUEST_URI'] !== '/' && file_exists(WWW_ROOT . $_SERVER['PHP_SELF'])) {
 		return false;
 	}
 	$_SERVER['PHP_SELF'] = '/' . basename(__FILE__);
@@ -89,11 +78,11 @@ if (!defined('CAKE_CORE_INCLUDE_PATH')) {
 	if (function_exists('ini_set')) {
 		ini_set('include_path', ROOT . DS . 'lib' . PATH_SEPARATOR . ini_get('include_path'));
 	}
-	if (!include ('Cake' . DS . 'bootstrap.php')) {
+	if (!include 'Cake' . DS . 'bootstrap.php') {
 		$failed = true;
 	}
 } else {
-	if (!include (CAKE_CORE_INCLUDE_PATH . DS . 'Cake' . DS . 'bootstrap.php')) {
+	if (!include CAKE_CORE_INCLUDE_PATH . DS . 'Cake' . DS . 'bootstrap.php') {
 		$failed = true;
 	}
 }

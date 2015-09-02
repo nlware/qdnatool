@@ -180,8 +180,8 @@
 							'<i class="icon-trash"></i>',
 							'#', array(
 								'onclick' => '
-									if(confirm(\''.__('Are you sure you wish to delete this answer?').'\')){
-										$(\'#QuestionAnswer'.$i.'Destroy\').val(1);
+									if(confirm(\'' . __('Are you sure you wish to delete this answer?') . '\')){
+										$(\'#QuestionAnswer' . $i . 'Destroy\').val(1);
 										$(this).parent().parent().hide();
 									}
 									event.returnValue = false;
@@ -206,7 +206,7 @@
 			<?php
 			endfor;
 			echo $this->Html->link(
-				'<i class="icon-plus"></i> '.__('Add Answer'),
+				'<i class="icon-plus"></i> ' . __('Add Answer'),
 				'#', array(
 					'class' => 'btn',
 					'onclick' => '
@@ -253,7 +253,7 @@
 						</tr>
 					</thead>
 					<tbody>
-					<?php for ($i = 0; $i < ((empty($this->request->data['QuestionsTag'])?0:count($this->request->data['QuestionsTag'])) + 10); $i++): ?>
+						<?php for ($i = 0; $i < ((empty($this->request->data['QuestionsTag'])?0:count($this->request->data['QuestionsTag'])) + 10); $i++): ?>
 						<tr<?php echo ($this->Form->value('QuestionsTag.' . $i . '.destroy') == '0')?'':' style="display:none;"'; ?>>
 							<td>
 							<?php
@@ -294,7 +294,7 @@
 							?>
 							</td>
 						</tr>
-					<?php endfor; ?>
+						<?php endfor; ?>
 						<tr>
 							<td colspan="2">
 							<?php
@@ -335,12 +335,14 @@
 		<div class="tab-content">
 			<div class="tab-pane active" id="help">
 				<div id="tabHelp">
-				<?php if (!empty($instruction)): ?>
+					<?php
+					if (!empty($instruction)):
+					?>
 					<h4><?php echo h($instruction['Instruction']['name']); ?></h4>
-				<?php
-					echo $this->Output->html($instruction['Instruction']['content']);
-				endif;
-				?>
+					<?php
+						echo $this->Output->html($instruction['Instruction']['content']);
+					endif;
+					?>
 				</div>
 			</div>
 			<div class="tab-pane" id="analyses">

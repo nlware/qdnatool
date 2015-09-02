@@ -15,8 +15,6 @@ class GivenAnswer extends AppModel {
  */
 	public $displayField = 'value';
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
 /**
  * belongsTo associations
  *
@@ -32,4 +30,5 @@ class GivenAnswer extends AppModel {
 			'foreignKey' => 'subject_id'
 		)
 	);
+
 }

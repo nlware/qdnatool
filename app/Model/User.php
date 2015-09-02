@@ -7,6 +7,11 @@ App::uses('AppModel', 'Model');
  */
 class User extends AppModel {
 
+/**
+ * Validation rules
+ *
+ * @var array
+ */
 	public $validate = array(
 		'username' => array(
 			'email' => array(
@@ -74,8 +79,6 @@ class User extends AppModel {
 		)
 	);
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
 /**
  * belongsTo associations
  *
@@ -88,6 +91,13 @@ class User extends AppModel {
 		)
 	);
 
+/**
+ * equalToField
+ *
+ * @param array $check Value to validate
+ * @param string $otherfield Fieldname of field to compare value with
+ * @return bool
+ */
 	public function equalToField($check, $otherfield) {
 		//get name of field
 		$fname = '';
@@ -98,6 +108,12 @@ class User extends AppModel {
 		return $this->data[$this->alias][$otherfield] === $this->data[$this->alias][$fname];
 	}
 
+/**
+ * checkCurrentPassword
+ *
+ * @param array $check Value to validate
+ * @return bool
+ */
 	public function checkCurrentPassword($check) {
 		$password = array_values($check);
 		$password = $password[0];
@@ -111,6 +127,14 @@ class User extends AppModel {
 		) > 0);
 	}
 
+/**
+ * Called before each save operation, after validation. Return a non-true result
+ * to halt the save.
+ *
+ * @param array $options Options passed from Model::save().
+ * @return bool True if the operation should continue, false if it should abort
+ * @see Model::save()
+ */
 	public function beforeSave($options = array()) {
 		if (isset($this->data[$this->alias]['password'])) {
 			$this->data[$this->alias]['password'] = AuthComponent::password($this->data[$this->alias]['password']);
@@ -118,6 +142,13 @@ class User extends AppModel {
 		return true;
 	}
 
+/**
+ * beforeValidate method
+ *
+ * @param array $options Options passed from Model::save().
+ * @return bool True if validate operation should continue, false to abort
+ * @see Model::beforeValidate()
+ */
 	public function beforeValidate($options = array()) {
 		foreach ($this->hasAndBelongsToMany as $k => $v) {
 			if (isset($this->data[$k][$k])) {
@@ -127,6 +158,12 @@ class User extends AppModel {
 		return true;
 	}
 
+/**
+ * view method
+ *
+ * @param int $id A user id
+ * @return array User data
+ */
 	public function view($id) {
 		$options = array(
 			'conditions' => array(
@@ -142,11 +179,25 @@ class User extends AppModel {
 		return $this->find('first', $options);
 	}
 
+/**
+ * adminUpdate method
+ *
+ * @param array $data User data
+ * @return bool
+ */
 	public function adminUpdate($data) {
-		if (empty($data['User']['password'])) unset($data['User']['password']);
+		if (empty($data['User']['password'])) {
+			unset($data['User']['password']);
+		}
 		return $this->save($data);
 	}
 
+/**
+ * adminEdit method
+ *
+ * @param int $id A user ID
+ * @return bool
+ */
 	public function adminEdit($id) {
 		return $this->find(
 			'first', array(
@@ -157,8 +208,15 @@ class User extends AppModel {
 		);
 	}
 
+/**
+ * changePassword method
+ *
+ * @param array $data User data
+ * @return bool
+ */
 	public function changePassword($data) {
 		$this->id = AuthComponent::user('id');
 		return $this->save($data);
 	}
+
 }

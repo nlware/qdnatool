@@ -5,5 +5,5 @@ php_value post_max_size 10M
     RewriteEngine On
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^(.*)$ index.php [QSA,L]
+    RewriteRule ^ index.php [L]
 </IfModule>

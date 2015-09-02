@@ -1,4 +1,4 @@
-# LANGUAGE translation of CakePHP Application
+# LANGUAGE translation of qDNAtool
 # Copyright YEAR NAME <EMAIL@ADDRESS>
 #
 #, fuzzy

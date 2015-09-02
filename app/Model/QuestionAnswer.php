@@ -14,6 +14,11 @@ class QuestionAnswer extends AppModel {
  */
 	public $displayField = 'name';
 
+/**
+ * Validation rules
+ *
+ * @var array
+ */
 	public $validate = array(
 		'name' => array(
 			'notEmpty' => array(
@@ -23,8 +28,6 @@ class QuestionAnswer extends AppModel {
 			)
 		)
 	);
-
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 /**
  * belongsTo associations
@@ -38,7 +41,14 @@ class QuestionAnswer extends AppModel {
 		)
 	);
 
+/**
+ * printIndex method
+ *
+ * @param int $index Index
+ * @return string
+ */
 	public static function printIndex($index) {
 		return chr(65 + $index);
 	}
+
 }

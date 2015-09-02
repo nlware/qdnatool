@@ -8,7 +8,9 @@ App::uses('AppModel', 'Model');
 class ExamFormat extends AppModel {
 
 	const TELEFORM = 1;
+
 	const BLACKBOARD = 2;
+
 	const QMP = 3;
 
 /**
@@ -19,8 +21,6 @@ class ExamFormat extends AppModel {
 	public $displayField = 'name';
 
 	public $order = array('ExamFormat.name' => 'ASC');
-
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 /**
  * hasMany associations
@@ -34,4 +34,5 @@ class ExamFormat extends AppModel {
 			'dependent' => false
 		)
 	);
+
 }

@@ -8,12 +8,24 @@ App::uses('QuestionFormat', 'Model');
 App::uses('Role', 'Model');
 class AppSchema extends CakeSchema {
 
+/**
+ * Before event.
+ *
+ * @param array $event The event data.
+ * @return bool success
+ */
 	public function before($event = array()) {
 		$db = ConnectionManager::getDataSource('default');
 		$db->cacheSources = false;
 		return true;
 	}
 
+/**
+ * After event.
+ *
+ * @param array $event The event data.
+ * @return void
+ */
 	public function after($event = array()) {
 		if (isset($event['create'])) {
 			switch ($event['create']) {
@@ -22,8 +34,16 @@ class AppSchema extends CakeSchema {
 					$developmentPhase->create();
 					$developmentPhase->saveAll(
 						array(
-							array('id' => 1, 'name_eng' => 'Diverge', 'name_nld' => 'Divergeren'),
-							array('id' => 2, 'name_eng' => 'Converge', 'name_nld' => 'Convergeren')
+							array(
+								'id' => DevelopmentPhase::DIVERGE,
+								'name_eng' => 'Diverge',
+								'name_nld' => 'Divergeren'
+							),
+							array(
+								'id' => DevelopmentPhase::CONVERGE,
+								'name_eng' => 'Converge',
+								'name_nld' => 'Convergeren'
+							)
 						)
 					);
 					break;
@@ -32,9 +52,18 @@ class AppSchema extends CakeSchema {
 					$examFormat->create();
 					$examFormat->saveAll(
 						array(
-							array('id' => 1, 'name' => 'Teleform'),
-							array('id' => 2, 'name' => 'Blackboard'),
-							array('id' => 3, 'name' => 'QMP')
+							array(
+								'id' => ExamFormat::TELEFORM,
+								'name' => 'Teleform'
+							),
+							array(
+								'id' => ExamFormat::BLACKBOARD,
+								'name' => 'Blackboard'
+							),
+							array(
+								'id' => ExamFormat::QMP,
+								'name' => 'QMP'
+							)
 						)
 					);
 					break;
@@ -43,23 +72,84 @@ class AppSchema extends CakeSchema {
 					$examState->create();
 					$examState->saveAll(
 						array(
-							array('id' => 1, 'name_eng' => 'Uploaded', 'name_nld' => 'Geupload'),
-							array('id' => 2, 'name_eng' => 'Imported', 'name_nld' => 'Geïmporteerd'),
-							array('id' => 3, 'name_eng' => 'Analysed', 'name_nld' => 'Geanalyseerd'),
-							array('id' => 4, 'name_eng' => 'Upload failed', 'name_nld' => 'Uploaden mislukt'),
-							array('id' => 5, 'name_eng' => 'Import failed', 'name_nld' => 'Importeren mislukt'),
-							array('id' => 6, 'name_eng' => 'Analyse failed', 'name_nld' => 'Analyseren mislukt'),
-							array('id' => 7, 'name_eng' => 'Importing', 'name_nld' => 'Bezig met importeren'),
-							array('id' => 9, 'name_eng' => 'Waiting to analyse', 'name_nld' => 'Wachten om te analyseren'),
-							array('id' => 10, 'name_eng' => 'Report generated', 'name_nld' => 'Rapport gegenereerd'),
-							array('id' => 11, 'name_eng' => 'Generating report', 'name_nld' => 'Bezig met genereren rapport'),
-							array('id' => 12, 'name_eng' => 'Waiting to generate report', 'name_nld' => 'Wachten op het genereren van rapport'),
-							array('id' => 13, 'name_eng' => 'Report failed', 'name_nld' => 'Rapport mislukt'),
-							array('id' => 14, 'name_eng' => 'Waiting to import', 'name_nld' => 'Wachten op importeren'),
-							array('id' => 15, 'name_eng' => 'Duplicated', 'name_nld' => 'Gedupliceerd'),
-							array('id' => 16, 'name_eng' => 'Waiting to reanalyse', 'name_nld' => 'Wachten op heranalyseren'),
-							array('id' => 17, 'name_eng' => 'Reanalysed', 'name_nld' => 'Heranalyseerd'),
-							array('id' => 18, 'name_eng' => 'Reanalyse failed', 'name_nld' => 'Heranalyse mislukt'),
+							array(
+								'id' => ExamState::UPLOADED,
+								'name_eng' => 'Uploaded',
+								'name_nld' => 'Geupload'),
+							array(
+								'id' => ExamState::IMPORTED,
+								'name_eng' => 'Imported',
+								'name_nld' => 'Geïmporteerd'
+							),
+							array(
+								'id' => ExamState::ANALYSED,
+								'name_eng' => 'Analysed',
+								'name_nld' => 'Geanalyseerd'
+							),
+							array(
+								'id' => ExamState::UPLOAD_FAILED,
+								'name_eng' => 'Upload failed',
+								'name_nld' => 'Uploaden mislukt'
+							),
+							array(
+								'id' => ExamState::IMPORT_FAILED,
+								'name_eng' => 'Import failed',
+								'name_nld' => 'Importeren mislukt'
+							),
+							array(
+								'id' => ExamState::ANALYSE_FAILED,
+								'name_eng' => 'Analyse failed',
+								'name_nld' => 'Analyseren mislukt'
+							),
+							array(
+								'id' => ExamState::IMPORTING,
+								'name_eng' => 'Importing',
+								'name_nld' => 'Bezig met importeren'
+							),
+							array(
+								'id' => ExamState::WAITING_TO_ANALYSE,
+								'name_eng' => 'Waiting to analyse',
+								'name_nld' => 'Wachten om te analyseren'
+							),
+							array(
+								'id' => ExamState::REPORT_GENERATED,
+								'name_eng' => 'Report generated',
+								'name_nld' => 'Rapport gegenereerd'
+							),
+							array(
+								'id' => ExamState::GENERATING_REPORT,
+								'name_eng' => 'Generating report',
+								'name_nld' => 'Bezig met genereren rapport'
+							),
+							array(
+								'id' => ExamState::WAITING_TO_GENERATE_REPORT,
+								'name_eng' => 'Waiting to generate report',
+								'name_nld' => 'Wachten op het genereren van rapport'),
+							array(
+								'id' => ExamState::REPORT_FAILED,
+								'name_eng' => 'Report failed',
+								'name_nld' => 'Rapport mislukt'),
+							array(
+								'id' => ExamState::WAITING_TO_IMPORT,
+								'name_eng' => 'Waiting to import',
+								'name_nld' => 'Wachten op importeren'),
+							array(
+								'id' => ExamState::DUPLICATED,
+								'name_eng' => 'Duplicated',
+								'name_nld' => 'Gedupliceerd'),
+							array(
+								'id' => ExamState::WAITING_TO_REANALYSE,
+								'name_eng' => 'Waiting to reanalyse',
+								'name_nld' => 'Wachten op heranalyseren'),
+							array(
+								'id' => ExamState::REANALYSED,
+								'name_eng' => 'Reanalysed',
+								'name_nld' => 'Heranalyseerd'),
+							array(
+								'id' => ExamState::REANALYSE_FAILED,
+								'name_eng' => 'Reanalyse failed',
+								'name_nld' => 'Heranalyse mislukt'
+							),
 						)
 					);
 					break;
@@ -68,16 +158,66 @@ class AppSchema extends CakeSchema {
 					$instruction->create();
 					$instruction->saveAll(
 						array(
-							array('id' => 1, 'development_phase_id' => 1, 'question_format_id' => null, 'url' => 'http://docs.qdnatool.org/ontwerpen/generating-questions/'),
-							array('id' => 2, 'development_phase_id' => 2, 'question_format_id' => null, 'url' => 'http://docs.qdnatool.org/ontwerpen/convergeer-vragen/'),
-							array('id' => 3, 'development_phase_id' => 1, 'question_format_id' => 1, 'url' => 'http://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/wat-is/genereer-juistonjuist-vragen/'),
-							array('id' => 4, 'development_phase_id' => 2, 'question_format_id' => 1, 'url' => 'http://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/wat-is/bijschaafregels-voor-juistonjuist-vragen/'),
-							array('id' => 5, 'development_phase_id' => 1, 'question_format_id' => 2, 'url' => 'http://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/multiple-choice-vraag/divergeer-multiple-choice-vragen/'),
-							array('id' => 6, 'development_phase_id' => 2, 'question_format_id' => 2, 'url' => 'http://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/multiple-choice-vraag/convergeer-multiple-choicevragen/'),
-							array('id' => 7, 'development_phase_id' => 1, 'question_format_id' => 3, 'url' => 'http://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/multiple-responsvraag/divergeer-multiple-responsvraag/'),
-							array('id' => 8, 'development_phase_id' => 2, 'question_format_id' => 3, 'url' => 'http://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/multiple-responsvraag/convergeer-multiple-responsvragen/'),
-							array('id' => 9, 'development_phase_id' => 1, 'question_format_id' => 4, 'url' => 'http://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/1-2-open-vraag/divergeer-open-vraag/'),
-							array('id' => 10, 'development_phase_id' => 2, 'question_format_id' => 4, 'url' => 'http://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/1-2-open-vraag/convergeer-open-vraag/'),
+							array(
+								'id' => 1,
+								'development_phase_id' => DevelopmentPhase::DIVERGE,
+								'question_format_id' => null,
+								'url' => 'http://docs.qdnatool.org/ontwerpen/generating-questions/'
+							),
+							array(
+								'id' => 2,
+								'development_phase_id' => DevelopmentPhase::CONVERGE,
+								'question_format_id' => null,
+								'url' => 'http://docs.qdnatool.org/ontwerpen/convergeer-vragen/'
+							),
+							array(
+								'id' => 3,
+								'development_phase_id' => DevelopmentPhase::DIVERGE,
+								'question_format_id' => QuestionFormat::TRUE_FALSE,
+								'url' => 'http://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/wat-is/genereer-juistonjuist-vragen/'
+							),
+							array(
+								'id' => 4,
+								'development_phase_id' => DevelopmentPhase::CONVERGE,
+								'question_format_id' => QuestionFormat::TRUE_FALSE,
+								'url' => 'http://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/wat-is/bijschaafregels-voor-juistonjuist-vragen/'
+							),
+							array(
+								'id' => 5,
+								'development_phase_id' => DevelopmentPhase::DIVERGE,
+								'question_format_id' => QuestionFormat::MULTIPLE_CHOICE,
+								'url' => 'http://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/multiple-choice-vraag/divergeer-multiple-choice-vragen/'
+							),
+							array(
+								'id' => 6,
+								'development_phase_id' => DevelopmentPhase::CONVERGE,
+								'question_format_id' => QuestionFormat::MULTIPLE_CHOICE,
+								'url' => 'http://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/multiple-choice-vraag/convergeer-multiple-choicevragen/'
+							),
+							array(
+								'id' => 7,
+								'development_phase_id' => DevelopmentPhase::DIVERGE,
+								'question_format_id' => QuestionFormat::MULTIPLE_RESPONSE,
+								'url' => 'http://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/multiple-responsvraag/divergeer-multiple-responsvraag/'
+							),
+							array(
+								'id' => 8,
+								'development_phase_id' => DevelopmentPhase::CONVERGE,
+								'question_format_id' => QuestionFormat::MULTIPLE_RESPONSE,
+								'url' => 'http://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/multiple-responsvraag/convergeer-multiple-responsvragen/'
+							),
+							array(
+								'id' => 9,
+								'development_phase_id' => DevelopmentPhase::DIVERGE,
+								'question_format_id' => QuestionFormat::OPEN_ANSWER,
+								'url' => 'http://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/1-2-open-vraag/divergeer-open-vraag/'
+							),
+							array(
+								'id' => 10,
+								'development_phase_id' => DevelopmentPhase::CONVERGE,
+								'question_format_id' => QuestionFormat::OPEN_ANSWER,
+								'url' => 'http://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/1-2-open-vraag/convergeer-open-vraag/'
+							),
 						)
 					);
 					break;
@@ -86,10 +226,22 @@ class AppSchema extends CakeSchema {
 					$questionFormat->create();
 					$questionFormat->saveAll(
 						array(
-							array('id' => 1, 'name' => 'T/F'),
-							array('id' => 2, 'name' => 'mc'),
-							array('id' => 3, 'name' => 'mr'),
-							array('id' => 4, 'name' => 'open')
+							array(
+								'id' => QuestionFormat::TRUE_FALSE,
+								'name' => 'T/F'
+							),
+							array(
+								'id' => QuestionFormat::MULTIPLE_CHOICE,
+								'name' => 'mc'
+							),
+							array(
+								'id' => QuestionFormat::MULTIPLE_RESPONSE,
+								'name' => 'mr'
+							),
+							array(
+								'id' => QuestionFormat::OPEN_ANSWER,
+								'name' => 'open'
+							)
 						)
 					);
 					break;
@@ -98,8 +250,14 @@ class AppSchema extends CakeSchema {
 					$role->create();
 					$role->saveAll(
 						array(
-							array('id' => 1, 'name' => 'User'),
-							array('id' => 2, 'name' => 'Administrator')
+							array(
+								'id' => Role::USER,
+								'name' => 'User'
+							),
+							array(
+								'id' => Role::ADMIN,
+								'name' => 'Administrator'
+							)
 						)
 					);
 					break;

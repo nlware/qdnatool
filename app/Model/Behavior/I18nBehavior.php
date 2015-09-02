@@ -58,9 +58,13 @@ class I18nBehavior extends ModelBehavior {
 	public $fields = array();
 
 /**
- * Reads configuration of behavior.
+ * Sets up the configuration for the model.
  * Allowed values:
  * fields - array of I18n compatible field names;
+ *
+ * @param Model $model Model using this behavior.
+ * @param array $config Configuration options.
+ * @return void
  */
 	public function setup(Model $model, $config = array()) {
 		if (!defined('DEFAULT_LANGUAGE')) {
@@ -71,18 +75,33 @@ class I18nBehavior extends ModelBehavior {
 		}
 	}
 
+/**
+ * Cleanup Callback reset the cached database schema.
+ *
+ * @param Model $model Model being detached.
+ * @return void
+ */
 	public function cleanup(Model $model) {
 		$this->__refreshSchema($model);
 		//debug('I18n behaviour detached from '.$model->alias.' model.');
 	}
 
+/**
+ * beforeFind Callback
+ *
+ * @param Model $model Model find is being run on.
+ * @param array $query Array of Query parameters.
+ * @return array Modified query
+ */
 	public function beforeFind(Model $model, $query) {
 		$locale = $this->_getLocale($model);
 		//debug('I18n-'.$model->alias.'-beforeFind-'.$locale);
 		//debug($query);
 
 		//reset shema if model locale set and was changed since last query
-		if (isset($model->locale) && $locale != $model->locale) $this->__refreshSchema($model);
+		if (isset($model->locale) && $locale != $model->locale) {
+			$this->__refreshSchema($model);
+		}
 
 		$recursive = empty($query['recursive']) ?
 			(empty($model->recursive) ? 0 : $model->recursive)
@@ -97,9 +116,19 @@ class I18nBehavior extends ModelBehavior {
 
 /**
  * Recursively replaces $localField values to $localAlias in $section array (or string)
+ *
+ * @param Model $model Model using this behavior
+ * @param array &$section Query conditions section
+ * @param string $localField Fieldname
+ * @param string $localAlias Field alias
+ * @param bool $isPrimary Did the find originate on $model.
+ * @param integer &$level Recursion level
+ * @return void
  */
 	private function __localizeArrayInQuery($model, &$section, $localField, $localAlias, $isPrimary, &$level) {
-		if ($level <= 0) return; //rectrict recursion level
+		if ($level <= 0) {
+			return; //rectrict recursion level
+		}
 
 		//multiple filed as array
 		if (is_array($section)) {
@@ -108,18 +137,21 @@ class I18nBehavior extends ModelBehavior {
 			foreach ($section as $queryAlias => &$queryField) {
 				if (is_array($queryField)) {
 					//for containable [model] => array('fields'=>array(...)), all sub calls will localize by short name too
-					if ($queryAlias == $model->alias) $isPrimary = true;
+					if ($queryAlias == $model->alias) {
+						$isPrimary = true;
+					}
 					//localize array values in sub section (like contain, order)
 					$this->__localizeArrayInQuery($model, $queryField, $localField, $localAlias, $isPrimary, $level);
 				} else {
 					//full name
-					if (preg_match('/(^|,| )(' . $model->alias . '.' . $localField . ')(,| |$)/i', $queryField))
+					if (preg_match('/(^|,| )(' . $model->alias . '.' . $localField . ')(,| |$)/i', $queryField)) {
 						$queryField = preg_replace('/(^|,| )(' . $model->alias . '.' . $localField . ')(,| |$)/i',
 							'$1' . $model->alias . '.' . $localAlias . '$3', $queryField);
-					//short name
-					else if ($isPrimary && preg_match('/(^|,| )(' . $localField . ')(,| |$)/i', $queryField))
+					} elseif ($isPrimary && preg_match('/(^|,| )(' . $localField . ')(,| |$)/i', $queryField)) {
+						//short name
 						$queryField = preg_replace('/(^|,| )(' . $localField . ')(,| |$)/i',
 							'$1' . $localAlias . '$3', $queryField);
+					}
 				}
 			}
 
@@ -132,7 +164,7 @@ class I18nBehavior extends ModelBehavior {
 					$section[$newKey] = $queryField;
 					$oldKeys[] = $queryAlias;
 					debug($queryAlias . '' . $newKey);
-				} else if ($isPrimary && preg_match('/(^|,| )(' . $localField . ')(,| |$)/i', $queryAlias)) { //short name
+				} elseif ($isPrimary && preg_match('/(^|,| )(' . $localField . ')(,| |$)/i', $queryAlias)) { //short name
 					$newKey = preg_replace('/(^|,| )(' . $localField . ')(,| |$)/i',
 						'$1' . $localAlias . '$3', $queryAlias);
 					$section[$newKey] = $queryField;
@@ -148,18 +180,25 @@ class I18nBehavior extends ModelBehavior {
 			unset($queryField);
 			unset($section);
 		} else { //multiple fileds in one string, comma separated
-			//full name
-			if (strstr($section, $model->alias . '.' . $localField) != false)
+			if (strstr($section, $model->alias . '.' . $localField) != false) {
+				//full name
 				$section = str_replace($model->alias . '.' . $localField, $model->alias . '.' . $localAlias, $section);
-			//short name
-			else if ($isPrimary && strstr($section, $localField) != false)
+			} elseif ($isPrimary && strstr($section, $localField) != false) {
+				//short name
 				$section = str_replace($localField, $localAlias, $section);
+			}
 		}
 	}
 
 /**
  * Modifies query fielelds to load localized content for current locale.
  * isPrimary should be true only when localizing model that has afterFind event
+ *
+ * @param Model $model Model using this behavior
+ * @param string &$query Query conditions
+ * @param integer $recursive Recursion level
+ * @param bool $isPrimary Did the find originate on $model.
+ * @return void
  */
 	public function localizeQuery($model, &$query, $recursive, $isPrimary) {
 		if ($model->Behaviors->attached('I18n') && isset($model->Behaviors->I18n->fields[$model->alias])) {
@@ -194,14 +233,18 @@ class I18nBehavior extends ModelBehavior {
 		}
 
 		//if no recursive set then localize fields of related models
-		if (empty($recursive)) $recursive = 0;
+		if (empty($recursive)) {
+			$recursive = 0;
+		}
 
-		if ($recursive < 0) return;
+		if ($recursive < 0) {
+			return;
+		}
 
 		//go throught related models and if thay has I18n behaviour then localize theme
 		//Note: models A-B-C, if B is not I18n then C will not be localized, even if it has I18n behaviour
 
-		foreach (array('belongsTo','hasOne','hasMany','hasAndBelongsToMany') as $relationGroup) {
+		foreach (array('belongsTo', 'hasOne', 'hasMany', 'hasAndBelongsToMany') as $relationGroup) {
 			if (isset($model->$relationGroup)) {
 				foreach ($model->$relationGroup as $name => &$relation) {
 					if ($model->Behaviors->attached('I18n')) {
@@ -214,6 +257,12 @@ class I18nBehavior extends ModelBehavior {
 
 /**
  * Modifies theme to load localized content only for default and current locale.
+ *
+ * @param Model $model Model using this behavior
+ * @param string $locale Locale
+ * @param integer $recursive Recursion level
+ * @param array &$relation Relation properties
+ * @return void
  */
 	public function localizeScheme($model, $locale, $recursive, &$relation = null) {
 		$model->locale = $locale;
@@ -266,12 +315,14 @@ class I18nBehavior extends ModelBehavior {
 						if (isset($section)) {
 							if (is_array($section)) {
 								foreach ($section as &$subSection) {
-									if (substr_count($subSection, $configAlias) == 0)
+									if (substr_count($subSection, $configAlias) == 0) {
 										$subSection = str_replace($configName, $configAlias, $subSection);
+									}
 								}
 							} else {
-								if (strlen($section) > 0 && substr_count($section, $configAlias) == 0)
+								if (strlen($section) > 0 && substr_count($section, $configAlias) == 0) {
 									$section = str_replace($configName, $configAlias, $section);
+								}
 							}
 						}
 					}
@@ -280,14 +331,18 @@ class I18nBehavior extends ModelBehavior {
 		}
 
 		//if no recursive set then update schema of related models
-		if (empty($recursive)) $recursive = 0;
+		if (empty($recursive)) {
+			$recursive = 0;
+		}
 
-		if ($recursive < 0) return;
+		if ($recursive < 0) {
+			return;
+		}
 
 		//go throught related models and if thay has I18n behaviour then localize theme
 		//Note: models A-B-C, if B is not I18n then C will not be localized, even if it has I18n behaviour
 
-		foreach (array('belongsTo','hasOne','hasMany','hasAndBelongsToMany') as $relationGroup) {
+		foreach (array('belongsTo', 'hasOne', 'hasMany', 'hasAndBelongsToMany') as $relationGroup) {
 			if (isset($model->$relationGroup)) {
 				foreach ($model->$relationGroup as $name => &$relation) {
 					if ($model->Behaviors->attached('I18n')) {
@@ -298,7 +353,16 @@ class I18nBehavior extends ModelBehavior {
 		}
 	}
 
-	public function afterFind(Model $model, $results, $primary) {
+/**
+ * afterFind Callback
+ *
+ * @param Model $model Model find was run on
+ * @param array $results Array of model results.
+ * @param bool $primary Did the find originate on $model.
+ * @return array Modified results
+ * @see ModelBehavior::afterFind()
+ */
+	public function afterFind(Model $model, $results, $primary = false) {
 		//debug('I18n-'.$model->alias.'-afterFind');
 		if (is_array($results)) {
 			foreach ($results as &$result) {
@@ -312,8 +376,13 @@ class I18nBehavior extends ModelBehavior {
  * Narrows fields of loaded data to locale independant names, e.g. fields <name>_def and <name>_eng will became just <name>.
  * It recurse as far as resulsts are exists. If you made find with recursive 2 then it will recurse till second level of results.
  * TODO: The reverse process should be made before model saved.
+ *
+ * @param Model $model Model using this behavior
+ * @param array &$result Model result
+ * @param string $locale Locale
+ * @return void
  */
-	public function unlocalizeResults($model, &$result, $locale) {
+	public function unlocalizeResults(Model $model, &$result, $locale) {
 		if ($model->Behaviors->attached('I18n') && isset($model->Behaviors->I18n->fields[$model->alias])) {
 
 			//collection of models
@@ -375,7 +444,15 @@ class I18nBehavior extends ModelBehavior {
 		}
 	}
 
-	public function beforeSave(Model $model) {
+/**
+ * beforeSave callback.
+ *
+ * @param Model $model Model save was called on.
+ * @param array $options Options passed from Model::save().
+ * @return bool true.
+ * @see Model::save()
+ */
+	public function beforeSave(Model $model, $options = array()) {
 		//get current locale
 		$locale = $this->_getLocale($model);
 
@@ -405,13 +482,19 @@ class I18nBehavior extends ModelBehavior {
 
 	private static $__i18n = null;
 
+/**
+ * _getLocale
+ *
+ * @param Model $model Model using this behavior
+ * @return string
+ */
 	protected function _getLocale($model) {
 		//instanciate current locale storage class
 		if (self::$__i18n == null) {
 			//	if (!class_exists('I18n')) {
 			//		uses('I18n');
 			//	}
-			self::$__i18n =& I18n::getInstance();
+			self::$__i18n = I18n::getInstance();
 		}
 
 		//retreive current locale
@@ -421,6 +504,12 @@ class I18nBehavior extends ModelBehavior {
 		return $locale;
 	}
 
+/**
+ * __refreshSchema
+ *
+ * @param Model $model Model using this behavior
+ * @return void
+ */
 	private function __refreshSchema($model) {
 		$model->schema(true);
 		//debug($model->alias.' schema renewed');

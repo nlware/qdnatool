@@ -7,10 +7,8 @@
  *  - requires App.baseUrl to be uncommented in app/Config/core.php
  *	- app/webroot is not set as a document root.
  *
- * PHP 5
- *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c), Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * For full copyright and license information, please see the LICENSE.txt
@@ -23,7 +21,7 @@
  */
 
 /**
- *  Get Cake's root directory
+ *  Get CakePHP's root directory
  */
 define('APP_DIR', 'app');
 define('DS', DIRECTORY_SEPARATOR);
@@ -37,7 +35,7 @@ define('WWW_ROOT', ROOT . DS . APP_DIR . DS . WEBROOT_DIR . DS);
  * Full path to the directory containing "cake". Do not add trailing directory separator
  */
 if (!defined('CAKE_CORE_INCLUDE_PATH')) {
-	define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . 'vendors' . DS . 'pear-pear.cakephp.org' . DS . 'CakePHP');
+	define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . APP_DIR . DS . 'Vendor' . DS . 'cakephp' . DS . 'cakephp' . DS . 'lib');
 }
 
 require APP_DIR . DS . WEBROOT_DIR . DS . 'index.php';

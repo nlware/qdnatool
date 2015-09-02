@@ -2,46 +2,48 @@
 /**
  * Application model for Cake.
  *
- * This file is application-wide model file. You can put all
- * application-wide model-related methods here.
- *
- * PHP 5
- *
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @package       app.Model
- * @since         CakePHP(tm) v 0.2.9
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright     Copyright (c) NLWare B.V. (http://www.nlware.com)
+ * @link          http://docs.qdnatool.org qDNAtool(tm) Project
+ * @license       http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB CC BY-NC-SA 3.0 License
  */
 
 App::uses('Model', 'Model');
 
 /**
- * Application model for Cake.
- *
- * Add your application-wide methods in the class below, your models
- * will inherit them.
+ * Application model for qDNAtool.
  *
  * @package       app.Model
  */
 class AppModel extends Model {
 
+/**
+ * actsAs behaviors
+ *
+ * @var array
+ */
 	public $actsAs = array('Containable');
 
+/**
+ * recursive
+ *
+ * @var int
+ */
 	public $recursive = -1;
 
 /**
+ * Deletes multiple model records based on a set of conditions.
  * A workaround for CakePHP lack of support for recursive
+ *
+ * @param mixed $conditions Conditions to match
+ * @param bool $cascade Set to true to delete records that depend on this record
+ * @param bool $callbacks Run callbacks
+ * @param int $recursive (Optional) Overrides the default recursive level
+ * @return bool True on success, false on failure
  */
-	public function deleteAll($fields, $conditions = true, $recursive = null) {
-		if (!isset($recursive)) $recursive = $this->recursive;
+	public function deleteAll($conditions, $cascade = true, $callbacks = false, $recursive = null) {
+		if (!isset($recursive)) {
+			$recursive = $this->recursive;
+		}
 
 		if ($recursive == -1) {
 			$belongsTo = $this->belongsTo;
@@ -52,7 +54,7 @@ class AppModel extends Model {
 			), true);
 		}
 
-		$result = parent::deleteAll($fields, $conditions);
+		$result = parent::deleteAll($conditions, $cascade, $callbacks);
 
 		if ($recursive == -1) {
 			$this->bindModel(array(
@@ -64,8 +66,20 @@ class AppModel extends Model {
 		return $result;
 	}
 
+/**
+ * Updates multiple model records based on a set of conditions.
+ * A workaround for CakePHP lack of support for recursive
+ *
+ * @param array $fields Set of fields and values, indexed by fields.
+ *    Fields are treated as SQL snippets, to insert literal values manually escape your data.
+ * @param mixed $conditions Conditions to match, true for all records
+ * @param int $recursive (Optional) Overrides the default recursive level
+ * @return bool True on success, false on failure
+ */
 	public function updateAll($fields, $conditions = true, $recursive = null) {
-		if (!isset($recursive)) $recursive = $this->recursive;
+		if (!isset($recursive)) {
+			$recursive = $this->recursive;
+		}
 
 		if ($recursive == -1) {
 			$belongsTo = $this->belongsTo;
@@ -88,7 +102,14 @@ class AppModel extends Model {
 		return $result;
 	}
 
+/**
+ * removeFieldFromSchema method
+ *
+ * @param string $fieldname Fieldname
+ * @return void
+ */
 	public function removeFieldFromSchema($fieldname) {
 		unset($this->_schema[$fieldname]);
 	}
+
 }

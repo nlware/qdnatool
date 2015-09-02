@@ -3,11 +3,11 @@
 <head>
 <?php echo $this->Html->charset(); ?>
 	<title>
-	<?php echo $title_for_layout; ?>
+	<?php echo $this->fetch('title'); ?>
 	</title>
 <?php
 echo $this->Html->meta('icon');
-echo $scripts_for_layout;
+echo $this->fetch('script');
 ?>
 </head>
 <body>
@@ -15,7 +15,7 @@ echo $scripts_for_layout;
 		<div id="header">
 		</div>
 		<div id="content">
-		<?php echo $content_for_layout; ?>
+		<?php echo $this->fetch('content'); ?>
 		</div>
 		<div id="footer"></div>
 	</div>

@@ -1,25 +1,14 @@
 <?php
 /**
- *
- * PHP 5
- *
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @package       app.View.Pages
- * @since         CakePHP(tm) v 0.10.0.1076
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright     Copyright (c) NLWare B.V. (http://www.nlware.com)
+ * @link          http://docs.qdnatool.org qDNAtool(tm) Project
+ * @license       http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB CC BY-NC-SA 3.0 License
  */
 
 if (!Configure::read('debug')):
 	throw new NotFoundException();
 endif;
+
 App::uses('Debugger', 'Utility');
 ?>
 <h2><?php echo __d('cake_dev', 'Release Notes for CakePHP %s.', Configure::version()); ?></h2>
@@ -31,6 +20,9 @@ if (Configure::read('debug') > 0):
 	Debugger::checkSecurityKeys();
 endif;
 ?>
+<?php
+if (file_exists(WWW_ROOT . 'css' . DS . 'cake.generic.css')):
+?>
 <div class="alert alert-error">
 	<?php echo __d('cake_dev', 'URL rewriting is not properly configured on your server.'); ?>
 	<ol>
@@ -38,6 +30,9 @@ endif;
 		<li><a target="_blank" href="http://book.cakephp.org/2.0/en/development/configuration.html#cakephp-core-configuration" style="color:#fff;">I don't / can't use URL rewriting</a></li>
 	</ol>
 </div>
+<?php
+endif;
+?>
 <p>
 <?php
 	if (version_compare(PHP_VERSION, '5.2.8', '>=')):
@@ -69,11 +64,11 @@ endif;
 		$settings = Cache::settings();
 		if (!empty($settings)):
 			echo '<div class="alert alert-success">';
-				echo __d('cake_dev', 'The %s is being used for core caching. To change the config edit APP/Config/core.php ', '<em>' . $settings['engine'] . 'Engine</em>');
+				echo __d('cake_dev', 'The %s is being used for core caching. To change the config edit %s', '<em>'. $settings['engine'] . 'Engine</em>', 'APP/Config/core.php');
 			echo '</div>';
 		else:
 			echo '<div class="alert alert-error">';
-				echo __d('cake_dev', 'Your cache is NOT working. Please check the settings in APP/Config/core.php');
+				echo __d('cake_dev', 'Your cache is NOT working. Please check the settings in %s', 'APP/Config/core.php');
 			echo '</div>';
 		endif;
 	?>
@@ -90,7 +85,7 @@ endif;
 			echo '<div class="alert alert-error">';
 				echo __d('cake_dev', 'Your database configuration file is NOT present.');
 				echo '<br/>';
-				echo __d('cake_dev', 'Rename APP/Config/database.php.default to APP/Config/database.php');
+				echo __d('cake_dev', 'Rename %s to %s', 'APP/Config/database.php.default', 'APP/Config/database.php');
 			echo '</div>';
 		endif;
 	?>
@@ -115,11 +110,11 @@ if (isset($filePresent)):
 	<?php
 		if ($connected && $connected->isConnected()):
 			echo '<div class="alert alert-success">';
-				echo __d('cake_dev', 'Cake is able to connect to the database.');
+				echo __d('cake_dev', 'CakePHP is able to connect to the database.');
 			echo '</div>';
 		else:
 			echo '<div class="alert alert-error">';
-				echo __d('cake_dev', 'Cake is NOT able to connect to the database.');
+				echo __d('cake_dev', 'CakePHP is NOT able to connect to the database.');
 				echo '<br /><br />';
 				echo $errorMsg;
 			echo '</div>';
@@ -129,13 +124,13 @@ if (isset($filePresent)):
 <?php endif; ?>
 <?php
 	App::uses('Validation', 'Utility');
-	if (!Validation::alphaNumeric('cakephp')) {
+	if (!Validation::alphaNumeric('cakephp')):
 		echo '<p><div class="alert alert-error">';
 			echo __d('cake_dev', 'PCRE has not been compiled with Unicode support.');
 			echo '<br/>';
 			echo __d('cake_dev', 'Recompile PCRE with Unicode support by adding <code>--enable-unicode-properties</code> when configuring');
 		echo '</div></p>';
-	}
+	endif;
 ?>
 
 <p>
@@ -148,7 +143,7 @@ if (isset($filePresent)):
 			echo '<div class="alert alert-error">';
 				echo __d('cake_dev', 'DebugKit is not installed. It will help you inspect and debug different aspects of your application.');
 				echo '<br/>';
-				echo __d('cake_dev', 'You can install it from %s', $this->Html->link('github', 'https://github.com/cakephp/debug_kit'));
+				echo __d('cake_dev', 'You can install it from %s', $this->Html->link('GitHub', 'https://github.com/cakephp/debug_kit'));
 			echo '</div>';
 		endif;
 	?>

@@ -19,7 +19,7 @@ class QuestionFormatsController extends AppController {
 /**
  * view method
  *
- * @param string $id
+ * @param string $id A question format id
  * @return void
  * @throws NotFoundException
  */
@@ -34,7 +34,7 @@ class QuestionFormatsController extends AppController {
 /**
  * edit method
  *
- * @param string $id
+ * @param string $id A question format id
  * @return void
  * @throws NotFoundException
  */
@@ -45,13 +45,14 @@ class QuestionFormatsController extends AppController {
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->QuestionFormat->save($this->request->data)) {
-				$this->Session->setFlash(__('The question format has been saved'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-success'));
+				$this->setFlashSuccess(__('The question format has been saved'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The question format could not be saved. Please, try again.'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-error'));
+				$this->setFlashError(__('The question format could not be saved. Please, try again.'));
 			}
 		} else {
 			$this->request->data = $this->QuestionFormat->read(null, $id);
 		}
 	}
+
 }

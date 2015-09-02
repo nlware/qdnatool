@@ -11,8 +11,15 @@ class ExamsController extends AppController {
 
 	public $helpers = array('Number', 'Output');
 
+/**
+ * Blackhole callback
+ *
+ * @param string $type Type of error
+ * @return void
+ * @see AppController::blackhole()
+ */
 	public function blackhole($type) {
-		$this->Session->setFlash(__('Sorry, something went wrong. Please, try again.'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-error'));
+		$this->setFlashError(__('Sorry, something went wrong. Please, try again.'));
 		return $this->redirect(array('action' => 'index'));
 	}
 
@@ -23,7 +30,7 @@ class ExamsController extends AppController {
  */
 	public function index() {
 		$conditions = array(
-			'Exam.user_id' => AuthComponent::user('id'),
+			'Exam.user_id' => $this->Auth->user('id'),
 			'Exam.parent_id' => null,
 			'Exam.deleted' => null
 		);
@@ -42,9 +49,10 @@ class ExamsController extends AppController {
 /**
  * view method
  *
- * @throws NotFoundException
- * @param string $id
+ * @param string $id An exam id
  * @return void
+ * @throws NotFoundException
+ * @todo throw exception when exam doesn't belong to current user
  */
 	public function view($id = null) {
 		$this->Exam->id = $id;
@@ -55,7 +63,7 @@ class ExamsController extends AppController {
 			'first', array(
 				'conditions' => array(
 					'Exam.id' => $id,
-					'Exam.user_id' => AuthComponent::user('id')
+					'Exam.user_id' => $this->Auth->user('id')
 				),
 				'contain' => array(
 					'Item' => 'AnswerOption',
@@ -74,10 +82,10 @@ class ExamsController extends AppController {
 	public function add() {
 		if ($this->request->is('post')) {
 			if ($this->Exam->add($this->request->data)) {
-				$this->Session->setFlash(__('The exam has been saved'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-success'));
+				$this->setFlashSuccess(__('The exam has been saved'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The exam could not be saved. Please, try again.'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-error'));
+				$this->setFlashError(__('The exam could not be saved. Please, try again.'));
 			}
 		}
 		$examFormats = $this->Exam->ExamFormat->find('list');
@@ -87,7 +95,7 @@ class ExamsController extends AppController {
 /**
  * delete method
  *
- * @param string $id
+ * @param string $id An exam id
  * @return void
  * @throws MethodNotAllowedException
  * @throws NotFoundException
@@ -101,17 +109,21 @@ class ExamsController extends AppController {
 			throw new NotFoundException(__('Invalid exam'));
 		}
 		if ($this->Exam->remove($id)) {
-			$this->Session->setFlash(__('Exam deleted'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-success'));
+			$this->setFlashSuccess(__('Exam deleted'));
 			return $this->redirect(array('action' => 'index'));
 		}
-		$this->Session->setFlash(__('Exam was not deleted'), 'alert', array('action' => 'index'), array('plugin' => 'TwitterBootstrap', 'class' => 'alert-error'));
+		$this->setFlashError(__('Exam was not deleted'));
 		return $this->redirect(array('action' => 'index'));
 	}
 
-	public function analyse($id = null) {
-		$this->Exam->analyse($id);
-	}
-
+/**
+ * stevie method
+ *
+ * @param string $id An exam id
+ * @param string $offset An offset
+ * @return void
+ * @throws NotFoundException
+ */
 	public function stevie($id = null, $offset = 'overview') {
 		/*
 		if (!$this->request->is('post'))
@@ -128,22 +140,14 @@ class ExamsController extends AppController {
 		$this->set(compact('exam', 'offset'));
 	}
 
-	public function generate_report($id = null) {
-		if (!$this->request->is('post')) {
-			throw new MethodNotAllowedException();
-		}
-		$this->Exam->id = $id;
-		if (!$this->Exam->exists()) {
-			throw new NotFoundException(__('Invalid exam'));
-		}
-		if ($this->Exam->scheduleReport($id)) {
-			$this->Session->setFlash(__('Exam is scheduled to report'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-success'));
-			return $this->redirect(array('action' => 'index'));
-		}
-		$this->Session->setFlash(__('Exam was not scheduled to report'), 'alert', array('action' => 'index'), array('plugin' => 'TwitterBootstrap', 'class' => 'alert-error'));
-		return $this->redirect(array('action' => 'index'));
-	}
-
+/**
+ * report method
+ *
+ * @param string $id An exam id
+ * @return void
+ * @throws NotFoundException
+ * @throws NotFoundException
+ */
 	public function report($id) {
 		$this->Exam->id = $id;
 		if (!$this->Exam->exists()) {
@@ -153,18 +157,21 @@ class ExamsController extends AppController {
 		if (empty($exam['Exam']['report_generated']) || !file_exists(Exam::REPORT_DIRECTORY . $exam['Exam']['id'] . '.pdf')) {
 			throw new NotFoundException(__('Invalid exam'));
 		}
-
-		$this->viewClass = 'Media';
-		$params = array(
-			'id' => $exam['Exam']['id'] . '.pdf',
-			'name' => $exam['Exam']['name'],
-			'download' => true,
-			'extension' => 'pdf',
-			'path' => Exam::REPORT_DIRECTORY
+		$this->response->file(
+			Exam::REPORT_DIRECTORY . $exam['Exam']['id'] . '.pdf', array(
+				'download' => true,
+				'name' => $exam['Exam']['name']
+			)
 		);
-		$this->set($params);
+		return $this->response;
 	}
 
+/**
+ * reanalyse method
+ *
+ * @param string $id An exam id
+ * @return void
+ */
 	public function reanalyse($id = null) {
 		/*
 		if (!$this->request->is('post'))
@@ -182,10 +189,10 @@ class ExamsController extends AppController {
 			$this->request->data = array('Exam' => array('parent_id' => $id));
 		} else {
 			if ($id = $this->Exam->scheduleReanalyse($this->request->data)) {
-				$this->Session->setFlash(__('The exam has been scheduled to reanalyse'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-success'));
+				$this->setFlashSuccess(__('The exam has been scheduled to reanalyse'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The exam could not be reanalysed. Please, try again.'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-error'));
+				$this->setFlashError(__('The exam could not be reanalysed. Please, try again.'));
 			}
 		}
 
@@ -200,6 +207,14 @@ class ExamsController extends AppController {
 		$this->set(compact('items'));
 	}
 
+/**
+ * scores method
+ *
+ * @param string $id An exam id
+ * @param string $format A output format
+ * @return void
+ * @throws NotFoundException
+ */
 	public function scores($id, $format = null) {
 		$this->Exam->id = $id;
 		if (!$this->Exam->exists()) {
@@ -209,6 +224,13 @@ class ExamsController extends AppController {
 		$this->set(compact('scores', 'format'));
 	}
 
+/**
+ * missings method
+ *
+ * @param string $id An exam id
+ * @return void
+ * @throws NotFoundException
+ */
 	public function missings($id) {
 		$this->Exam->id = $id;
 		if (!$this->Exam->exists()) {
@@ -219,16 +241,4 @@ class ExamsController extends AppController {
 		$this->set(compact('missings', 'exam'));
 	}
 
-	public function test() {
-		/*
-		$versionMappingFilename = ROOT . DS . 'tools' . DS . 'teleform' . DS . '611P_01062012_OM.csv';
-		$filename = ROOT . DS . 'tools' . DS . 'teleform' . DS . '611P_01062012.TXT';
-
-		$this->Exam->importTeleform($filename, $versionMappingFilename);
-		*/
-
-		$exam = $this->Exam->find('first', array('conditions' => array('Exam.id' => 119)));
-
-		$this->Exam->importQMP($exam);
-	}
 }

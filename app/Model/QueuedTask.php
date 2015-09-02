@@ -19,6 +19,7 @@ class QueuedTask extends AppModel {
  *
  * @param string $jobName QueueTask name
  * @param array $data any array
+ * @param string $notBefore A datetime which indicates when the job may be executed
  * @param string $group Used to group similar QueuedTasks
  * @param string $reference any array
  * @return bool success
@@ -37,6 +38,12 @@ class QueuedTask extends AppModel {
 		return $this->save($data);
 	}
 
+/**
+ * onError
+ *
+ * @return void
+ * @see Model::onError()
+ */
 	public function onError() {
 		$this->exit = true;
 	}
@@ -139,7 +146,7 @@ class QueuedTask extends AppModel {
 /**
  * Mark a job as Completed, removing it from the queue.
  *
- * @param integer $id
+ * @param int $id A job ID
  * @return bool Success
  */
 	public function markJobDone($id) {
@@ -150,9 +157,9 @@ class QueuedTask extends AppModel {
 /**
  * Mark a job as Failed, Incrementing the failed-counter and Requeueing it.
  *
- * @param integer $id
+ * @param int $id A job ID
  * @param string $failureMessage Optional message to append to the
- * failure_message field
+ * @return bool Success
  */
 	public function markJobFailed($id, $failureMessage = null) {
 		$db = $this->getDataSource();
@@ -169,7 +176,7 @@ class QueuedTask extends AppModel {
  * Either returns the number of ALL pending tasks, or the number of pending tasks of the passed Type
  *
  * @param string $type jobType to Count
- * @return integer
+ * @return int
  */
 	public function getLength($type = null) {
 		$options = array(
@@ -202,6 +209,7 @@ class QueuedTask extends AppModel {
 
 /**
  * Return some statistics about finished jobs still in the Database.
+ *
  * @return array
  */
 	public function getStats() {
@@ -226,6 +234,7 @@ class QueuedTask extends AppModel {
 /**
  * Cleanup/Delete Completed Jobs.
  *
+ * @return void
  */
 	public function cleanOldJobs() {
 		$this->deleteAll(array(
@@ -233,6 +242,14 @@ class QueuedTask extends AppModel {
 		));
 	}
 
+/**
+ * _findProgress
+ *
+ * @param string $state State: before or after
+ * @param array $query Query conditions
+ * @param array $results Data
+ * @return array
+ */
 	protected function _findProgress($state, $query = array(), $results = array()) {
 		if ($state == 'before') {
 			$query['fields'] = array(
@@ -269,4 +286,5 @@ class QueuedTask extends AppModel {
 			return $results;
 		}
 	}
+
 }

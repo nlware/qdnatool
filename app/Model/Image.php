@@ -10,8 +10,6 @@ class Image extends AppModel {
 
 	const UPLOAD_DIRECTORY = IMAGE_UPLOAD_DIRECTORY;
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
 /**
  * belongsTo associations
  *
@@ -23,4 +21,5 @@ class Image extends AppModel {
 			'foreignKey' => 'question_id'
 		)
 	);
+
 }

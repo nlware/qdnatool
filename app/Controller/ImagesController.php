@@ -7,6 +7,11 @@ App::uses('AppController', 'Controller');
  */
 class ImagesController extends AppController {
 
+/**
+ * beforeFilter
+ *
+ * @return void
+ */
 	public function beforeFilter() {
 		parent::beforeFilter();
 		if ($this->request->action == 'capture' || $this->request->action == 'upload') {
@@ -14,6 +19,11 @@ class ImagesController extends AppController {
 		}
 	}
 
+/**
+ * capture method
+ *
+ * @return void
+ */
 	public function capture() {
 		if ($_POST["save"]) {
 			$type = $_POST["type"];
@@ -22,7 +32,9 @@ class ImagesController extends AppController {
 				$img = base64_decode($_POST["image"]);
 
 				$fileType = 'image/jpeg';
-				if ($type == 'PNG') $fileType = 'image/png';
+				if ($type == 'PNG') {
+					$fileType = 'image/png';
+				}
 
 				$data = array(
 					'filename' => $_POST["name"],
@@ -48,6 +60,12 @@ class ImagesController extends AppController {
 		}
 	}
 
+/**
+ * get method
+ *
+ * @param string $id An image id
+ * @return void
+ */
 	public function get($id) {
 		$image = $this->Image->find(
 			'first', array(
@@ -57,21 +75,25 @@ class ImagesController extends AppController {
 			)
 		);
 
-		if (empty($image)) return $this->redirect404Error();
+		if (empty($image)) {
+			return $this->redirect404Error();
+		}
 
-		$this->viewClass = 'Media';
-		$params = array(
-			'id' => $image['Image']['id'] . '.' . $image['Image']['extension'],
-			'name' => $image['Image']['filename'],
-			'extension' => $image['Image']['extension'],
-			'path' => Image::UPLOAD_DIRECTORY,
-			'cache' => 2592000, // Allow caching for 30 days
-			'modified' => $image['Image']['created']//gmdate('D, d M Y H:i:s', filemtime($path.$file_name))
+		$this->response->file(
+			Image::UPLOAD_DIRECTORY . $image['Image']['id'] . '.' . $image['Image']['extension'], array(
+				'download' => true,
+				'name' => $image['Image']['filename']
+			)
 		);
-
-		$this->set($params);
+		$this->response->cache($image['Image']['created'], '+30 days');
+		return $this->response;
 	}
 
+/**
+ * upload method
+ *
+ * @return void
+ */
 	public function upload() {
 		// Required: anonymous function reference number as explained above.
 		$funcNum = $_GET['CKEditorFuncNum'];
@@ -93,7 +115,7 @@ class ImagesController extends AppController {
 			$this->Image->create();
 			if ($this->Image->save($data)) {
 				$file = Image::UPLOAD_DIRECTORY . $this->Image->id . '.' . $extension;
-				$result = move_uploaded_file ($_FILES['upload']['tmp_name'], $file);
+				$result = move_uploaded_file($_FILES['upload']['tmp_name'], $file);
 			}
 
 			// Check the $_FILES array and save the file. Assign the correct path to a variable ($url).
@@ -106,10 +128,22 @@ class ImagesController extends AppController {
 		$this->set(compact('funcNum', 'url', 'message'));
 	}
 
+/**
+ * Get extension of file
+ *
+ * @param string $filename A filename
+ * @return string
+ */
 	private function __getExtension($filename) {
 		return strtolower(end(explode('.', $filename)));
 	}
 
+/**
+ * browse method
+ *
+ * @param int $questionId An question id
+ * @return void
+ */
 	public function browse($questionId) {
 		$images = $this->Image->find(
 			'all', array(
@@ -124,7 +158,7 @@ class ImagesController extends AppController {
 /**
  * delete method
  *
- * @param string $id
+ * @param string $id An image id
  * @return void
  * @throws MethodNotAllowedException
  * @throws NotFoundException
@@ -138,10 +172,11 @@ class ImagesController extends AppController {
 			throw new NotFoundException(__('Invalid image'));
 		}
 		if ($this->Image->delete()) {
-			$this->Session->setFlash(__('Image deleted'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-success'));
+			$this->setFlashSuccess(__('Image deleted'));
 			return $this->redirect(array('action' => 'index'));
 		}
-		$this->Session->setFlash(__('Image was not deleted'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-error'));
+		$this->setFlashError(__('Image was not deleted'));
 		return $this->redirect(array('action' => 'index'));
 	}
+
 }

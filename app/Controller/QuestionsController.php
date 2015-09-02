@@ -13,6 +13,11 @@ class QuestionsController extends AppController {
 
 	public $helpers = array('CkSource');
 
+/**
+ * beforeFilter
+ *
+ * @return void
+ */
 	public function beforeFilter() {
 		parent::beforeFilter();
 		if ($this->request->action == 'analyse' || $this->request->action == 'instruction') {
@@ -20,6 +25,11 @@ class QuestionsController extends AppController {
 		}
 	}
 
+/**
+ * analyse method
+ *
+ * @return void
+ */
 	public function analyse() {
 		//if (!$this->request->is('post'))
 		//{
@@ -29,6 +39,11 @@ class QuestionsController extends AppController {
 		$this->set(compact('analyses'));
 	}
 
+/**
+ * instruction method
+ *
+ * @return void
+ */
 	public function instruction() {
 		//if (!$this->request->is('post'))
 		//{
@@ -42,7 +57,7 @@ class QuestionsController extends AppController {
 /**
  * view method
  *
- * @param string $id
+ * @param string $id A question id
  * @return void
  * @throws NotFoundException
  */
@@ -52,7 +67,9 @@ class QuestionsController extends AppController {
 			throw new NotFoundException(__('Invalid question'));
 		}
 		$referer = $this->Session->read('_App.referer');
-		if (empty($referer)) $referer = array('action' => 'index');
+		if (empty($referer)) {
+			$referer = array('action' => 'index');
+		}
 		$question = $this->Question->view($id);
 		$analyses = $this->Question->analyse($question);
 		$this->set(compact('referer', 'question', 'analyses'));
@@ -61,15 +78,16 @@ class QuestionsController extends AppController {
 /**
  * add method
  *
+ * @param int $tagId A tag id
  * @return void
  */
 	public function add($tagId = null) {
 		if ($this->request->is('post')) {
 			if ($this->Question->add($this->request->data)) {
-				$this->Session->setFlash(__('The question has been saved'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-success'));
+				$this->setFlashSuccess(__('The question has been saved'));
 				return $this->redirect(array('action' => 'view', $this->Question->id));
 			} else {
-				$this->Session->setFlash(__('The question could not be saved. Please, try again.'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-error'));
+				$this->setFlashError(__('The question could not be saved. Please, try again.'));
 			}
 		} else {
 			if (!empty($tagId)) {
@@ -81,7 +99,9 @@ class QuestionsController extends AppController {
 			}
 		}
 		$referer = $this->Session->read('_App.referer');
-		if (empty($referer)) $referer = array('action' => 'index');
+		if (empty($referer)) {
+			$referer = array('action' => 'index');
+		}
 		$instruction = $this->Instruction->get($this->request->data('Question.development_phase_id'), $this->request->data('Question.question_format_id'));
 		$analyses = $this->Question->analyse($this->request->data);
 		$questionFormats = $this->Question->QuestionFormat->find('list');
@@ -94,7 +114,7 @@ class QuestionsController extends AppController {
 /**
  * edit method
  *
- * @param string $id
+ * @param string $id A question id
  * @return void
  * @throws NotFoundException
  * @throws ForbiddenException
@@ -106,10 +126,10 @@ class QuestionsController extends AppController {
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Question->update($this->request->data)) {
-				$this->Session->setFlash(__('The question has been saved'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-success'));
+				$this->setFlashSuccess(__('The question has been saved'));
 				return $this->redirect(array('action' => 'view', $id));
 			} else {
-				$this->Session->setFlash(__('The question could not be saved. Please, try again.'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-error'));
+				$this->setFlashError(__('The question could not be saved. Please, try again.'));
 			}
 		} else {
 			$this->request->data = $this->Question->edit($id);
@@ -118,7 +138,9 @@ class QuestionsController extends AppController {
 			}
 		}
 		$referer = $this->Session->read('_App.referer');
-		if (empty($referer)) $referer = array('action' => 'index');
+		if (empty($referer)) {
+			$referer = array('action' => 'index');
+		}
 		$instruction = $this->Instruction->get($this->request->data('Question.development_phase_id'), $this->request->data('Question.question_format_id'));
 		$analyses = $this->Question->analyse($this->request->data);
 		$questionFormats = $this->Question->QuestionFormat->find('list');
@@ -131,7 +153,7 @@ class QuestionsController extends AppController {
 /**
  * delete method
  *
- * @param string $id
+ * @param string $id A question id
  * @return void
  * @throws MethodNotAllowedException
  * @throws NotFoundException
@@ -145,14 +167,18 @@ class QuestionsController extends AppController {
 			throw new NotFoundException(__('Invalid question'));
 		}
 		if ($this->Question->delete($id)) {
-			$this->Session->setFlash(__('Question deleted'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-success'));
+			$this->setFlashSuccess(__('Question deleted'));
 			$referer = $this->Session->read('_App.referer');
-			if (empty($referer)) $referer = array('action' => 'index');
+			if (empty($referer)) {
+				$referer = array('action' => 'index');
+			}
 			return $this->redirect($referer);
 		}
-		$this->Session->setFlash(__('Question was not deleted'), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => 'alert-error'));
+		$this->setFlashError(__('Question was not deleted'));
 		$referer = $this->Session->read('_App.referer');
-		if (empty($referer)) $referer = array('action' => 'index');
+		if (empty($referer)) {
+			$referer = array('action' => 'index');
+		}
 		return $this->redirect($referer);
 	}
 
@@ -179,9 +205,9 @@ class QuestionsController extends AppController {
 			$this->request->data = array('Tag' => array('Tag' => $this->request->params['named']['tag_id']));
 		}
 
-		//if (AuthComponent::user('role_id') != Role::ADMIN)
+		//if ($this->Auth->user('role_id') != Role::ADMIN)
 		{
-			$options['conditions'][] = array('Question.user_id' => AuthComponent::user('id'));
+			$options['conditions'][] = array('Question.user_id' => $this->Auth->user('id'));
 		}
 		$options['contain'][] = 'Tag';
 
@@ -203,6 +229,11 @@ class QuestionsController extends AppController {
 		$this->set(compact('questions', 'tags', 'tip'));
 	}
 
+/**
+ * download method
+ *
+ * @return void
+ */
 	public function download() {
 		$options = array('contain' => array());
 
@@ -211,7 +242,7 @@ class QuestionsController extends AppController {
 			$this->request->data = array('Tag' => array('Tag' => $this->request->params['named']['tag_id']));
 		}
 
-		$options['conditions'][] = array('Question.user_id' => AuthComponent::user('id'));
+		$options['conditions'][] = array('Question.user_id' => $this->Auth->user('id'));
 		$options['contain'][] = 'QuestionAnswer';
 		$options['contain'][] = 'Tag';
 
@@ -238,7 +269,7 @@ class QuestionsController extends AppController {
 			$this->request->data = array('Tag' => array('Tag' => $this->request->params['named']['tag_id']));
 		}
 
-		$options['conditions'][] = array('Question.user_id' => AuthComponent::user('id'));
+		$options['conditions'][] = array('Question.user_id' => $this->Auth->user('id'));
 		$options['contain'][] = 'QuestionAnswer';
 		$options['contain'][] = 'Tag';
 
@@ -251,6 +282,11 @@ class QuestionsController extends AppController {
 	}
 	*/
 
+/**
+ * export_qmp method
+ *
+ * @return void
+ */
 	public function export_qmp() {
 		$options = array('contain' => array());
 
@@ -259,7 +295,7 @@ class QuestionsController extends AppController {
 			$this->request->data = array('Tag' => array('Tag' => $this->request->params['named']['tag_id']));
 		}
 
-		$options['conditions'][] = array('Question.user_id' => AuthComponent::user('id'));
+		$options['conditions'][] = array('Question.user_id' => $this->Auth->user('id'));
 		$options['contain'][] = 'QuestionAnswer';
 		$options['contain'][] = 'Tag';
 
@@ -271,6 +307,11 @@ class QuestionsController extends AppController {
 		$this->response->header('Content-Disposition', 'attachment; filename="export.xml"');
 	}
 
+/**
+ * export_respondus method
+ *
+ * @return void
+ */
 	public function export_respondus() {
 		$options = array('contain' => array());
 
@@ -279,7 +320,7 @@ class QuestionsController extends AppController {
 			$this->request->data = array('Tag' => array('Tag' => $this->request->params['named']['tag_id']));
 		}
 
-		$options['conditions'][] = array('Question.user_id' => AuthComponent::user('id'));
+		$options['conditions'][] = array('Question.user_id' => $this->Auth->user('id'));
 		$options['contain'][] = 'QuestionAnswer';
 		$options['contain'][] = 'Tag';
 
@@ -328,6 +369,13 @@ class QuestionsController extends AppController {
 		*/
 	}
 
+/**
+ * Generates XML of IMS manifest
+ *
+ * @param array $files Files to include in manifest
+ * @param string $name Name of the manifest
+ * @return string
+ */
 	private function __createImsManifest($files, $name = 'Test') {
 		$dom = new DOMDocument('1.0', 'UTF-8');
 		$manifest = $dom->createElement("manifest");
@@ -446,4 +494,5 @@ class QuestionsController extends AppController {
 		}
 		return $dom->saveXML();
 	}
+
 }

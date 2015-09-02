@@ -24,8 +24,18 @@ class Question extends AppModel {
  */
 	public $displayField = 'name';
 
+/**
+ * actsAs behaviors
+ *
+ * @var array
+ */
 	public $actsAs = array('I18n');
 
+/**
+ * Validation rules
+ *
+ * @var array
+ */
 	public $validate = array(
 		'code' => array(
 			'notEmpty' => array(
@@ -63,8 +73,6 @@ class Question extends AppModel {
 			)
 		)
 	);
-
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 /**
  * belongsTo associations
@@ -126,22 +134,45 @@ class Question extends AppModel {
 		)
 	);
 
+/**
+ * hasOne associations
+ *
+ * @var array
+ */
 	public $hasOne = array(
 		'QuestionsTagFilter' => array(
 			'className' => 'QuestionsTag'
 		)
 	);
 
+/**
+ * notContains
+ *
+ * @param array $check Value to validate
+ * @param array $keywords Keywords
+ * @return bool
+ */
 	public function notContains($check, $keywords) {
 		$value = array_values($check);
 		$value = $value[0];
-		if (!is_array($keywords)) $keywords = array($keywords);
+		if (!is_array($keywords)) {
+			$keywords = array($keywords);
+		}
 		foreach ($keywords as $keyword) {
-			if (strpos($value, $keyword) !== false) return false;
+			if (strpos($value, $keyword) !== false) {
+				return false;
+			}
 		}
 		return true;
 	}
 
+/**
+ * beforeValidate method
+ *
+ * @param array $options Options passed from Model::save().
+ * @return bool True if validate operation should continue, false to abort
+ * @see Model::beforeValidate()
+ */
 	public function beforeValidate($options = array()) {
 		$this->__deletedQuestionsTagIds = array();
 		$this->__deletedQuestionAnswerIds = array();
@@ -183,6 +214,14 @@ class Question extends AppModel {
 		return true;
 	}
 
+/**
+ * Called before each save operation, after validation. Return a non-true result
+ * to halt the save.
+ *
+ * @param array $options Options passed from Model::save().
+ * @return bool True if the operation should continue, false if it should abort
+ * @see Model::save()
+ */
 	public function beforeSave($options = array()) {
 		$this->__oldTagIds = array();
 		if (!empty($this->data['Question']['id'])) {
@@ -191,7 +230,15 @@ class Question extends AppModel {
 		return true;
 	}
 
-	public function afterSave($created) {
+/**
+ * Called after each successful save operation.
+ *
+ * @param bool $created True if this save created a new record
+ * @param array $options Options passed from Model::save().
+ * @return void
+ * @see Model::save()
+ */
+	public function afterSave($created, $options = array()) {
 		if (!$created) {
 			if (!empty($this->__deletedQuestionsTagIds)) {
 				$this->QuestionsTag->deleteAll(array('QuestionsTag.id' => $this->__deletedQuestionsTagIds));
@@ -205,6 +252,12 @@ class Question extends AppModel {
 		}
 	}
 
+/**
+ * Get list of tag ids
+ *
+ * @param int $id An question id
+ * @return array List of tag ids
+ */
 	private function __getTagsIds($id) {
 		return $this->QuestionsTag->find(
 			'list', array(
@@ -219,6 +272,12 @@ class Question extends AppModel {
 		);
 	}
 
+/**
+ * Get find options for given Tag IDs
+ *
+ * @param array $tagIds Tag IDs
+ * @return array
+ */
 	public function getFindOptionsForTagIds($tagIds = array()) {
 		$options = array();
 		$options['contain'] = array(
@@ -234,6 +293,12 @@ class Question extends AppModel {
 		return $options;
 	}
 
+/**
+ * analyse method
+ *
+ * @param array $question Question data
+ * @return array Messages
+ */
 	public function analyse($question) {
 		$messages = array();
 		if (!empty($question['Question'])) {
@@ -350,8 +415,8 @@ class Question extends AppModel {
 				}
 
 				// Check Answers
-				if ( ($question['Question']['question_format_id'] == QuestionFormat::MULTIPLE_CHOICE) ||
-					($question['Question']['question_format_id'] == QuestionFormat::MULTIPLE_RESPONSE)) {
+				if (($question['Question']['question_format_id'] == QuestionFormat::MULTIPLE_CHOICE) ||
+						($question['Question']['question_format_id'] == QuestionFormat::MULTIPLE_RESPONSE)) {
 					$wordCountPerAnswer = array();
 					if (!empty($question['QuestionAnswer'])) {
 						foreach ($question['QuestionAnswer'] as $questionAnswer) {
@@ -426,6 +491,12 @@ class Question extends AppModel {
 		return $messages;
 	}
 
+/**
+ * view method
+ *
+ * @param int $id An question id
+ * @return Question data
+ */
 	public function view($id) {
 		$options = array(
 			'conditions' => array(
@@ -445,11 +516,23 @@ class Question extends AppModel {
 		return $this->find('first', $options);
 	}
 
+/**
+ * add method
+ *
+ * @param array $data Question data
+ * @return bool
+ */
 	public function add($data) {
 		$this->create();
 		return $this->saveAll($data, array('deep' => true));
 	}
 
+/**
+ * edit moethod
+ *
+ * @param int $id A question id
+ * @return array
+ */
 	public function edit($id) {
 		$options = array(
 			'conditions' => array(
@@ -484,6 +567,12 @@ class Question extends AppModel {
 		return $question;
 	}
 
+/**
+ * update method
+ *
+ * @param array $data Question data
+ * @return bool
+ */
 	public function update($data) {
 		/*
 		if (!empty($data['QuestionsTag']))
@@ -502,6 +591,14 @@ class Question extends AppModel {
 		return $this->saveAll($data, array('deep' => true));
 	}
 
+/**
+ * Removed question for given ID
+ *
+ * @param int $id ID of question to delete
+ * @param bool $cascade Dummy parameter
+ * @return bool True on success
+ * @see Model::delete()
+ */
 	public function delete($id = null, $cascade = true) {
 		if (AuthComponent::user('role_id') != Role::ADMIN) {
 			if (!in_array($id, $this->getMineIds())) {
@@ -511,6 +608,11 @@ class Question extends AppModel {
 		return parent::delete($id);
 	}
 
+/**
+ * Get list of questions
+ *
+ * @return array
+ */
 	public function getList() {
 		$options = array();
 		if (AuthComponent::user('role_id') != Role::ADMIN) {
@@ -519,6 +621,11 @@ class Question extends AppModel {
 		return $this->find('list', $options);
 	}
 
+/**
+ * Get IDs of questions
+ *
+ * @return array
+ */
 	public function getMineIds() {
 		$questions = $this->find(
 			'all', array(
@@ -530,6 +637,11 @@ class Question extends AppModel {
 		return Set::extract('/Question/id', $questions);
 	}
 
+/**
+ * Get start sentences
+ *
+ * @return array
+ */
 	public function getStartSentences() {
 		return array(
 			__('A - Weten en Begrijpen') => array(
@@ -571,6 +683,12 @@ class Question extends AppModel {
 		);
 	}
 
+/**
+ * Convert questions to QMP format
+ *
+ * @param array $questions Questions data
+ * @return array
+ */
 	public function toQMP($questions) {
 		$items = array();
 		$files = array();
@@ -598,6 +716,13 @@ class Question extends AppModel {
 		$dom->formatOutput = true;
 		return array($dom->saveXML(), $files);
 	}
+
+/**
+ * Convert questions to Respondus format
+ *
+ * @param array $questions Questions data
+ * @return array
+ */
 
 	public function toRespondus($questions) {
 		$items = array();
@@ -643,6 +768,14 @@ class Question extends AppModel {
 		return array($dom->saveXML(), $files);
 	}
 
+/**
+ * Converts given question to QMP format
+ * and appends it to the given DOMDocument
+ *
+ * @param array $question Question data
+ * @param DOMDocument $dom DOMDocument
+ * @return array()
+ */
 	private function __toQMP($question, $dom) {
 		$files = array();
 
@@ -706,6 +839,14 @@ class Question extends AppModel {
 		return array($item, $files);
 	}
 
+/**
+ * Converts given question to Respondus format
+ * and appends it to the given DOMDocument
+ *
+ * @param array $question Question data
+ * @param DOMDocument $dom DOMDocument
+ * @return array()
+ */
 	private function __toRespondus($question, $dom) {
 		$files = array();
 
@@ -759,7 +900,9 @@ class Question extends AppModel {
 
 		list($itemFeedbacks, $extraFiles) = $this->__itemFeedbackToRespondus($question, $dom);
 		$files = array_merge($files, $extraFiles);
-		if (!is_array($itemFeedbacks)) $itemFeedbacks = array($itemFeedbacks);
+		if (!is_array($itemFeedbacks)) {
+			$itemFeedbacks = array($itemFeedbacks);
+		}
 		foreach ($itemFeedbacks as $itemFeedback) {
 			$item->appendChild($itemFeedback);
 		}
@@ -767,6 +910,14 @@ class Question extends AppModel {
 		return array($item, $files);
 	}
 
+/**
+ * Converts resprocessing of given question to Respondus format
+ * and appends it to the given DOMDocument
+ *
+ * @param array $question Question data
+ * @param DOMDocument $dom DOMDocument
+ * @return array()
+ */
 	private function __itemResprocessingToRespondus($question, $dom) {
 		$files = array();
 
@@ -863,6 +1014,14 @@ class Question extends AppModel {
 		return array($resprocessing, $files);
 	}
 
+/**
+ * Converts feedback of given question to Respondus format
+ * and appends it to the given DOMDocument
+ *
+ * @param array $question Question data
+ * @param DOMDocument $dom DOMDocument
+ * @return array()
+ */
 	private function __itemFeedbackToRespondus($question, $dom) {
 		$itemFeedbacks = array();
 		$files = array();
@@ -921,6 +1080,14 @@ class Question extends AppModel {
 		return array($itemFeedbacks, $files);
 	}
 
+/**
+ * Converts response of given question to QMP format
+ * and appends it to the given DOMDocument
+ *
+ * @param array $question Question data
+ * @param DOMDocument $dom DOMDocument
+ * @return array()
+ */
 	private function __responseToQMP($question, $dom) {
 		$files = array();
 		$response = $dom->createElement("response_lid");
@@ -1030,6 +1197,14 @@ class Question extends AppModel {
 		return array($response, $files);
 	}
 
+/**
+ * Converts response of given question to Respondus format
+ * and appends it to the given DOMDocument
+ *
+ * @param array $question Question data
+ * @param DOMDocument $dom DOMDocument
+ * @return array()
+ */
 	private function __responseToRespondus($question, $dom) {
 		$files = array();
 		$response = $dom->createElement("response_lid");
@@ -1135,6 +1310,14 @@ class Question extends AppModel {
 		return array($response, $files);
 	}
 
+/**
+ * Converts given stimulus to Respondus format
+ * and appends it to the given DOMDocument
+ *
+ * @param string $stimulus Stimulus
+ * @param DOMDocument $dom DOMDocument
+ * @return array()
+ */
 	private function __materialToRespondus($stimulus, $dom) {
 		$files = array();
 		$parts = preg_split('/<img[^>]+>/i', $stimulus);
@@ -1189,21 +1372,43 @@ class Question extends AppModel {
 		return array($material, $files);
 	}
 
+/**
+ * Returns the number of words in given string
+ *
+ * @param string $str String
+ * @return int
+ */
 	private function __wordCount($str) {
-		return count(explode(" ",$str));
+		return count(explode(" ", $str));
 	}
 
+/**
+ * Returns whether or not the given check contains given keywords
+ *
+ * @param string $check Value to validate
+ * @param array $keywords Keywords to check
+ * @return bool
+ */
 	private function __contains($check, $keywords) {
 		if (!is_array($keywords)) {
 			$keywords = array($keywords);
 		}
 		foreach ($keywords as $keyword) {
-			if (strpos($check, $keyword) !== false) return true;
+			if (strpos($check, $keyword) !== false) {
+				return true;
+			}
 		}
 		return false;
 	}
 
+/**
+ * Calculates the average of given values
+ *
+ * @param array $array Array of values
+ * @return float
+ */
 	private function __average($array) {
 		return array_sum($array) / count($array);
 	}
+
 }

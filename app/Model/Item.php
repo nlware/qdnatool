@@ -15,8 +15,6 @@ class Item extends AppModel {
  */
 	public $displayField = 'value';
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
 /**
  * belongsTo associations
  *
@@ -48,6 +46,12 @@ class Item extends AppModel {
 		)
 	);
 
+/**
+ * Get most given incorrect answer option
+ *
+ * @param array $item Item data
+ * @return array AnswerOption data
+ */
 	private function __getMostGivenIncorrectAnswerOption($item) {
 		$mostIncorrectAnswerOption = false;
 		foreach ($item['AnswerOption'] as $i => $answerOption) {
@@ -62,6 +66,17 @@ class Item extends AppModel {
 		return $mostIncorrectAnswerOption;
 	}
 
+/**
+ * Add item to exam
+ *
+ * @param int $examId Exam id
+ * @param int $defaultAnswerOptionCount Default number of answer options
+ * @param string $question Question
+ * @param int $givenAnswerOptionOrder Order index of given answer option
+ * @param int $score Score
+ * @param int $maximumScore Maximum score
+ * @return int Item id
+ */
 	public function add($examId, $defaultAnswerOptionCount, $question, $givenAnswerOptionOrder, $score, $maximumScore) {
 		$itemId = false;
 		$isCorrect = ($score == $maximumScore && $maximumScore > 0);
@@ -93,30 +108,32 @@ class Item extends AppModel {
 					'exam_id' => $examId,
 					'order' => empty($lastItem['Item']['order'])?1:$lastItem['Item']['order'] + 1,
 					'value' => $question,
-					'answer_option_count' => ($givenAnswerOptionOrder > $defaultAnswerOptionCount)?$givenAnswerOptionOrder:$defaultAnswerOptionCount
+					'answer_option_count' => (($givenAnswerOptionOrder != null) && ($givenAnswerOptionOrder > $defaultAnswerOptionCount))?$givenAnswerOptionOrder:$defaultAnswerOptionCount
 				)
 			);
 
 			for ($k = 0; $k < $item['Item']['answer_option_count']; $k++) {
 				$item['AnswerOption'][] = array(
 					'order' => $k + 1,
-					'is_correct' => ($isCorrect && ($givenAnswerOptionOrder == $k + 1))
+					'is_correct' => ($isCorrect && $givenAnswerOptionOrder != null && ($givenAnswerOptionOrder == $k + 1))
 				);
 			}
 
 			$this->create();
-			if ($this->saveAll($item)) $itemId = $this->id;
+			if ($this->saveAll($item)) {
+				$itemId = $this->id;
+			}
 		} else {
 			$itemId = $item['Item']['id'];
 
 			// update is_correct of answer_option if answer_option already exists
-			if ($isCorrect && isset($item['Item'][$givenAnswerOptionOrder - 1]['is_correct']) && !$item['Item'][$givenAnswerOptionOrder - 1]['is_correct']) {
-				$this->AnswerOption->id = $item['Item'][$givenAnswerOptionOrder - 1]['id'];
+			if ($isCorrect && $givenAnswerOptionOrder != null && isset($item['AnswerOption'][$givenAnswerOptionOrder - 1]['is_correct']) && !$item['AnswerOption'][$givenAnswerOptionOrder - 1]['is_correct']) {
+				$this->AnswerOption->id = $item['AnswerOption'][$givenAnswerOptionOrder - 1]['id'];
 				$this->AnswerOption->saveField('is_correct', true);
 			}
 
 			// update answer_option_count and add answer_option(s)
-			if ($givenAnswerOptionOrder > $item['Item']['answer_option_count']) {
+			if ($givenAnswerOptionOrder != null && ($givenAnswerOptionOrder > $item['Item']['answer_option_count'])) {
 				$this->id = $item['Item']['id'];
 				$this->saveField('answer_option_count', $givenAnswerOptionOrder);
 
@@ -138,6 +155,13 @@ class Item extends AppModel {
 		return $itemId;
 	}
 
+/**
+ * stevie method
+ *
+ * @param array $item Item data
+ * @param int[optional] $answerOptionCount Number of answer options
+ * @return array Enriched item data
+ */
 	public function stevie($item, $answerOptionCount = null) {
 		$item['Messages'] = array();
 		if ($item['correct_answer_irc'] < -0.1) {
@@ -149,7 +173,9 @@ class Item extends AppModel {
 				$item['Messages'][] = __('Good students generally answer this question incorrectly. The advice is to remove this question from the test.');
 			}
 		} elseif ($item['correct_answer_irc'] < 0.1) {
-			if (!empty($item['answer_option_count'])) $answerOptionCount = $item['answer_option_count'];
+			if (!empty($item['answer_option_count'])) {
+				$answerOptionCount = $item['answer_option_count'];
+			}
 
 			if (!empty($answerOptionCount)) {
 				switch ($answerOptionCount) {
@@ -191,4 +217,5 @@ class Item extends AppModel {
 		}
 		return $item;
 	}
+
 }

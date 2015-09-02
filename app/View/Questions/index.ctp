@@ -21,11 +21,11 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
 			<tbody>
 				<tr>
 					<td>
-					<?php
-					echo $this->Form->create('Question');
-					echo $this->Form->input('Tag', array('label' => false, 'multiple' => 'checkbox', 'escape' => false));
-					echo $this->Form->end(__('Filter'));
-					?>
+						<?php
+						echo $this->Form->create('Question');
+						echo $this->Form->input('Tag', array('label' => false, 'multiple' => 'checkbox', 'escape' => false));
+						echo $this->Form->end(__('Filter'));
+						?>
 					</td>
 				</tr>
 			</tbody>
@@ -36,10 +36,12 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
 		<div class="btn-group pull-right">
 			<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><?php echo __('Export'); ?> <span class="caret"></span></a>
 			<ul class="dropdown-menu">
-			<?php
-			$params = array();
-			if (!empty($this->request->named['tag_id'])) $params['tag_id'] = $this->request->named['tag_id'];
-			?>
+				<?php
+				$params = array();
+				if (!empty($this->request->named['tag_id'])):
+					$params['tag_id'] = $this->request->named['tag_id'];
+				endif;
+				?>
 				<li><?php echo $this->Html->link(__('HTML'), array_merge(array('action' => 'download'), $params), array('target' => '_blank')); ?></li>
 				<li><?php echo $this->Html->link(__('Respondus'), array_merge(array('action' => 'export_respondus'), $params)); ?></li>
 				<li><?php echo $this->Html->link(__('QMP'), array_merge(array('action' => 'export_qmp', 'ext' => 'xml'), $params)); ?></li>
@@ -54,17 +56,17 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
 						<p><?php echo h($question['Question']['code']); ?></p>
 						<p><?php echo h($question['Question']['name']); ?></p>
 						<ul class="answer-options">
-						<?php
-						if (!empty($question['QuestionAnswer'])):
-							foreach ($question['QuestionAnswer'] as $questionAnswer):
-						?>
+							<?php
+							if (!empty($question['QuestionAnswer'])):
+								foreach ($question['QuestionAnswer'] as $questionAnswer):
+							?>
 							<li><a rel="tooltip" href="#" data-original-title="<?php echo ($questionAnswer['is_correct']?__('Correct answer'):__('Wrong answer')); ?>"><i class="<?php echo ($questionAnswer['is_correct']?'icon-thumbs-up':'icon-thumbs-down'); ?>"></i></a>
-							<?php echo h(strip_tags($questionAnswer['name'])); ?>
+								<?php echo h(strip_tags($questionAnswer['name'])); ?>
 							</li>
-						<?php
-							endforeach;
-						endif;
-						?>
+							<?php
+								endforeach;
+							endif;
+							?>
 						</ul>
 						<?php
 						if (!empty($question['Tag'])):
@@ -83,7 +85,7 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
 								<span class="caret"></span>
 							</button>
 							<ul class="dropdown-menu">
-								<li><?php echo $this->Html->link(__('Edit')	, array('action' => 'edit',	$question['Question']['id'])); ?></li>
+								<li><?php echo $this->Html->link(__('Edit'), array('action' => 'edit',	$question['Question']['id'])); ?></li>
 								<li><?php echo $this->Form->postLink( __('Delete'), array('action' => 'delete',	$question['Question']['id']), null, __('Are you sure you want to delete # %s "%s"?', $question['Question']['id'], $question['Question']['name'])); ?></li>
 							</ul>
 						</div>
@@ -100,12 +102,14 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
 		</ul>
 		<div class="tab-content">
 			<div class="tab-pane active" id="tip-of-the-day">
-			<?php if (!empty($tip)): ?>
+				<?php
+				if (!empty($tip)):
+				?>
 				<h4><?php echo h($tip['Tip']['name']); ?></h4>
-			<?php
-				echo $this->Output->html($tip['Tip']['content']);
-			endif;
-			?>
+				<?php
+					echo $this->Output->html($tip['Tip']['content']);
+				endif;
+				?>
 			</div>
 		</div>
 	</div>

@@ -1,14 +1,20 @@
 <?php
 App::uses('AppShell', 'Console/Command');
 /**
- * Instruction Model
- * Tip Model
+ * RemoteContent Shell
  *
+ * @property Instruction $Instruction
+ * @property Tip $Tip
  */
 class RemoteContentShell extends AppShell {
 
 	public $uses = array('Instruction', 'Tip');
 
+/**
+ * Gets and configures the option parser.
+ *
+ * @return ConsoleOptionParser
+ */
 	public function getOptionParser() {
 		$parser = parent::getOptionParser();
 		$parser->addSubcommand('refresh_tips', array(
@@ -19,11 +25,21 @@ class RemoteContentShell extends AppShell {
 		return $parser;
 	}
 
+/**
+ * refresh_all method
+ *
+ * @return void
+ */
 	public function refresh_all() {
 		$this->refresh_tips();
 		$this->refresh_instructions();
 	}
 
+/**
+ * refresh_tips method
+ *
+ * @return void
+ */
 	public function refresh_tips() {
 		$url = Configure::read('Config.tipsFeedUrl');
 
@@ -38,8 +54,12 @@ class RemoteContentShell extends AppShell {
 					if (is_array($xml['rss']['channel']['item'])) {
 						foreach ($xml['rss']['channel']['item'] as $item) {
 							$record = array();
-							if (!empty($item['title'])) $record['name'] = $item['title'];
-							if (!empty($item['content:encoded'])) $record['content'] = $item['content:encoded'];
+							if (!empty($item['title'])) {
+								$record['name'] = $item['title'];
+							}
+							if (!empty($item['content:encoded'])) {
+								$record['content'] = $item['content:encoded'];
+							}
 							$data[] = $record;
 						}
 					}
@@ -49,6 +69,11 @@ class RemoteContentShell extends AppShell {
 		}
 	}
 
+/**
+ * refresh_instructions method
+ *
+ * @return void
+ */
 	public function refresh_instructions() {
 		$url = Configure::read('Config.instructionsFeedUrl');
 
@@ -72,8 +97,12 @@ class RemoteContentShell extends AppShell {
 							if (!empty($instructions)) {
 								foreach ($instructions as $instruction) {
 									$record = array('id' => $instruction['Instruction']['id']);
-									if (!empty($item['title'])) $record['name'] = $item['title'];
-									if (!empty($item['content:encoded'])) $record['content'] = $item['content:encoded'];
+									if (!empty($item['title'])) {
+										$record['name'] = $item['title'];
+									}
+									if (!empty($item['content:encoded'])) {
+										$record['content'] = $item['content:encoded'];
+									}
 									$data[] = $record;
 								}
 							}
@@ -84,4 +113,5 @@ class RemoteContentShell extends AppShell {
 			}
 		}
 	}
+
 }

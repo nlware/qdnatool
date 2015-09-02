@@ -15,8 +15,6 @@ class Instruction extends AppModel {
  */
 	public $displayField = 'name';
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
 /**
  * belongsTo associations
  *
@@ -33,6 +31,13 @@ class Instruction extends AppModel {
 		)
 	);
 
+/**
+ * get method
+ *
+ * @param int[optional] $developmentPhaseId Development phase id
+ * @param int[optional] $questionFormatId Question format id
+ * @return array
+ */
 	public function get($developmentPhaseId = null, $questionFormatId = null) {
 		return $this->find(
 			'first', array(
@@ -43,4 +48,5 @@ class Instruction extends AppModel {
 			)
 		);
 	}
+
 }

@@ -9,9 +9,13 @@ class QueueImportExamTask extends Shell {
 
 	public $uses = array('Exam');
 
+/**
+ * Executed, when a worker is executing this task.
+ *
+ * @param mixed $data Job data (passed on creation)
+ * @return bool Success
+ */
 	public function run($data) {
-		//$this->out($data);
-
 		if (empty($data['Exam']['id'])) {
 			$this->err(__('Invalid exam'));
 			return false;
@@ -25,4 +29,5 @@ class QueueImportExamTask extends Shell {
 			}
 		}
 	}
+
 }
