@@ -255,19 +255,17 @@ class Exam extends AppModel {
  */
 	public function remove($id) {
 		$result = false;
-		$exam = $this->find(
-			'first', array(
-				'conditions' => array(
-					'Exam.id' => $id,
-					'Exam.user_id' => AuthComponent::user('id')
-				),
-				'contain' => array(
-					'Child' => array(
-						'conditions' => array('Child.deleted' => null)
-					)
-				)
+
+		$conditions = array(
+			'Exam.id' => $id,
+			'Exam.user_id' => AuthComponent::user('id')
+		);
+		$contain = array(
+			'Child' => array(
+				'conditions' => array('Child.deleted' => null)
 			)
 		);
+		$exam = $this->find('first', compact('conditions', 'contain'));
 		if (!empty($exam) && empty($exam['Child'])) {
 			$result = $this->saveField('deleted', date('Y-m-d H:i:s'));
 		}
@@ -329,7 +327,8 @@ class Exam extends AppModel {
  * @return bool
  */
 	public function analyse($id) {
-		$exam = $this->find('first', array('conditions' => array('Exam.id' => $id)));
+		$conditions = array('Exam.id' => $id);
+		$exam = $this->find('first', compact('conditions'));
 		if (!empty($exam)) {
 			return $this->__analyse($exam);
 		}
@@ -348,27 +347,15 @@ class Exam extends AppModel {
 		$this->id = $exam['Exam']['id'];
 		$this->saveField('exam_state_id', ExamState::ANALYSING);
 
-		$exam = $this->find(
-			'first', array(
-				'conditions' => array(
-					'Exam.id' => $exam['Exam']['id']
-				),
-				'contain' => array(
-					'Item' => 'AnswerOption',
-					'Subject' => 'GivenAnswer'
-				)
-			)
+		$conditions = array('Exam.id' => $exam['Exam']['id']);
+		$contain = array(
+			'Item' => 'AnswerOption',
+			'Subject' => 'GivenAnswer'
 		);
-		$maxAnswerOptionCount = $this->Item->find(
-			'first', array(
-				'fields' => array(
-					'MAX(Item.answer_option_count) as answer_option_count'
-				),
-				'conditions' => array(
-					'Item.exam_id' => $exam['Exam']['id']
-				)
-			)
-		);
+		$exam = $this->find('first', compact('conditions', 'contain'));
+		$fields = array('MAX(Item.answer_option_count) as answer_option_count');
+		$conditions = array('Item.exam_id' => $exam['Exam']['id']);
+		$maxAnswerOptionCount = $this->Item->find('first', compact('fields', 'conditions'));
 		$maxAnswerOptionCount = $maxAnswerOptionCount[0]['answer_option_count'];
 
 		$questionCount = count($exam['Item']);
@@ -508,7 +495,8 @@ class Exam extends AppModel {
  * @return bool
  */
 	public function report($id) {
-		$exam = $this->find('first', array('conditions' => array('Exam.id' => $id)));
+		$conditions = array('Exam.id' => $id);
+		$exam = $this->find('first', compact('conditions'));
 		if (!empty($exam)) {
 			return $this->__report($exam);
 		}
@@ -527,17 +515,12 @@ class Exam extends AppModel {
 		$this->id = $exam['Exam']['id'];
 		$this->saveField('exam_state_id', ExamState::GENERATING_REPORT);
 
-		$exam = $this->find(
-			'first', array(
-				'conditions' => array(
-					'Exam.id' => $exam['Exam']['id']
-				),
-				'contain' => array(
-					'Item' => 'AnswerOption',
-					'Subject' => 'GivenAnswer'
-				)
-			)
+		$conditions = array('Exam.id' => $exam['Exam']['id']);
+		$contain = array(
+			'Item' => 'AnswerOption',
+			'Subject' => 'GivenAnswer'
 		);
+		$exam = $this->find('first', compact('conditions', 'contain'));
 
 		// create temp file
 		umask(0);
@@ -635,7 +618,8 @@ class Exam extends AppModel {
  */
 	public function import($id) {
 		$success = false;
-		$exam = $this->find('first', array('conditions' => array('Exam.id' => $id)));
+		$conditions = array('Exam.id' => $id));
+		$exam = $this->find('first', compact('conditions'));
 		if (!empty($exam['Exam']['exam_format_id'])) {
 			switch ($exam['Exam']['exam_format_id']) {
 				case ExamFormat::BLACKBOARD:
@@ -729,16 +713,9 @@ class Exam extends AppModel {
 
 					$this->id = $exam['Exam']['id'];
 					if ($result &= $this->Item->saveAll($data, array('deep' => true))) {
-						$exam = $this->find(
-							'first', array(
-								'conditions' => array(
-									'Exam.id' => $exam['Exam']['id']
-								),
-								'contain' => array(
-									'Item' => 'AnswerOption'
-								)
-							)
-						);
+						$conditions = array('Exam.id' => $exam['Exam']['id']);
+						$contain = array('Item' => 'AnswerOption');
+						$exam = $this->find('first', compact('conditions', 'contain'));
 					} else {
 						break;
 					}
@@ -773,22 +750,14 @@ class Exam extends AppModel {
 										$itemIds = Set::extract('/Item[value=' . $questionId . ']/id', $exam);
 										if (!empty($itemIds[0])) {
 											$value = null;
-											$givenAnswer = $this->Item->GivenAnswer->find(
-												'first', array(
-													'conditions' => array(
-														'GivenAnswer.item_id' => $itemIds[0],
-														'GivenAnswer.content' => $values[$j + 1]
-													)
-												)
+											$conditions = array(
+												'GivenAnswer.item_id' => $itemIds[0],
+												'GivenAnswer.content' => $values[$j + 1]
 											);
+											$givenAnswer = $this->Item->GivenAnswer->find('first', compact('conditions'));
 											if (empty($givenAnswer)) {
-												$answerOptionCount = $this->Item->GivenAnswer->find(
-													'count', array(
-														'conditions' => array(
-															'GivenAnswer.item_id' => $itemIds[0]
-														)
-													)
-												);
+												$conditions = array('GivenAnswer.item_id' => $itemIds[0]);
+												$answerOptionCount = $this->Item->GivenAnswer->find('count', compact('conditions'));
 												$value = $answerOptionCount + 1;
 											} else {
 												$value = $givenAnswer['GivenAnswer']['value'];
@@ -1143,16 +1112,9 @@ class Exam extends AppModel {
 
 					$this->id = $exam['Exam']['id'];
 					if ($result &= $this->Item->saveAll($data, array('deep' => true))) {
-						$exam = $this->find(
-							'first', array(
-								'conditions' => array(
-									'Exam.id' => $exam['Exam']['id']
-								),
-								'contain' => array(
-									'Item' => 'AnswerOption'
-								)
-							)
-						);
+						$conditions = array('Exam.id' => $exam['Exam']['id']);
+						$contain = array('Item' => 'AnswerOption');
+						$exam = $this->find('first', compact('conditions', 'contain'));
 					} else {
 						break;
 					}
@@ -1248,17 +1210,12 @@ class Exam extends AppModel {
  * @return array
  */
 	public function stevie($id, $offset) {
-		$exam = $this->find(
-			'first', array(
-				'conditions' => array(
-					'Exam.id' => $id,
-					'Exam.user_id' => AuthComponent::user('id')
-				),
-				'contain' => array(
-					'Item' => 'AnswerOption'
-				)
-			)
+		$conditions = array(
+			'Exam.id' => $id,
+			'Exam.user_id' => AuthComponent::user('id')
 		);
+		$contain = array('Item' => 'AnswerOption');
+		$exam = $this->find('first', compact('conditions', 'contain'));
 
 		if (!empty($exam['Item'])) {
 			foreach ($exam['Item'] as $i => $item) {
@@ -1289,14 +1246,11 @@ class Exam extends AppModel {
 		}
 
 		if ($result) {
-			$exam = $this->find(
-				'first', array(
-					'conditions' => array(
-						'Exam.id' => $data['Exam']['parent_id'],
-						'Exam.user_id' => AuthComponent::user('id')
-					)
-				)
+			$conditions = array(
+				'Exam.id' => $data['Exam']['parent_id'],
+				'Exam.user_id' => AuthComponent::user('id')
 			);
+			$exam = $this->find('first', compact('conditions'));
 			if (empty($exam)) {
 				$result = false;
 			}
@@ -1333,23 +1287,19 @@ class Exam extends AppModel {
  */
 	protected function _duplicate($postData) {
 		$examId = false;
-		$parentExam = $this->find(
-			'first', array(
+
+		$conditions = array('Exam.id' => $postData['Exam']['parent_id']);
+		$contain = array(
+			'Item' => array(
 				'conditions' => array(
-					'Exam.id' => $postData['Exam']['parent_id']
+					'Item.id' => Set::extract('/Item[include=1]/id', $postData)
 				),
-				'contain' => array(
-					'Item' => array(
-						'conditions' => array(
-							'Item.id' => Set::extract('/Item[include=1]/id', $postData)
-						),
-						'AnswerOption',
-						'GivenAnswer' => 'Subject'
-					),
-					'Subject'
-				)
-			)
+				'AnswerOption',
+				'GivenAnswer' => 'Subject'
+			),
+			'Subject'
 		);
+		$parentExam = $this->find('first', compact('conditions', 'contain'));
 		if (!empty($parentExam)) {
 			$data = array(
 				'Exam' => array(
@@ -1401,29 +1351,19 @@ class Exam extends AppModel {
 				$examId = $this->id;
 			}
 			if ($examId) {
-				$childExam = $this->find(
-					'first', array(
-						'conditions' => array(
-							'Exam.id' => $examId
-						),
-						'contain' => array(
-							'Item' => 'AnswerOption'
-						)
-					)
-				);
+				$conditions = array('Exam.id' => $examId);
+				$contain = array('Item' => 'AnswerOption');
+				$childExam = $this->find('first', compact('conditions', 'contain'));
 				if (!empty($parentExam['Item'])) {
 					$data = array();
 					foreach ($parentExam['Item'] as $i => $item) {
 						if (!empty($item['GivenAnswer'])) {
 							foreach ($item['GivenAnswer'] as $givenAnswer) {
-								$subject = $this->Subject->find(
-									'first', array(
-										'conditions' => array(
-											'Subject.exam_id' => $examId,
-											'Subject.value' => $givenAnswer['Subject']['value']
-										)
-									)
+								$conditions = array(
+									'Subject.exam_id' => $examId,
+									'Subject.value' => $givenAnswer['Subject']['value']
 								);
+								$subject = $this->Subject->find('first', compact('conditions'));
 								$score = 0;
 								if ($givenAnswer['value'] !== null) {
 									$score = $childExam['Item'][$i]['AnswerOption'][($givenAnswer['value'] - 1)]['is_correct'];
@@ -1454,32 +1394,22 @@ class Exam extends AppModel {
  */
 	public function scores($id) {
 		$scoring = false;
-		$exam = $this->find(
-			'first', array(
-				'conditions' => array(
-					'Exam.id' => $id,
-					'Exam.user_id' => AuthComponent::user('id')
-				),
-				'contain' => array(
-					'Item'
-				)
-			)
+		$conditions = array(
+			'Exam.id' => $id,
+			'Exam.user_id' => AuthComponent::user('id')
 		);
+		$contain = array('Item');
+		$exam = $this->find('first', compact('conditions', 'contain'));
 		if (!empty($exam)) {
-			$scoring = $this->Item->GivenAnswer->find(
-				'all', array(
-					'conditions' => array(
-						'GivenAnswer.item_id' => Set::extract('/Item/id', $exam)
-					),
-					'contain' => 'Subject',
-					'fields' => array(
-						'GivenAnswer.subject_id',
-						'SUM(GivenAnswer.score) as score_total',
-						'Subject.value'
-					),
-					'group' => 'GivenAnswer.subject_id',
-				)
+			$fields = array(
+				'GivenAnswer.subject_id',
+				'SUM(GivenAnswer.score) as score_total',
+				'Subject.value'
 			);
+			$conditions = array('GivenAnswer.item_id' => Set::extract('/Item/id', $exam));
+			$contain = array('Subject');
+			$group = array('GivenAnswer.subject_id');
+			$scoring = $this->Item->GivenAnswer->find('all', compact('fields', 'conditions', 'contain', 'group'));
 		}
 
 		return $scoring;
@@ -1493,30 +1423,19 @@ class Exam extends AppModel {
  */
 	public function missings($id) {
 		$missings = false;
-		$exam = $this->find(
-			'first', array(
-				'conditions' => array(
-					'Exam.id' => $id,
-					'Exam.user_id' => AuthComponent::user('id')
-				),
-				'contain' => array(
-					'Item'
-				)
-			)
+		$conditions = array(
+			'Exam.id' => $id,
+			'Exam.user_id' => AuthComponent::user('id')
 		);
+		$contain = array('Item');
+		$exam = $this->find('first', compact('conditions', 'contain'));
 		if (!empty($exam)) {
-			$missings = $this->Item->GivenAnswer->find(
-				'all', array(
-					'conditions' => array(
-						'GivenAnswer.item_id' => Set::extract('/Item/id', $exam),
-						'GivenAnswer.value' => null
-					),
-					'contain' => array(
-						'Item',
-						'Subject'
-					)
-				)
+			$conditions = array(
+				'GivenAnswer.item_id' => Set::extract('/Item/id', $exam),
+				'GivenAnswer.value' => null
 			);
+			$contain = array('Item', 'Subject');
+			$missings = $this->Item->GivenAnswer->find('all', compact('conditions', 'contain'));
 
 		}
 		return $missings;

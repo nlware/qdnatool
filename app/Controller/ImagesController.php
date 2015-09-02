@@ -67,13 +67,8 @@ class ImagesController extends AppController {
  * @return void
  */
 	public function get($id) {
-		$image = $this->Image->find(
-			'first', array(
-				'conditions' => array(
-					'Image.id' => $id
-				)
-			)
-		);
+		$conditions = array('Image.id' => $id);
+		$image = $this->Image->find('first', compact('conditions'));
 
 		if (empty($image)) {
 			return $this->redirect404Error();
@@ -145,13 +140,8 @@ class ImagesController extends AppController {
  * @return void
  */
 	public function browse($questionId) {
-		$images = $this->Image->find(
-			'all', array(
-				'conditions' => array(
-					'Image.question_id' => $questionId
-				)
-			)
-		);
+		$conditions = array('Image.question_id' => $questionId);
+		$images = $this->Image->find('all', compact('conditions'));
 		$this->set(compact('images'));
 	}
 

@@ -185,13 +185,8 @@ class UsersController extends AppController {
 		$nameid = $as->getAuthData("saml:sp:NameID");
 
 		if (!empty($nameid)) {
-			$user = $this->User->find(
-				'first', array(
-					'conditions' => array(
-						'User.surfconext_identifier' => $nameid['Value']
-					)
-				)
-			);
+			$conditions = array('User.surfconext_identifier' => $nameid['Value']);
+			$user = $this->User->find('first', compact('conditions'));
 			if (empty($user['User'])) {
 				//create user
 				$attributes = $as->getAttributes();
@@ -207,13 +202,8 @@ class UsersController extends AppController {
 
 				$this->User->create();
 				if ($this->User->save($data)) {
-					$user = $this->User->find(
-						'first', array(
-							'conditions' => array(
-								'User.surfconext_identifier' => $nameid
-							)
-						)
-					);
+					$conditions = array('User.surfconext_identifier' => $nameid);
+					$user = $this->User->find('first', compact('conditions'));
 				}
 			}
 
