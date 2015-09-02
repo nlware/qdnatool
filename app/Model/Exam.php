@@ -374,24 +374,35 @@ class Exam extends AppModel {
 			}
 		}
 
-		$script = file_get_contents(APP . 'Lib' . DS . 'Rscripts' . DS . 'analyse.R");
-		$script .= '
-		nvragen=' . $questionCount . ';
-		ndeel=' . $studentCount . ';
+		$script = array();
+		$script[] = file_get_contents(APP . 'Lib' . DS . 'Rscripts' . DS . 'analyse.R');
+		$script[] = sprintf('nvragen = %d;', $questionCount);
+		$script[] = sprintf('ndeel = %d;', $studentCount);
 
-		number_answeroptions= rep(NA,' . $questionCount . ');';
-
-		$script .= 'key=matrix(0,' . $maxAnswerOptionCount . ',' . count($exam['Item']) . ');';
+		$keyMatrix = array();
 		foreach ($exam['Item'] as $i => $item) {
 			foreach ($item['AnswerOption'] as $j => $answerOption) {
 				if ($answerOption['is_correct']) {
-					$script .= 'key[' . ($j + 1) . ',' . ($i + 1) . ']=1;';
+					$keyMatrix[] = 1;
+				} else {
+					$keyMatrix[] = 0;
 				}
 			}
 		}
 
-		$script .= 'input_answers=matrix(,ndeel,nvragen);';
+		// Create the key matrix (with given dimensions) by filling it with a vector (by column)
 
+		// > matrix(1:4, 2, 2, byrow = FALSE)
+		//      [,1] [,2]
+		// [1,]    1    3
+		// [2,]    2    4
+
+		$script[] = sprintf(
+			'key = matrix(c(%s), %d, %d, byrow = FALSE);',
+			implode(',', $keyMatrix), $maxAnswerOptionCount, count($exam['Item'])
+		);
+
+		$inputAnswersMaxtrix = array();
 		foreach ($givenAnswers as $i => $givenAnswersByStudent) {
 			foreach ($givenAnswersByStudent as $j => $givenAnswer) {
 				if (empty($givenAnswer)) {
@@ -401,15 +412,31 @@ class Exam extends AppModel {
 			}
 		}
 
+		// Create the input_answers matrix (with given dimensions) by filling it with a vector (by row)
+
+		// > matrix(1:4, 2, 2, byrow = TRUE)
+		//      [,1] [,2]
+		// [1,]    1    2
+		// [2,]    3    4
+
+		$script[] = sprintf(
+			'input_answers = matrix(c(%s), ndeel, nvragen, byrow = TRUE);',
+			implode(',', $inputAnswersMaxtrix)
+		);
+
+		$numberAnsweroptionsVector = array();
 		foreach ($answerOptionCount as $i => $count) {
 			if (empty($count)) {
 				$count = 0;
 			}
-			$script .= 'number_answeroptions[' . ($i + 1) . '] = ' . $count . ';';
+			$numberAnsweroptionsVector[] = $count;
 		}
 
-		$script .= 'Analyse(key, input_answers, number_answeroptions);';
-		$script = str_replace("\r\n", "", $script);
+		$script[] = sprintf('number_answeroptions = c(%s);', implode(',', $numberAnsweroptionsVector));
+
+		$script[] = 'Analyse(key, input_answers, number_answeroptions);';
+
+		$script = implode("\n", $script);
 
 		$result = Rserve::execute($script);
 
@@ -532,54 +559,111 @@ class Exam extends AppModel {
 			$correctAnswerPercentage = Set::extract('/Item/correct_answer_percentage', $exam);
 			$correctAnswerIRC = Set::extract('/Item/correct_answer_irc', $exam);
 
-			$script = file_get_contents(APP . 'Lib' . DS . 'Rscripts' . DS . 'report.R');
-			$script .= '
-			number_students=' . count($exam['Subject']) . ';
-			number_answeroptions=c(' . implode(',', $answerOptionCount) . ');
-			max_number_answeroptions=' . $exam['Exam']['max_answer_option_count'] . ';
-			number_questions=' . count($exam['Item']) . ';
-			Cronbach=' . $exam['Exam']['cronbachs_alpha'] . ';
-			correct_frequency=c(' . implode(',', $correctAnswerCount) . ');
-			correct_percentage=c(' . implode(',', $correctAnswerPercentage) . ');
-			corrected_item_tot_cor=c(' . implode(',', $correctAnswerIRC) . ');
-			';
+			$script = array();
+			$script[] = file_get_contents(APP . 'Lib' . DS . 'Rscripts' . DS . 'report.R');
+			$script[] = sprintf('number_students = %d;', count($exam['Subject']));
+			$script[] = sprintf('number_answeroptions = c(%s);', implode(',', $answerOptionCount));
+			$script[] = sprintf('max_number_answeroptions = %s;', $exam['Exam']['max_answer_option_count']);
+			$script[] = sprintf('number_questions = %d;', count($exam['Item']));
+			$script[] = sprintf('Cronbach = %s;', $exam['Exam']['cronbachs_alpha']);
+			$script[] = sprintf('correct_frequency = c(%s);', implode(',', $correctAnswerCount));
+			$script[] = sprintf('correct_percentage = c(%s);', implode(',', $correctAnswerPercentage));
+			$script[] = sprintf('corrected_item_tot_cor = c(%s);', implode(',', $correctAnswerIRC));
 
-			$script .= 'frequency_answer_options=matrix(,max_number_answeroptions+1,number_questions);';
-			$script .= 'percentage_answer_options=matrix(,max_number_answeroptions+1,number_questions);';
-			$script .= 'corrected_item_tot_cor_answ_option=matrix(,max_number_answeroptions+1,number_questions);';
-			$script .= 'item_names= rep(NA,' . count($exam['Item']) . ');';
+			$frequencyAnswerOptionsMatrix = array();
+			$percentageAnswerOptionsMatrix = array();
+			$correctedItemTotCorAnswOptionMatrix = array();
+			$itemNamesVector = array();
 
 			foreach ($exam['Item'] as $i => $item) {
-				$script .= 'frequency_answer_options[1,' . ($i + 1) . '] = ' . $item['missing_answer_count'] . ';';
-				$script .= 'percentage_answer_options[1,' . ($i + 1) . '] = ' . $item['missing_answer_percentage'] . ';';
-				$script .= 'corrected_item_tot_cor_answ_option[1,' . ($i + 1) . '] = 0;';
-				$script .= 'item_names[' . ($i + 1) . '] = ' . $item['order'] . ';';
+				$frequencyAnswerOptionsMatrix[] = $item['missing_answer_count'];
+				$percentageAnswerOptionsMatrix[] = $item['missing_answer_percentage'];
+				$correctedItemTotCorAnswOptionMatrix[] = 0;
+				$itemNamesVector[] = $item['order'];
 
 				foreach ($item['AnswerOption'] as $j => $answerOption) {
-					$script .= 'frequency_answer_options[' . ($j + 2) . ',' . ($i + 1) . '] = ' . $answerOption['given_answer_count'] . ';';
-					$script .= 'percentage_answer_options[' . ($j + 2) . ',' . ($i + 1) . '] = ' . $answerOption['given_answer_percentage'] . ';';
-					$script .= 'corrected_item_tot_cor_answ_option[' . ($j + 2) . ',' . ($i + 1) . '] = ' . (empty($answerOption['given_answer_irc'])?'0':$answerOption['given_answer_irc']) . ';';
-				}
-			}
-
-			$script .= 'input_correct=matrix(0,number_students,number_questions);';
-			foreach ($exam['Subject'] as $i => $subject) {
-				foreach ($subject['GivenAnswer'] as $j => $givenAnswer) {
-					$script .= 'input_correct[' . ($i + 1) . ',' . ($j + 1) . '] = ' . (empty($givenAnswer['score'])?'0':$givenAnswer['score']) . ';';
-				}
-			}
-
-			$script .= 'key=matrix(0,max_number_answeroptions,number_questions);';
-			foreach ($exam['Item'] as $i => $item) {
-				foreach ($item['AnswerOption'] as $j => $answerOption) {
-					if ($answerOption['is_correct']) {
-						$script .= 'key[' . ($j + 1) . ',' . ($i + 1) . ']=1;';
+					$frequencyAnswerOptionsMatrix[] = $answerOption['given_answer_count'];
+					$percentageAnswerOptionsMatrix[] = $answerOption['given_answer_percentage'];
+					if (empty($answerOption['given_answer_irc'])) {
+						$correctedItemTotCorAnswOptionMatrix[] = '0';
+					} else {
+						$correctedItemTotCorAnswOptionMatrix[] = $answerOption['given_answer_irc'];
 					}
 				}
 			}
 
-			$script .= 'GenerateReport("' . $tempFile . '",number_students,number_answeroptions,number_questions,Cronbach,frequency_answer_options,percentage_answer_options,input_correct,key,correct_frequency,correct_percentage, corrected_item_tot_cor,corrected_item_tot_cor_answ_option,"' . $exam['Exam']['name'] . '",item_names);';
-			$script = str_replace("\r\n", "", $script);
+			// Create the frequency_answer_options matrix (with given dimensions)
+			// by filling it with a vector (by column)
+			$script[] = sprintf(
+				'frequency_answer_options = matrix(' .
+				'c(%s), max_number_answeroptions + 1, number_questions, byrow = FALSE' .
+				');',
+				implode(',', $frequencyAnswerOptionsMatrix)
+			);
+			// Create the percentage_answer_options matrix (with given dimensions)
+			// by filling it with a vector (by column)
+			$script[] = sprintf(
+				'percentage_answer_options = matrix(' .
+				'c(%s), max_number_answeroptions + 1, number_questions, byrow = FALSE' .
+				');',
+				implode(',', $percentageAnswerOptionsMatrix)
+			);
+			// Create the corrected_item_tot_cor_answ_option matrix (with given dimensions)
+			// by filling it with a vector (by column)
+			$script[] = sprintf(
+				'corrected_item_tot_cor_answ_option = matrix(' .
+				'c(%s), max_number_answeroptions + 1, number_questions, byrow = FALSE' .
+				');',
+				implode(',', $correctedItemTotCorAnswOptionMatrix)
+			);
+			$script[] = sprintf('item_names = c(%s);', implode(',', $itemNamesVector));
+
+			$inputCorrectMatrix = array();
+
+			foreach ($exam['Subject'] as $i => $subject) {
+				foreach ($subject['GivenAnswer'] as $j => $givenAnswer) {
+					if (empty($givenAnswer['score'])) {
+						$inputCorrectMatrix[] = '0';
+					} else {
+						$inputCorrectMatrix[] = $givenAnswer['score'];
+					}
+				}
+			}
+
+			// Create the input_correct matrix (with given dimensions) by filling it with a vector (by row)
+			$script[] = sprintf(
+				'input_correct = matrix(c(%s), number_students, number_questions, byrow = TRUE);',
+				implode(',', $inputCorrectMatrix)
+			);
+
+			$keyMatrix = array();
+
+			foreach ($exam['Item'] as $i => $item) {
+				foreach ($item['AnswerOption'] as $j => $answerOption) {
+					if ($answerOption['is_correct']) {
+						$keyMatrix[] = 1;
+					} else {
+						$keyMatrix[] = 0;
+					}
+				}
+			}
+
+			// Create the key matrix (with given dimensions) by filling it with a vector (by column)
+			$script[] = sprintf(
+				'key = matrix(c(%s), max_number_answeroptions, number_questions, byrow = FALSE);',
+				implode(',', $keyMatrix)
+			);
+
+			$script[] = sprintf(
+				'GenerateReport(' .
+				'"%s", number_students, number_answeroptions, number_questions, Cronbach, frequency_answer_options, ' .
+				'percentage_answer_options, input_correct, key, correct_frequency, correct_percentage, ' .
+				'corrected_item_tot_cor, corrected_item_tot_cor_answ_option, "%s", item_names' .
+				');',
+				$tempFile, $exam['Exam']['name']
+			);
+
+			$script = implode("\n", $script);
 
 			$result = Rserve::execute($script);
 
