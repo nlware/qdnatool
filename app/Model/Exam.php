@@ -342,8 +342,6 @@ class Exam extends AppModel {
  * @return bool
  */
 	private function __analyse($exam) {
-		$result = true;
-
 		$this->id = $exam['Exam']['id'];
 		$this->saveField('exam_state_id', ExamState::ANALYSING);
 
