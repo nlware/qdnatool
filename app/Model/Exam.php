@@ -702,7 +702,7 @@ class Exam extends AppModel {
  */
 	public function import($id) {
 		$success = false;
-		$conditions = array('Exam.id' => $id));
+		$conditions = array('Exam.id' => $id);
 		$exam = $this->find('first', compact('conditions'));
 		if (!empty($exam['Exam']['exam_format_id'])) {
 			switch ($exam['Exam']['exam_format_id']) {
