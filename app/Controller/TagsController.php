@@ -19,13 +19,9 @@ class TagsController extends AppController {
 		if (!empty($this->request->query['query'])) {
 			$conditions['Tag.name LIKE'] = $this->request->query['query'] . '%';
 		}
-		$tags = $this->Tag->find(
-			'list', array(
-				'fields' => array('name', 'name'),
-				'conditions' => $conditions,
-				'limit' => 8
-			)
-		);
+		$fields = array('name', 'name');
+		$limit = 8;
+		$tags = $this->Tag->find('list', compact('fields', 'conditions', 'limit'));
 		$tags = array_keys($tags);
 		$this->set(compact('tags'));
 		$this->set('_serialize', 'tags');

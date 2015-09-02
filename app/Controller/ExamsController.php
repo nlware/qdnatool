@@ -59,18 +59,15 @@ class ExamsController extends AppController {
 		if (!$this->Exam->exists()) {
 			throw new NotFoundException(__('Invalid exam'));
 		}
-		$exam = $this->Exam->find(
-			'first', array(
-				'conditions' => array(
-					'Exam.id' => $id,
-					'Exam.user_id' => $this->Auth->user('id')
-				),
-				'contain' => array(
-					'Item' => 'AnswerOption',
-					'User'
-				)
-			)
+		$conditions = array(
+			'Exam.id' => $id,
+			'Exam.user_id' => $this->Auth->user('id')
 		);
+		$contain = array(
+			'Item' => 'AnswerOption',
+			'User'
+		);
+		$exam = $this->Exam->find('first', compact('conditions', 'contain'));
 		$this->set(compact('exam'));
 	}
 
@@ -153,7 +150,8 @@ class ExamsController extends AppController {
 		if (!$this->Exam->exists()) {
 			throw new NotFoundException(__('Invalid exam'));
 		}
-		$exam = $this->Exam->find('first', array('conditions' => array('Exam.id' => $id)));
+		$conditions = array('Exam.id' => $id);
+		$exam = $this->Exam->find('first', compact('conditions'));
 		if (empty($exam['Exam']['report_generated']) || !file_exists(Exam::REPORT_DIRECTORY . $exam['Exam']['id'] . '.pdf')) {
 			throw new NotFoundException(__('Invalid exam'));
 		}
@@ -196,14 +194,9 @@ class ExamsController extends AppController {
 			}
 		}
 
-		$items = $this->Exam->Item->find(
-			'all', array(
-				'conditions' => array(
-					'Item.exam_id' => $this->request->data('Exam.parent_id')
-				),
-				'contain' => 'AnswerOption'
-			)
-		);
+		$conditions = array('Item.exam_id' => $this->request->data('Exam.parent_id'));
+		$contain = array('AnswerOption');
+		$items = $this->Exam->Item->find('all', compact('conditions', 'contain'));
 		$this->set(compact('items'));
 	}
 
@@ -237,7 +230,8 @@ class ExamsController extends AppController {
 			throw new NotFoundException(__('Invalid exam'));
 		}
 		$missings = $this->Exam->missings($id);
-		$exam = $this->Exam->find('first', array('conditions' => array('Exam.id' => $id)));
+		$conditions = array('Exam.id' => $id);
+		$exam = $this->Exam->find('first', compact('conditions'));
 		$this->set(compact('missings', 'exam'));
 	}
 

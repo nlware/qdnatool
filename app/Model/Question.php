@@ -259,17 +259,9 @@ class Question extends AppModel {
  * @return array List of tag ids
  */
 	private function __getTagsIds($id) {
-		return $this->QuestionsTag->find(
-			'list', array(
-				'fields' => array(
-					'tag_id',
-					'tag_id'
-				),
-				'conditions' => array(
-					'QuestionsTag.question_id' => $this->data['Question']['id']
-				)
-			)
-		);
+		$fields = array('tag_id', 'tag_id');
+		$conditions = array('QuestionsTag.question_id' => $this->data['Question']['id']);
+		return $this->QuestionsTag->find('list', compact('fields', 'conditions'));
 	}
 
 /**
@@ -498,22 +490,18 @@ class Question extends AppModel {
  * @return Question data
  */
 	public function view($id) {
-		$options = array(
-			'conditions' => array(
-				'Question.id' => $id
-			),
-			'contain' => array(
-				'QuestionAnswer',
-				'QuestionFormat',
-				'DevelopmentPhase',
-				'User',
-				'QuestionsTag' => 'Tag'
-			)
+		$conditions = array('Question.id' => $id);
+		$contain = array(
+			'QuestionAnswer',
+			'QuestionFormat',
+			'DevelopmentPhase',
+			'User',
+			'QuestionsTag' => 'Tag'
 		);
 		if (AuthComponent::user('role_id') != Role::ADMIN) {
-			$options['conditions'][] = array('Question.user_id' => AuthComponent::user('id'));
+			$conditions[] = array('Question.user_id' => AuthComponent::user('id'));
 		}
-		return $this->find('first', $options);
+		return $this->find('first', compact('conditions', 'contain'));
 	}
 
 /**
@@ -534,19 +522,15 @@ class Question extends AppModel {
  * @return array
  */
 	public function edit($id) {
-		$options = array(
-			'conditions' => array(
-				'Question.id' => $id
-			),
-			'contain' => array(
-				'QuestionAnswer',
-				'QuestionsTag' => 'Tag'
-			)
+		$conditions = array('Question.id' => $id);
+		$contain = array(
+			'QuestionAnswer',
+			'QuestionsTag' => 'Tag'
 		);
 		if (AuthComponent::user('role_id') != Role::ADMIN) {
-			$options['conditions'][] = array('Question.user_id' => AuthComponent::user('id'));
+			$conditions[] = array('Question.user_id' => AuthComponent::user('id'));
 		}
-		$question = $this->find('first', $options);
+		$question = $this->find('first', compact('conditions', 'contain'));
 		if (!empty($question['QuestionsTag'])) {
 			foreach ($question['QuestionsTag'] as $i => $questionsTag) {
 				$question['QuestionsTag'][$i]['destroy'] = 0;
@@ -614,11 +598,11 @@ class Question extends AppModel {
  * @return array
  */
 	public function getList() {
-		$options = array();
+		$conditions = array();
 		if (AuthComponent::user('role_id') != Role::ADMIN) {
-			$options['conditions'] = array('Question.id' => $this->getMineIds());
+			$conditions = array('Question.id' => $this->getMineIds());
 		}
-		return $this->find('list', $options);
+		return $this->find('list', compact('conditions'));
 	}
 
 /**
@@ -627,13 +611,8 @@ class Question extends AppModel {
  * @return array
  */
 	public function getMineIds() {
-		$questions = $this->find(
-			'all', array(
-				'conditions' => array(
-					'Question.user_id' => AuthComponent::user('id')
-				)
-			)
-		);
+		$conditions = array('Question.user_id' => AuthComponent::user('id'));
+		$questions = $this->find('all', compact('conditions'));
 		return Set::extract('/Question/id', $questions);
 	}
 
@@ -1345,13 +1324,8 @@ class Question extends AppModel {
 				$prefix = Router::url(array('controller' => 'images', 'action' => 'get')) . DS;
 				if (strpos($imageSource, $prefix) === 0) {
 					$imageId = substr($imageSource, strlen($prefix));
-					$image = $this->Image->find(
-						'first', array(
-							'conditions' => array(
-								'Image.id' => $imageId
-							)
-						)
-					);
+					$conditions = array('Image.id' => $imageId);
+					$image = $this->Image->find('first', compact('conditions'));
 					if (!empty($image)) {
 						$matimage = $dom->createElement("matimage");
 						$material->appendChild($matimage);

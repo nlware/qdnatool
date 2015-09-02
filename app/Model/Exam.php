@@ -255,19 +255,17 @@ class Exam extends AppModel {
  */
 	public function remove($id) {
 		$result = false;
-		$exam = $this->find(
-			'first', array(
-				'conditions' => array(
-					'Exam.id' => $id,
-					'Exam.user_id' => AuthComponent::user('id')
-				),
-				'contain' => array(
-					'Child' => array(
-						'conditions' => array('Child.deleted' => null)
-					)
-				)
+
+		$conditions = array(
+			'Exam.id' => $id,
+			'Exam.user_id' => AuthComponent::user('id')
+		);
+		$contain = array(
+			'Child' => array(
+				'conditions' => array('Child.deleted' => null)
 			)
 		);
+		$exam = $this->find('first', compact('conditions', 'contain'));
 		if (!empty($exam) && empty($exam['Child'])) {
 			$result = $this->saveField('deleted', date('Y-m-d H:i:s'));
 		}
@@ -329,7 +327,8 @@ class Exam extends AppModel {
  * @return bool
  */
 	public function analyse($id) {
-		$exam = $this->find('first', array('conditions' => array('Exam.id' => $id)));
+		$conditions = array('Exam.id' => $id);
+		$exam = $this->find('first', compact('conditions'));
 		if (!empty($exam)) {
 			return $this->__analyse($exam);
 		}
@@ -343,32 +342,18 @@ class Exam extends AppModel {
  * @return bool
  */
 	private function __analyse($exam) {
-		$result = true;
-
 		$this->id = $exam['Exam']['id'];
 		$this->saveField('exam_state_id', ExamState::ANALYSING);
 
-		$exam = $this->find(
-			'first', array(
-				'conditions' => array(
-					'Exam.id' => $exam['Exam']['id']
-				),
-				'contain' => array(
-					'Item' => 'AnswerOption',
-					'Subject' => 'GivenAnswer'
-				)
-			)
+		$conditions = array('Exam.id' => $exam['Exam']['id']);
+		$contain = array(
+			'Item' => 'AnswerOption',
+			'Subject' => 'GivenAnswer'
 		);
-		$maxAnswerOptionCount = $this->Item->find(
-			'first', array(
-				'fields' => array(
-					'MAX(Item.answer_option_count) as answer_option_count'
-				),
-				'conditions' => array(
-					'Item.exam_id' => $exam['Exam']['id']
-				)
-			)
-		);
+		$exam = $this->find('first', compact('conditions', 'contain'));
+		$fields = array('MAX(Item.answer_option_count) as answer_option_count');
+		$conditions = array('Item.exam_id' => $exam['Exam']['id']);
+		$maxAnswerOptionCount = $this->Item->find('first', compact('fields', 'conditions'));
 		$maxAnswerOptionCount = $maxAnswerOptionCount[0]['answer_option_count'];
 
 		$questionCount = count($exam['Item']);
@@ -387,24 +372,35 @@ class Exam extends AppModel {
 			}
 		}
 
-		$script = '
-		source("' . APP . 'Lib' . DS . 'Rscripts' . DS . 'analyse.R");
-		nvragen=' . $questionCount . ';
-		ndeel=' . $studentCount . ';
+		$script = array();
+		$script[] = file_get_contents(APP . 'Lib' . DS . 'Rscripts' . DS . 'analyse.R');
+		$script[] = sprintf('nvragen = %d;', $questionCount);
+		$script[] = sprintf('ndeel = %d;', $studentCount);
 
-		number_answeroptions= rep(NA,' . $questionCount . ');';
-
-		$script .= 'key=matrix(0,' . $maxAnswerOptionCount . ',' . count($exam['Item']) . ');';
+		$keyMatrix = array();
 		foreach ($exam['Item'] as $i => $item) {
 			foreach ($item['AnswerOption'] as $j => $answerOption) {
 				if ($answerOption['is_correct']) {
-					$script .= 'key[' . ($j + 1) . ',' . ($i + 1) . ']=1;';
+					$keyMatrix[] = 1;
+				} else {
+					$keyMatrix[] = 0;
 				}
 			}
 		}
 
-		$script .= 'input_answers=matrix(,ndeel,nvragen);';
+		// Create the key matrix (with given dimensions) by filling it with a vector (by column)
 
+		// > matrix(1:4, 2, 2, byrow = FALSE)
+		//      [,1] [,2]
+		// [1,]    1    3
+		// [2,]    2    4
+
+		$script[] = sprintf(
+			'key = matrix(c(%s), %d, %d, byrow = FALSE);',
+			implode(',', $keyMatrix), $maxAnswerOptionCount, count($exam['Item'])
+		);
+
+		$inputAnswersMaxtrix = array();
 		foreach ($givenAnswers as $i => $givenAnswersByStudent) {
 			foreach ($givenAnswersByStudent as $j => $givenAnswer) {
 				if (empty($givenAnswer)) {
@@ -414,15 +410,31 @@ class Exam extends AppModel {
 			}
 		}
 
+		// Create the input_answers matrix (with given dimensions) by filling it with a vector (by row)
+
+		// > matrix(1:4, 2, 2, byrow = TRUE)
+		//      [,1] [,2]
+		// [1,]    1    2
+		// [2,]    3    4
+
+		$script[] = sprintf(
+			'input_answers = matrix(c(%s), ndeel, nvragen, byrow = TRUE);',
+			implode(',', $inputAnswersMaxtrix)
+		);
+
+		$numberAnsweroptionsVector = array();
 		foreach ($answerOptionCount as $i => $count) {
 			if (empty($count)) {
 				$count = 0;
 			}
-			$script .= 'number_answeroptions[' . ($i + 1) . '] = ' . $count . ';';
+			$numberAnsweroptionsVector[] = $count;
 		}
 
-		$script .= 'Analyse(key, input_answers, number_answeroptions);';
-		$script = str_replace("\r\n", "", $script);
+		$script[] = sprintf('number_answeroptions = c(%s);', implode(',', $numberAnsweroptionsVector));
+
+		$script[] = 'Analyse(key, input_answers, number_answeroptions);';
+
+		$script = implode("\n", $script);
 
 		$result = Rserve::execute($script);
 
@@ -508,7 +520,8 @@ class Exam extends AppModel {
  * @return bool
  */
 	public function report($id) {
-		$exam = $this->find('first', array('conditions' => array('Exam.id' => $id)));
+		$conditions = array('Exam.id' => $id);
+		$exam = $this->find('first', compact('conditions'));
 		if (!empty($exam)) {
 			return $this->__report($exam);
 		}
@@ -527,17 +540,12 @@ class Exam extends AppModel {
 		$this->id = $exam['Exam']['id'];
 		$this->saveField('exam_state_id', ExamState::GENERATING_REPORT);
 
-		$exam = $this->find(
-			'first', array(
-				'conditions' => array(
-					'Exam.id' => $exam['Exam']['id']
-				),
-				'contain' => array(
-					'Item' => 'AnswerOption',
-					'Subject' => 'GivenAnswer'
-				)
-			)
+		$conditions = array('Exam.id' => $exam['Exam']['id']);
+		$contain = array(
+			'Item' => 'AnswerOption',
+			'Subject' => 'GivenAnswer'
 		);
+		$exam = $this->find('first', compact('conditions', 'contain'));
 
 		// create temp file
 		umask(0);
@@ -549,54 +557,111 @@ class Exam extends AppModel {
 			$correctAnswerPercentage = Set::extract('/Item/correct_answer_percentage', $exam);
 			$correctAnswerIRC = Set::extract('/Item/correct_answer_irc', $exam);
 
-			$script = 'source("' . APP . 'Lib' . DS . 'Rscripts' . DS . 'report.R");
+			$script = array();
+			$script[] = file_get_contents(APP . 'Lib' . DS . 'Rscripts' . DS . 'report.R');
+			$script[] = sprintf('number_students = %d;', count($exam['Subject']));
+			$script[] = sprintf('number_answeroptions = c(%s);', implode(',', $answerOptionCount));
+			$script[] = sprintf('max_number_answeroptions = %s;', $exam['Exam']['max_answer_option_count']);
+			$script[] = sprintf('number_questions = %d;', count($exam['Item']));
+			$script[] = sprintf('Cronbach = %s;', $exam['Exam']['cronbachs_alpha']);
+			$script[] = sprintf('correct_frequency = c(%s);', implode(',', $correctAnswerCount));
+			$script[] = sprintf('correct_percentage = c(%s);', implode(',', $correctAnswerPercentage));
+			$script[] = sprintf('corrected_item_tot_cor = c(%s);', implode(',', $correctAnswerIRC));
 
-			number_students=' . count($exam['Subject']) . ';
-			number_answeroptions=c(' . implode(',', $answerOptionCount) . ');
-			max_number_answeroptions=' . $exam['Exam']['max_answer_option_count'] . ';
-			number_questions=' . count($exam['Item']) . ';
-			Cronbach=' . $exam['Exam']['cronbachs_alpha'] . ';
-			correct_frequency=c(' . implode(',', $correctAnswerCount) . ');
-			correct_percentage=c(' . implode(',', $correctAnswerPercentage) . ');
-			corrected_item_tot_cor=c(' . implode(',', $correctAnswerIRC) . ');
-			';
-
-			$script .= 'frequency_answer_options=matrix(,max_number_answeroptions+1,number_questions);';
-			$script .= 'percentage_answer_options=matrix(,max_number_answeroptions+1,number_questions);';
-			$script .= 'corrected_item_tot_cor_answ_option=matrix(,max_number_answeroptions+1,number_questions);';
-			$script .= 'item_names= rep(NA,' . count($exam['Item']) . ');';
+			$frequencyAnswerOptionsMatrix = array();
+			$percentageAnswerOptionsMatrix = array();
+			$correctedItemTotCorAnswOptionMatrix = array();
+			$itemNamesVector = array();
 
 			foreach ($exam['Item'] as $i => $item) {
-				$script .= 'frequency_answer_options[1,' . ($i + 1) . '] = ' . $item['missing_answer_count'] . ';';
-				$script .= 'percentage_answer_options[1,' . ($i + 1) . '] = ' . $item['missing_answer_percentage'] . ';';
-				$script .= 'corrected_item_tot_cor_answ_option[1,' . ($i + 1) . '] = 0;';
-				$script .= 'item_names[' . ($i + 1) . '] = ' . $item['order'] . ';';
+				$frequencyAnswerOptionsMatrix[] = $item['missing_answer_count'];
+				$percentageAnswerOptionsMatrix[] = $item['missing_answer_percentage'];
+				$correctedItemTotCorAnswOptionMatrix[] = 0;
+				$itemNamesVector[] = $item['order'];
 
 				foreach ($item['AnswerOption'] as $j => $answerOption) {
-					$script .= 'frequency_answer_options[' . ($j + 2) . ',' . ($i + 1) . '] = ' . $answerOption['given_answer_count'] . ';';
-					$script .= 'percentage_answer_options[' . ($j + 2) . ',' . ($i + 1) . '] = ' . $answerOption['given_answer_percentage'] . ';';
-					$script .= 'corrected_item_tot_cor_answ_option[' . ($j + 2) . ',' . ($i + 1) . '] = ' . (empty($answerOption['given_answer_irc'])?'0':$answerOption['given_answer_irc']) . ';';
-				}
-			}
-
-			$script .= 'input_correct=matrix(0,number_students,number_questions);';
-			foreach ($exam['Subject'] as $i => $subject) {
-				foreach ($subject['GivenAnswer'] as $j => $givenAnswer) {
-					$script .= 'input_correct[' . ($i + 1) . ',' . ($j + 1) . '] = ' . (empty($givenAnswer['score'])?'0':$givenAnswer['score']) . ';';
-				}
-			}
-
-			$script .= 'key=matrix(0,max_number_answeroptions,number_questions);';
-			foreach ($exam['Item'] as $i => $item) {
-				foreach ($item['AnswerOption'] as $j => $answerOption) {
-					if ($answerOption['is_correct']) {
-						$script .= 'key[' . ($j + 1) . ',' . ($i + 1) . ']=1;';
+					$frequencyAnswerOptionsMatrix[] = $answerOption['given_answer_count'];
+					$percentageAnswerOptionsMatrix[] = $answerOption['given_answer_percentage'];
+					if (empty($answerOption['given_answer_irc'])) {
+						$correctedItemTotCorAnswOptionMatrix[] = '0';
+					} else {
+						$correctedItemTotCorAnswOptionMatrix[] = $answerOption['given_answer_irc'];
 					}
 				}
 			}
 
-			$script .= 'GenerateReport("' . $tempFile . '",number_students,number_answeroptions,number_questions,Cronbach,frequency_answer_options,percentage_answer_options,input_correct,key,correct_frequency,correct_percentage, corrected_item_tot_cor,corrected_item_tot_cor_answ_option,"' . $exam['Exam']['name'] . '",item_names);';
-			$script = str_replace("\r\n", "", $script);
+			// Create the frequency_answer_options matrix (with given dimensions)
+			// by filling it with a vector (by column)
+			$script[] = sprintf(
+				'frequency_answer_options = matrix(' .
+				'c(%s), max_number_answeroptions + 1, number_questions, byrow = FALSE' .
+				');',
+				implode(',', $frequencyAnswerOptionsMatrix)
+			);
+			// Create the percentage_answer_options matrix (with given dimensions)
+			// by filling it with a vector (by column)
+			$script[] = sprintf(
+				'percentage_answer_options = matrix(' .
+				'c(%s), max_number_answeroptions + 1, number_questions, byrow = FALSE' .
+				');',
+				implode(',', $percentageAnswerOptionsMatrix)
+			);
+			// Create the corrected_item_tot_cor_answ_option matrix (with given dimensions)
+			// by filling it with a vector (by column)
+			$script[] = sprintf(
+				'corrected_item_tot_cor_answ_option = matrix(' .
+				'c(%s), max_number_answeroptions + 1, number_questions, byrow = FALSE' .
+				');',
+				implode(',', $correctedItemTotCorAnswOptionMatrix)
+			);
+			$script[] = sprintf('item_names = c(%s);', implode(',', $itemNamesVector));
+
+			$inputCorrectMatrix = array();
+
+			foreach ($exam['Subject'] as $i => $subject) {
+				foreach ($subject['GivenAnswer'] as $j => $givenAnswer) {
+					if (empty($givenAnswer['score'])) {
+						$inputCorrectMatrix[] = '0';
+					} else {
+						$inputCorrectMatrix[] = $givenAnswer['score'];
+					}
+				}
+			}
+
+			// Create the input_correct matrix (with given dimensions) by filling it with a vector (by row)
+			$script[] = sprintf(
+				'input_correct = matrix(c(%s), number_students, number_questions, byrow = TRUE);',
+				implode(',', $inputCorrectMatrix)
+			);
+
+			$keyMatrix = array();
+
+			foreach ($exam['Item'] as $i => $item) {
+				foreach ($item['AnswerOption'] as $j => $answerOption) {
+					if ($answerOption['is_correct']) {
+						$keyMatrix[] = 1;
+					} else {
+						$keyMatrix[] = 0;
+					}
+				}
+			}
+
+			// Create the key matrix (with given dimensions) by filling it with a vector (by column)
+			$script[] = sprintf(
+				'key = matrix(c(%s), max_number_answeroptions, number_questions, byrow = FALSE);',
+				implode(',', $keyMatrix)
+			);
+
+			$script[] = sprintf(
+				'GenerateReport(' .
+				'"%s", number_students, number_answeroptions, number_questions, Cronbach, frequency_answer_options, ' .
+				'percentage_answer_options, input_correct, key, correct_frequency, correct_percentage, ' .
+				'corrected_item_tot_cor, corrected_item_tot_cor_answ_option, "%s", item_names' .
+				');',
+				$tempFile, $exam['Exam']['name']
+			);
+
+			$script = implode("\n", $script);
 
 			$result = Rserve::execute($script);
 
@@ -635,7 +700,8 @@ class Exam extends AppModel {
  */
 	public function import($id) {
 		$success = false;
-		$exam = $this->find('first', array('conditions' => array('Exam.id' => $id)));
+		$conditions = array('Exam.id' => $id);
+		$exam = $this->find('first', compact('conditions'));
 		if (!empty($exam['Exam']['exam_format_id'])) {
 			switch ($exam['Exam']['exam_format_id']) {
 				case ExamFormat::BLACKBOARD:
@@ -729,16 +795,9 @@ class Exam extends AppModel {
 
 					$this->id = $exam['Exam']['id'];
 					if ($result &= $this->Item->saveAll($data, array('deep' => true))) {
-						$exam = $this->find(
-							'first', array(
-								'conditions' => array(
-									'Exam.id' => $exam['Exam']['id']
-								),
-								'contain' => array(
-									'Item' => 'AnswerOption'
-								)
-							)
-						);
+						$conditions = array('Exam.id' => $exam['Exam']['id']);
+						$contain = array('Item' => 'AnswerOption');
+						$exam = $this->find('first', compact('conditions', 'contain'));
 					} else {
 						break;
 					}
@@ -773,22 +832,14 @@ class Exam extends AppModel {
 										$itemIds = Set::extract('/Item[value=' . $questionId . ']/id', $exam);
 										if (!empty($itemIds[0])) {
 											$value = null;
-											$givenAnswer = $this->Item->GivenAnswer->find(
-												'first', array(
-													'conditions' => array(
-														'GivenAnswer.item_id' => $itemIds[0],
-														'GivenAnswer.content' => $values[$j + 1]
-													)
-												)
+											$conditions = array(
+												'GivenAnswer.item_id' => $itemIds[0],
+												'GivenAnswer.content' => $values[$j + 1]
 											);
+											$givenAnswer = $this->Item->GivenAnswer->find('first', compact('conditions'));
 											if (empty($givenAnswer)) {
-												$answerOptionCount = $this->Item->GivenAnswer->find(
-													'count', array(
-														'conditions' => array(
-															'GivenAnswer.item_id' => $itemIds[0]
-														)
-													)
-												);
+												$conditions = array('GivenAnswer.item_id' => $itemIds[0]);
+												$answerOptionCount = $this->Item->GivenAnswer->find('count', compact('conditions'));
 												$value = $answerOptionCount + 1;
 											} else {
 												$value = $givenAnswer['GivenAnswer']['value'];
@@ -1143,16 +1194,9 @@ class Exam extends AppModel {
 
 					$this->id = $exam['Exam']['id'];
 					if ($result &= $this->Item->saveAll($data, array('deep' => true))) {
-						$exam = $this->find(
-							'first', array(
-								'conditions' => array(
-									'Exam.id' => $exam['Exam']['id']
-								),
-								'contain' => array(
-									'Item' => 'AnswerOption'
-								)
-							)
-						);
+						$conditions = array('Exam.id' => $exam['Exam']['id']);
+						$contain = array('Item' => 'AnswerOption');
+						$exam = $this->find('first', compact('conditions', 'contain'));
 					} else {
 						break;
 					}
@@ -1248,17 +1292,12 @@ class Exam extends AppModel {
  * @return array
  */
 	public function stevie($id, $offset) {
-		$exam = $this->find(
-			'first', array(
-				'conditions' => array(
-					'Exam.id' => $id,
-					'Exam.user_id' => AuthComponent::user('id')
-				),
-				'contain' => array(
-					'Item' => 'AnswerOption'
-				)
-			)
+		$conditions = array(
+			'Exam.id' => $id,
+			'Exam.user_id' => AuthComponent::user('id')
 		);
+		$contain = array('Item' => 'AnswerOption');
+		$exam = $this->find('first', compact('conditions', 'contain'));
 
 		if (!empty($exam['Item'])) {
 			foreach ($exam['Item'] as $i => $item) {
@@ -1280,6 +1319,7 @@ class Exam extends AppModel {
  */
 	public function scheduleReanalyse($data) {
 		$result = true;
+		$this->validator()->remove('exam_format_id');
 		$this->validator()->remove('data_file');
 		$this->validator()->remove('answer_option_count');
 		$this->validator()->remove('exam_format_id');
@@ -1288,14 +1328,11 @@ class Exam extends AppModel {
 		}
 
 		if ($result) {
-			$exam = $this->find(
-				'first', array(
-					'conditions' => array(
-						'Exam.id' => $data['Exam']['parent_id'],
-						'Exam.user_id' => AuthComponent::user('id')
-					)
-				)
+			$conditions = array(
+				'Exam.id' => $data['Exam']['parent_id'],
+				'Exam.user_id' => AuthComponent::user('id')
 			);
+			$exam = $this->find('first', compact('conditions'));
 			if (empty($exam)) {
 				$result = false;
 			}
@@ -1332,23 +1369,19 @@ class Exam extends AppModel {
  */
 	protected function _duplicate($postData) {
 		$examId = false;
-		$parentExam = $this->find(
-			'first', array(
+
+		$conditions = array('Exam.id' => $postData['Exam']['parent_id']);
+		$contain = array(
+			'Item' => array(
 				'conditions' => array(
-					'Exam.id' => $postData['Exam']['parent_id']
+					'Item.id' => Set::extract('/Item[include=1]/id', $postData)
 				),
-				'contain' => array(
-					'Item' => array(
-						'conditions' => array(
-							'Item.id' => Set::extract('/Item[include=1]/id', $postData)
-						),
-						'AnswerOption',
-						'GivenAnswer' => 'Subject'
-					),
-					'Subject'
-				)
-			)
+				'AnswerOption',
+				'GivenAnswer' => 'Subject'
+			),
+			'Subject'
 		);
+		$parentExam = $this->find('first', compact('conditions', 'contain'));
 		if (!empty($parentExam)) {
 			$data = array(
 				'Exam' => array(
@@ -1400,29 +1433,19 @@ class Exam extends AppModel {
 				$examId = $this->id;
 			}
 			if ($examId) {
-				$childExam = $this->find(
-					'first', array(
-						'conditions' => array(
-							'Exam.id' => $examId
-						),
-						'contain' => array(
-							'Item' => 'AnswerOption'
-						)
-					)
-				);
+				$conditions = array('Exam.id' => $examId);
+				$contain = array('Item' => 'AnswerOption');
+				$childExam = $this->find('first', compact('conditions', 'contain'));
 				if (!empty($parentExam['Item'])) {
 					$data = array();
 					foreach ($parentExam['Item'] as $i => $item) {
 						if (!empty($item['GivenAnswer'])) {
 							foreach ($item['GivenAnswer'] as $givenAnswer) {
-								$subject = $this->Subject->find(
-									'first', array(
-										'conditions' => array(
-											'Subject.exam_id' => $examId,
-											'Subject.value' => $givenAnswer['Subject']['value']
-										)
-									)
+								$conditions = array(
+									'Subject.exam_id' => $examId,
+									'Subject.value' => $givenAnswer['Subject']['value']
 								);
+								$subject = $this->Subject->find('first', compact('conditions'));
 								$score = 0;
 								if ($givenAnswer['value'] !== null) {
 									$score = $childExam['Item'][$i]['AnswerOption'][($givenAnswer['value'] - 1)]['is_correct'];
@@ -1453,32 +1476,22 @@ class Exam extends AppModel {
  */
 	public function scores($id) {
 		$scoring = false;
-		$exam = $this->find(
-			'first', array(
-				'conditions' => array(
-					'Exam.id' => $id,
-					'Exam.user_id' => AuthComponent::user('id')
-				),
-				'contain' => array(
-					'Item'
-				)
-			)
+		$conditions = array(
+			'Exam.id' => $id,
+			'Exam.user_id' => AuthComponent::user('id')
 		);
+		$contain = array('Item');
+		$exam = $this->find('first', compact('conditions', 'contain'));
 		if (!empty($exam)) {
-			$scoring = $this->Item->GivenAnswer->find(
-				'all', array(
-					'conditions' => array(
-						'GivenAnswer.item_id' => Set::extract('/Item/id', $exam)
-					),
-					'contain' => 'Subject',
-					'fields' => array(
-						'GivenAnswer.subject_id',
-						'SUM(GivenAnswer.score) as score_total',
-						'Subject.value'
-					),
-					'group' => 'GivenAnswer.subject_id',
-				)
+			$fields = array(
+				'GivenAnswer.subject_id',
+				'SUM(GivenAnswer.score) as score_total',
+				'Subject.value'
 			);
+			$conditions = array('GivenAnswer.item_id' => Set::extract('/Item/id', $exam));
+			$contain = array('Subject');
+			$group = array('GivenAnswer.subject_id');
+			$scoring = $this->Item->GivenAnswer->find('all', compact('fields', 'conditions', 'contain', 'group'));
 		}
 
 		return $scoring;
@@ -1492,30 +1505,19 @@ class Exam extends AppModel {
  */
 	public function missings($id) {
 		$missings = false;
-		$exam = $this->find(
-			'first', array(
-				'conditions' => array(
-					'Exam.id' => $id,
-					'Exam.user_id' => AuthComponent::user('id')
-				),
-				'contain' => array(
-					'Item'
-				)
-			)
+		$conditions = array(
+			'Exam.id' => $id,
+			'Exam.user_id' => AuthComponent::user('id')
 		);
+		$contain = array('Item');
+		$exam = $this->find('first', compact('conditions', 'contain'));
 		if (!empty($exam)) {
-			$missings = $this->Item->GivenAnswer->find(
-				'all', array(
-					'conditions' => array(
-						'GivenAnswer.item_id' => Set::extract('/Item/id', $exam),
-						'GivenAnswer.value' => null
-					),
-					'contain' => array(
-						'Item',
-						'Subject'
-					)
-				)
+			$conditions = array(
+				'GivenAnswer.item_id' => Set::extract('/Item/id', $exam),
+				'GivenAnswer.value' => null
 			);
+			$contain = array('Item', 'Subject');
+			$missings = $this->Item->GivenAnswer->find('all', compact('conditions', 'contain'));
 
 		}
 		return $missings;

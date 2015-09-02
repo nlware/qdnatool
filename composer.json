@@ -1,5 +1,6 @@
 {
 	"minimum-stability": "dev",
+	"prefer-stable" : true,
 	"config" : {
 		"vendor-dir" : "app/Vendor/"
 	},
