@@ -38,15 +38,15 @@ class Exam extends AppModel {
  */
 	public $validate = array(
 		'name' => array(
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
+			'notBlank' => array(
+				'rule' => 'notBlank',
 				'message' => 'This field cannot be left blank',
 				'required' => 'create'
 			),
 		),
 		'exam_format_id' => array(
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
+			'notBlank' => array(
+				'rule' => 'notBlank',
 				'message' => 'This field cannot be left blank',
 				'required' => 'create',
 				'last' => true
@@ -108,8 +108,8 @@ class Exam extends AppModel {
 			)
 		),
 		'user_id' => array(
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
+			'notBlank' => array(
+				'rule' => 'notBlank',
 				'message' => 'This field cannot be left blank',
 				'required' => 'create'
 			),

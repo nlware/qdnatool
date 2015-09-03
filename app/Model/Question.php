@@ -38,36 +38,36 @@ class Question extends AppModel {
  */
 	public $validate = array(
 		'code' => array(
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
+			'notBlank' => array(
+				'rule' => 'notBlank',
 				'required' => 'create',
 				'message' => 'This field cannot be left blank'
 			)
 		),
 		'name' => array(
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
+			'notBlank' => array(
+				'rule' => 'notBlank',
 				'required' => 'create',
 				'message' => 'This field cannot be left blank'
 			)
 		),
 		'question_format_id' => array(
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
+			'notBlank' => array(
+				'rule' => 'notBlank',
 				'required' => 'create',
 				'message' => 'This field cannot be left blank'
 			)
 		),
 		'development_phase_id' => array(
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
+			'notBlank' => array(
+				'rule' => 'notBlank',
 				'required' => 'create',
 				'message' => 'This field cannot be left blank'
 			)
 		),
 		'stimulus' => array(
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
+			'notBlank' => array(
+				'rule' => 'notBlank',
 				'required' => 'create',
 				'message' => 'This field cannot be left blank'
 			)
