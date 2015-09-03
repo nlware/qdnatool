@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="span9">
 		<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $question['Question']['id']), array('class' => 'btn btn-primary pull-right')); ?>
-		<?php echo $this->Html->link('<i class="icon-chevron-left"></i>', $referer, array('class' => 'btn pull-right', 'escape' => false, 'title' => __('Go back one page'))); ?>
+		<?php echo $this->Html->link('<i class="icon-chevron-left"></i>', $referer, array('class' => 'btn pull-right', 'escapeTitle' => false, 'title' => __('Go back one page'))); ?>
 		<h4><?php echo h($question['Question']['code']); ?></h4>
 		<div class="row">
 			<div class="span6">

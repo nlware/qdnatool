@@ -11,10 +11,10 @@ $analysisControllers = array('exams');
 		<p><?php echo __('This project was made possible by the support of SURF, the higher education and research partnership organisation for Information and Communications Technology (ICT). For more information about SURF, please visit %s.', $this->Html->link('www.surf.nl', 'http://www.surf.nl', array('target' => '_blank'))); ?></p>
 		<p>
 		<?php
-		echo $this->Html->link($this->Html->image('logo-vu.png', array('onmouseout' => 'this.src=\'' . $this->Html->url('/img/logo-vu.png') . '\';', 'onmouseover' => 'this.src=\'' . $this->Html->url('/img/logo-vu-cl.png') . '\';')), 'http://www.vu.nl', array('target' => '_blank', 'escape' => false));
-		echo $this->Html->link($this->Html->image('logo-uva.png'), 'http://www.uva.nl', array('target' => '_blank', 'escape' => false));
-		echo $this->Html->link($this->Html->image('logo-nlware.png', array('onmouseout' => 'this.src=\'' . $this->Html->url('/img/logo-nlware.png') . '\';', 'onmouseover' => 'this.src=\'' . $this->Html->url('/img/logo-nlware-cl.png') . '\';')), 'http://www.nlware.com', array('target' => '_blank', 'escape' => false));
-		echo $this->Html->link($this->Html->image('logo-surf.png'), 'http://www.surf.nl', array('target' => '_blank', 'escape' => false));
+		echo $this->Html->link($this->Html->image('logo-vu.png', array('onmouseout' => 'this.src=\'' . $this->Html->url('/img/logo-vu.png') . '\';', 'onmouseover' => 'this.src=\'' . $this->Html->url('/img/logo-vu-cl.png') . '\';')), 'http://www.vu.nl', array('target' => '_blank', 'escapeTitle' => false));
+		echo $this->Html->link($this->Html->image('logo-uva.png'), 'http://www.uva.nl', array('target' => '_blank', 'escapeTitle' => false));
+		echo $this->Html->link($this->Html->image('logo-nlware.png', array('onmouseout' => 'this.src=\'' . $this->Html->url('/img/logo-nlware.png') . '\';', 'onmouseover' => 'this.src=\'' . $this->Html->url('/img/logo-nlware-cl.png') . '\';')), 'http://www.nlware.com', array('target' => '_blank', 'escapeTitle' => false));
+		echo $this->Html->link($this->Html->image('logo-surf.png'), 'http://www.surf.nl', array('target' => '_blank', 'escapeTitle' => false));
 		?>
 		</p>
 		<p>
@@ -39,7 +39,7 @@ $analysisControllers = array('exams');
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo h(AuthComponent::user('username')); ?><b class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<li><?php echo $this->Html->link(__('Settings'), array('admin' => false, 'controller' => 'users', 'action' => 'account')); ?></li>
-						<li><?php echo $this->Html->link('<i class="icon-off"></i> ' . h(__('Sign Out')), array('admin' => false, 'controller' => 'users', 'action' => 'logout'), array('escape' => false)); ?></li>
+						<li><?php echo $this->Html->link('<i class="icon-off"></i> ' . h(__('Sign Out')), array('admin' => false, 'controller' => 'users', 'action' => 'logout'), array('escapeTitle' => false)); ?></li>
 					</ul>
 				</li>
 			</ul>

@@ -32,7 +32,7 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
 		</table>
 	</div>
 	<div class="span7">
-		<?php echo $this->Html->link('<i class="icon-plus icon-white"></i> ' . __('Add Question'), array('action' => 'add'), array('class' => 'btn btn-primary pull-right', 'escape' => false)); ?>
+		<?php echo $this->Html->link('<i class="icon-plus icon-white"></i> ' . __('Add Question'), array('action' => 'add'), array('class' => 'btn btn-primary pull-right', 'escapeTitle' => false)); ?>
 		<div class="btn-group pull-right">
 			<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><?php echo __('Export'); ?> <span class="caret"></span></a>
 			<ul class="dropdown-menu">

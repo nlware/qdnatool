@@ -1,6 +1,6 @@
 <?php $doAutoRefresh = false; ?>
 <div class="exams index">
-	<?php echo $this->Html->link('<i class="icon-plus icon-white"></i> ' . __('Add Exam'), array('action' => 'add'), array('class' => 'btn btn-primary pull-right', 'escape' => false)); ?>
+	<?php echo $this->Html->link('<i class="icon-plus icon-white"></i> ' . __('Add Exam'), array('action' => 'add'), array('class' => 'btn btn-primary pull-right', 'escapeTitle' => false)); ?>
 	<h4><?php echo __('Exams'); ?></h4>
 	<table class="table">
 		<thead>
@@ -23,7 +23,7 @@
 					echo $this->Html->link(
 						'<i class="icon-time"></i>',
 						'#', array(
-							'escape' => false,
+							'escapeTitle' => false,
 							'data-original-title' => $exam['ExamState']['name'],
 							'data-content' => __('The status will update automatically.'),
 							'data-placement' => 'top',
@@ -91,7 +91,7 @@
 						echo $this->Html->link(
 							'<i class="icon-time"></i>',
 							'#', array(
-								'escape' => false,
+								'escapeTitle' => false,
 								'data-original-title' => $child['name'],
 								'data-content' => __('The status will update automatically.'),
 								'data-placement' => 'top',
