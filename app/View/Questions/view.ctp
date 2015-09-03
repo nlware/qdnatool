@@ -81,7 +81,7 @@
 				if (!empty($question['QuestionsTag'])):
 					foreach ($question['QuestionsTag'] as $questionsTag):
 				?>
-				<span class="label label-info" title="<?php echo h($questionsTag['Tag']['name']); ?>"><?php echo h(String::truncate($questionsTag['Tag']['name'], 20, array('ellipsis' => '...'))); ?></span>
+				<span class="label label-info" title="<?php echo h($questionsTag['Tag']['name']); ?>"><?php echo h(CakeText::truncate($questionsTag['Tag']['name'], 20, array('ellipsis' => '...'))); ?></span>
 				<?php
 					endforeach;
 				endif;

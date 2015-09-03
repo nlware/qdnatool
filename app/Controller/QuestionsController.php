@@ -1,4 +1,5 @@
 <?php
+App::uses('CakeText', 'Utility');
 App::uses('DevelopmentPhase', 'Model');
 App::uses('QuestionAnswer', 'Model');
 App::uses('AppController', 'Controller');
@@ -217,7 +218,7 @@ class QuestionsController extends AppController {
 		$questions = $this->paginate();
 		$tags = $this->Question->Tag->getList();
 		foreach ($tags as $i => $tag) {
-			$tags[$i] = sprintf('<span class="label label-info" title="%s">%s</span>', $tag, String::truncate($tag, 20, array('ellipsis' => '...')));
+			$tags[$i] = sprintf('<span class="label label-info" title="%s">%s</span>', $tag, CakeText::truncate($tag, 20, array('ellipsis' => '...')));
 		}
 
 		$tip = $this->Tip->find(

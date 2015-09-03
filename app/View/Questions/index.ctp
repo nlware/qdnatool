@@ -72,7 +72,7 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
 						if (!empty($question['Tag'])):
 							foreach ($question['Tag'] as $tag):
 						?>
-						<span class="label label-info" title="<?php echo h($tag['name']); ?>"><?php echo h(String::truncate($tag['name'], 20, array('ellipsis' => '...'))); ?></span>
+						<span class="label label-info" title="<?php echo h($tag['name']); ?>"><?php echo h(CakeText::truncate($tag['name'], 20, array('ellipsis' => '...'))); ?></span>
 						<?php
 							endforeach;
 						endif;

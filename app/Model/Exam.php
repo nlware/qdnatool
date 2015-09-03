@@ -3,6 +3,7 @@ define('EXAM_UPLOAD_DIRECTORY', TMP . 'uploads' . DS);
 define('EXAM_REPORT_DIRECTORY', ROOT . DS . 'data' . DS . 'reports' . DS);
 App::uses('AuthComponent', 'Controller/Component');
 App::uses('Rserve', 'Lib');
+App::uses('CakeText', 'Utility');
 App::uses('ClassRegistry', 'Utility');
 App::uses('ExamFormat', 'Model');
 App::uses('ExamState', 'Model');
@@ -209,14 +210,14 @@ class Exam extends AppModel {
 		$this->set($data);
 		if ($this->validates()) {
 			if (!empty($data['Exam']['data_file']['tmp_name'])) {
-				$data['Exam']['data_filename'] = String::uuid();
+				$data['Exam']['data_filename'] = CakeText::uuid();
 
 				//TODO: check for copy failures
 				rename($data['Exam']['data_file']['tmp_name'], Exam::UPLOAD_DIRECTORY . $data['Exam']['data_filename']);
 				$data['Exam']['data_file']['tmp_name'] = Exam::UPLOAD_DIRECTORY . $data['Exam']['data_filename'];
 			}
 			if (!empty($data['Exam']['mapping_file']['tmp_name'])) {
-				$data['Exam']['mapping_filename'] = String::uuid();
+				$data['Exam']['mapping_filename'] = CakeText::uuid();
 
 				//TODO: check for copy failures
 				rename($data['Exam']['mapping_file']['tmp_name'], Exam::UPLOAD_DIRECTORY . $data['Exam']['mapping_filename']);
