@@ -85,10 +85,10 @@ class QuestionsController extends AppController {
 	public function add($tagId = null) {
 		if ($this->request->is('post')) {
 			if ($this->Question->add($this->request->data)) {
-				$this->setFlashSuccess(__('The question has been saved'));
+				$this->Flash->success(__('The question has been saved'));
 				return $this->redirect(array('action' => 'view', $this->Question->id));
 			} else {
-				$this->setFlashError(__('The question could not be saved. Please, try again.'));
+				$this->Flash->error(__('The question could not be saved. Please, try again.'));
 			}
 		} else {
 			if (!empty($tagId)) {
@@ -127,10 +127,10 @@ class QuestionsController extends AppController {
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Question->update($this->request->data)) {
-				$this->setFlashSuccess(__('The question has been saved'));
+				$this->Flash->success(__('The question has been saved'));
 				return $this->redirect(array('action' => 'view', $id));
 			} else {
-				$this->setFlashError(__('The question could not be saved. Please, try again.'));
+				$this->Flash->error(__('The question could not be saved. Please, try again.'));
 			}
 		} else {
 			$this->request->data = $this->Question->edit($id);
@@ -168,14 +168,14 @@ class QuestionsController extends AppController {
 			throw new NotFoundException(__('Invalid question'));
 		}
 		if ($this->Question->delete($id)) {
-			$this->setFlashSuccess(__('Question deleted'));
+			$this->Flash->success(__('Question deleted'));
 			$referer = $this->Session->read('_App.referer');
 			if (empty($referer)) {
 				$referer = array('action' => 'index');
 			}
 			return $this->redirect($referer);
 		}
-		$this->setFlashError(__('Question was not deleted'));
+		$this->Flash->error(__('Question was not deleted'));
 		$referer = $this->Session->read('_App.referer');
 		if (empty($referer)) {
 			$referer = array('action' => 'index');

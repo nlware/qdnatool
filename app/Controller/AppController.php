@@ -29,6 +29,7 @@ class AppController extends Controller {
 			'loginAction' => array('controller' => 'users', 'action' => 'login', 'admin' => false),
 			'loginRedirect' => array('controller' => 'users', 'action' => 'home', 'admin' => false)
 		),
+		'Flash',
 		'RequestHandler',
 		'Session',
 		'DebugKit.Toolbar'
@@ -87,34 +88,8 @@ class AppController extends Controller {
 		if ($type == 'secure' && !$this->RequestHandler->isSSL()) {
 			return $this->redirect('https://' . env('SERVER_NAME') . $this->here);
 		}
-		$this->setFlashError(__('Sorry, something went wrong. Please, try again.'));
+		$this->Flash->error(__('Sorry, something went wrong. Please, try again.'));
 		return $this->redirect('/');
-	}
-
-/**
- * Used to set a session variable that can be used to output success messages in the view.
- *
- * @param string $message Message to be flashed
- * @return void
- */
-	public function setFlashSuccess($message) {
-		$this->Session->setFlash($message, 'alert', array(
-			'plugin' => 'TwitterBootstrap',
-			'class' => 'alert-success'
-		));
-	}
-
-/**
- * Used to set a session variable that can be used to output error messages in the view.
- *
- * @param string $message Message to be flashed
- * @return void
- */
-	public function setFlashError($message) {
-		$this->Session->setFlash($message, 'alert', array(
-			'plugin' => 'TwitterBootstrap',
-			'class' => 'alert-error'
-		));
 	}
 
 }

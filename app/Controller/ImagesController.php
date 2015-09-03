@@ -162,10 +162,10 @@ class ImagesController extends AppController {
 			throw new NotFoundException(__('Invalid image'));
 		}
 		if ($this->Image->delete()) {
-			$this->setFlashSuccess(__('Image deleted'));
+			$this->Flash->success(__('Image deleted'));
 			return $this->redirect(array('action' => 'index'));
 		}
-		$this->setFlashError(__('Image was not deleted'));
+		$this->Flash->error(__('Image was not deleted'));
 		return $this->redirect(array('action' => 'index'));
 	}
 

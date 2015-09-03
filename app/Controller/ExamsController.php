@@ -19,7 +19,7 @@ class ExamsController extends AppController {
  * @see AppController::blackhole()
  */
 	public function blackhole($type) {
-		$this->setFlashError(__('Sorry, something went wrong. Please, try again.'));
+		$this->Flash->error(__('Sorry, something went wrong. Please, try again.'));
 		return $this->redirect(array('action' => 'index'));
 	}
 
@@ -79,10 +79,10 @@ class ExamsController extends AppController {
 	public function add() {
 		if ($this->request->is('post')) {
 			if ($this->Exam->add($this->request->data)) {
-				$this->setFlashSuccess(__('The exam has been saved'));
+				$this->Flash->success(__('The exam has been saved'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->setFlashError(__('The exam could not be saved. Please, try again.'));
+				$this->Flash->error(__('The exam could not be saved. Please, try again.'));
 			}
 		}
 		$examFormats = $this->Exam->ExamFormat->find('list');
@@ -106,10 +106,10 @@ class ExamsController extends AppController {
 			throw new NotFoundException(__('Invalid exam'));
 		}
 		if ($this->Exam->remove($id)) {
-			$this->setFlashSuccess(__('Exam deleted'));
+			$this->Flash->success(__('Exam deleted'));
 			return $this->redirect(array('action' => 'index'));
 		}
-		$this->setFlashError(__('Exam was not deleted'));
+		$this->Flash->error(__('Exam was not deleted'));
 		return $this->redirect(array('action' => 'index'));
 	}
 
@@ -187,10 +187,10 @@ class ExamsController extends AppController {
 			$this->request->data = array('Exam' => array('parent_id' => $id));
 		} else {
 			if ($id = $this->Exam->scheduleReanalyse($this->request->data)) {
-				$this->setFlashSuccess(__('The exam has been scheduled to reanalyse'));
+				$this->Flash->success(__('The exam has been scheduled to reanalyse'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->setFlashError(__('The exam could not be reanalysed. Please, try again.'));
+				$this->Flash->error(__('The exam could not be reanalysed. Please, try again.'));
 			}
 		}
 
