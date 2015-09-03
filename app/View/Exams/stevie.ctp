@@ -36,7 +36,7 @@ endif;
 				<ul class="dropdown-menu">
 				<?php endif; ?>
 					<li<?php echo (($offset == ($i + 1))?' class="active"':''); ?>>
-					<?php echo $this->Html->link(__('Item %s', ($i + 1)), array('action' => 'stevie', $exam['Exam']['id'], ($i+1))); ?>
+					<?php echo $this->Html->link(__('Item %s', ($i + 1)), array('action' => 'stevie', $exam['Exam']['id'], ($i + 1))); ?>
 					</li>
 			<?php
 						$itemsWithMessagesIndex++;
