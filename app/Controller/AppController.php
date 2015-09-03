@@ -13,6 +13,12 @@ App::uses('Controller', 'Controller');
  * Application Controller
  *
  * @package		app.Controller
+ * @property AuthComponent $Auth
+ * @property FlashComponent $Flash
+ * @property RequestHandler $RequestHandler
+ * @property SecurityComponent $Security
+ * @property SessionComponent $Session
+ * @property DebugKit.ToolbarComponent $Toolbar
  */
 class AppController extends Controller {
 
@@ -20,6 +26,7 @@ class AppController extends Controller {
  * An array of names of components to load
  *
  * @var array
+ * @see Controller::components
  */
 	public $components = array(
 		'Security',
@@ -39,6 +46,7 @@ class AppController extends Controller {
  * An array of names of helpers to load
  *
  * @var mixed A single name as a string or a list of names as an array.
+ * @see Controller::helpers
  */
 	public $helpers = array(
 		'Html' => array('className' => 'TwitterBootstrap.BootstrapHtml'),

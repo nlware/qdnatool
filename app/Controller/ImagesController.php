@@ -11,6 +11,7 @@ class ImagesController extends AppController {
  * beforeFilter
  *
  * @return void
+ * @see AppController::beforeFilter()
  */
 	public function beforeFilter() {
 		parent::beforeFilter();

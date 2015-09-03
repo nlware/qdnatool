@@ -9,6 +9,12 @@ App::uses('AppController', 'Controller');
  */
 class ExamsController extends AppController {
 
+/**
+ * An array of names of helpers to load
+ *
+ * @var mixed A single name as a string or a list of names as an array.
+ * @see AppController::helpers
+ */
 	public $helpers = array('Number', 'Output');
 
 /**

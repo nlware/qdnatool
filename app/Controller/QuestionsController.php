@@ -6,18 +6,33 @@ App::uses('AppController', 'Controller');
 /**
  * Questions Controller
  *
+ * @property Instruction $Instruction
  * @property Question $Question
+ * @property Tip $Tip
  */
 class QuestionsController extends AppController {
 
+/**
+ * An array containing the class names of models this controller uses.
+ *
+ * @var mixed
+ * @see AppController::uses
+ */
 	public $uses = array('Question', 'Tip', 'Instruction');
 
+/**
+ * An array of names of helpers to load
+ *
+ * @var mixed A single name as a string or a list of names as an array.
+ * @see AppController::helpers
+ */
 	public $helpers = array('CkSource');
 
 /**
  * beforeFilter
  *
  * @return void
+ * @see AppController::beforeFilter()
  */
 	public function beforeFilter() {
 		parent::beforeFilter();

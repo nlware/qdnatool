@@ -4,8 +4,6 @@ App::uses('AppController', 'Controller');
  * QuestionsTags Controller
  *
  * @property QuestionsTag $QuestionsTag
- * @throws MethodNotAllowedException
- * @throws NotFoundException
  */
 class QuestionsTagsController extends AppController {
 
