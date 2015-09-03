@@ -10,7 +10,7 @@ endif;
 ?>
 <div class="modal">
 	<div class="modal-header">
-	<?php echo $this->Form->postLink('×', array('action' => 'index'), array('class' => 'close', 'div' => false), __('Are you sure you want to close this wizard?')); ?>
+	<?php echo $this->Form->postLink('×', array('action' => 'index'), array('class' => 'close', 'div' => false, 'confirm' => __('Are you sure you want to close this wizard?'))); ?>
 		<h4><?php echo __('Interpretation of exam "%s"', h($exam['Exam']['name'])); ?></h4>
 	</div>
 	<div class="modal-body" style="height:400px;">

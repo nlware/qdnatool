@@ -42,7 +42,7 @@
 					if (!empty($exam['Exam']['analysed'])):
 						echo $this->Html->link(__('Start interpretation'), array('action' => 'stevie', $exam['Exam']['id']), array('class' => 'btn'));
 					elseif (empty($exam['Child'])):
-						echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $exam['Exam']['id']), array('class' => 'btn'), __('Are you sure you want to delete exam "%s"?', $exam['Exam']['name']));
+						echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $exam['Exam']['id']), array('class' => 'btn', 'confirm' => __('Are you sure you want to delete exam "%s"?', $exam['Exam']['name'])));
 					endif;
 					?>
 						<button class="btn dropdown-toggle" data-toggle="dropdown">
@@ -70,7 +70,7 @@
 							endif;
 							if (empty($exam['Child'])):
 							?>
-							<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $exam['Exam']['id']), null, __('Are you sure you want to delete exam "%s"?', $exam['Exam']['name'])); ?></li>
+							<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $exam['Exam']['id']), array('confirm' => __('Are you sure you want to delete exam "%s"?', $exam['Exam']['name']))); ?></li>
 							<?php
 							endif;
 							?>
@@ -110,7 +110,7 @@
 						if (!empty($child['analysed'])):
 							echo $this->Html->link(__('Start interpretation'), array('action' => 'stevie', $child['id']), array('class' => 'btn'));
 						else:
-							echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $child['id']), array('class' => 'btn'), __('Are you sure you want to delete exam "%s"?', $child['name']));
+							echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $child['id']), array('class' => 'btn', 'confirm' => __('Are you sure you want to delete exam "%s"?', $child['name'])));
 						endif;
 						?>
 						<button class="btn dropdown-toggle" data-toggle="dropdown">
@@ -132,7 +132,7 @@
 							<?php
 							endif;
 							?>
-							<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $child['id']), null, __('Are you sure you want to delete exam "%s"?', $child['name'])); ?></li>
+							<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $child['id']), array('confirm' => __('Are you sure you want to delete exam "%s"?', $child['name']))); ?></li>
 						</ul>
 					</div>
 				</td>

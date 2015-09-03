@@ -86,7 +86,7 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
 							</button>
 							<ul class="dropdown-menu">
 								<li><?php echo $this->Html->link(__('Edit'), array('action' => 'edit',	$question['Question']['id'])); ?></li>
-								<li><?php echo $this->Form->postLink( __('Delete'), array('action' => 'delete',	$question['Question']['id']), null, __('Are you sure you want to delete # %s "%s"?', $question['Question']['id'], $question['Question']['name'])); ?></li>
+								<li><?php echo $this->Form->postLink( __('Delete'), array('action' => 'delete',	$question['Question']['id']), array('confirm' => __('Are you sure you want to delete # %s "%s"?', $question['Question']['id'], $question['Question']['name']))); ?></li>
 							</ul>
 						</div>
 					</td>
