@@ -158,11 +158,11 @@ class ExamsController extends AppController {
 		}
 		$conditions = array('Exam.id' => $id);
 		$exam = $this->Exam->find('first', compact('conditions'));
-		if (empty($exam['Exam']['report_generated']) || !file_exists(Exam::REPORT_DIRECTORY . $exam['Exam']['id'] . '.pdf')) {
+		if (empty($exam['Exam']['report_generated']) || !file_exists(Exam::REPORTS . $exam['Exam']['id'] . '.pdf')) {
 			throw new NotFoundException(__('Invalid exam'));
 		}
 		$this->response->file(
-			Exam::REPORT_DIRECTORY . $exam['Exam']['id'] . '.pdf', array(
+			Exam::REPORTS . $exam['Exam']['id'] . '.pdf', array(
 				'download' => true,
 				'name' => $exam['Exam']['name']
 			)

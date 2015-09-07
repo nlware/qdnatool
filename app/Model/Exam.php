@@ -1,6 +1,4 @@
 <?php
-define('EXAM_UPLOAD_DIRECTORY', TMP . 'uploads' . DS);
-define('EXAM_REPORT_DIRECTORY', ROOT . DS . 'data' . DS . 'reports' . DS);
 App::uses('AuthComponent', 'Controller/Component');
 App::uses('Rserve', 'Lib');
 App::uses('CakeText', 'Utility');
@@ -28,9 +26,19 @@ class Exam extends AppModel {
  */
 	public $actsAs = array('I18n');
 
-	const UPLOAD_DIRECTORY = EXAM_UPLOAD_DIRECTORY;
+/**
+ * Path to the (temporary) uploads directory.
+ *
+ * @var string
+ */
+	const UPLOADS = TMP . 'uploads' . DS;
 
-	const REPORT_DIRECTORY = EXAM_REPORT_DIRECTORY;
+/**
+ * Path to the reports directory.
+ *
+ * @var string
+ */
+	const REPORTS = ROOT . DS . 'data' . DS . 'reports' . DS;
 
 /**
  * Validation rules
@@ -213,15 +221,15 @@ class Exam extends AppModel {
 				$data['Exam']['data_filename'] = CakeText::uuid();
 
 				//TODO: check for copy failures
-				rename($data['Exam']['data_file']['tmp_name'], Exam::UPLOAD_DIRECTORY . $data['Exam']['data_filename']);
-				$data['Exam']['data_file']['tmp_name'] = Exam::UPLOAD_DIRECTORY . $data['Exam']['data_filename'];
+				rename($data['Exam']['data_file']['tmp_name'], Exam::UPLOADS . $data['Exam']['data_filename']);
+				$data['Exam']['data_file']['tmp_name'] = Exam::UPLOADS . $data['Exam']['data_filename'];
 			}
 			if (!empty($data['Exam']['mapping_file']['tmp_name'])) {
 				$data['Exam']['mapping_filename'] = CakeText::uuid();
 
 				//TODO: check for copy failures
-				rename($data['Exam']['mapping_file']['tmp_name'], Exam::UPLOAD_DIRECTORY . $data['Exam']['mapping_filename']);
-				$data['Exam']['mapping_file']['tmp_name'] = Exam::UPLOAD_DIRECTORY . $data['Exam']['mapping_filename'];
+				rename($data['Exam']['mapping_file']['tmp_name'], Exam::UPLOADS . $data['Exam']['mapping_filename']);
+				$data['Exam']['mapping_file']['tmp_name'] = Exam::UPLOADS . $data['Exam']['mapping_filename'];
 			}
 
 			$data['Exam']['exam_state_id'] = ExamState::UPLOADED;
@@ -236,11 +244,11 @@ class Exam extends AppModel {
 					$this->saveField('exam_state_id', ExamState::WAITING_TO_IMPORT);
 				}
 			} else {
-				if (!empty($data['Exam']['data_filename']) && file_exists(Exam::UPLOAD_DIRECTORY . $data['Exam']['data_filename'])) {
-					unlink(Exam::UPLOAD_DIRECTORY . $data['Exam']['data_filename']);
+				if (!empty($data['Exam']['data_filename']) && file_exists(Exam::UPLOADS . $data['Exam']['data_filename'])) {
+					unlink(Exam::UPLOADS . $data['Exam']['data_filename']);
 				}
-				if (!empty($data['Exam']['mapping_filename']) && file_exists(Exam::UPLOAD_DIRECTORY . $data['Exam']['mapping_filename'])) {
-					unlink(Exam::UPLOAD_DIRECTORY . $data['Exam']['mapping_filename']);
+				if (!empty($data['Exam']['mapping_filename']) && file_exists(Exam::UPLOADS . $data['Exam']['mapping_filename'])) {
+					unlink(Exam::UPLOADS . $data['Exam']['mapping_filename']);
 				}
 			}
 		}
@@ -667,7 +675,7 @@ class Exam extends AppModel {
 			$result = Rserve::execute($script);
 
 			if ($result && file_exists($tempFile)) {
-				rename($tempFile, ROOT . DS . 'data' . DS . 'reports' . DS . $exam['Exam']['id'] . '.pdf');
+				rename($tempFile, Exam::REPORTS . $exam['Exam']['id'] . '.pdf');
 			} else {
 				$result = false;
 			}
@@ -764,7 +772,7 @@ class Exam extends AppModel {
 		$this->id = $exam['Exam']['id'];
 		$this->saveField('exam_state_id', ExamState::IMPORTING);
 
-		$filename = Exam::UPLOAD_DIRECTORY . $exam['Exam']['data_filename'];
+		$filename = Exam::UPLOADS . $exam['Exam']['data_filename'];
 
 		$csv = $this->_parseCsvFile($filename);
 		//TODO: validate csv
@@ -958,7 +966,7 @@ class Exam extends AppModel {
 		$this->id = $exam['Exam']['id'];
 		$this->saveField('exam_state_id', ExamState::IMPORTING);
 
-		$filename = Exam::UPLOAD_DIRECTORY . $exam['Exam']['data_filename'];
+		$filename = Exam::UPLOADS . $exam['Exam']['data_filename'];
 
 		$values = $this->_parseCsvFile($filename, ';', '"', '"');
 		if ($values) {
@@ -1110,9 +1118,9 @@ class Exam extends AppModel {
 		$this->id = $exam['Exam']['id'];
 		$this->saveField('exam_state_id', ExamState::IMPORTING);
 
-		$filename = Exam::UPLOAD_DIRECTORY . $exam['Exam']['data_filename'];
+		$filename = Exam::UPLOADS . $exam['Exam']['data_filename'];
 		if (!empty($exam['Exam']['mapping_filename'])) {
-			$versionMappingFilename = Exam::UPLOAD_DIRECTORY . $exam['Exam']['mapping_filename'];
+			$versionMappingFilename = Exam::UPLOADS . $exam['Exam']['mapping_filename'];
 		}
 
 		if (!empty($versionMappingFilename)) {

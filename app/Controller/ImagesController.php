@@ -46,7 +46,7 @@ class ImagesController extends AppController {
 
 				$this->Image->create();
 				if ($this->Image->save($data)) {
-					$file = Image::UPLOAD_DIRECTORY . $this->Image->id . '.' . $extension;
+					$file = Image::UPLOADS . $this->Image->id . '.' . $extension;
 					$fh = fopen($file, 'w');
 					fwrite($fh, $img);
 					fclose($fh);
@@ -76,7 +76,7 @@ class ImagesController extends AppController {
 		}
 
 		$this->response->file(
-			Image::UPLOAD_DIRECTORY . $image['Image']['id'] . '.' . $image['Image']['extension'], array(
+			Image::UPLOADS . $image['Image']['id'] . '.' . $image['Image']['extension'], array(
 				'download' => true,
 				'name' => $image['Image']['filename']
 			)
@@ -110,7 +110,7 @@ class ImagesController extends AppController {
 
 			$this->Image->create();
 			if ($this->Image->save($data)) {
-				$file = Image::UPLOAD_DIRECTORY . $this->Image->id . '.' . $extension;
+				$file = Image::UPLOADS . $this->Image->id . '.' . $extension;
 				$result = move_uploaded_file($_FILES['upload']['tmp_name'], $file);
 			}
 
