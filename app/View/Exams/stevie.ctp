@@ -101,12 +101,14 @@ endif;
 			<dt><?php echo __n('Correct answer', 'Correct answers', count($correctAnswers)); ?></dt>
 			<dd><?php echo $this->Text->toList($correctAnswers); ?>&nbsp;</dd>
 			<dt><?php echo __('Rit correct answer'); ?></dt>
-			<dd><?php echo $this->Output->decimal($exam['Item'][$offset-1]['correct_answer_irc'], 3); ?></dd>
+			<dd><?php echo $this->Output->decimal($exam['Item'][$offset - 1]['correct_answer_irc'], 3); ?></dd>
 			<dt><?php echo __('Correct answer'); ?></dt>
-			<dd><?php echo __('%s %%', $this->Output->decimal($exam['Item'][$offset-1]['correct_answer_percentage'])); ?></dd>
+			<dd><?php echo __('%s %%', $this->Output->decimal($exam['Item'][$offset - 1]['correct_answer_percentage'])); ?></dd>
 			<?php
 			foreach ($exam['Item'][$offset - 1]['AnswerOption'] as $i => $answerOption):
-				if ($answerOption['is_correct']) continue;
+				if ($answerOption['is_correct']):
+					continue;
+				endif;
 			?>
 			<dt><?php echo __('Incorrect answer %s', AnswerOption::printIndex($i)); ?></dt>
 			<dd><?php echo __('%s %%', $this->Output->decimal($answerOption['given_answer_percentage'])); ?>&nbsp;</dd>

@@ -122,7 +122,7 @@ class I18nBehavior extends ModelBehavior {
  * @param string $localField Fieldname
  * @param string $localAlias Field alias
  * @param bool $isPrimary Did the find originate on $model.
- * @param integer &$level Recursion level
+ * @param int &$level Recursion level
  * @return void
  */
 	private function __localizeArrayInQuery($model, &$section, $localField, $localAlias, $isPrimary, &$level) {
@@ -196,7 +196,7 @@ class I18nBehavior extends ModelBehavior {
  *
  * @param Model $model Model using this behavior
  * @param string &$query Query conditions
- * @param integer $recursive Recursion level
+ * @param int $recursive Recursion level
  * @param bool $isPrimary Did the find originate on $model.
  * @return void
  */
@@ -260,7 +260,7 @@ class I18nBehavior extends ModelBehavior {
  *
  * @param Model $model Model using this behavior
  * @param string $locale Locale
- * @param integer $recursive Recursion level
+ * @param int $recursive Recursion level
  * @param array &$relation Relation properties
  * @return void
  */
