@@ -225,7 +225,7 @@ class Question extends AppModel {
 	public function beforeSave($options = array()) {
 		$this->__oldTagIds = array();
 		if (!empty($this->data['Question']['id'])) {
-			$this->__oldTagIds = $this->__getTagsIds($this->data['Question']['id']);
+			$this->__oldTagIds = $this->__getTagIds($this->data['Question']['id']);
 		}
 		return true;
 	}
@@ -255,12 +255,12 @@ class Question extends AppModel {
 /**
  * Get list of tag ids
  *
- * @param int $id An question id
+ * @param int $id A question id
  * @return array List of tag ids
  */
-	private function __getTagsIds($id) {
+	private function __getTagIds($id) {
 		$fields = array('tag_id', 'tag_id');
-		$conditions = array('QuestionsTag.question_id' => $this->data['Question']['id']);
+		$conditions = array('QuestionsTag.question_id' => $id);
 		return $this->QuestionsTag->find('list', compact('fields', 'conditions'));
 	}
 
