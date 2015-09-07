@@ -93,7 +93,7 @@ class AppController extends Controller {
  * @return void
  */
 	public function blackhole($type) {
-		if ($type == 'secure' && !$this->RequestHandler->isSSL()) {
+		if ($type == 'secure' && !$this->request->is('ssl')) {
 			return $this->redirect('https://' . env('SERVER_NAME') . $this->here);
 		}
 		$this->Flash->error(__('Sorry, something went wrong. Please, try again.'));
