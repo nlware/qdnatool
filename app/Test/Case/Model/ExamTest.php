@@ -96,10 +96,10 @@ class ExamTest extends CakeTestCase {
 		);
 		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 1);
 		$expected = false;
-		$this->assertIdentical($result, $expected);
+		$this->assertSame($expected, $result);
 		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 2);
 		$expected = false;
-		$this->assertIdentical($result, $expected);
+		$this->assertSame($expected, $result);
 
 		//
 		// Header does contain requested versions
@@ -111,10 +111,10 @@ class ExamTest extends CakeTestCase {
 		);
 		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 1);
 		$expected = 0;
-		$this->assertIdentical($result, $expected);
+		$this->assertSame($expected, $result);
 		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 2);
 		$expected = 1;
-		$this->assertIdentical($result, $expected);
+		$this->assertSame($expected, $result);
 
 		$header = array(
 			'Versie.2',
@@ -122,10 +122,10 @@ class ExamTest extends CakeTestCase {
 		);
 		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 1);
 		$expected = 1;
-		$this->assertIdentical($result, $expected);
+		$this->assertSame($expected, $result);
 		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 2);
 		$expected = 0;
-		$this->assertIdentical($result, $expected);
+		$this->assertSame($expected, $result);
 
 		//
 		// case insensitive
@@ -137,10 +137,10 @@ class ExamTest extends CakeTestCase {
 		);
 		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 1);
 		$expected = 0;
-		$this->assertIdentical($result, $expected);
+		$this->assertSame($expected, $result);
 		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 2);
 		$expected = 1;
-		$this->assertIdentical($result, $expected);
+		$this->assertSame($expected, $result);
 
 		//
 		// Seperator whitespace instead of dot and case insensitive
@@ -152,10 +152,10 @@ class ExamTest extends CakeTestCase {
 		);
 		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 1);
 		$expected = 0;
-		$this->assertIdentical($result, $expected);
+		$this->assertSame($expected, $result);
 		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 2);
 		$expected = 1;
-		$this->assertIdentical($result, $expected);
+		$this->assertSame($expected, $result);
 	}
 
 /**
