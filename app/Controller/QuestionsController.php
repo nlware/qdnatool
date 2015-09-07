@@ -356,8 +356,8 @@ class QuestionsController extends AppController {
 		$zip->addFromString('data.xml', $data);
 		if (!empty($files)) {
 			foreach ($files as $filename) {
-				if (file_exists(APP . DS . '..' . DS . 'data' . DS . $filename)) {
-					$zip->addFile(APP . DS . '..' . DS . 'data' . DS . $filename, $filename);
+				if (file_exists(ROOT . DS . 'data' . DS . $filename)) {
+					$zip->addFile(ROOT . DS . 'data' . DS . $filename, $filename);
 				}
 			}
 		}
