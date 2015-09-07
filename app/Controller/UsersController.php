@@ -155,7 +155,7 @@ class UsersController extends AppController {
 	public function classic_login() {
 		if ($this->request->is('post')) {
 			if ($this->Auth->login()) {
-				return $this->redirect($this->Auth->redirect());
+				return $this->redirect($this->Auth->redirectUrl());
 			} else {
 				$this->Flash->error(__('Invalid username or password, try again'));
 			}
@@ -210,7 +210,7 @@ class UsersController extends AppController {
 			if (!empty($user['User'])) {
 				if ($this->Auth->login($user['User'])) {
 					$this->Flash->success(__('Successful login via SURFconext.'));
-					return $this->redirect($this->Auth->redirect());
+					return $this->redirect($this->Auth->redirectUrl());
 				}
 			}
 		}
