@@ -1,4 +1,6 @@
 <?php
+define('EXAM_UPLOADS', TMP . 'uploads' . DS);
+define('EXAM_REPORTS', ROOT . DS . 'data' . DS . 'reports' . DS);
 App::uses('AuthComponent', 'Controller/Component');
 App::uses('Rserve', 'Lib');
 App::uses('CakeText', 'Utility');
@@ -31,14 +33,14 @@ class Exam extends AppModel {
  *
  * @var string
  */
-	const UPLOADS = TMP . 'uploads' . DS;
+	const UPLOADS = EXAM_UPLOADS;
 
 /**
  * Path to the reports directory.
  *
  * @var string
  */
-	const REPORTS = ROOT . DS . 'data' . DS . 'reports' . DS;
+	const REPORTS = EXAM_REPORTS;
 
 /**
  * Validation rules
