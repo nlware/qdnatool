@@ -1118,6 +1118,9 @@ class Exam extends AppModel {
 		if (!empty($versionMappingFilename)) {
 			ini_set('auto_detect_line_endings', true);
 			if (($handle = fopen($versionMappingFilename, "r")) !== false) {
+				$version1Index = false;
+				$version2Index = false;
+				$answerOptionCountIndex = false;
 				for ($i = 0; !feof($handle); $i++) {
 					$line = fgets($handle);
 					$line = $this->__decodeLine($line, $i == 0);
@@ -1289,10 +1292,9 @@ class Exam extends AppModel {
  * stevie method
  *
  * @param int $id An exam id
- * @param string $offset Offset
  * @return array
  */
-	public function stevie($id, $offset) {
+	public function stevie($id) {
 		$conditions = array(
 			'Exam.id' => $id,
 			'Exam.user_id' => AuthComponent::user('id')
@@ -1302,10 +1304,7 @@ class Exam extends AppModel {
 
 		if (!empty($exam['Item'])) {
 			foreach ($exam['Item'] as $i => $item) {
-				//if ($offset == ($i + 1))
-				{
-					$exam['Item'][$i] = $this->Item->stevie($item, $exam['Exam']['answer_option_count']);
-				}
+				$exam['Item'][$i] = $this->Item->stevie($item, $exam['Exam']['answer_option_count']);
 			}
 		}
 

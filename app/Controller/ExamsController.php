@@ -139,7 +139,7 @@ class ExamsController extends AppController {
 			throw new NotFoundException(__('Invalid exam'));
 		}
 
-		$exam = $this->Exam->stevie($id, $offset);
+		$exam = $this->Exam->stevie($id);
 		$this->set(compact('exam', 'offset'));
 	}
 
