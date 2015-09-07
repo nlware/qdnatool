@@ -35,7 +35,7 @@
 	?>
 	<div class="container">
 		<?php
-			echo $this->Session->flash();
+			echo $this->Flash->render();
 			echo $this->fetch('content');
 		?>
 		<div id="footer"></div>
