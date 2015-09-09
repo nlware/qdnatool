@@ -217,7 +217,7 @@ class QuestionsController extends AppController {
 		$options = array('contain' => array('QuestionAnswer'));
 
 		if (!empty($this->request->params['named']['tag_id'])) {
-			$options = Set::merge($options, $this->Question->getFindOptionsForTagIds(array_values($this->request->params['named']['tag_id'])));
+			$options = Hash::merge($options, $this->Question->getFindOptionsForTagIds(array_values($this->request->params['named']['tag_id'])));
 			$this->request->data = array('Tag' => array('Tag' => $this->request->params['named']['tag_id']));
 		}
 

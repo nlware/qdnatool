@@ -300,7 +300,7 @@ class Question extends AppModel {
 			$answers = $question['Question']['answer'];
 
 			if (!empty($question['QuestionAnswer'])) {
-				$answers .= ' ' . implode(' ', Set::extract('/QuestionAnswer/name', $question));
+				$answers .= ' ' . implode(' ', Hash::extract($question, 'QuestionAnswer.{n}.name'));
 			}
 
 			if ($question['Question']['development_phase_id'] == DevelopmentPhase::CONVERGE) {
@@ -570,7 +570,7 @@ class Question extends AppModel {
 
 		$deletedTagIds = array();
 
-		$deletedQuestionsTagIds = Set::extract('/QuestionsTag[destroy=1]/id', $data);
+		$deletedQuestionsTagIds = Hash::extract($data, 'QuestionsTag.{n}[destroy=1].id');
 
 		return $this->saveAll($data, array('deep' => true));
 	}
@@ -613,7 +613,7 @@ class Question extends AppModel {
 	public function getMineIds() {
 		$conditions = array('Question.user_id' => AuthComponent::user('id'));
 		$questions = $this->find('all', compact('conditions'));
-		return Set::extract('/Question/id', $questions);
+		return Hash::extract($questions, '{n}.Question.id');
 	}
 
 /**

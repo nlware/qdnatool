@@ -563,10 +563,10 @@ class Exam extends AppModel {
 		if ($tempFile = tempnam(sys_get_temp_dir(), "report")) {
 			chmod($tempFile, 0777);
 
-			$answerOptionCount = Set::extract('/Item/answer_option_count', $exam);
-			$correctAnswerCount = Set::extract('/Item/correct_answer_count', $exam);
-			$correctAnswerPercentage = Set::extract('/Item/correct_answer_percentage', $exam);
-			$correctAnswerIRC = Set::extract('/Item/correct_answer_irc', $exam);
+			$answerOptionCount = Hash::extract($exam, 'Item.{n}.answer_option_count');
+			$correctAnswerCount = Hash::extract($exam, 'Item.{n}.correct_answer_count');
+			$correctAnswerPercentage = Hash::extract($exam, 'Item.{n}.correct_answer_percentage');
+			$correctAnswerIRC = Hash::extract($exam, 'Item.{n}.correct_answer_irc');
 
 			$script = array();
 			$script[] = file_get_contents(APP . 'Lib' . DS . 'Rscripts' . DS . 'report.R');
@@ -840,7 +840,7 @@ class Exam extends AppModel {
 									if (empty($values[$j + 1])) {
 										$result = false;
 									} else {
-										$itemIds = Set::extract('/Item[value=' . $questionId . ']/id', $exam);
+										$itemIds = Hash::extract($exam, 'Item.{n}[value=' . $questionId . '].id');
 										if (!empty($itemIds[0])) {
 											$value = null;
 											$conditions = array(
@@ -919,7 +919,7 @@ class Exam extends AppModel {
 
 			$this->Item->GivenAnswer->updateAll(
 				array('GivenAnswer.content' => null),
-				array('GivenAnswer.item_id' => Set::extract('/Item/id', $exam))
+				array('GivenAnswer.item_id' => Hash::extract($exam, 'Item.{n}.id'))
 			);
 
 			$data = array(
@@ -1061,7 +1061,7 @@ class Exam extends AppModel {
 
 			$this->Item->GivenAnswer->updateAll(
 				array('GivenAnswer.content' => null),
-				array('GivenAnswer.item_id' => Set::extract('/Item/id', $exam))
+				array('GivenAnswer.item_id' => Hash::extract($exam, 'Item.{n}.id'))
 			);
 
 			$data = array(
@@ -1384,7 +1384,7 @@ class Exam extends AppModel {
 		$contain = array(
 			'Item' => array(
 				'conditions' => array(
-					'Item.id' => Set::extract('/Item[include=1]/id', $postData)
+					'Item.id' => Hash::extract($postData, 'Item.{n}[include=1].id')
 				),
 				'AnswerOption',
 				'GivenAnswer' => 'Subject'
@@ -1416,7 +1416,7 @@ class Exam extends AppModel {
 					);
 
 					if (!empty($item['AnswerOption'])) {
-						$answerOptions = Set::extract('/Item[id=' . $item['id'] . ']/AnswerOption', $postData);
+						$answerOptions = Hash::extract($postData, 'Item.{n}[id=' . $item['id'] . '].AnswerOption');
 						foreach ($item['AnswerOption'] as $j => $answerOption) {
 							$data['Item'][$i]['AnswerOption'][] = array(
 								'order' => $answerOption['order'],
@@ -1498,7 +1498,7 @@ class Exam extends AppModel {
 				'SUM(GivenAnswer.score) as score_total',
 				'Subject.value'
 			);
-			$conditions = array('GivenAnswer.item_id' => Set::extract('/Item/id', $exam));
+			$conditions = array('GivenAnswer.item_id' => Hash::extract($exam, 'Item.{n}.id'));
 			$contain = array('Subject');
 			$group = array('GivenAnswer.subject_id');
 			$scoring = $this->Item->GivenAnswer->find('all', compact('fields', 'conditions', 'contain', 'group'));
@@ -1523,7 +1523,7 @@ class Exam extends AppModel {
 		$exam = $this->find('first', compact('conditions', 'contain'));
 		if (!empty($exam)) {
 			$conditions = array(
-				'GivenAnswer.item_id' => Set::extract('/Item/id', $exam),
+				'GivenAnswer.item_id' => Hash::extract($exam, 'Item.{n}.id'),
 				'GivenAnswer.value' => null
 			);
 			$contain = array('Item', 'Subject');

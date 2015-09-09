@@ -97,7 +97,7 @@ endif;
 		endif;
 		?>
 		<dl class="dl-horizontal">
-			<?php $correctAnswers = Set::extract('/AnswerOption[is_correct=1]/order', $exam['Item'][$offset - 1]); ?>
+			<?php $correctAnswers = Hash::extract($exam['Item'][$offset - 1], 'AnswerOption.{n}[is_correct=1].order'); ?>
 			<dt><?php echo __n('Correct answer', 'Correct answers', count($correctAnswers)); ?></dt>
 			<dd><?php echo $this->Text->toList($correctAnswers); ?>&nbsp;</dd>
 			<dt><?php echo __('Rit correct answer'); ?></dt>

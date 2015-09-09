@@ -128,7 +128,7 @@ class Tag extends AppModel {
 
 		$contain = array('QuestionsTagFilter');
 		$tags = $this->find('all', compact('conditions', 'contain'));
-		$tagIds = Set::extract('/Tag/id', $tags);
+		$tagIds = Hash::extract($tags, '{n}.Tag.id');
 		$this->deleteAll(array('Tag.id' => $tagIds), false);
 	}
 
