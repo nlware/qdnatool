@@ -26,19 +26,19 @@ class User extends AppModel {
 				'message' => 'This username has already been taken.'
 			),
 			'required' => array(
-				'rule' => 'notEmpty',
+				'rule' => 'notBlank',
 				'required' => true,
 				'on' => 'create'
 			),
 		),
 		'name' => array(
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
+			'notBlank' => array(
+				'rule' => 'notBlank',
 				'last' => true,
 				'message' => 'This field cannot be left blank'
 			),
 			'required' => array(
-				'rule' => 'notEmpty',
+				'rule' => 'notBlank',
 				'required' => true,
 				'on' => 'create'
 			)
@@ -61,18 +61,18 @@ class User extends AppModel {
 				'message' => 'Passwords must be at least 8 characters long.'
 			),
 			'required' => array(
-				'rule' => 'notEmpty',
+				'rule' => 'notBlank',
 				//'required' => 'create'
 			),
 		),
 		'role_id' => array(
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
+			'notBlank' => array(
+				'rule' => 'notBlank',
 				'last' => true,
 				'message' => 'This field cannot be left blank'
 			),
 			'required' => array(
-				'rule' => 'notEmpty',
+				'rule' => 'notBlank',
 				'required' => true,
 				'on' => 'create'
 			)

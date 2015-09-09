@@ -3,7 +3,7 @@
 	<ul>
 	<?php if (AuthComponent::user('role_id') == Role::ADMIN): ?>
 		<li><?php echo $this->Html->link(__('Edit User'), array('admin' => true, 'action' => 'edit', $user['User']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete User'), array('admin' => true, 'action' => 'delete', $user['User']['id']), null, __('Are you sure you want to delete # %s "%s"?', $user['User']['id'], $user['User']['username'])); ?> </li>
+		<li><?php echo $this->Form->postLink(__('Delete User'), array('admin' => true, 'action' => 'delete', $user['User']['id']), array('confirm' => __('Are you sure you want to delete # %s "%s"?', $user['User']['id'], $user['User']['username']))); ?> </li>
 	<?php endif; ?>
 		<li><?php echo $this->Html->link(__('List Users'), array('action' => 'index')); ?></li>
 	<?php if (AuthComponent::user('role_id') == Role::ADMIN): ?>

@@ -38,36 +38,36 @@ class Question extends AppModel {
  */
 	public $validate = array(
 		'code' => array(
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
+			'notBlank' => array(
+				'rule' => 'notBlank',
 				'required' => 'create',
 				'message' => 'This field cannot be left blank'
 			)
 		),
 		'name' => array(
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
+			'notBlank' => array(
+				'rule' => 'notBlank',
 				'required' => 'create',
 				'message' => 'This field cannot be left blank'
 			)
 		),
 		'question_format_id' => array(
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
+			'notBlank' => array(
+				'rule' => 'notBlank',
 				'required' => 'create',
 				'message' => 'This field cannot be left blank'
 			)
 		),
 		'development_phase_id' => array(
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
+			'notBlank' => array(
+				'rule' => 'notBlank',
 				'required' => 'create',
 				'message' => 'This field cannot be left blank'
 			)
 		),
 		'stimulus' => array(
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
+			'notBlank' => array(
+				'rule' => 'notBlank',
 				'required' => 'create',
 				'message' => 'This field cannot be left blank'
 			)
@@ -225,7 +225,7 @@ class Question extends AppModel {
 	public function beforeSave($options = array()) {
 		$this->__oldTagIds = array();
 		if (!empty($this->data['Question']['id'])) {
-			$this->__oldTagIds = $this->__getTagsIds($this->data['Question']['id']);
+			$this->__oldTagIds = $this->__getTagIds($this->data['Question']['id']);
 		}
 		return true;
 	}
@@ -255,12 +255,12 @@ class Question extends AppModel {
 /**
  * Get list of tag ids
  *
- * @param int $id An question id
+ * @param int $id A question id
  * @return array List of tag ids
  */
-	private function __getTagsIds($id) {
+	private function __getTagIds($id) {
 		$fields = array('tag_id', 'tag_id');
-		$conditions = array('QuestionsTag.question_id' => $this->data['Question']['id']);
+		$conditions = array('QuestionsTag.question_id' => $id);
 		return $this->QuestionsTag->find('list', compact('fields', 'conditions'));
 	}
 
@@ -300,7 +300,7 @@ class Question extends AppModel {
 			$answers = $question['Question']['answer'];
 
 			if (!empty($question['QuestionAnswer'])) {
-				$answers .= ' ' . implode(' ', Set::extract('/QuestionAnswer/name', $question));
+				$answers .= ' ' . implode(' ', Hash::extract($question, 'QuestionAnswer.{n}.name'));
 			}
 
 			if ($question['Question']['development_phase_id'] == DevelopmentPhase::CONVERGE) {
@@ -570,7 +570,7 @@ class Question extends AppModel {
 
 		$deletedTagIds = array();
 
-		$deletedQuestionsTagIds = Set::extract('/QuestionsTag[destroy=1]/id', $data);
+		$deletedQuestionsTagIds = Hash::extract($data, 'QuestionsTag.{n}[destroy=1].id');
 
 		return $this->saveAll($data, array('deep' => true));
 	}
@@ -613,7 +613,7 @@ class Question extends AppModel {
 	public function getMineIds() {
 		$conditions = array('Question.user_id' => AuthComponent::user('id'));
 		$questions = $this->find('all', compact('conditions'));
-		return Set::extract('/Question/id', $questions);
+		return Hash::extract($questions, '{n}.Question.id');
 	}
 
 /**

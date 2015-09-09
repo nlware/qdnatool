@@ -8,6 +8,12 @@ App::uses('AppShell', 'Console/Command');
  */
 class RemoteContentShell extends AppShell {
 
+/**
+ * Contains models to load and instantiate.
+ *
+ * @var array
+ * @see AppShell::uses
+ */
 	public $uses = array('Instruction', 'Tip');
 
 /**

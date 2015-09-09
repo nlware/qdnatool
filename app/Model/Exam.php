@@ -1,8 +1,9 @@
 <?php
-define('EXAM_UPLOAD_DIRECTORY', TMP . 'uploads' . DS);
-define('EXAM_REPORT_DIRECTORY', ROOT . DS . 'data' . DS . 'reports' . DS);
+define('EXAM_UPLOADS', TMP . 'uploads' . DS);
+define('EXAM_REPORTS', ROOT . DS . 'data' . DS . 'reports' . DS);
 App::uses('AuthComponent', 'Controller/Component');
 App::uses('Rserve', 'Lib');
+App::uses('CakeText', 'Utility');
 App::uses('ClassRegistry', 'Utility');
 App::uses('ExamFormat', 'Model');
 App::uses('ExamState', 'Model');
@@ -27,9 +28,19 @@ class Exam extends AppModel {
  */
 	public $actsAs = array('I18n');
 
-	const UPLOAD_DIRECTORY = EXAM_UPLOAD_DIRECTORY;
+/**
+ * Path to the (temporary) uploads directory.
+ *
+ * @var string
+ */
+	const UPLOADS = EXAM_UPLOADS;
 
-	const REPORT_DIRECTORY = EXAM_REPORT_DIRECTORY;
+/**
+ * Path to the reports directory.
+ *
+ * @var string
+ */
+	const REPORTS = EXAM_REPORTS;
 
 /**
  * Validation rules
@@ -38,15 +49,15 @@ class Exam extends AppModel {
  */
 	public $validate = array(
 		'name' => array(
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
+			'notBlank' => array(
+				'rule' => 'notBlank',
 				'message' => 'This field cannot be left blank',
 				'required' => 'create'
 			),
 		),
 		'exam_format_id' => array(
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
+			'notBlank' => array(
+				'rule' => 'notBlank',
 				'message' => 'This field cannot be left blank',
 				'required' => 'create',
 				'last' => true
@@ -108,8 +119,8 @@ class Exam extends AppModel {
 			)
 		),
 		'user_id' => array(
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
+			'notBlank' => array(
+				'rule' => 'notBlank',
 				'message' => 'This field cannot be left blank',
 				'required' => 'create'
 			),
@@ -209,18 +220,18 @@ class Exam extends AppModel {
 		$this->set($data);
 		if ($this->validates()) {
 			if (!empty($data['Exam']['data_file']['tmp_name'])) {
-				$data['Exam']['data_filename'] = String::uuid();
+				$data['Exam']['data_filename'] = CakeText::uuid();
 
 				//TODO: check for copy failures
-				rename($data['Exam']['data_file']['tmp_name'], Exam::UPLOAD_DIRECTORY . $data['Exam']['data_filename']);
-				$data['Exam']['data_file']['tmp_name'] = Exam::UPLOAD_DIRECTORY . $data['Exam']['data_filename'];
+				rename($data['Exam']['data_file']['tmp_name'], Exam::UPLOADS . $data['Exam']['data_filename']);
+				$data['Exam']['data_file']['tmp_name'] = Exam::UPLOADS . $data['Exam']['data_filename'];
 			}
 			if (!empty($data['Exam']['mapping_file']['tmp_name'])) {
-				$data['Exam']['mapping_filename'] = String::uuid();
+				$data['Exam']['mapping_filename'] = CakeText::uuid();
 
 				//TODO: check for copy failures
-				rename($data['Exam']['mapping_file']['tmp_name'], Exam::UPLOAD_DIRECTORY . $data['Exam']['mapping_filename']);
-				$data['Exam']['mapping_file']['tmp_name'] = Exam::UPLOAD_DIRECTORY . $data['Exam']['mapping_filename'];
+				rename($data['Exam']['mapping_file']['tmp_name'], Exam::UPLOADS . $data['Exam']['mapping_filename']);
+				$data['Exam']['mapping_file']['tmp_name'] = Exam::UPLOADS . $data['Exam']['mapping_filename'];
 			}
 
 			$data['Exam']['exam_state_id'] = ExamState::UPLOADED;
@@ -235,11 +246,11 @@ class Exam extends AppModel {
 					$this->saveField('exam_state_id', ExamState::WAITING_TO_IMPORT);
 				}
 			} else {
-				if (!empty($data['Exam']['data_filename']) && file_exists(Exam::UPLOAD_DIRECTORY . $data['Exam']['data_filename'])) {
-					unlink(Exam::UPLOAD_DIRECTORY . $data['Exam']['data_filename']);
+				if (!empty($data['Exam']['data_filename']) && file_exists(Exam::UPLOADS . $data['Exam']['data_filename'])) {
+					unlink(Exam::UPLOADS . $data['Exam']['data_filename']);
 				}
-				if (!empty($data['Exam']['mapping_filename']) && file_exists(Exam::UPLOAD_DIRECTORY . $data['Exam']['mapping_filename'])) {
-					unlink(Exam::UPLOAD_DIRECTORY . $data['Exam']['mapping_filename']);
+				if (!empty($data['Exam']['mapping_filename']) && file_exists(Exam::UPLOADS . $data['Exam']['mapping_filename'])) {
+					unlink(Exam::UPLOADS . $data['Exam']['mapping_filename']);
 				}
 			}
 		}
@@ -552,10 +563,10 @@ class Exam extends AppModel {
 		if ($tempFile = tempnam(sys_get_temp_dir(), "report")) {
 			chmod($tempFile, 0777);
 
-			$answerOptionCount = Set::extract('/Item/answer_option_count', $exam);
-			$correctAnswerCount = Set::extract('/Item/correct_answer_count', $exam);
-			$correctAnswerPercentage = Set::extract('/Item/correct_answer_percentage', $exam);
-			$correctAnswerIRC = Set::extract('/Item/correct_answer_irc', $exam);
+			$answerOptionCount = Hash::extract($exam, 'Item.{n}.answer_option_count');
+			$correctAnswerCount = Hash::extract($exam, 'Item.{n}.correct_answer_count');
+			$correctAnswerPercentage = Hash::extract($exam, 'Item.{n}.correct_answer_percentage');
+			$correctAnswerIRC = Hash::extract($exam, 'Item.{n}.correct_answer_irc');
 
 			$script = array();
 			$script[] = file_get_contents(APP . 'Lib' . DS . 'Rscripts' . DS . 'report.R');
@@ -666,7 +677,7 @@ class Exam extends AppModel {
 			$result = Rserve::execute($script);
 
 			if ($result && file_exists($tempFile)) {
-				rename($tempFile, ROOT . DS . 'data' . DS . 'reports' . DS . $exam['Exam']['id'] . '.pdf');
+				rename($tempFile, Exam::REPORTS . $exam['Exam']['id'] . '.pdf');
 			} else {
 				$result = false;
 			}
@@ -763,7 +774,7 @@ class Exam extends AppModel {
 		$this->id = $exam['Exam']['id'];
 		$this->saveField('exam_state_id', ExamState::IMPORTING);
 
-		$filename = Exam::UPLOAD_DIRECTORY . $exam['Exam']['data_filename'];
+		$filename = Exam::UPLOADS . $exam['Exam']['data_filename'];
 
 		$csv = $this->_parseCsvFile($filename);
 		//TODO: validate csv
@@ -829,7 +840,7 @@ class Exam extends AppModel {
 									if (empty($values[$j + 1])) {
 										$result = false;
 									} else {
-										$itemIds = Set::extract('/Item[value=' . $questionId . ']/id', $exam);
+										$itemIds = Hash::extract($exam, 'Item.{n}[value=' . $questionId . '].id');
 										if (!empty($itemIds[0])) {
 											$value = null;
 											$conditions = array(
@@ -908,7 +919,7 @@ class Exam extends AppModel {
 
 			$this->Item->GivenAnswer->updateAll(
 				array('GivenAnswer.content' => null),
-				array('GivenAnswer.item_id' => Set::extract('/Item/id', $exam))
+				array('GivenAnswer.item_id' => Hash::extract($exam, 'Item.{n}.id'))
 			);
 
 			$data = array(
@@ -957,7 +968,7 @@ class Exam extends AppModel {
 		$this->id = $exam['Exam']['id'];
 		$this->saveField('exam_state_id', ExamState::IMPORTING);
 
-		$filename = Exam::UPLOAD_DIRECTORY . $exam['Exam']['data_filename'];
+		$filename = Exam::UPLOADS . $exam['Exam']['data_filename'];
 
 		$values = $this->_parseCsvFile($filename, ';', '"', '"');
 		if ($values) {
@@ -1050,7 +1061,7 @@ class Exam extends AppModel {
 
 			$this->Item->GivenAnswer->updateAll(
 				array('GivenAnswer.content' => null),
-				array('GivenAnswer.item_id' => Set::extract('/Item/id', $exam))
+				array('GivenAnswer.item_id' => Hash::extract($exam, 'Item.{n}.id'))
 			);
 
 			$data = array(
@@ -1109,14 +1120,17 @@ class Exam extends AppModel {
 		$this->id = $exam['Exam']['id'];
 		$this->saveField('exam_state_id', ExamState::IMPORTING);
 
-		$filename = Exam::UPLOAD_DIRECTORY . $exam['Exam']['data_filename'];
+		$filename = Exam::UPLOADS . $exam['Exam']['data_filename'];
 		if (!empty($exam['Exam']['mapping_filename'])) {
-			$versionMappingFilename = Exam::UPLOAD_DIRECTORY . $exam['Exam']['mapping_filename'];
+			$versionMappingFilename = Exam::UPLOADS . $exam['Exam']['mapping_filename'];
 		}
 
 		if (!empty($versionMappingFilename)) {
 			ini_set('auto_detect_line_endings', true);
 			if (($handle = fopen($versionMappingFilename, "r")) !== false) {
+				$version1Index = false;
+				$version2Index = false;
+				$answerOptionCountIndex = false;
 				for ($i = 0; !feof($handle); $i++) {
 					$line = fgets($handle);
 					$line = $this->__decodeLine($line, $i == 0);
@@ -1288,10 +1302,9 @@ class Exam extends AppModel {
  * stevie method
  *
  * @param int $id An exam id
- * @param string $offset Offset
  * @return array
  */
-	public function stevie($id, $offset) {
+	public function stevie($id) {
 		$conditions = array(
 			'Exam.id' => $id,
 			'Exam.user_id' => AuthComponent::user('id')
@@ -1301,10 +1314,7 @@ class Exam extends AppModel {
 
 		if (!empty($exam['Item'])) {
 			foreach ($exam['Item'] as $i => $item) {
-				//if ($offset == ($i + 1))
-				{
-					$exam['Item'][$i] = $this->Item->stevie($item, $exam['Exam']['answer_option_count']);
-				}
+				$exam['Item'][$i] = $this->Item->stevie($item, $exam['Exam']['answer_option_count']);
 			}
 		}
 
@@ -1374,7 +1384,7 @@ class Exam extends AppModel {
 		$contain = array(
 			'Item' => array(
 				'conditions' => array(
-					'Item.id' => Set::extract('/Item[include=1]/id', $postData)
+					'Item.id' => Hash::extract($postData, 'Item.{n}[include=1].id')
 				),
 				'AnswerOption',
 				'GivenAnswer' => 'Subject'
@@ -1406,12 +1416,12 @@ class Exam extends AppModel {
 					);
 
 					if (!empty($item['AnswerOption'])) {
-						$answerOptions = Set::extract('/Item[id=' . $item['id'] . ']/AnswerOption', $postData);
+						$answerOptions = Hash::extract($postData, 'Item.{n}[id=' . $item['id'] . '].AnswerOption');
 						foreach ($item['AnswerOption'] as $j => $answerOption) {
 							$data['Item'][$i]['AnswerOption'][] = array(
 								'order' => $answerOption['order'],
 								'value' => $answerOption['value'],
-								'is_correct' => $answerOptions[$j]['AnswerOption']['is_correct']
+								'is_correct' => $answerOptions[0][$j]['is_correct']
 							);
 						}
 					}
@@ -1488,7 +1498,7 @@ class Exam extends AppModel {
 				'SUM(GivenAnswer.score) as score_total',
 				'Subject.value'
 			);
-			$conditions = array('GivenAnswer.item_id' => Set::extract('/Item/id', $exam));
+			$conditions = array('GivenAnswer.item_id' => Hash::extract($exam, 'Item.{n}.id'));
 			$contain = array('Subject');
 			$group = array('GivenAnswer.subject_id');
 			$scoring = $this->Item->GivenAnswer->find('all', compact('fields', 'conditions', 'contain', 'group'));
@@ -1513,7 +1523,7 @@ class Exam extends AppModel {
 		$exam = $this->find('first', compact('conditions', 'contain'));
 		if (!empty($exam)) {
 			$conditions = array(
-				'GivenAnswer.item_id' => Set::extract('/Item/id', $exam),
+				'GivenAnswer.item_id' => Hash::extract($exam, 'Item.{n}.id'),
 				'GivenAnswer.value' => null
 			);
 			$contain = array('Item', 'Subject');

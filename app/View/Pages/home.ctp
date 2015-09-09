@@ -2,6 +2,7 @@
 /**
  * @copyright     Copyright (c) NLWare B.V. (http://www.nlware.com)
  * @link          http://docs.qdnatool.org qDNAtool(tm) Project
+ * @package       app.View.Pages
  * @license       http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB CC BY-NC-SA 3.0 License
  */
 
@@ -64,11 +65,11 @@ endif;
 		$settings = Cache::settings();
 		if (!empty($settings)):
 			echo '<div class="alert alert-success">';
-				echo __d('cake_dev', 'The %s is being used for core caching. To change the config edit %s', '<em>'. $settings['engine'] . 'Engine</em>', 'APP/Config/core.php');
+			echo __d('cake_dev', 'The %s is being used for core caching. To change the config edit %s', '<em>'. $settings['engine'] . 'Engine</em>', 'APP/Config/core.php');
 			echo '</div>';
 		else:
 			echo '<div class="alert alert-error">';
-				echo __d('cake_dev', 'Your cache is NOT working. Please check the settings in %s', 'APP/Config/core.php');
+			echo __d('cake_dev', 'Your cache is NOT working. Please check the settings in %s', 'APP/Config/core.php');
 			echo '</div>';
 		endif;
 	?>
@@ -78,8 +79,8 @@ endif;
 		$filePresent = null;
 		if (file_exists(APP . 'Config' . DS . 'database.php')):
 			echo '<div class="alert alert-success">';
-				echo __d('cake_dev', 'Your database configuration file is present.');
-				$filePresent = true;
+			echo __d('cake_dev', 'Your database configuration file is present.');
+			$filePresent = true;
 			echo '</div>';
 		else:
 			echo '<div class="alert alert-error">';
@@ -110,13 +111,13 @@ if (isset($filePresent)):
 	<?php
 		if ($connected && $connected->isConnected()):
 			echo '<div class="alert alert-success">';
-				echo __d('cake_dev', 'CakePHP is able to connect to the database.');
+			echo __d('cake_dev', 'CakePHP is able to connect to the database.');
 			echo '</div>';
 		else:
 			echo '<div class="alert alert-error">';
-				echo __d('cake_dev', 'CakePHP is NOT able to connect to the database.');
-				echo '<br /><br />';
-				echo $errorMsg;
+			echo __d('cake_dev', 'CakePHP is NOT able to connect to the database.');
+			echo '<br /><br />';
+			echo $errorMsg;
 			echo '</div>';
 		endif;
 	?>
@@ -126,9 +127,9 @@ if (isset($filePresent)):
 	App::uses('Validation', 'Utility');
 	if (!Validation::alphaNumeric('cakephp')):
 		echo '<p><div class="alert alert-error">';
-			echo __d('cake_dev', 'PCRE has not been compiled with Unicode support.');
-			echo '<br/>';
-			echo __d('cake_dev', 'Recompile PCRE with Unicode support by adding <code>--enable-unicode-properties</code> when configuring');
+		echo __d('cake_dev', 'PCRE has not been compiled with Unicode support.');
+		echo '<br/>';
+		echo __d('cake_dev', 'Recompile PCRE with Unicode support by adding <code>--enable-unicode-properties</code> when configuring');
 		echo '</div></p>';
 	endif;
 ?>
@@ -137,13 +138,13 @@ if (isset($filePresent)):
 	<?php
 		if (CakePlugin::loaded('DebugKit')):
 			echo '<div class="alert alert-success">';
-				echo __d('cake_dev', 'DebugKit plugin is present');
+			echo __d('cake_dev', 'DebugKit plugin is present');
 			echo '</div>';
 		else:
 			echo '<div class="alert alert-error">';
-				echo __d('cake_dev', 'DebugKit is not installed. It will help you inspect and debug different aspects of your application.');
-				echo '<br/>';
-				echo __d('cake_dev', 'You can install it from %s', $this->Html->link('GitHub', 'https://github.com/cakephp/debug_kit'));
+			echo __d('cake_dev', 'DebugKit is not installed. It will help you inspect and debug different aspects of your application.');
+			echo '<br/>';
+			echo __d('cake_dev', 'You can install it from %s', $this->Html->link('GitHub', 'https://github.com/cakephp/debug_kit'));
 			echo '</div>';
 		endif;
 	?>
@@ -154,14 +155,14 @@ if (isset($filePresent)):
 		$filePresent = null;
 		if (file_exists(APP . 'Config' . DS . 'rserve.php')):
 			echo '<div class="alert alert-success">';
-				echo __d('cake_dev', 'Your Rserve configuration file is present.');
-				$filePresent = true;
+			echo __d('cake_dev', 'Your Rserve configuration file is present.');
+			$filePresent = true;
 			echo '</div>';
 		else:
 			echo '<div class="alert alert-error">';
-				echo __d('cake_dev', 'Your Rserve configuration file is NOT present.');
-				echo '<br/>';
-				echo __d('cake_dev', 'Rename APP/Config/rserve.php.default to APP/Config/rserve.php');
+			echo __d('cake_dev', 'Your Rserve configuration file is NOT present.');
+			echo '<br/>';
+			echo __d('cake_dev', 'Rename APP/Config/rserve.php.default to APP/Config/rserve.php');
 			echo '</div>';
 		endif;
 	?>
@@ -180,11 +181,11 @@ if (isset($filePresent)):
 	<?php
 		if ($connected):
 			echo '<div class="alert alert-success">';
-				echo __d('cake_dev', 'Cake is able to connect to Rserve.');
+			echo __d('cake_dev', 'Cake is able to connect to Rserve.');
 			echo '</div>';
 		else:
 			echo '<div class="alert alert-error">';
-				echo __d('cake_dev', 'Cake is NOT able to connect to Rserve.');
+			echo __d('cake_dev', 'Cake is NOT able to connect to Rserve.');
 			echo '</div>';
 		endif;
 	?>
@@ -193,15 +194,15 @@ if (isset($filePresent)):
 <?php
 if (file_exists('/usr/share/simplesamlphp/lib/_autoload.php')):
 	echo '<div class="alert alert-success">';
-		echo __d('cake_dev', 'SimpleSAMLphp is present');
+	echo __d('cake_dev', 'SimpleSAMLphp is present');
 	echo '</div>';
 else:
 	echo '<div class="alert alert-error">';
-		echo __d(
-			'cake_dev',
-			'%s is not installed. It is needed to log in with %s.',
-			$this->Html->link('SimpleSAMLphp', 'http://simplesamlphp.org/'),
-			$this->Html->link('SURFconext', 'http://www.surfnet.nl/nl/Thema/coin')
-		);
+	echo __d(
+		'cake_dev',
+		'%s is not installed. It is needed to log in with %s.',
+		$this->Html->link('SimpleSAMLphp', 'http://simplesamlphp.org/'),
+		$this->Html->link('SURFconext', 'http://www.surfnet.nl/nl/Thema/coin')
+	);
 	echo '</div>';
 endif;

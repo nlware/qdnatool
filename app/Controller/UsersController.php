@@ -56,10 +56,10 @@ class UsersController extends AppController {
 		if ($this->request->is('post')) {
 			$this->User->create();
 			if ($this->User->save($this->request->data)) {
-				$this->setFlashSuccess(__('The user has been saved'));
+				$this->Flash->success(__('The user has been saved'));
 				return $this->redirect(array('admin' => false, 'action' => 'index'));
 			} else {
-				$this->setFlashError(__('The user could not be saved. Please, try again.'));
+				$this->Flash->error(__('The user could not be saved. Please, try again.'));
 			}
 		}
 		$roles = $this->User->Role->find('list');
@@ -80,10 +80,10 @@ class UsersController extends AppController {
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->User->adminUpdate($this->request->data)) {
-				$this->setFlashSuccess(__('The user has been saved'));
+				$this->Flash->success(__('The user has been saved'));
 				return $this->redirect(array('admin' => false, 'action' => 'index'));
 			} else {
-				$this->setFlashError(__('The user could not be saved. Please, try again.'));
+				$this->Flash->error(__('The user could not be saved. Please, try again.'));
 			}
 		} else {
 			$this->request->data = $this->User->adminEdit($id);
@@ -109,10 +109,10 @@ class UsersController extends AppController {
 			throw new NotFoundException(__('Invalid user'));
 		}
 		if ($this->User->delete()) {
-			$this->setFlashSuccess(__('User deleted'));
+			$this->Flash->success(__('User deleted'));
 			return $this->redirect(array('admin' => false, 'action' => 'index'));
 		}
-		$this->setFlashError(__('User was not deleted'));
+		$this->Flash->error(__('User was not deleted'));
 		return $this->redirect(array('admin' => false, 'action' => 'index'));
 	}
 
@@ -155,9 +155,9 @@ class UsersController extends AppController {
 	public function classic_login() {
 		if ($this->request->is('post')) {
 			if ($this->Auth->login()) {
-				return $this->redirect($this->Auth->redirect());
+				return $this->redirect($this->Auth->redirectUrl());
 			} else {
-				$this->setFlashError(__('Invalid username or password, try again'));
+				$this->Flash->error(__('Invalid username or password, try again'));
 			}
 		}
 	}
@@ -209,12 +209,12 @@ class UsersController extends AppController {
 
 			if (!empty($user['User'])) {
 				if ($this->Auth->login($user['User'])) {
-					$this->setFlashSuccess(__('Successful login via SURFconext.'));
-					return $this->redirect($this->Auth->redirect());
+					$this->Flash->success(__('Successful login via SURFconext.'));
+					return $this->redirect($this->Auth->redirectUrl());
 				}
 			}
 		}
-		$this->setFlashError(__('Failed to login via SURFconext. Please, try again.'));
+		$this->Flash->error(__('Failed to login via SURFconext. Please, try again.'));
 		return $this->redirect('/');
 	}
 
@@ -243,10 +243,10 @@ class UsersController extends AppController {
 	public function change_password() {
 		if ($this->request->is('post')) {
 			if ($this->User->changePassword($this->request->data)) {
-				$this->setFlashSuccess(__('Password has been changed.'));
+				$this->Flash->success(__('Password has been changed.'));
 				return $this->redirect(array('action' => 'account'));
 			} else {
-				$this->setFlashError(__('Password could not be changed. Plaese try again.'));
+				$this->Flash->error(__('Password could not be changed. Plaese try again.'));
 			}
 		}
 	}

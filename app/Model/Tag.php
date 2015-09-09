@@ -22,13 +22,13 @@ class Tag extends AppModel {
  */
 	public $validate = array(
 		'name' => array(
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
+			'notBlank' => array(
+				'rule' => 'notBlank',
 				'last' => true,
 				'message' => 'This field cannot be left blank'
 			),
 			'required' => array(
-				'rule' => 'notEmpty',
+				'rule' => 'notBlank',
 				'required' => true,
 				'on' => 'create'
 			)
@@ -128,7 +128,7 @@ class Tag extends AppModel {
 
 		$contain = array('QuestionsTagFilter');
 		$tags = $this->find('all', compact('conditions', 'contain'));
-		$tagIds = Set::extract('/Tag/id', $tags);
+		$tagIds = Hash::extract($tags, '{n}.Tag.id');
 		$this->deleteAll(array('Tag.id' => $tagIds), false);
 	}
 
