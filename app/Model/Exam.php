@@ -1421,7 +1421,7 @@ class Exam extends AppModel {
 							$data['Item'][$i]['AnswerOption'][] = array(
 								'order' => $answerOption['order'],
 								'value' => $answerOption['value'],
-								'is_correct' => $answerOptions[$j]['AnswerOption']['is_correct']
+								'is_correct' => $answerOptions[0][$j]['is_correct']
 							);
 						}
 					}
