@@ -23,16 +23,16 @@
 		{
 			"type": "package",
 			"package": {
-				"name": "rserve-php/rserve-php",
+				"name": "nlware/rserve-php",
 				"version": "dev-master",
 				"type": "cakephp-vendor",
 				"dist": {
 					"type": "zip",
-					"url": "https://github.com/cturbelin/rserve-php/archive/master.zip"
+					"url": "https://github.com/nlware/rserve-php/archive/master.zip"
 				},
 				"source": {
 					"type": "git",
-					"url": "https://github.com/cturbelin/rserve-php",
+					"url": "https://github.com/nlware/rserve-php",
 					"reference": "master"
 				},
 				"require": {
@@ -52,7 +52,7 @@
 		"cakephp/debug_kit": "2.2.*",
 		"slywalker/twitter_bootstrap": "1.5.7",
 		"htmlawed/htmlawed": "1.1.*",
-		"rserve-php/rserve-php": "dev-master"
+		"nlware/rserve-php": "dev-master"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "3.7.*"
