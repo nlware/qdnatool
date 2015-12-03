@@ -65,7 +65,7 @@ endif;
 		$settings = Cache::settings();
 		if (!empty($settings)):
 			echo '<div class="alert alert-success">';
-			echo __d('cake_dev', 'The %s is being used for core caching. To change the config edit %s', '<em>'. $settings['engine'] . 'Engine</em>', 'APP/Config/core.php');
+			echo __d('cake_dev', 'The %s is being used for core caching. To change the config edit %s', '<em>' . $settings['engine'] . 'Engine</em>', 'APP/Config/core.php');
 			echo '</div>';
 		else:
 			echo '<div class="alert alert-error">';
@@ -144,7 +144,7 @@ if (isset($filePresent)):
 			echo '<div class="alert alert-error">';
 			echo __d('cake_dev', 'DebugKit is not installed. It will help you inspect and debug different aspects of your application.');
 			echo '<br/>';
-			echo __d('cake_dev', 'You can install it from %s', $this->Html->link('GitHub', 'https://github.com/cakephp/debug_kit'));
+			echo __d('cake_dev', 'You can install it from %s', $this->Html->link('GitHub', 'https://github.com/cakephp/debug_kit/tree/2.2'));
 			echo '</div>';
 		endif;
 	?>

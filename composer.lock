@@ -4,20 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c350327bacfe7f835a84956590a73cfb",
+    "hash": "f3c99d0105d21b49e8da6457d73f376d",
+    "content-hash": "6973b952e91154465dd5b78cd6193d2d",
     "packages": [
         {
             "name": "cakephp/cakephp",
-            "version": "2.7.3",
+            "version": "2.7.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/cakephp.git",
-                "reference": "0dbabce792cf3ff04f68a5ecadefb7659113f5e3"
+                "reference": "3fa5c4ff9406309aa52dcf5ef604ebbcae882dd6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/0dbabce792cf3ff04f68a5ecadefb7659113f5e3",
-                "reference": "0dbabce792cf3ff04f68a5ecadefb7659113f5e3",
+                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/3fa5c4ff9406309aa52dcf5ef604ebbcae882dd6",
+                "reference": "3fa5c4ff9406309aa52dcf5ef604ebbcae882dd6",
                 "shasum": ""
             },
             "require": {
@@ -25,7 +26,8 @@
                 "php": ">=5.3.0"
             },
             "require-dev": {
-                "cakephp/debug_kit": "2.2.*",
+                "cakephp/cakephp-codesniffer": "^1.0.0",
+                "cakephp/debug_kit": "^2.2.0",
                 "phpunit/phpunit": "3.7.*"
             },
             "bin": [
@@ -47,20 +49,20 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2015-08-24 02:22:27"
+            "time": "2015-10-02 01:03:56"
         },
         {
             "name": "cakephp/debug_kit",
-            "version": "2.2.5",
+            "version": "2.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/debug_kit.git",
-                "reference": "c91103061d9b7ec3141e642913f88090a292b2bf"
+                "reference": "6c318a779b63bd567fd17811aecc7654a74bbec5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/debug_kit/zipball/c91103061d9b7ec3141e642913f88090a292b2bf",
-                "reference": "c91103061d9b7ec3141e642913f88090a292b2bf",
+                "url": "https://api.github.com/repos/cakephp/debug_kit/zipball/6c318a779b63bd567fd17811aecc7654a74bbec5",
+                "reference": "6c318a779b63bd567fd17811aecc7654a74bbec5",
                 "shasum": ""
             },
             "require": {
@@ -96,21 +98,24 @@
                 "debug",
                 "kit"
             ],
-            "time": "2014-11-22 17:58:32"
+            "time": "2015-09-13 20:07:55"
         },
         {
             "name": "composer/installers",
-            "version": "v1.0.21",
+            "version": "v1.0.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "d64e23fce42a4063d63262b19b8e7c0f3b5e4c45"
+                "reference": "bd9b14f094c89c8b5804a4e41edeb7853bb85046"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/d64e23fce42a4063d63262b19b8e7c0f3b5e4c45",
-                "reference": "d64e23fce42a4063d63262b19b8e7c0f3b5e4c45",
+                "url": "https://api.github.com/repos/composer/installers/zipball/bd9b14f094c89c8b5804a4e41edeb7853bb85046",
+                "reference": "bd9b14f094c89c8b5804a4e41edeb7853bb85046",
                 "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "1.0.0"
             },
             "replace": {
                 "roundcube/plugin-installer": "*",
@@ -120,9 +125,9 @@
                 "composer/composer": "1.0.*@dev",
                 "phpunit/phpunit": "4.1.*"
             },
-            "type": "composer-installer",
+            "type": "composer-plugin",
             "extra": {
-                "class": "Composer\\Installers\\Installer",
+                "class": "Composer\\Installers\\Plugin",
                 "branch-alias": {
                     "dev-master": "1.0-dev"
                 }
@@ -191,14 +196,14 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2015-02-18 17:17:01"
+            "time": "2015-10-29 23:28:48"
         },
         {
             "name": "htmlawed/htmlawed",
-            "version": "1.1.14",
+            "version": "1.1.20",
             "dist": {
                 "type": "zip",
-                "url": "http://www.bioinformatics.org/phplabware/downloads/htmLawed.zip",
+                "url": "http://www.bioinformatics.org/phplabware/downloads/htmLawed1120.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -208,18 +213,24 @@
             "type": "cakephp-vendor"
         },
         {
-            "name": "rserve-php/rserve-php",
-            "version": "0.2.41",
+            "name": "nlware/rserve-php",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nlware/rserve-php",
+                "reference": "master"
+            },
             "dist": {
                 "type": "zip",
-                "url": "http://rserve-php.googlecode.com/files/rserve-php-0.2-rev41.zip",
+                "url": "https://github.com/nlware/rserve-php/archive/master.zip",
                 "reference": null,
                 "shasum": null
             },
             "require": {
                 "composer/installers": "*"
             },
-            "type": "cakephp-vendor"
+            "type": "cakephp-vendor",
+            "time": "2015-11-09 12:04:36"
         },
         {
             "name": "slywalker/twitter_bootstrap",
@@ -629,23 +640,20 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.7.3",
+            "version": "v2.7.6",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Yaml.git",
-                "reference": "71340e996171474a53f3d29111d046be4ad8a0ff"
+                "url": "https://github.com/symfony/yaml.git",
+                "reference": "eca9019c88fbe250164affd107bc8057771f3f4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/71340e996171474a53f3d29111d046be4ad8a0ff",
-                "reference": "71340e996171474a53f3d29111d046be4ad8a0ff",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/eca9019c88fbe250164affd107bc8057771f3f4d",
+                "reference": "eca9019c88fbe250164affd107bc8057771f3f4d",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.9"
-            },
-            "require-dev": {
-                "symfony/phpunit-bridge": "~2.7"
             },
             "type": "library",
             "extra": {
@@ -674,12 +682,14 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2015-07-28 14:07:07"
+            "time": "2015-10-11 09:39:48"
         }
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "nlware/rserve-php": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": [],
