@@ -1,7 +1,5 @@
 <?php
 /**
- * Index
- *
  * The Front Controller for handling every request
  *
  * @link          http://cakephp.org CakePHP(tm) Project
@@ -48,9 +46,9 @@ if (!defined('APP_DIR')) {
  * Leaving this constant undefined will result in it being defined in Cake/bootstrap.php
  *
  * The following line differs from its sibling
- * /app/webroot/index.php
+ * /lib/Cake/Console/Templates/skel/webroot/index.php
  */
-define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . APP_DIR . DS . 'Vendor' . DS . 'cakephp' . DS . 'cakephp' . DS . 'lib');
+//define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . 'lib');
 
 /**
  * This auto-detects CakePHP as a composer installed library.
@@ -73,7 +71,7 @@ if (!defined('WWW_ROOT')) {
 	define('WWW_ROOT', dirname(__FILE__) . DS);
 }
 
-// for built-in server
+// For the built-in server
 if (PHP_SAPI === 'cli-server') {
 	if ($_SERVER['REQUEST_URI'] !== '/' && file_exists(WWW_ROOT . $_SERVER['PHP_SELF'])) {
 		return false;
@@ -88,10 +86,8 @@ if (!defined('CAKE_CORE_INCLUDE_PATH')) {
 	if (!include 'Cake' . DS . 'bootstrap.php') {
 		$failed = true;
 	}
-} else {
-	if (!include CAKE_CORE_INCLUDE_PATH . DS . 'Cake' . DS . 'bootstrap.php') {
-		$failed = true;
-	}
+} elseif (!include CAKE_CORE_INCLUDE_PATH . DS . 'Cake' . DS . 'bootstrap.php') {
+	$failed = true;
 }
 if (!empty($failed)) {
 	trigger_error("CakePHP core could not be found. Check the value of CAKE_CORE_INCLUDE_PATH in APP/webroot/index.php. It should point to the directory containing your " . DS . "cake core directory and your " . DS . "vendors root directory.", E_USER_ERROR);
