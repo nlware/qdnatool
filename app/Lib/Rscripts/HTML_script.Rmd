@@ -1,0 +1,195 @@
+---
+output: html_document
+---
+# Markdown testen
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+load(file="Markdown test.RData")
+```
+
+
+What | Result | Explanation of the tables
+:---------------------- | :------------- | :-----------------------
+Number of students| `r n.stud` |   For each question the frequency, percentage and item rest correlations (IRC)
+Number of questions | `r n.item` |  from every answer option are diplayed. The IRC should be (highly) positive
+Average score | `r round(mean(rowSums(input.correct)), digits = 3)`  | for the right answer option and low for the wrong answer option(s).
+Standard deviation | `r round(sd(rowSums(input.correct)), digits = 3)`  |
+Cronbach's alpha | `r cronbach`  |
+Standard error | `r round(sd(rowSums(input.correct) * sqrt(1 - cronbach)), digits = 3)` |
+
+```{r, echo=FALSE, eval=TRUE, results = "asis"}
+library(hwriter)
+
+# Creating results for each item
+item.list <- list() # Creates list to put item output in
+colnames1 <- c("Answer Option", "Frequency", "Percentage", "IRC")
+colnames2 <- c("Answer Option", "Frequency", "Percentage", "IRC", "Correct")
+
+
+# Filling a list with frequency, percentage and IRC for total and each answer options.
+# Every item gets a seperate data frame in the list.
+# If no answeroptions are present, only the correct statistics are displayed.
+# If there are more than 14 answer options, only the correct statistics are displayed to conserve space.
+# The list is used for the first part of the output and is modified to a data frame to make the plots with the answer options.
+for (i in 1:n.item) {
+  if (n.answer.op[i] > 0 & n.answer.op[i] < 15) {
+    Correct <- c(ifelse(key[, i] == 1, "Correct", "Incorrect"), "Incorrect")
+    
+    # Frequency is also stored at this point, but not used.
+    # in case someone wants to alter the script to display the frequency instead of the percentage
+    item.list[[i]] <- data.frame(c(LETTERS[1:n.answer.op[i]], "Missing"),
+                                 c(freq.answer.op[c(2:(n.answer.op[i] + 1), 1), i]),
+                                 c(perc.answer.op[c(2:(n.answer.op[i] + 1), 1), i]),
+                                 c(answer.op.tot.cor[c(2:(n.answer.op[i] + 1), 1), i]),
+                                 Correct,
+                                 row.names = NULL)
+    colnames(item.list[[i]]) <- colnames2
+  } else {
+    item.list[[i]] <- data.frame("Total", item.sum[i],
+                                 item.perc[i],
+                                 item.tot.cor[i])
+    colnames(item.list[[i]]) <- colnames1
+  }
+}
+
+#Create item names
+if(!exists("item.names")) item.names = 1:n.item
+items <- paste("Item", item.names, sep = " ")
+names(item.list) <- items
+
+#Create the tables, SHOULD BE REWRITTEN.
+for(i in 1:length(item.list)){
+  cat(hwrite(names(item.list)[i], heading = 4))
+  y = hwrite(item.list[[i]][,1:4], row.bgcolor = ifelse(key[,i] == 1, "lightgreen", NA), 
+             border = 0, row.names = FALSE, 
+             col.width = c(110,95,95,70), br = TRUE, row.style=list('font-weight:bold'))
+  cat(y)
+}
+
+
+```
+
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+#library(gplots)
+library(ggplot2)
+
+# Create a dataframe with only the correct statistics. This is used in the general item plots
+correct.df <- data.frame(factor(1:n.item), item.sum,
+                         item.perc, item.tot.cor)
+names(correct.df)[1] <- "item"
+
+### Frequency Plot for total items
+bar_freq <- ggplot(correct.df, aes(item, item.perc, fill = item.perc)) # Create chart with Answer Option on x-axis and percentae correct on y-asix
+bar_freq <-  bar_freq + geom_bar(stat = "identity") + # Create Bar chart
+  scale_fill_gradient2(low = "red", mid = "green", high = "red", midpoint = 50, limits = c(0, 100), name = "")  + # Create colour boundray: Green = "right" according to psychometrics, a value of 50% correct is ideal.
+  coord_cartesian(ylim = c(0, 100)) + # Change y-axis limit to constant
+  labs(x = "Item", title = "Correct Percentage", y = "Percentage") + # Change titles and x axis name
+  theme(strip.text.x = element_text(size = 7) , axis.text.x = element_text(size = 8), # Change font size of item names and Answer options
+        axis.ticks.x = element_line(size = .4))
+
+bar_freq
+
+### IRC Bar Plot for total items
+bar_IRC <- ggplot(correct.df, aes(item, item.tot.cor, fill = item.tot.cor)) # Create chart with Answer_Option on x-axis and IRC on y-asix
+bar_IRC <-  bar_IRC + geom_bar(stat = "identity") + # Create Bar chart
+  scale_fill_gradient(low = "red", high = "green", limits = c(-.1, .4), name = "")  + # Create colour boundray: Green = "right" (low for wrong answer options, high for right answer options)
+  #    coord_cartesian(ylim = c(ifelse(min(correct.df$item.tot.cor < 0), min(correct.df$item.tot.cor), 0), 1)) + # Change y-axis limit to constant
+  labs(x = "Item", title = "Item Rest Correlations", y = "Item Rest Correlation") + # Change titles and x axis name
+  theme(strip.text.x = element_text(size = 7), axis.text.x = element_text(size = 8), # Change font size of item names and Answer options
+        axis.ticks.x = element_line(size = .4))
+
+bar_IRC
+
+```
+
+
+```{r, echo=FALSE, eval=TRUE, warning = FALSE, fig.width = 9}
+library(plyr)
+# Create data frame of all the items which have answer options. This is used to make barplots per answer option
+# Create extra variables to make the bar plots
+for(i in 1:n.item) {
+  #Create right order on the x-axis (Missingness last)
+  if (any(key[, i] != 0)) {
+    item.list[[i]]$Ans_Factor <- factor(item.list[[i]]$"Answer Option")
+    item.list[[i]]$Col_scale <- as.numeric(item.list[[i]]$Correct) * 2 - 3
+    item.list[[i]]$IRC_col_scale <- with(item.list[[i]], IRC * Col_scale)
+    item.list[[i]]$Perc_col_scale <- with(item.list[[i]], Percentage)
+  }
+}
+
+if (any(key != 0)) {
+  Ans.Opt.df <- ldply(item.list[n.answer.op != 0], data.frame)
+  names(Ans.Opt.df)[1] <- "id"
+  Ans.Opt.df$Answer.Option <- gsub("Missing", "Mis", Ans.Opt.df$Answer.Option)
+  Ans.Opt.df$Ans_Factor <- gsub("Missing", "Mis", Ans.Opt.df$Ans_Factor)
+  Ans.Opt.df$Ans_Factor <- factor(Ans.Opt.df$Ans_Factor,
+                                  levels = c(LETTERS[1 : max(n.answer.op)], "Mis"))
+  Ans.Opt.df$id <- factor(Ans.Opt.df$id , levels = items[n.answer.op != 0])
+  Ans.Opt.df$Perc_col_scale[Ans.Opt.df$Correct == "Correct"] <- 100 - Ans.Opt.df$Perc_col_scale[Ans.Opt.df$Correct == "Correct"]
+}
+
+# Calculating which questions are displayed on which plot. The number of plots is determined by a max of 80 bars per plot and then dividing all answer options over the plot
+if (any(key != 0)) {
+  Max.Answ.Opts = 80
+  Tot.Answ.Opts = nrow(Ans.Opt.df)
+  n.plots = ceiling(Tot.Answ.Opts / Max.Answ.Opts)
+  Answ.Opts.Per.Plot = Tot.Answ.Opts / n.plots
+  
+  items.in.plot <- list(unique(Ans.Opt.df[1 : Answ.Opts.Per.Plot, 1]))
+  if(n.plots > 1){
+    for(i in 2:n.plots)
+      items.in.plot[[i]] <- unique(Ans.Opt.df[((i - 1) * Answ.Opts.Per.Plot) : (i * Answ.Opts.Per.Plot), 1])
+    items.in.plot[[i]] <- items.in.plot[[i]][-1]
+  }
+  
+  # Create the plots of the frequencies per answer option
+  
+  for(i in 1:n.plots){ 
+    bar_freq1 <- ggplot(Ans.Opt.df[Ans.Opt.df$id %in% items.in.plot[[i]], ],  # Select subset of questions
+                        aes("Answer Option", Percentage, fill = Correct, colour = Perc_col_scale)) # Create chart with Answer Option on x-axis and frequency on y-asix
+    bar_freq1 <- bar_freq1 + geom_bar(aes(x = Ans_Factor), stat = "identity") + # Create Bar chart
+      facet_grid(. ~ id, scales = "free_x", space = "free_x") + # Display the different items
+      scale_fill_manual(values = c("Incorrect" = "Red" ,"Correct" = "Green"), guide=FALSE) + # Fill in the bars: Green right answer options, Red wrong answer options
+      scale_colour_gradient(low = "green", high = "red", guide = FALSE) + # Create colour boundray: Green = "right" (low for wrong answer options, high for right answer options)
+      coord_cartesian(ylim = c(0, 100)) + # Change y-axis limit to constant
+      labs(x = "Answer Options", title = "Percentage chart(s) per question and per answer options. The green bars represent the right answer options. 
+The color of the border represents the desirability (50% for the right answer options, low for the wrong answer options)") + #Change titles and x axis name
+      theme(strip.text.x = element_text(size = 7), # Font size of labels of the facets: e.g. Item 1
+            axis.text.x = element_text(size = 5.5), # Font size of text by tick marks of the x-asis
+            axis.ticks.x = element_line(size = .1), # Size of the tick marks on the x-asis
+            axis.title.x = element_text(size = 11), # Font size of the x-asis title
+            axis.title.y = element_text(size = 11), # Font size of the y-axis title 
+            title = element_text(size = 9)) # Font size of the overall title
+    
+    print(bar_freq1)
+  }
+  
+  
+  
+  # Creating IRC plots 
+  
+  for(i in 1:n.plots){ 
+    bar_IRC1 <- ggplot(Ans.Opt.df[Ans.Opt.df$id %in% items.in.plot[[i]], ]  # Select subset of first plots
+                       , aes("Answer Option", IRC, fill = Correct, colour = IRC_col_scale)) # Create chart with Answer Option on x-axis and IRC on y-asix
+    bar_IRC1 <-  bar_IRC1 + geom_bar(aes(x = Ans_Factor), stat = "identity") + # Create Bar chart
+      facet_grid(. ~ id, scales = "free_x", space = "free_x") + # Display the different items
+      scale_fill_manual(values = c("Incorrect" = "Red", "Correct" = "Green"), guide = FALSE) + # Fill in the bars: Green right answer options, Red wrong answer options
+      scale_colour_gradient(low = "green", high = "red", guide = FALSE) + # Create colour boundray: Green = "right" (low for wrong answer options, high for right answer options)
+      coord_cartesian(ylim = c(ifelse(min(Ans.Opt.df$IRC) < -.3, min(Ans.Opt.df$IRC) - .01, -.3),
+                               ifelse(max(Ans.Opt.df$IRC) > .4, max(Ans.Opt.df$IRC) + .01, .4))) + # Change y-axis limit to either the maximum IRC or .4 and minimum IRC or -.3
+      labs(x = "Answer Options", title = "IRC chart(s) per question and per answer options. The green bars represent the right answer options. 
+The color of the border represents the desirability (high for the right answer options, low for the wrong answer options)") + #Change titles and x axis name
+      theme(strip.text.x = element_text(size = 7), # Font size of labels of the facets: e.g. Item 1
+            axis.text.x = element_text(size = 5.5), # Font size of text by tick marks of the x-asis
+            axis.ticks.x = element_line(size = .1), # Size of the tick marks on the x-asis
+            axis.title.x = element_text(size = 11), # Font size of the x-asis title
+            axis.title.y = element_text(size = 11), # Font size of the y-axis title 
+            title = element_text(size = 9)) # Font size of the overall title
+    
+    print(bar_IRC1)
+  }
+  
+}
+
+```
