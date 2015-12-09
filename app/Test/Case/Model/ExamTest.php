@@ -8,21 +8,33 @@ App::uses('Exam', 'Model');
 class TestExam extends Exam {
 
 /**
- * Table name
+ * Set alias for sql.
  *
  * @var string
+ */
+	public $alias = 'Exam';
+
+/**
+ * Use table.
+ *
+ * @var mixed False or table name
  */
 	public $useTable = 'exams';
 
 /**
- * Convenience method for testing protected method
+ * Public test double of `parent::_getIndexOfVersionFromTeleformHeader`.
  *
- * @param array $header Column headers of Teleform mapping file
- * @param integer $version Requested veersion
- * @return mixed Integer with the column index, or false on failure or requested version not found
  */
 	public function getIndexOfVersionFromTeleformHeader($header, $version) {
 		return self::_getIndexOfVersionFromTeleformHeader($header, $version);
+	}
+
+/**
+ * Public test double of `parent::_duplicate`.
+ *
+ */
+	public function duplicate($postData) {
+		return parent::_duplicate($postData);
 	}
 
 }
@@ -34,11 +46,18 @@ class TestExam extends Exam {
 class ExamTest extends CakeTestCase {
 
 /**
+ * Auto fixtures.
+ *
+ * @var bool
+ */
+	public $autoFixtures = false;
+
+/**
  * Fixtures
  *
  * @var array
  */
-	public $fixtures = array('app.exam');
+	public $fixtures = array('app.answer_option', 'app.exam', 'app.given_answer', 'app.item', 'app.subject');
 
 /**
  * setUp method
@@ -77,10 +96,10 @@ class ExamTest extends CakeTestCase {
 		);
 		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 1);
 		$expected = false;
-		$this->assertIdentical($result, $expected);
+		$this->assertSame($expected, $result);
 		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 2);
 		$expected = false;
-		$this->assertIdentical($result, $expected);
+		$this->assertSame($expected, $result);
 
 		//
 		// Header does contain requested versions
@@ -92,10 +111,10 @@ class ExamTest extends CakeTestCase {
 		);
 		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 1);
 		$expected = 0;
-		$this->assertIdentical($result, $expected);
+		$this->assertSame($expected, $result);
 		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 2);
 		$expected = 1;
-		$this->assertIdentical($result, $expected);
+		$this->assertSame($expected, $result);
 
 		$header = array(
 			'Versie.2',
@@ -103,10 +122,10 @@ class ExamTest extends CakeTestCase {
 		);
 		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 1);
 		$expected = 1;
-		$this->assertIdentical($result, $expected);
+		$this->assertSame($expected, $result);
 		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 2);
 		$expected = 0;
-		$this->assertIdentical($result, $expected);
+		$this->assertSame($expected, $result);
 
 		//
 		// case insensitive
@@ -118,10 +137,10 @@ class ExamTest extends CakeTestCase {
 		);
 		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 1);
 		$expected = 0;
-		$this->assertIdentical($result, $expected);
+		$this->assertSame($expected, $result);
 		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 2);
 		$expected = 1;
-		$this->assertIdentical($result, $expected);
+		$this->assertSame($expected, $result);
 
 		//
 		// Seperator whitespace instead of dot and case insensitive
@@ -133,10 +152,10 @@ class ExamTest extends CakeTestCase {
 		);
 		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 1);
 		$expected = 0;
-		$this->assertIdentical($result, $expected);
+		$this->assertSame($expected, $result);
 		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 2);
 		$expected = 1;
-		$this->assertIdentical($result, $expected);
+		$this->assertSame($expected, $result);
 	}
 
 /**
@@ -302,6 +321,33 @@ class ExamTest extends CakeTestCase {
 		$this->markTestIncomplete(
 			'This test has not been implemented yet.'
 		);
+	}
+
+/**
+ * testDuplicate method
+ *
+ * @return void
+ */
+	public function testDuplicate() {
+		$this->loadFixtures('AnswerOption', 'Exam', 'GivenAnswer', 'Item', 'Subject');
+
+		$expected = 748;
+
+		$examId = 747;
+		$conditions = array('Exam.id' => $examId);
+		$contain = array('Item' => 'AnswerOption');
+		$postData = $this->Exam->find('first', compact('conditions', 'contain'));
+
+		$postData['Exam']['parent_id'] = $postData['Exam']['id'];
+		unset($postData['Exam']['id']);
+		$postData['Exam']['name'] = 'test';
+
+		foreach ($postData['Item'] as $i => $item) {
+			$postData['Item'][$i]['include'] = '1';
+		}
+
+		$result = $this->Exam->duplicate($postData);
+		$this->assertEquals($expected, $result);
 	}
 
 }

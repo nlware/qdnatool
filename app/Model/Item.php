@@ -69,40 +69,30 @@ class Item extends AppModel {
 /**
  * Add item to exam
  *
- * @param integer $examId Exam id
- * @param integer $defaultAnswerOptionCount Default number of answer options
+ * @param int $examId Exam id
+ * @param int $defaultAnswerOptionCount Default number of answer options
  * @param string $question Question
- * @param integer $givenAnswerOptionOrder Order index of given answer option
- * @param integer $score Score
- * @param integer $maximumScore Maximum score
- * @return integer Item id
+ * @param int $givenAnswerOptionOrder Order index of given answer option
+ * @param int $score Score
+ * @param int $maximumScore Maximum score
+ * @return int Item id
  */
 	public function add($examId, $defaultAnswerOptionCount, $question, $givenAnswerOptionOrder, $score, $maximumScore) {
 		$itemId = false;
 		$isCorrect = ($score == $maximumScore && $maximumScore > 0);
 
 		// lookup item
-		$item = $this->find(
-			'first', array(
-				'conditions' => array(
-					'Item.exam_id' => $examId,
-					'Item.value' => $question
-				),
-				'contain' => 'AnswerOption'
-			)
+		$conditions = array(
+			'Item.exam_id' => $examId,
+			'Item.value' => $question
 		);
+		$contain = array('AnswerOption');
+		$item = $this->find('first', compact('conditions', 'contain'));
 
 		if (empty($item)) {
-			$lastItem = $this->find(
-				'first', array(
-					'conditions' => array(
-						'Item.exam_id' => $examId
-					),
-					'order' => array(
-						'Item.order' => 'DESC'
-					)
-				)
-			);
+			$conditions = array('Item.exam_id' => $examId);
+			$order = array('Item.order' => 'DESC');
+			$lastItem = $this->find('first', compact('conditions', 'order'));
 			$item = array(
 				'Item' => array(
 					'exam_id' => $examId,
@@ -159,7 +149,7 @@ class Item extends AppModel {
  * stevie method
  *
  * @param array $item Item data
- * @param integer[optional] $answerOptionCount Number of answer options
+ * @param int[optional] $answerOptionCount Number of answer options
  * @return array Enriched item data
  */
 	public function stevie($item, $answerOptionCount = null) {
@@ -217,4 +207,5 @@ class Item extends AppModel {
 		}
 		return $item;
 	}
+
 }

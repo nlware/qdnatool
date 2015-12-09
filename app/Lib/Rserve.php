@@ -1,5 +1,5 @@
 <?php
-App::import('Vendor', 'RserveConnection', array('file' => 'rserve-php' . DS . 'Connection.php'));
+App::import('Vendor', 'RserveConnection', array('file' => 'nlware' . DS . 'rserve-php' . DS . 'Connection.php'));
 class Rserve {
 
 	public static $configs = null;
@@ -41,7 +41,8 @@ class Rserve {
 	public function connect() {
 		$connection = null;
 		try {
-			$connection = new Rserve_Connection(self::getConfig('host'), self::getConfig('port'), self::getConfig('debug'));
+			$params = array('debug' => self::getConfig('debug'));
+			$connection = new Rserve_Connection(self::getConfig('host'), self::getConfig('port'), $params);
 		} catch(Exception $e) {
 			$connection = false;
 		}
@@ -52,7 +53,7 @@ class Rserve {
  * execute method
  *
  * @param string $script Script to execute
- * @return boolean
+ * @return bool
  */
 	public function execute($script) {
 		$result = false;
@@ -66,4 +67,5 @@ class Rserve {
 		}
 		return $result;
 	}
+
 }

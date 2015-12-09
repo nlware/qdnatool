@@ -29,7 +29,7 @@ class AnswerOption extends AppModel {
 /**
  * printIndex method
  *
- * @param integer $index Index
+ * @param int $index Index
  * @return string
  */
 	public static function printIndex($index) {
@@ -39,10 +39,11 @@ class AnswerOption extends AppModel {
 /**
  * printValue method
  *
- * @param integer $value Value
+ * @param int $value Value
  * @return string
  */
 	public static function printValue($value) {
 		return chr(65 + $value - 1);
 	}
+
 }

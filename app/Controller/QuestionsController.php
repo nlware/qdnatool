@@ -1,22 +1,38 @@
 <?php
+App::uses('CakeText', 'Utility');
 App::uses('DevelopmentPhase', 'Model');
 App::uses('QuestionAnswer', 'Model');
 App::uses('AppController', 'Controller');
 /**
  * Questions Controller
  *
+ * @property Instruction $Instruction
  * @property Question $Question
+ * @property Tip $Tip
  */
 class QuestionsController extends AppController {
 
+/**
+ * An array containing the class names of models this controller uses.
+ *
+ * @var mixed
+ * @see AppController::uses
+ */
 	public $uses = array('Question', 'Tip', 'Instruction');
 
+/**
+ * An array of names of helpers to load
+ *
+ * @var mixed A single name as a string or a list of names as an array.
+ * @see AppController::helpers
+ */
 	public $helpers = array('CkSource');
 
 /**
  * beforeFilter
  *
  * @return void
+ * @see AppController::beforeFilter()
  */
 	public function beforeFilter() {
 		parent::beforeFilter();
@@ -78,16 +94,16 @@ class QuestionsController extends AppController {
 /**
  * add method
  *
- * @param integer $tagId A tag id
+ * @param int $tagId A tag id
  * @return void
  */
 	public function add($tagId = null) {
 		if ($this->request->is('post')) {
 			if ($this->Question->add($this->request->data)) {
-				$this->setFlashSuccess(__('The question has been saved'));
+				$this->Flash->success(__('The question has been saved'));
 				return $this->redirect(array('action' => 'view', $this->Question->id));
 			} else {
-				$this->setFlashError(__('The question could not be saved. Please, try again.'));
+				$this->Flash->error(__('The question could not be saved. Please, try again.'));
 			}
 		} else {
 			if (!empty($tagId)) {
@@ -126,10 +142,10 @@ class QuestionsController extends AppController {
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Question->update($this->request->data)) {
-				$this->setFlashSuccess(__('The question has been saved'));
+				$this->Flash->success(__('The question has been saved'));
 				return $this->redirect(array('action' => 'view', $id));
 			} else {
-				$this->setFlashError(__('The question could not be saved. Please, try again.'));
+				$this->Flash->error(__('The question could not be saved. Please, try again.'));
 			}
 		} else {
 			$this->request->data = $this->Question->edit($id);
@@ -167,14 +183,14 @@ class QuestionsController extends AppController {
 			throw new NotFoundException(__('Invalid question'));
 		}
 		if ($this->Question->delete($id)) {
-			$this->setFlashSuccess(__('Question deleted'));
+			$this->Flash->success(__('Question deleted'));
 			$referer = $this->Session->read('_App.referer');
 			if (empty($referer)) {
 				$referer = array('action' => 'index');
 			}
 			return $this->redirect($referer);
 		}
-		$this->setFlashError(__('Question was not deleted'));
+		$this->Flash->error(__('Question was not deleted'));
 		$referer = $this->Session->read('_App.referer');
 		if (empty($referer)) {
 			$referer = array('action' => 'index');
@@ -201,7 +217,7 @@ class QuestionsController extends AppController {
 		$options = array('contain' => array('QuestionAnswer'));
 
 		if (!empty($this->request->params['named']['tag_id'])) {
-			$options = Set::merge($options, $this->Question->getFindOptionsForTagIds(array_values($this->request->params['named']['tag_id'])));
+			$options = Hash::merge($options, $this->Question->getFindOptionsForTagIds(array_values($this->request->params['named']['tag_id'])));
 			$this->request->data = array('Tag' => array('Tag' => $this->request->params['named']['tag_id']));
 		}
 
@@ -217,7 +233,7 @@ class QuestionsController extends AppController {
 		$questions = $this->paginate();
 		$tags = $this->Question->Tag->getList();
 		foreach ($tags as $i => $tag) {
-			$tags[$i] = sprintf('<span class="label label-info" title="%s">%s</span>', $tag, String::truncate($tag, 20, array('ellipsis' => '...')));
+			$tags[$i] = sprintf('<span class="label label-info" title="%s">%s</span>', $tag, CakeText::truncate($tag, 20, array('ellipsis' => '...')));
 		}
 
 		$tip = $this->Tip->find(
@@ -340,8 +356,8 @@ class QuestionsController extends AppController {
 		$zip->addFromString('data.xml', $data);
 		if (!empty($files)) {
 			foreach ($files as $filename) {
-				if (file_exists(APP . DS . '..' . DS . 'data' . DS . $filename)) {
-					$zip->addFile(APP . DS . '..' . DS . 'data' . DS . $filename, $filename);
+				if (file_exists(ROOT . DS . 'data' . DS . $filename)) {
+					$zip->addFile(ROOT . DS . 'data' . DS . $filename, $filename);
 				}
 			}
 		}
@@ -494,4 +510,5 @@ class QuestionsController extends AppController {
 		}
 		return $dom->saveXML();
 	}
+
 }

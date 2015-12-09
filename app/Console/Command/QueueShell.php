@@ -9,6 +9,12 @@ App::uses('AppShell', 'Console/Command');
  */
 class QueueShell extends AppShell {
 
+/**
+ * Contains models to load and instantiate.
+ *
+ * @var array
+ * @see AppShell::uses
+ */
 	public $uses = array('QueuedTask');
 
 	private $__taskConf;
@@ -298,4 +304,5 @@ class QueueShell extends AppShell {
 			$this->out('	- ' . $loadedTask);
 		}
 	}
+
 }

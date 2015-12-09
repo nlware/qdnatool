@@ -1,5 +1,5 @@
 <?php
-define('IMAGE_UPLOAD_DIRECTORY', ROOT . DS . 'data' . DS . 'images' . DS);
+define('IMAGE_UPLOADS', ROOT . DS . 'data' . DS . 'images' . DS);
 App::uses('AppModel', 'Model');
 /**
  * Image Model
@@ -8,7 +8,12 @@ App::uses('AppModel', 'Model');
  */
 class Image extends AppModel {
 
-	const UPLOAD_DIRECTORY = IMAGE_UPLOAD_DIRECTORY;
+/**
+ * Path to the uploads directory.
+ *
+ * @var string
+ */
+	const UPLOADS = IMAGE_UPLOADS;
 
 /**
  * belongsTo associations
@@ -21,4 +26,5 @@ class Image extends AppModel {
 			'foreignKey' => 'question_id'
 		)
 	);
+
 }

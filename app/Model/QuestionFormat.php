@@ -22,13 +22,13 @@ class QuestionFormat extends AppModel {
  */
 	public $validate = array(
 		'name' => array(
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
+			'notBlank' => array(
+				'rule' => 'notBlank',
 				'last' => true,
 				'message' => 'This field cannot be left blank'
 			),
 			'required' => array(
-				'rule' => 'notEmpty',
+				'rule' => 'notBlank',
 				'required' => true,
 				'on' => 'create'
 			)
@@ -51,8 +51,8 @@ class QuestionFormat extends AppModel {
 /**
  * Returns the minimal number of required answer options for given QuestionFormat
  *
- * @param integer $questionFormatId A QuestionFormat ID
- * @return integer
+ * @param int $questionFormatId A QuestionFormat ID
+ * @return int
  */
 	public static function getMinimalQuestionAnswers($questionFormatId) {
 		$minimalQuestionAnswers = 0;

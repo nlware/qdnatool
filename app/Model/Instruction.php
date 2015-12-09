@@ -34,18 +34,16 @@ class Instruction extends AppModel {
 /**
  * get method
  *
- * @param integer $developmentPhaseId Development phase id
- * @param integer $questionFormatId Question format id
+ * @param int[optional] $developmentPhaseId Development phase id
+ * @param int[optional] $questionFormatId Question format id
  * @return array
  */
 	public function get($developmentPhaseId = null, $questionFormatId = null) {
-		return $this->find(
-			'first', array(
-				'conditions' => array(
-					'Instruction.development_phase_id' => $developmentPhaseId,
-					'Instruction.question_format_id' => $questionFormatId
-				)
-			)
+		$conditions = array(
+			'Instruction.development_phase_id' => $developmentPhaseId,
+			'Instruction.question_format_id' => $questionFormatId
 		);
+		return $this->find('first', compact('conditions'));
 	}
+
 }

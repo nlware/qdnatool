@@ -34,14 +34,11 @@ class QuestionsTag extends AppModel {
  */
 	public function beforeSave($options = array()) {
 		if (empty($this->data[$this->alias]['id'])) {
-			$questionsTag = $this->find(
-				'first', array(
-					'conditions' => array(
-						'QuestionsTag.question_id' => $this->data[$this->alias]['question_id'],
-						'QuestionsTag.tag_id' => $this->data[$this->alias]['tag_id']
-					)
-				)
+			$conditions = array(
+				'QuestionsTag.question_id' => $this->data[$this->alias]['question_id'],
+				'QuestionsTag.tag_id' => $this->data[$this->alias]['tag_id']
 			);
+			$questionsTag = $this->find('first', compact('conditions'));
 			if (!empty($questionsTag)) {
 				$this->id = $questionsTag['QuestionsTag']['id'];
 				unset($this->data[$this->alias]);
@@ -52,8 +49,8 @@ class QuestionsTag extends AppModel {
 /**
  * remove method
  *
- * @param integer $id A QuestionsTag ID
- * @return boolean
+ * @param int $id A QuestionsTag ID
+ * @return bool
  */
 	public function remove($id) {
 		if ($this->__allowed($id)) {
@@ -65,17 +62,15 @@ class QuestionsTag extends AppModel {
 /**
  * __allowed
  *
- * @param integer $id A QuestionsTag ID
- * @return boolean
+ * @param int $id A QuestionsTag ID
+ * @return bool
  */
 	private function __allowed($id) {
-		return ($this->find(
-			'count', array(
-				'conditions' => array(
-					'QuestionsTag.id' => $id,
-					'QuestionsTag.tag_id' => $this->Tag->getMineIds()
-				)
-			)
-		) > 0);
+		$conditions = array(
+			'QuestionsTag.id' => $id,
+			'QuestionsTag.tag_id' => $this->Tag->getMineIds()
+		);
+		return ($this->find('count', compact('conditions')) > 0);
 	}
+
 }

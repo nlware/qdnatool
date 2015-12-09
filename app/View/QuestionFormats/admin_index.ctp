@@ -25,7 +25,7 @@
 				), array(
 					'title' => __('View'),
 					'class' => 'actionIcon',
-					'escape' => false
+					'escapeTitle' => false
 				)
 			);
 			echo $this->Html->link(
@@ -40,7 +40,7 @@
 				), array(
 					'title' => __('Edit'),
 					'class' => 'actionIcon',
-					'escape' => false
+					'escapeTitle' => false
 				)
 			);
 			?>

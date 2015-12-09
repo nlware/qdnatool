@@ -21,8 +21,8 @@ class QuestionAnswer extends AppModel {
  */
 	public $validate = array(
 		'name' => array(
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
+			'notBlank' => array(
+				'rule' => 'notBlank',
 				'required' => 'create',
 				'message' => 'This field cannot be left blank'
 			)
@@ -44,10 +44,11 @@ class QuestionAnswer extends AppModel {
 /**
  * printIndex method
  *
- * @param integer $index Index
+ * @param int $index Index
  * @return string
  */
 	public static function printIndex($index) {
 		return chr(65 + $index);
 	}
+
 }

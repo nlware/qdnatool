@@ -26,19 +26,19 @@ class User extends AppModel {
 				'message' => 'This username has already been taken.'
 			),
 			'required' => array(
-				'rule' => 'notEmpty',
+				'rule' => 'notBlank',
 				'required' => true,
 				'on' => 'create'
 			),
 		),
 		'name' => array(
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
+			'notBlank' => array(
+				'rule' => 'notBlank',
 				'last' => true,
 				'message' => 'This field cannot be left blank'
 			),
 			'required' => array(
-				'rule' => 'notEmpty',
+				'rule' => 'notBlank',
 				'required' => true,
 				'on' => 'create'
 			)
@@ -61,18 +61,18 @@ class User extends AppModel {
 				'message' => 'Passwords must be at least 8 characters long.'
 			),
 			'required' => array(
-				'rule' => 'notEmpty',
+				'rule' => 'notBlank',
 				//'required' => 'create'
 			),
 		),
 		'role_id' => array(
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
+			'notBlank' => array(
+				'rule' => 'notBlank',
 				'last' => true,
 				'message' => 'This field cannot be left blank'
 			),
 			'required' => array(
-				'rule' => 'notEmpty',
+				'rule' => 'notBlank',
 				'required' => true,
 				'on' => 'create'
 			)
@@ -96,7 +96,7 @@ class User extends AppModel {
  *
  * @param array $check Value to validate
  * @param string $otherfield Fieldname of field to compare value with
- * @return boolean
+ * @return bool
  */
 	public function equalToField($check, $otherfield) {
 		//get name of field
@@ -112,19 +112,16 @@ class User extends AppModel {
  * checkCurrentPassword
  *
  * @param array $check Value to validate
- * @return boolean
+ * @return bool
  */
 	public function checkCurrentPassword($check) {
 		$password = array_values($check);
 		$password = $password[0];
-		return ($this->find(
-			'count', array(
-				'conditions' => array(
-					'User.id' => AuthComponent::user('id'),
-					'User.password' => AuthComponent::password($password)
-				)
-			)
-		) > 0);
+		$conditions = array(
+			'User.id' => AuthComponent::user('id'),
+			'User.password' => AuthComponent::password($password)
+		);
+		return ($this->find('count', compact('conditions')) > 0);
 	}
 
 /**
@@ -146,7 +143,7 @@ class User extends AppModel {
  * beforeValidate method
  *
  * @param array $options Options passed from Model::save().
- * @return boolean True if validate operation should continue, false to abort
+ * @return bool True if validate operation should continue, false to abort
  * @see Model::beforeValidate()
  */
 	public function beforeValidate($options = array()) {
@@ -161,29 +158,23 @@ class User extends AppModel {
 /**
  * view method
  *
- * @param integer $id A user id
+ * @param int $id A user id
  * @return array User data
  */
 	public function view($id) {
-		$options = array(
-			'conditions' => array(
-				'User.id' => $id
-			),
-			'contain' => array(
-				'Role'
-			)
-		);
+		$conditions = array('User.id' => $id);
+		$contain = array('Role');
 		if (AuthComponent::user('role_id') != Role::ADMIN) {
-			$options['conditions'][] = array('User.id' => AuthComponent::user('id'));
+			$conditions[] = array('User.id' => AuthComponent::user('id'));
 		}
-		return $this->find('first', $options);
+		return $this->find('first', compact('conditions', 'contain'));
 	}
 
 /**
  * adminUpdate method
  *
  * @param array $data User data
- * @return boolean
+ * @return bool
  */
 	public function adminUpdate($data) {
 		if (empty($data['User']['password'])) {
@@ -195,27 +186,23 @@ class User extends AppModel {
 /**
  * adminEdit method
  *
- * @param integer $id A user ID
- * @return boolean
+ * @param int $id A user ID
+ * @return bool
  */
 	public function adminEdit($id) {
-		return $this->find(
-			'first', array(
-				'conditions' => array(
-					'User.id' => $id
-				)
-			)
-		);
+		$conditions = array('User.id' => $id);
+		return $this->find('first', compact('conditions'));
 	}
 
 /**
  * changePassword method
  *
  * @param array $data User data
- * @return boolean
+ * @return bool
  */
 	public function changePassword($data) {
 		$this->id = AuthComponent::user('id');
 		return $this->save($data);
 	}
+
 }

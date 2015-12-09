@@ -13,6 +13,12 @@ App::uses('Controller', 'Controller');
  * Application Controller
  *
  * @package		app.Controller
+ * @property AuthComponent $Auth
+ * @property FlashComponent $Flash
+ * @property RequestHandler $RequestHandler
+ * @property SecurityComponent $Security
+ * @property SessionComponent $Session
+ * @property DebugKit.ToolbarComponent $Toolbar
  */
 class AppController extends Controller {
 
@@ -20,6 +26,7 @@ class AppController extends Controller {
  * An array of names of components to load
  *
  * @var array
+ * @see Controller::components
  */
 	public $components = array(
 		'Security',
@@ -29,6 +36,7 @@ class AppController extends Controller {
 			'loginAction' => array('controller' => 'users', 'action' => 'login', 'admin' => false),
 			'loginRedirect' => array('controller' => 'users', 'action' => 'home', 'admin' => false)
 		),
+		'Flash',
 		'RequestHandler',
 		'Session',
 		'DebugKit.Toolbar'
@@ -38,6 +46,7 @@ class AppController extends Controller {
  * An array of names of helpers to load
  *
  * @var mixed A single name as a string or a list of names as an array.
+ * @see Controller::helpers
  */
 	public $helpers = array(
 		'Html' => array('className' => 'TwitterBootstrap.BootstrapHtml'),
@@ -68,7 +77,7 @@ class AppController extends Controller {
  * isAuthorized
  *
  * @param array $user A user
- * @return booleanl
+ * @return bool
  */
 	public function isAuthorized($user) {
 		if (isset($this->request->params['admin'])) {
@@ -84,37 +93,11 @@ class AppController extends Controller {
  * @return void
  */
 	public function blackhole($type) {
-		if ($type == 'secure' && !$this->RequestHandler->isSSL()) {
+		if ($type == 'secure' && !$this->request->is('ssl')) {
 			return $this->redirect('https://' . env('SERVER_NAME') . $this->here);
 		}
-		$this->setFlashError(__('Sorry, something went wrong. Please, try again.'));
+		$this->Flash->error(__('Sorry, something went wrong. Please, try again.'));
 		return $this->redirect('/');
-	}
-
-/**
- * Used to set a session variable that can be used to output success messages in the view.
- *
- * @param string $message Message to be flashed
- * @return void
- */
-	public function setFlashSuccess($message) {
-		$this->Session->setFlash($message, 'alert', array(
-			'plugin' => 'TwitterBootstrap',
-			'class' => 'alert-success'
-		));
-	}
-
-/**
- * Used to set a session variable that can be used to output error messages in the view.
- *
- * @param string $message Message to be flashed
- * @return void
- */
-	public function setFlashError($message) {
-		$this->Session->setFlash($message, 'alert', array(
-			'plugin' => 'TwitterBootstrap',
-			'class' => 'alert-error'
-		));
 	}
 
 }

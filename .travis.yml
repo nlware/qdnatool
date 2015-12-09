@@ -5,40 +5,50 @@ php:
   - 5.4
   - 5.5
   - 5.6
+  - 7.0
+  - hhvm
 
 env:
   - DB=mysql
 
 matrix:
   allow_failures:
-    - php: 5.4
-    - php: 5.5
-    - php: 5.6
+    - php: 7.0
+    - php: hhvm
   include:
-    - php: 5.3
+    - php: 5.5
       env:
         - COVERALLS=1  
-    - php: 5.3
+    - php: 5.5
       env:
         - PHPCS=1
 
 before_script:
-  - sh -c "if [ '$TRAVIS_PHP_VERSION' != '5.2' ]; then composer global require 'phpunit/phpunit=3.7.33'; fi"
-  - sh -c "if [ '$TRAVIS_PHP_VERSION' != '5.2' ]; then ln -s ~/.composer/vendor/phpunit/phpunit/PHPUnit ./app/Vendor/PHPUnit; fi"
+  - sh -c "composer global require 'phpunit/phpunit=3.7.33'"
+  - sh -c "ln -s ~/.composer/vendor/phpunit/phpunit/PHPUnit ./app/Vendor/PHPUnit"
+  - sudo sh -c "echo deb http://cran.rstudio.com/bin/linux/ubuntu precise/ >> /etc/apt/sources.list.d/rstudio.list"
+  - sudo apt-get update -qq
+  - sudo apt-get install -y --force-yes r-base r-cran-rserve
+  - sudo Rscript -e "install.packages(c('gplots'),,'http://cran.rstudio.com')"
+  - sudo Rscript -e "install.packages(c('psy'),,'http://cran.rstudio.com')"
+  - sudo R CMD Rserve
   - sh -c "mysql -e 'CREATE DATABASE qdnatool_test;'"
   - chmod -R 777 ./app/tmp
   - composer install --dev --no-interaction --prefer-source
-  - sh -c "if [ '$COVERALLS' = '1' ]; then composer require --dev satooshi/php-coveralls:dev-master; fi"
-  - sh -c "if [ '$PHPCS' = '1' ]; then pear channel-discover pear.cakephp.org; fi"
-  - sh -c "if [ '$PHPCS' = '1' ]; then pear install --alldeps cakephp/CakePHP_CodeSniffer; fi"
+  - sh -c "if [ '$COVERALLS' = '1' ]; then composer global require --dev satooshi/php-coveralls:dev-master; fi"
+  - sh -c "if [ '$PHPCS' = '1' ]; then composer global require 'cakephp/cakephp-codesniffer:1.*'; fi"
+  - sh -c "if [ '$PHPCS' = '1' ]; then ~/.composer/vendor/bin/phpcs --config-set installed_paths ~/.composer/vendor/cakephp/cakephp-codesniffer; fi"
   - phpenv rehash
   - echo -e "<?php\nclass DATABASE_CONFIG {\n\n\tpublic \$test = array(\n\t\t'datasource' => 'Database/Mysql',\n\t\t'database' => 'qdnatool_test',\n\t\t'host' => '0.0.0.0',\n\t\t'login' => 'travis',\n\t\t'persistent' => false,\n\t);\n}" > app/Config/database.php
+  - echo -e "<?php\n\$config = array(\n\t'Rserve' => array(\n\t\t'host' => 'localhost',\n\t\t'port' => 6311,\n\t\t'debug' => false\n\t)\n);\n" > app/Config/rserve.php
  
 script:
-  - sh -c "if [ '$PHPCS' = '1' ]; then phpcs -p --extensions=php --standard=CakePHP --ignore=Plugin --ignore=Vendor --ignore=webroot/js/ckeditor -n ./app; elif [ '$COVERALLS' = 1 ]; then cd ./app; ../vendors/bin/cake test app AllTests --stderr --coverage-clover ../build/logs/clover.xml --configuration ../phpunit.xml ; else cd ./app; ../vendors/bin/cake test app AllTests --stderr; fi"
+  - sh -c "if [ '$COVERALLS' = 1 ]; then cd ./app; Vendor/bin/cake test app AllTests --stderr --coverage-clover ../build/logs/clover.xml --configuration ../phpunit.xml; fi;"
+  - sh -c "if [ '$PHPCS' = '1' ]; then ~/.composer/vendor/bin/phpcs -p --extensions=php --standard=CakePHP --ignore=Plugin --ignore=Vendor --ignore=webroot/js/ckeditor -n ./app; fi;"
+  - sh -c "if [ '$PHPCS' != '1' ] && [ '$COVERALLS' != 1 ]; then cd ./app; Vendor/bin/cake test app AllTests --stderr; fi"
 
 after_success:
-  - sh -c "if [ '$COVERALLS' = '1' ]; then php vendors/bin/coveralls -c .coveralls.yml -v; fi"
+  - sh -c "if [ '$COVERALLS' = '1' ]; then php ~/.composer/vendor/bin/coveralls -c .coveralls.yml -v; fi"
 
 notifications:
   email: false
