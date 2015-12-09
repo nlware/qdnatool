@@ -1515,7 +1515,7 @@ class Exam extends AppModel {
 				if (empty($givenAnswer)) {
 					$givenAnswer = 0;
 				}
-				$script .= 'input_answers[' . ($i + 1) . ',' . ($j + 1) . '] = ' . $givenAnswer . ';';
+				$inputAnswersMaxtrix[] = $givenAnswer;
 			}
 		}
 
