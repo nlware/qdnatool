@@ -38,36 +38,36 @@ class Question extends AppModel {
  */
 	public $validate = array(
 		'code' => array(
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
+			'notBlank' => array(
+				'rule' => 'notBlank',
 				'required' => 'create',
 				'message' => 'This field cannot be left blank'
 			)
 		),
 		'name' => array(
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
+			'notBlank' => array(
+				'rule' => 'notBlank',
 				'required' => 'create',
 				'message' => 'This field cannot be left blank'
 			)
 		),
 		'question_format_id' => array(
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
+			'notBlank' => array(
+				'rule' => 'notBlank',
 				'required' => 'create',
 				'message' => 'This field cannot be left blank'
 			)
 		),
 		'development_phase_id' => array(
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
+			'notBlank' => array(
+				'rule' => 'notBlank',
 				'required' => 'create',
 				'message' => 'This field cannot be left blank'
 			)
 		),
 		'stimulus' => array(
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
+			'notBlank' => array(
+				'rule' => 'notBlank',
 				'required' => 'create',
 				'message' => 'This field cannot be left blank'
 			)
@@ -225,7 +225,7 @@ class Question extends AppModel {
 	public function beforeSave($options = array()) {
 		$this->__oldTagIds = array();
 		if (!empty($this->data['Question']['id'])) {
-			$this->__oldTagIds = $this->__getTagsIds($this->data['Question']['id']);
+			$this->__oldTagIds = $this->__getTagIds($this->data['Question']['id']);
 		}
 		return true;
 	}
@@ -255,21 +255,13 @@ class Question extends AppModel {
 /**
  * Get list of tag ids
  *
- * @param int $id An question id
+ * @param int $id A question id
  * @return array List of tag ids
  */
-	private function __getTagsIds($id) {
-		return $this->QuestionsTag->find(
-			'list', array(
-				'fields' => array(
-					'tag_id',
-					'tag_id'
-				),
-				'conditions' => array(
-					'QuestionsTag.question_id' => $this->data['Question']['id']
-				)
-			)
-		);
+	private function __getTagIds($id) {
+		$fields = array('tag_id', 'tag_id');
+		$conditions = array('QuestionsTag.question_id' => $id);
+		return $this->QuestionsTag->find('list', compact('fields', 'conditions'));
 	}
 
 /**
@@ -308,7 +300,7 @@ class Question extends AppModel {
 			$answers = $question['Question']['answer'];
 
 			if (!empty($question['QuestionAnswer'])) {
-				$answers .= ' ' . implode(' ', Set::extract('/QuestionAnswer/name', $question));
+				$answers .= ' ' . implode(' ', Hash::extract($question, 'QuestionAnswer.{n}.name'));
 			}
 
 			if ($question['Question']['development_phase_id'] == DevelopmentPhase::CONVERGE) {
@@ -498,22 +490,18 @@ class Question extends AppModel {
  * @return Question data
  */
 	public function view($id) {
-		$options = array(
-			'conditions' => array(
-				'Question.id' => $id
-			),
-			'contain' => array(
-				'QuestionAnswer',
-				'QuestionFormat',
-				'DevelopmentPhase',
-				'User',
-				'QuestionsTag' => 'Tag'
-			)
+		$conditions = array('Question.id' => $id);
+		$contain = array(
+			'QuestionAnswer',
+			'QuestionFormat',
+			'DevelopmentPhase',
+			'User',
+			'QuestionsTag' => 'Tag'
 		);
 		if (AuthComponent::user('role_id') != Role::ADMIN) {
-			$options['conditions'][] = array('Question.user_id' => AuthComponent::user('id'));
+			$conditions[] = array('Question.user_id' => AuthComponent::user('id'));
 		}
-		return $this->find('first', $options);
+		return $this->find('first', compact('conditions', 'contain'));
 	}
 
 /**
@@ -534,19 +522,15 @@ class Question extends AppModel {
  * @return array
  */
 	public function edit($id) {
-		$options = array(
-			'conditions' => array(
-				'Question.id' => $id
-			),
-			'contain' => array(
-				'QuestionAnswer',
-				'QuestionsTag' => 'Tag'
-			)
+		$conditions = array('Question.id' => $id);
+		$contain = array(
+			'QuestionAnswer',
+			'QuestionsTag' => 'Tag'
 		);
 		if (AuthComponent::user('role_id') != Role::ADMIN) {
-			$options['conditions'][] = array('Question.user_id' => AuthComponent::user('id'));
+			$conditions[] = array('Question.user_id' => AuthComponent::user('id'));
 		}
-		$question = $this->find('first', $options);
+		$question = $this->find('first', compact('conditions', 'contain'));
 		if (!empty($question['QuestionsTag'])) {
 			foreach ($question['QuestionsTag'] as $i => $questionsTag) {
 				$question['QuestionsTag'][$i]['destroy'] = 0;
@@ -586,7 +570,7 @@ class Question extends AppModel {
 
 		$deletedTagIds = array();
 
-		$deletedQuestionsTagIds = Set::extract('/QuestionsTag[destroy=1]/id', $data);
+		$deletedQuestionsTagIds = Hash::extract($data, 'QuestionsTag.{n}[destroy=1].id');
 
 		return $this->saveAll($data, array('deep' => true));
 	}
@@ -614,11 +598,11 @@ class Question extends AppModel {
  * @return array
  */
 	public function getList() {
-		$options = array();
+		$conditions = array();
 		if (AuthComponent::user('role_id') != Role::ADMIN) {
-			$options['conditions'] = array('Question.id' => $this->getMineIds());
+			$conditions = array('Question.id' => $this->getMineIds());
 		}
-		return $this->find('list', $options);
+		return $this->find('list', compact('conditions'));
 	}
 
 /**
@@ -627,14 +611,9 @@ class Question extends AppModel {
  * @return array
  */
 	public function getMineIds() {
-		$questions = $this->find(
-			'all', array(
-				'conditions' => array(
-					'Question.user_id' => AuthComponent::user('id')
-				)
-			)
-		);
-		return Set::extract('/Question/id', $questions);
+		$conditions = array('Question.user_id' => AuthComponent::user('id'));
+		$questions = $this->find('all', compact('conditions'));
+		return Hash::extract($questions, '{n}.Question.id');
 	}
 
 /**
@@ -1345,13 +1324,8 @@ class Question extends AppModel {
 				$prefix = Router::url(array('controller' => 'images', 'action' => 'get')) . DS;
 				if (strpos($imageSource, $prefix) === 0) {
 					$imageId = substr($imageSource, strlen($prefix));
-					$image = $this->Image->find(
-						'first', array(
-							'conditions' => array(
-								'Image.id' => $imageId
-							)
-						)
-					);
+					$conditions = array('Image.id' => $imageId);
+					$image = $this->Image->find('first', compact('conditions'));
 					if (!empty($image)) {
 						$matimage = $dom->createElement("matimage");
 						$material->appendChild($matimage);

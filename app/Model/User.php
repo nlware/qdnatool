@@ -26,19 +26,19 @@ class User extends AppModel {
 				'message' => 'This username has already been taken.'
 			),
 			'required' => array(
-				'rule' => 'notEmpty',
+				'rule' => 'notBlank',
 				'required' => true,
 				'on' => 'create'
 			),
 		),
 		'name' => array(
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
+			'notBlank' => array(
+				'rule' => 'notBlank',
 				'last' => true,
 				'message' => 'This field cannot be left blank'
 			),
 			'required' => array(
-				'rule' => 'notEmpty',
+				'rule' => 'notBlank',
 				'required' => true,
 				'on' => 'create'
 			)
@@ -61,18 +61,18 @@ class User extends AppModel {
 				'message' => 'Passwords must be at least 8 characters long.'
 			),
 			'required' => array(
-				'rule' => 'notEmpty',
+				'rule' => 'notBlank',
 				//'required' => 'create'
 			),
 		),
 		'role_id' => array(
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
+			'notBlank' => array(
+				'rule' => 'notBlank',
 				'last' => true,
 				'message' => 'This field cannot be left blank'
 			),
 			'required' => array(
-				'rule' => 'notEmpty',
+				'rule' => 'notBlank',
 				'required' => true,
 				'on' => 'create'
 			)
@@ -117,14 +117,11 @@ class User extends AppModel {
 	public function checkCurrentPassword($check) {
 		$password = array_values($check);
 		$password = $password[0];
-		return ($this->find(
-			'count', array(
-				'conditions' => array(
-					'User.id' => AuthComponent::user('id'),
-					'User.password' => AuthComponent::password($password)
-				)
-			)
-		) > 0);
+		$conditions = array(
+			'User.id' => AuthComponent::user('id'),
+			'User.password' => AuthComponent::password($password)
+		);
+		return ($this->find('count', compact('conditions')) > 0);
 	}
 
 /**
@@ -165,18 +162,12 @@ class User extends AppModel {
  * @return array User data
  */
 	public function view($id) {
-		$options = array(
-			'conditions' => array(
-				'User.id' => $id
-			),
-			'contain' => array(
-				'Role'
-			)
-		);
+		$conditions = array('User.id' => $id);
+		$contain = array('Role');
 		if (AuthComponent::user('role_id') != Role::ADMIN) {
-			$options['conditions'][] = array('User.id' => AuthComponent::user('id'));
+			$conditions[] = array('User.id' => AuthComponent::user('id'));
 		}
-		return $this->find('first', $options);
+		return $this->find('first', compact('conditions', 'contain'));
 	}
 
 /**
@@ -199,13 +190,8 @@ class User extends AppModel {
  * @return bool
  */
 	public function adminEdit($id) {
-		return $this->find(
-			'first', array(
-				'conditions' => array(
-					'User.id' => $id
-				)
-			)
-		);
+		$conditions = array('User.id' => $id);
+		return $this->find('first', compact('conditions'));
 	}
 
 /**

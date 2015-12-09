@@ -24,13 +24,13 @@ class RserveTest extends CakeTestCase {
 
 	public function testGetConfig() {
 		$this->markTestIncomplete(
-				'This test has not been implemented yet.'
+			'This test has not been implemented yet.'
 		);
 	}
 
 	public function testExecute() {
 		$this->markTestIncomplete(
-				'This test has not been implemented yet.'
+			'This test has not been implemented yet.'
 		);
 	}
 

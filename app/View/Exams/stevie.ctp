@@ -10,7 +10,7 @@ endif;
 ?>
 <div class="modal">
 	<div class="modal-header">
-	<?php echo $this->Form->postLink('×', array('action' => 'index'), array('class' => 'close', 'div' => false), __('Are you sure you want to close this wizard?')); ?>
+	<?php echo $this->Form->postLink('×', array('action' => 'index'), array('class' => 'close', 'div' => false, 'confirm' => __('Are you sure you want to close this wizard?'))); ?>
 		<h4><?php echo __('Interpretation of exam "%s"', h($exam['Exam']['name'])); ?></h4>
 	</div>
 	<div class="modal-body" style="height:400px;">
@@ -36,7 +36,7 @@ endif;
 				<ul class="dropdown-menu">
 				<?php endif; ?>
 					<li<?php echo (($offset == ($i + 1))?' class="active"':''); ?>>
-					<?php echo $this->Html->link(__('Item %s', ($i + 1)), array('action' => 'stevie', $exam['Exam']['id'], ($i+1))); ?>
+					<?php echo $this->Html->link(__('Item %s', ($i + 1)), array('action' => 'stevie', $exam['Exam']['id'], ($i + 1))); ?>
 					</li>
 			<?php
 						$itemsWithMessagesIndex++;
@@ -97,16 +97,18 @@ endif;
 		endif;
 		?>
 		<dl class="dl-horizontal">
-			<?php $correctAnswers = Set::extract('/AnswerOption[is_correct=1]/order', $exam['Item'][$offset - 1]); ?>
+			<?php $correctAnswers = Hash::extract($exam['Item'][$offset - 1], 'AnswerOption.{n}[is_correct=1].order'); ?>
 			<dt><?php echo __n('Correct answer', 'Correct answers', count($correctAnswers)); ?></dt>
 			<dd><?php echo $this->Text->toList($correctAnswers); ?>&nbsp;</dd>
 			<dt><?php echo __('Rit correct answer'); ?></dt>
-			<dd><?php echo $this->Output->decimal($exam['Item'][$offset-1]['correct_answer_irc'], 3); ?></dd>
+			<dd><?php echo $this->Output->decimal($exam['Item'][$offset - 1]['correct_answer_irc'], 3); ?></dd>
 			<dt><?php echo __('Correct answer'); ?></dt>
-			<dd><?php echo __('%s %%', $this->Output->decimal($exam['Item'][$offset-1]['correct_answer_percentage'])); ?></dd>
+			<dd><?php echo __('%s %%', $this->Output->decimal($exam['Item'][$offset - 1]['correct_answer_percentage'])); ?></dd>
 			<?php
 			foreach ($exam['Item'][$offset - 1]['AnswerOption'] as $i => $answerOption):
-				if ($answerOption['is_correct']) continue;
+				if ($answerOption['is_correct']):
+					continue;
+				endif;
 			?>
 			<dt><?php echo __('Incorrect answer %s', AnswerOption::printIndex($i)); ?></dt>
 			<dd><?php echo __('%s %%', $this->Output->decimal($answerOption['given_answer_percentage'])); ?>&nbsp;</dd>

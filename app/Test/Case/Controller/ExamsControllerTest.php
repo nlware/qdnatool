@@ -10,7 +10,7 @@ class ExamsControllerTest extends ControllerTestCase {
 /**
  * autoFixtures property
  *
- * @var boolean
+ * @var bool
  */
 	public $autoFixtures = false;
 

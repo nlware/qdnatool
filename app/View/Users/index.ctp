@@ -1,7 +1,7 @@
 <div class="users index">
 <?php
 if (AuthComponent::user('role_id') == Role::ADMIN):
-	echo $this->Html->link('<i class="icon-plus icon-white"></i> ' . __('Add User'), array('admin' => true, 'action' => 'add'), array('class' => 'btn btn-primary pull-right', 'escape' => false));
+	echo $this->Html->link('<i class="icon-plus icon-white"></i> ' . __('Add User'), array('admin' => true, 'action' => 'add'), array('class' => 'btn btn-primary pull-right', 'escapeTitle' => false));
 endif;
 ?>
 	<h2><?php echo __('Users');?></h2>
@@ -35,7 +35,7 @@ endif;
 						), array(
 							'title' => __('View'),
 							'class' => 'actionIcon',
-							'escape' => false
+							'escapeTitle' => false
 						)
 					);
 					if (AuthComponent::user('role_id') == Role::ADMIN):
@@ -51,7 +51,7 @@ endif;
 							), array(
 								'title' => __('Edit'),
 								'class' => 'actionIcon',
-								'escape' => false
+								'escapeTitle' => false
 							)
 						);
 						echo $this->Form->postLink(
@@ -66,9 +66,9 @@ endif;
 							), array(
 								'class' => 'actionIcon',
 								'title' => __('Delete'),
-								'escape' => false
-							),
-							h(__('Are you sure you want to delete # %s "%s"?', $user['User']['id'], $user['User']['username']))
+								'escapeTitle' => false,
+								'confirm' => __('Are you sure you want to delete # %s "%s"?', $user['User']['id'], $user['User']['username'])
+							)
 						);
 					endif;
 					if ($user['User']['id'] == AuthComponent::user('id')):
@@ -82,7 +82,7 @@ endif;
 							), array(
 								'title' => __('Change password'),
 								'class' => 'actionIcon',
-								'escape' => false
+								'escapeTitle' => false
 							)
 						);
 					endif;

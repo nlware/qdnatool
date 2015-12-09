@@ -10,7 +10,7 @@ class TagsControllerTest extends ControllerTestCase {
 /**
  * autoFixtures property
  *
- * @var boolean
+ * @var bool
  */
 	public $autoFixtures = false;
 

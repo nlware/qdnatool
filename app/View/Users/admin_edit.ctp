@@ -2,7 +2,7 @@
 	<h2><?php echo __('Edit User'); ?></h2>
 	<div class="actions">
 		<ul>
-			<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('User.id')), null, __('Are you sure you want to delete # %s "%s"?', $this->Form->value('User.id'), $this->Form->value('User.username'))); ?></li>
+			<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('User.id')), array('confirm' => __('Are you sure you want to delete # %s "%s"?', $this->Form->value('User.id'), $this->Form->value('User.username')))); ?></li>
 		</ul>
 	</div>
 <?php
