@@ -1061,40 +1061,7 @@ class Exam extends AppModel {
 			$versionMappingFilename = Exam::UPLOADS . $exam['Exam']['mapping_filename'];
 		}
 
-		if (!empty($versionMappingFilename)) {
-			ini_set('auto_detect_line_endings', true);
-			if (($handle = fopen($versionMappingFilename, "r")) !== false) {
-				$version1Index = false;
-				$version2Index = false;
-				$answerOptionCountIndex = false;
-				for ($i = 0; !feof($handle); $i++) {
-					$line = fgets($handle);
-					$line = $this->__decodeLine($line, $i == 0);
-
-					if ($i == 0) {
-						$header = str_getcsv($line, ';', '"', '"');
-
-						$version1Index = $this->_getIndexOfVersionFromTeleformHeader($header, 1);
-						$version2Index = $this->_getIndexOfVersionFromTeleformHeader($header, 2);
-						$answerOptionCountIndex = array_search('Answer Option Count', $header);
-					} else {
-						$values = str_getcsv($line, ';', '"', '"');
-						if (count($values) <= 1) {
-							continue;
-						}
-						if ($version1Index !== false && $version2Index !== false) {
-							$versionMapping[2][$values[$version1Index]] = intval($values[$version2Index]);
-						}
-
-						if ($version1Index !== false && $answerOptionCountIndex !== false) {
-							$answerOptionCount[$values[$version1Index]] = intval($values[$answerOptionCountIndex]);
-						}
-					}
-				}
-
-				fclose($handle);
-			}
-		}
+		list($versionMapping, $answerOptionCount) = $this->_extractMappingfile($versionMappingFilename);
 
 		$result = true;
 		ini_set('auto_detect_line_endings', true);
@@ -1546,6 +1513,54 @@ class Exam extends AppModel {
 		$script = implode("\n", $script);
 
 		return Rserve::execute($script);
+	}
+
+/**
+ * Extract verion mapping and answer option count from Teleform mapping file
+ *
+ * @param string $filename Filename of a Teleform mapping file
+ * @return array List of verion mappings and answer option counts
+ */
+	protected function _extractMappingfile($filename) {
+		$versionMapping = array();
+		$answerOptionCount = array();
+
+		if (!empty($filename) && file_exists($filename)) {
+			ini_set('auto_detect_line_endings', true);
+			if (($handle = fopen($filename, "r")) !== false) {
+				$version1Index = false;
+				$version2Index = false;
+				$answerOptionCountIndex = false;
+				for ($i = 0; !feof($handle); $i++) {
+					$line = fgets($handle);
+					$line = $this->__decodeLine($line, $i == 0);
+
+					if ($i == 0) {
+						$header = str_getcsv($line, ';', '"', '"');
+
+						$version1Index = $this->_getIndexOfVersionFromTeleformHeader($header, 1);
+						$version2Index = $this->_getIndexOfVersionFromTeleformHeader($header, 2);
+						$answerOptionCountIndex = array_search('Answer Option Count', $header);
+					} else {
+						$values = str_getcsv($line, ';', '"', '"');
+						if (count($values) <= 1) {
+							continue;
+						}
+						if ($version1Index !== false && $version2Index !== false) {
+							$versionMapping[2][$values[$version1Index]] = intval($values[$version2Index]);
+						}
+
+						if ($version1Index !== false && $answerOptionCountIndex !== false) {
+							$answerOptionCount[$values[$version1Index]] = intval($values[$answerOptionCountIndex]);
+						}
+					}
+				}
+
+				fclose($handle);
+			}
+		}
+
+		return array($versionMapping, $answerOptionCount);
 	}
 
 }

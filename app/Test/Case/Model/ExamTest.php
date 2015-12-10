@@ -45,6 +45,14 @@ class TestExam extends Exam {
 		return parent::_duplicate($postData);
 	}
 
+/**
+ * Public test double of `parent::_extractMappingfile`.
+ *
+ */
+	public function extractMappingfile($filename) {
+		return parent::_extractMappingfile($filename);
+	}
+
 }
 
 /**
@@ -397,6 +405,30 @@ class ExamTest extends CakeTestCase {
 
 		$result = $this->Exam->duplicate($postData);
 		$this->assertEquals($expected, $result);
+	}
+
+/**
+ * testExtractMappingfile method
+ *
+ * @return void
+ */
+	public function testExtractMappingfile() {
+		$expectedVersionMapping = array(
+			2 => array(
+				1 => 2,
+				2 => 1
+			)
+		);
+		$expectedAnswerOptionCount = array(
+			1 => 3,
+			2 => 3
+		);
+		$filename = APP . DS . 'Test' . DS . 'File' . DS . 'Exam' . DS . 'Teleform.mappingfile.csv';
+		$result = $this->Exam->extractMappingfile($filename);
+		$this->assertTrue((bool)$result);
+		list($versionMapping, $answerOptionCount) = $result;
+		$this->assertEquals($expectedVersionMapping, $versionMapping);
+		$this->assertEquals($expectedAnswerOptionCount, $answerOptionCount);
 	}
 
 }
