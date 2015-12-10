@@ -24,7 +24,6 @@ class QuestionFormat extends AppModel {
 		'name' => array(
 			'notBlank' => array(
 				'rule' => 'notBlank',
-				'last' => true,
 				'message' => 'This field cannot be left blank'
 			),
 			'required' => array(

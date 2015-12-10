@@ -59,8 +59,7 @@ class Exam extends AppModel {
 			'notBlank' => array(
 				'rule' => 'notBlank',
 				'message' => 'This field cannot be left blank',
-				'required' => 'create',
-				'last' => true
+				'required' => 'create'
 			),
 			'inList' => array(
 				'rule' => array('inList', array(ExamFormat::TELEFORM, ExamFormat::BLACKBOARD, ExamFormat::QMP), false),
@@ -73,13 +72,11 @@ class Exam extends AppModel {
 					'extension', array('csv', 'txt')
 				),
 				'required' => 'create',
-				'message' => 'Please supply a csv or txt file.',
-				'last' => true
+				'message' => 'Please supply a csv or txt file.'
 			),
 			'fileSize' => array(
 				'rule' => array('filesize', '<=', '8MB'),
-				'message' => 'File must be less than 8 MB',
-				'last' => true
+				'message' => 'File must be less than 8 MB'
 			),
 			'uploadError' => array(
 				'rule' => 'uploadError',
@@ -92,14 +89,12 @@ class Exam extends AppModel {
 					'extension', array('csv'),
 				),
 				'allowEmpty' => true,
-				'message' => 'Please supply a csv file.',
-				'last' => true
+				'message' => 'Please supply a csv file.'
 			),
 			'fileSize' => array(
 				'rule' => array('filesize', '<=', '1MB'),
 				'allowEmpty' => true,
-				'message' => 'File must be less than 1 MB',
-				'last' => true
+				'message' => 'File must be less than 1 MB'
 			),
 			'uploadError' => array(
 				'rule' => 'uploadError',
@@ -110,8 +105,7 @@ class Exam extends AppModel {
 			'naturalNumber' => array(
 				'rule' => 'naturalNumber',
 				'required' => 'create',
-				'message' => 'Please supply the default number of answer options.',
-				'last' => true
+				'message' => 'Please supply the default number of answer options.'
 			),
 			'comparison' => array(
 				'rule' => array('comparison', '<=', 8),
