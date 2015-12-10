@@ -228,19 +228,27 @@ class AppSchema extends CakeSchema {
 						array(
 							array(
 								'id' => QuestionFormat::TRUE_FALSE,
-								'name' => 'T/F'
+								'name' => 'T/F',
+								'question_info_diverge_url' => 'http://testdevelopment.nl/qdst/qdst-nl/pro-con-q-formats/dive-t-f.htm',
+								'question_info_converge_url' => 'http://testdevelopment.nl/qdst/qdst-nl/pro-con-q-formats/conv-t-f.htm'
 							),
 							array(
 								'id' => QuestionFormat::MULTIPLE_CHOICE,
-								'name' => 'mc'
+								'name' => 'mc',
+								'question_info_diverge_url' => 'http://testdevelopment.nl/qdst/qdst-nl/pro-con-q-formats/dive-mcq.htm',
+								'question_info_converge_url' => 'http://testdevelopment.nl/qdst/qdst-nl/pro-con-q-formats/conv-mcq.htm'
 							),
 							array(
 								'id' => QuestionFormat::MULTIPLE_RESPONSE,
-								'name' => 'mr'
+								'name' => 'mr',
+								'question_info_diverge_url' => 'http://testdevelopment.nl/qdst/qdst-nl/pro-con-q-formats/dive-mrq.htm',
+								'question_info_converge_url' => 'http://testdevelopment.nl/qdst/qdst-nl/pro-con-q-formats/conv-mrq.htm'
 							),
 							array(
 								'id' => QuestionFormat::OPEN_ANSWER,
-								'name' => 'open'
+								'name' => 'open',
+								'question_info_diverge_url' => 'http://testdevelopment.nl/qdst/qdst-nl/pro-con-q-formats/pro-con-general.htm',
+								'question_info_converge_url' => 'http://testdevelopment.nl/qdst/qdst-nl/pro-con-q-formats/pro-con-general.htm'
 							)
 						)
 					);
@@ -268,14 +276,14 @@ class AppSchema extends CakeSchema {
 	}
 
 	public $answer_options = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'key' => 'primary'),
-		'item_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'key' => 'index'),
-		'order' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10),
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
+		'item_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'index'),
+		'order' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true),
 		'value' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'is_correct' => array('type' => 'boolean', 'null' => false, 'default' => null),
-		'given_answer_count' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10),
-		'given_answer_irc' => array('type' => 'float', 'null' => true, 'default' => null, 'length' => '4,3'),
-		'given_answer_percentage' => array('type' => 'float', 'null' => true, 'default' => null, 'length' => '4,1'),
+		'given_answer_count' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'unsigned' => true),
+		'given_answer_irc' => array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '4,3', 'unsigned' => false),
+		'given_answer_percentage' => array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '4,1', 'unsigned' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'item_id' => array('column' => 'item_id', 'unique' => 0)
@@ -284,7 +292,7 @@ class AppSchema extends CakeSchema {
 	);
 
 	public $development_phases = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary'),
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
 		'name_nld' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'name_eng' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'indexes' => array(
@@ -294,7 +302,7 @@ class AppSchema extends CakeSchema {
 	);
 
 	public $exam_formats = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'key' => 'primary'),
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
@@ -303,7 +311,7 @@ class AppSchema extends CakeSchema {
 	);
 
 	public $exam_states = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'key' => 'primary'),
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
 		'name_eng' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'name_nld' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'indexes' => array(
@@ -313,20 +321,19 @@ class AppSchema extends CakeSchema {
 	);
 
 	public $exams = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'key' => 'primary'),
-		'parent_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'key' => 'index'),
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
+		'parent_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'index'),
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-		'exam_state_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'key' => 'index'),
-		'user_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'index'),
-		'exam_format_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'key' => 'index'),
+		'exam_state_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'index'),
+		'user_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'index'),
+		'exam_format_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'index'),
 		'data_filename' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'mapping_filename' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-		'answer_option_count' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10),
-		'max_answer_option_count' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10),
-		'average_score' => array('type' => 'float', 'null' => true, 'default' => null, 'length' => '10,3'),
-		'standard_deviation' => array('type' => 'float', 'null' => true, 'default' => null, 'length' => '10,8'),
-		'cronbachs_alpha' => array('type' => 'float', 'null' => true, 'default' => null, 'length' => '4,3'),
-		'report_filename' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'answer_option_count' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'unsigned' => true),
+		'max_answer_option_count' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'unsigned' => true),
+		'average_score' => array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '10,3', 'unsigned' => false),
+		'standard_deviation' => array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '10,8', 'unsigned' => false),
+		'cronbachs_alpha' => array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '4,3', 'unsigned' => false),
 		'uploaded' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'imported' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'duplicated' => array('type' => 'datetime', 'null' => true, 'default' => null),
@@ -346,12 +353,12 @@ class AppSchema extends CakeSchema {
 	);
 
 	public $given_answers = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'key' => 'primary'),
-		'item_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'key' => 'index'),
-		'subject_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'key' => 'index'),
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
+		'item_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'index'),
+		'subject_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'index'),
 		'value' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'score' => array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '10,8', 'unsigned' => false),
 		'content' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-		'score' => array('type' => 'float', 'null' => true, 'default' => null, 'length' => '10,8'),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'item_id' => array('column' => 'item_id', 'unique' => 0),
@@ -361,11 +368,11 @@ class AppSchema extends CakeSchema {
 	);
 
 	public $images = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary'),
-		'question_id' => array('type' => 'integer', 'null' => true, 'default' => null),
+		'id' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 36, 'key' => 'primary', 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'question_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
 		'filename' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'extension' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-		'filesize' => array('type' => 'integer', 'null' => true, 'default' => null),
+		'filesize' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
 		'file_type' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'indexes' => array(
@@ -375,9 +382,9 @@ class AppSchema extends CakeSchema {
 	);
 
 	public $instructions = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'key' => 'primary'),
-		'development_phase_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'key' => 'index'),
-		'question_format_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'key' => 'index'),
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
+		'development_phase_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false, 'key' => 'index'),
+		'question_format_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false, 'key' => 'index'),
 		'url' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'content' => array('type' => 'text', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
@@ -391,17 +398,17 @@ class AppSchema extends CakeSchema {
 	);
 
 	public $items = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'key' => 'primary'),
-		'exam_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'key' => 'index'),
-		'order' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10),
-		'second_version_order' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10),
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
+		'exam_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'index'),
+		'order' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true),
+		'second_version_order' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'unsigned' => true),
 		'value' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-		'answer_option_count' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10),
-		'correct_answer_count' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10),
-		'correct_answer_percentage' => array('type' => 'float', 'null' => true, 'default' => null, 'length' => '4,1'),
-		'correct_answer_irc' => array('type' => 'float', 'null' => true, 'default' => null, 'length' => '4,3'),
-		'missing_answer_count' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10),
-		'missing_answer_percentage' => array('type' => 'float', 'null' => true, 'default' => null, 'length' => '4,1'),
+		'answer_option_count' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'unsigned' => true),
+		'correct_answer_count' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'unsigned' => true),
+		'correct_answer_percentage' => array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '4,1', 'unsigned' => true),
+		'correct_answer_irc' => array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '4,3', 'unsigned' => false),
+		'missing_answer_count' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'unsigned' => true),
+		'missing_answer_percentage' => array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '4,1', 'unsigned' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'exam_id' => array('column' => 'exam_id', 'unique' => 0)
@@ -410,12 +417,12 @@ class AppSchema extends CakeSchema {
 	);
 
 	public $question_answers = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'key' => 'primary'),
-		'question_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'index'),
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
+		'question_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'index'),
 		'name' => array('type' => 'text', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'feedback' => array('type' => 'text', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'is_correct' => array('type' => 'boolean', 'null' => false, 'default' => null),
-		'order' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10),
+		'order' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'question_id' => array('column' => 'question_id', 'unique' => 0)
@@ -424,8 +431,10 @@ class AppSchema extends CakeSchema {
 	);
 
 	public $question_formats = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary'),
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
 		'name' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'question_info_diverge_url' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'question_info_converge_url' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -433,11 +442,12 @@ class AppSchema extends CakeSchema {
 	);
 
 	public $questions = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary'),
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
 		'name' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'code' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-		'question_format_id' => array('type' => 'integer', 'null' => true, 'default' => null),
-		'development_phase_id' => array('type' => 'integer', 'null' => true, 'default' => null),
+		'question_format_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
+		'development_phase_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
+		'taxonomy_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
 		'stimulus' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'comment' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'answer' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
@@ -445,7 +455,7 @@ class AppSchema extends CakeSchema {
 		'feedback_when_correct' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'updated' => array('type' => 'datetime', 'null' => true, 'default' => null),
-		'user_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'key' => 'index'),
+		'user_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false, 'key' => 'index'),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'user_id' => array('column' => 'user_id', 'unique' => 0)
@@ -454,9 +464,9 @@ class AppSchema extends CakeSchema {
 	);
 
 	public $questions_tags = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary'),
-		'question_id' => array('type' => 'integer', 'null' => false, 'default' => null),
-		'tag_id' => array('type' => 'integer', 'null' => false, 'default' => null),
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
+		'question_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
+		'tag_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'indexes' => array(
@@ -466,7 +476,7 @@ class AppSchema extends CakeSchema {
 	);
 
 	public $queued_tasks = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'key' => 'primary'),
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
 		'job_type' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'data' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'group' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
@@ -474,7 +484,7 @@ class AppSchema extends CakeSchema {
 		'not_before' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'fetched' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'completed' => array('type' => 'datetime', 'null' => true, 'default' => null),
-		'failed' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10),
+		'failed' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true),
 		'failure_message' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'worker_key' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'created' => array('type' => 'datetime', 'null' => false, 'default' => null),
@@ -485,7 +495,7 @@ class AppSchema extends CakeSchema {
 	);
 
 	public $roles = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary'),
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
 		'name' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
@@ -494,8 +504,8 @@ class AppSchema extends CakeSchema {
 	);
 
 	public $subjects = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'key' => 'primary'),
-		'exam_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'key' => 'index'),
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
+		'exam_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'index'),
 		'value' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'is_second_version' => array('type' => 'boolean', 'null' => false, 'default' => null),
 		'indexes' => array(
@@ -506,9 +516,9 @@ class AppSchema extends CakeSchema {
 	);
 
 	public $tags = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary'),
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
 		'name' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-		'user_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'index'),
+		'user_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'index'),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'indexes' => array(
@@ -519,7 +529,7 @@ class AppSchema extends CakeSchema {
 	);
 
 	public $tips = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'key' => 'primary'),
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'content' => array('type' => 'text', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'indexes' => array(
@@ -529,11 +539,11 @@ class AppSchema extends CakeSchema {
 	);
 
 	public $users = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary'),
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
 		'username' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'name' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'password' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-		'role_id' => array('type' => 'integer', 'null' => true, 'default' => null),
+		'role_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
 		'surfconext_identifier' => array('type' => 'string', 'null' => true, 'default' => null, 'key' => 'unique', 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
