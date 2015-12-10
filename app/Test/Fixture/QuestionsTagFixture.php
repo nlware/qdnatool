@@ -1,7 +1,6 @@
 <?php
 /**
- * QuestionsTagFixture
- *
+ * QuestionsTag Fixture
  */
 class QuestionsTagFixture extends CakeTestFixture {
 
@@ -11,9 +10,9 @@ class QuestionsTagFixture extends CakeTestFixture {
  * @var array
  */
 	public $fields = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary'),
-		'question_id' => array('type' => 'integer', 'null' => false, 'default' => null),
-		'tag_id' => array('type' => 'integer', 'null' => false, 'default' => null),
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
+		'question_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
+		'tag_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'indexes' => array(

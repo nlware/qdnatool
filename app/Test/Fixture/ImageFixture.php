@@ -1,7 +1,6 @@
 <?php
 /**
- * ImageFixture
- *
+ * Image Fixture
  */
 class ImageFixture extends CakeTestFixture {
 
@@ -11,11 +10,11 @@ class ImageFixture extends CakeTestFixture {
  * @var array
  */
 	public $fields = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary'),
-		'question_id' => array('type' => 'integer', 'null' => true, 'default' => null),
+		'id' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 36, 'key' => 'primary', 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'question_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
 		'filename' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'extension' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-		'filesize' => array('type' => 'integer', 'null' => true, 'default' => null),
+		'filesize' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
 		'file_type' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'indexes' => array(

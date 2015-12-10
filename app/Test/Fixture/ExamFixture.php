@@ -3,8 +3,7 @@ App::uses('ExamFormat', 'Model');
 App::uses('ExamState', 'Model');
 
 /**
- * ExamFixture
- *
+ * Exam Fixture
  */
 class ExamFixture extends CakeTestFixture {
 
@@ -14,20 +13,19 @@ class ExamFixture extends CakeTestFixture {
  * @var array
  */
 	public $fields = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => false, 'key' => 'primary'),
-		'parent_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'unsigned' => false, 'key' => 'index'),
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
+		'parent_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'index'),
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-		'exam_state_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'unsigned' => false, 'key' => 'index'),
+		'exam_state_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'index'),
 		'user_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'index'),
-		'exam_format_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'unsigned' => false, 'key' => 'index'),
+		'exam_format_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'index'),
 		'data_filename' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'mapping_filename' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-		'answer_option_count' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'unsigned' => false),
-		'max_answer_option_count' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'unsigned' => false),
-		'average_score' => array('type' => 'float', 'null' => true, 'default' => null, 'length' => '10,3', 'unsigned' => false),
-		'standard_deviation' => array('type' => 'float', 'null' => true, 'default' => null, 'length' => '10,8', 'unsigned' => false),
-		'cronbachs_alpha' => array('type' => 'float', 'null' => true, 'default' => null, 'length' => '4,3', 'unsigned' => false),
-		'report_filename' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'answer_option_count' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'unsigned' => true),
+		'max_answer_option_count' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'unsigned' => true),
+		'average_score' => array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '10,3', 'unsigned' => false),
+		'standard_deviation' => array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '10,8', 'unsigned' => false),
+		'cronbachs_alpha' => array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '4,3', 'unsigned' => false),
 		'uploaded' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'imported' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'duplicated' => array('type' => 'datetime', 'null' => true, 'default' => null),
@@ -66,7 +64,6 @@ class ExamFixture extends CakeTestFixture {
 			'average_score' => null,
 			'standard_deviation' => null,
 			'cronbachs_alpha' => null,
-			'report_filename' => null,
 			'uploaded' => '2000-01-01 00:00:00',
 			'imported' => '2000-01-01 00:01:00',
 			'duplicated' => null,
@@ -90,7 +87,6 @@ class ExamFixture extends CakeTestFixture {
 			'average_score' => null,
 			'standard_deviation' => null,
 			'cronbachs_alpha' => 0.737,
-			'report_filename' => null,
 			'uploaded' => '2015-04-03 09:41:03',
 			'imported' => '2015-04-03 09:41:18',
 			'duplicated' => null,

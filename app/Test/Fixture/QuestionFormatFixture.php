@@ -1,9 +1,6 @@
 <?php
-App::uses('QuestionFormat', 'Model');
-
 /**
- * QuestionFormatFixture
- *
+ * QuestionFormat Fixture
  */
 class QuestionFormatFixture extends CakeTestFixture {
 
@@ -13,8 +10,10 @@ class QuestionFormatFixture extends CakeTestFixture {
  * @var array
  */
 	public $fields = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary'),
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
 		'name' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'question_info_diverge_url' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'question_info_converge_url' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -28,20 +27,28 @@ class QuestionFormatFixture extends CakeTestFixture {
  */
 	public $records = array(
 		array(
-			'id' => '1',
-			'name' => QuestionFormat::TRUE_FALSE
+			'id' => QuestionFormat::TRUE_FALSE,
+			'name' => 'T/F',
+			'question_info_diverge_url' => 'http://testdevelopment.nl/qdst/qdst-nl/pro-con-q-formats/dive-t-f.htm',
+			'question_info_converge_url' => 'http://testdevelopment.nl/qdst/qdst-nl/pro-con-q-formats/conv-t-f.htm'
 		),
 		array(
-			'id' => '2',
-			'name' => QuestionFormat::MULTIPLE_CHOICE
+			'id' => QuestionFormat::MULTIPLE_CHOICE,
+			'name' => 'mc',
+			'question_info_diverge_url' => 'http://testdevelopment.nl/qdst/qdst-nl/pro-con-q-formats/dive-mcq.htm',
+			'question_info_converge_url' => 'http://testdevelopment.nl/qdst/qdst-nl/pro-con-q-formats/conv-mcq.htm'
 		),
 		array(
-			'id' => '3',
-			'name' => QuestionFormat::MULTIPLE_RESPONSE
+			'id' => QuestionFormat::MULTIPLE_RESPONSE,
+			'name' => 'mr',
+			'question_info_diverge_url' => 'http://testdevelopment.nl/qdst/qdst-nl/pro-con-q-formats/dive-mrq.htm',
+			'question_info_converge_url' => 'http://testdevelopment.nl/qdst/qdst-nl/pro-con-q-formats/conv-mrq.htm'
 		),
 		array(
-			'id' => '4',
-			'name' => QuestionFormat::OPEN_ANSWER
+			'id' => QuestionFormat::OPEN_ANSWER,
+			'name' => 'open',
+			'question_info_diverge_url' => 'http://testdevelopment.nl/qdst/qdst-nl/pro-con-q-formats/pro-con-general.htm',
+			'question_info_converge_url' => 'http://testdevelopment.nl/qdst/qdst-nl/pro-con-q-formats/pro-con-general.htm'
 		),
 	);
 
