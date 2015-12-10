@@ -1,4 +1,6 @@
 <?php
+App::uses('QuestionFormat', 'Model');
+
 /**
  * QuestionFormat Fixture
  */
