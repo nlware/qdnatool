@@ -11,13 +11,14 @@ App::uses('AppModel', 'Model');
 /**
  * Exam Model
  *
- * @property User $User
- * @property Item $Item
- * @property Subject $Subject
+ * @property Exam $Child
+ * @property Domain $Domain
  * @property ExamFormat $ExamFormat
  * @property ExamState $ExamState
+ * @property Item $Item
  * @property Exam $Parent
- * @property Exam $Child
+ * @property Subject $Subject
+ * @property User $User
  */
 class Exam extends AppModel {
 
@@ -168,6 +169,11 @@ class Exam extends AppModel {
 			'className' => 'Exam',
 			'foreignKey' => 'parent_id',
 			'dependent' => false
+		),
+		'Domain' => array(
+			'className' => 'Domain',
+			'foreignKey' => 'exam_id',
+			'dependent' => true
 		),
 		'Item' => array(
 			'className' => 'Item',

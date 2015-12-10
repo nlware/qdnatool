@@ -3,8 +3,9 @@ App::uses('AppModel', 'Model');
 /**
  * Item Model
  *
- * @property Exam $Exam
  * @property AnswerOption $AnswerOption
+ * @property Domain $Domain
+ * @property Exam $Exam
  */
 class Item extends AppModel {
 
@@ -21,6 +22,10 @@ class Item extends AppModel {
  * @var array
  */
 	public $belongsTo = array(
+		'Domain' => array(
+			'className' => 'Domain',
+			'foreignKey' => 'exam_id'
+		),
 		'Exam' => array(
 			'className' => 'Exam',
 			'foreignKey' => 'exam_id'
