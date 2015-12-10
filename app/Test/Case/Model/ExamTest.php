@@ -30,6 +30,14 @@ class TestExam extends Exam {
 	}
 
 /**
+ * Public test double of `parent::_executeAnalysis`.
+ *
+ */
+	public function executeAnalysis($questionCount, $studentCount, $maxAnswerOptionCount, $exam, $givenAnswers, $answerOptionCount) {
+		return self::_executeAnalysis($questionCount, $studentCount, $maxAnswerOptionCount, $exam, $givenAnswers, $answerOptionCount);
+	}
+
+/**
  * Public test double of `parent::_duplicate`.
  *
  */
@@ -78,6 +86,47 @@ class ExamTest extends CakeTestCase {
 		unset($this->Exam);
 
 		parent::tearDown();
+	}
+
+/**
+ * testExecuteAnalysis method
+ *
+ * @return void
+ */
+	public function testExecuteAnalysis() {
+		$questionCount = 3;
+		$studentCount = 6;
+		$maxAnswerOptionCount = 3;
+		$exam = array(
+			'Item' => array(
+				array(
+					'AnswerOption' => array(
+						array('is_correct' => true)
+					)
+				),
+				array(
+					'AnswerOption' => array(
+						array('is_correct' => true)
+					)
+				),
+				array(
+					'AnswerOption' => array(
+						array('is_correct' => true)
+					)
+				)
+			)
+		);
+		$givenAnswers = array(
+			array(2, 1, 1),
+			array(3, 1, 2),
+			array(1, 1, 3),
+			array(2, 1, 1),
+			array(2, 3, 2),
+			array(1, 1, 3),
+		);
+		$answerOptionCount = array(3, 3, 3);
+		$result = $this->Exam->executeAnalysis($questionCount, $studentCount, $maxAnswerOptionCount, $exam, $givenAnswers, $answerOptionCount);
+		$this->assertTrue((bool)$result);
 	}
 
 /**
