@@ -413,6 +413,12 @@ class ExamTest extends CakeTestCase {
  * @return void
  */
 	public function testExtractMappingfile() {
+		$files = array(
+			'Teleform-mappingfile.csv',
+			'Teleform-mappingfile-with-spaces-in-version-column-headers.csv',
+			'Teleform-mappingfile-with-upper-and-lower-case-in-version-column-headers.csv'
+		);
+
 		$expectedVersionMapping = array(
 			2 => array(
 				1 => 2,
@@ -423,12 +429,15 @@ class ExamTest extends CakeTestCase {
 			1 => 3,
 			2 => 3
 		);
-		$filename = APP . DS . 'Test' . DS . 'File' . DS . 'Exam' . DS . 'Teleform.mappingfile.csv';
-		$result = $this->Exam->extractMappingfile($filename);
-		$this->assertTrue((bool)$result);
-		list($versionMapping, $answerOptionCount) = $result;
-		$this->assertEquals($expectedVersionMapping, $versionMapping);
-		$this->assertEquals($expectedAnswerOptionCount, $answerOptionCount);
+
+		foreach ($files as $file) {
+			$filename = APP . DS . 'Test' . DS . 'File' . DS . 'Exam' . DS . 'Teleform.mappingfile.csv';
+			$result = $this->Exam->extractMappingfile($filename);
+			$this->assertTrue((bool)$result);
+			list($versionMapping, $answerOptionCount) = $result;
+			$this->assertEquals($expectedVersionMapping, $versionMapping);
+			$this->assertEquals($expectedAnswerOptionCount, $answerOptionCount);
+		}
 	}
 
 }
