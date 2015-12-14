@@ -1061,7 +1061,9 @@ class Exam extends AppModel {
 			$versionMappingFilename = Exam::UPLOADS . $exam['Exam']['mapping_filename'];
 		}
 
-		list($versionMapping, $answerOptionCount) = $this->_extractMappingfile($versionMappingFilename);
+		list($versionMapping, $answerOptionCount, $domains) = $this->_extractTeleformMappingfile($versionMappingFilename);
+
+		$domainIds = $this->Domain->createDomains($exam['Exam']['id'], $domains);
 
 		$result = true;
 		ini_set('auto_detect_line_endings', true);
@@ -1089,6 +1091,7 @@ class Exam extends AppModel {
 
 						$item = array(
 							'exam_id' => $exam['Exam']['id'],
+							'domain_id' => Hash::get($domainIds, $j - 1),
 							'order' => $j - 1,
 							'second_version_order' => $secondVersionOrder,
 							'value' => $j - 1
@@ -1516,14 +1519,15 @@ class Exam extends AppModel {
 	}
 
 /**
- * Extract verion mapping and answer option count from Teleform mapping file
+ * Extract version mappings, answer option counts and domains from Teleform mapping file
  *
  * @param string $filename Filename of a Teleform mapping file
- * @return array List of verion mappings and answer option counts
+ * @return array List of verion mappings, answer option counts and domains
  */
-	protected function _extractMappingfile($filename) {
-		$versionMapping = array();
-		$answerOptionCount = array();
+	protected function _extractTeleformMappingfile($filename) {
+		$versionMappings = array();
+		$answerOptionCounts = array();
+		$domains = array();
 
 		if (!empty($filename) && file_exists($filename)) {
 			ini_set('auto_detect_line_endings', true);
@@ -1531,6 +1535,7 @@ class Exam extends AppModel {
 				$version1Index = false;
 				$version2Index = false;
 				$answerOptionCountIndex = false;
+				$domainIndex = false;
 				for ($i = 0; !feof($handle); $i++) {
 					$line = fgets($handle);
 					$line = $this->__decodeLine($line, $i == 0);
@@ -1541,17 +1546,22 @@ class Exam extends AppModel {
 						$version1Index = $this->_getIndexOfVersionFromTeleformHeader($header, 1);
 						$version2Index = $this->_getIndexOfVersionFromTeleformHeader($header, 2);
 						$answerOptionCountIndex = array_search('Answer Option Count', $header);
+						$domainIndex = array_search('Domain', $header);
 					} else {
 						$values = str_getcsv($line, ';', '"', '"');
 						if (count($values) <= 1) {
 							continue;
 						}
 						if ($version1Index !== false && $version2Index !== false) {
-							$versionMapping[2][$values[$version1Index]] = intval($values[$version2Index]);
+							$versionMappings[2][$values[$version1Index]] = intval($values[$version2Index]);
 						}
 
 						if ($version1Index !== false && $answerOptionCountIndex !== false) {
-							$answerOptionCount[$values[$version1Index]] = intval($values[$answerOptionCountIndex]);
+							$answerOptionCounts[$values[$version1Index]] = intval($values[$answerOptionCountIndex]);
+						}
+
+						if ($version1Index !== false && $domainIndex !== false) {
+							$domains[$values[$version1Index]] = $values[$domainIndex];
 						}
 					}
 				}
@@ -1560,7 +1570,7 @@ class Exam extends AppModel {
 			}
 		}
 
-		return array($versionMapping, $answerOptionCount);
+		return array($versionMappings, $answerOptionCounts, $domains);
 	}
 
 }

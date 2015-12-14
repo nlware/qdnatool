@@ -46,11 +46,11 @@ class TestExam extends Exam {
 	}
 
 /**
- * Public test double of `parent::_extractMappingfile`.
+ * Public test double of `parent::_extractTeleformMappingfile`.
  *
  */
-	public function extractMappingfile($filename) {
-		return parent::_extractMappingfile($filename);
+	public function extractTeleformMappingfile($filename) {
+		return parent::_extractTeleformMappingfile($filename);
 	}
 
 }
@@ -408,11 +408,11 @@ class ExamTest extends CakeTestCase {
 	}
 
 /**
- * testExtractMappingfile method
+ * testExtractTeleformMappingfile method
  *
  * @return void
  */
-	public function testExtractMappingfile() {
+	public function testExtractTeleformMappingfile() {
 		$files = array(
 			'Teleform-mappingfile.csv',
 			'Teleform-mappingfile-with-spaces-in-version-column-headers.csv',
@@ -431,13 +431,72 @@ class ExamTest extends CakeTestCase {
 		);
 
 		foreach ($files as $file) {
-			$filename = APP . DS . 'Test' . DS . 'File' . DS . 'Exam' . DS . 'Teleform.mappingfile.csv';
-			$result = $this->Exam->extractMappingfile($filename);
+			$filename = APP . DS . 'Test' . DS . 'File' . DS . 'Exam' . DS . $file;
+			$result = $this->Exam->extractTeleformMappingfile($filename);
 			$this->assertTrue((bool)$result);
-			list($versionMapping, $answerOptionCount) = $result;
+			list($versionMapping, $answerOptionCount, $domains) = $result;
 			$this->assertEquals($expectedVersionMapping, $versionMapping);
 			$this->assertEquals($expectedAnswerOptionCount, $answerOptionCount);
+			$this->assertEmpty($domains);
 		}
+	}
+
+/**
+ * testExtractTeleformMappingfileWithDomain method
+ *
+ * @return void
+ */
+	public function testExtractTeleformMappingfileWithDomain() {
+		$expectedVersionMapping = array(
+			2 => array(
+				1 => 2,
+				2 => 1
+			)
+		);
+		$expectedAnswerOptionCount = array(
+			1 => 3,
+			2 => 3
+		);
+
+		$expectedDomains = array(
+			1 => 'M',
+			2 => 'G'
+		);
+
+		$filename = APP . DS . 'Test' . DS . 'File' . DS . 'Exam' . DS . 'Teleform-mappingfile-with-domain.csv';
+		$result = $this->Exam->extractTeleformMappingfile($filename);
+		$this->assertTrue((bool)$result);
+		list($versionMapping, $answerOptionCount, $domains) = $result;
+		$this->assertEquals($expectedVersionMapping, $versionMapping);
+		$this->assertEquals($expectedAnswerOptionCount, $answerOptionCount);
+		$this->assertEquals($expectedDomains, $domains);
+	}
+
+/**
+ * testExtractTeleformMappingfileWithDomainWithoutAnswerOptionCount method
+ *
+ * @return void
+ */
+	public function testExtractTeleformMappingfileWithDomainWithoutAnswerOptionCount() {
+		$expectedVersionMapping = array(
+			2 => array(
+				1 => 2,
+				2 => 1
+			)
+		);
+
+		$expectedDomains = array(
+			1 => 'M',
+			2 => 'G'
+		);
+
+		$filename = APP . DS . 'Test' . DS . 'File' . DS . 'Exam' . DS . 'Teleform-mappingfile-with-domain-without-answer-option-count.csv';
+		$result = $this->Exam->extractTeleformMappingfile($filename);
+		$this->assertTrue((bool)$result);
+		list($versionMapping, $answerOptionCount, $domains) = $result;
+		$this->assertEquals($expectedVersionMapping, $versionMapping);
+		$this->assertEmpty($answerOptionCount);
+		$this->assertEquals($expectedDomains, $domains);
 	}
 
 }
