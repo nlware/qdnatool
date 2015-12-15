@@ -123,3 +123,5 @@ Analyse <- function(key, input.answers, number.answeroptions) {
          percentage.answer.options, corrected.item.tot.cor.answ.option)
   }
 }
+
+Analyse(key, input.answers, number.answeroptions)
