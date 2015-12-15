@@ -2,11 +2,31 @@
 library(psy)
 
 Analyse <- function(key, input.answers, number.answeroptions) {
+  # Calculates standard psychometric properties of an exam, notably the percentage correct and the item rest correlation (IRC) per item and 
+  # per answer option and the cronbach's alpha for the whole exam.
+  #
+  # Arguments:
+  #   key: Matrix of 0's and 1's. key[i,j] implies wether answer option i to item j is right (1) or wrong (0). If a row (item) consists of
+  #        only 0s, the item is interpreted as graded manually.
+  #   input.answers: Ungraded matrix of answers. input.answers[i,j] is the answer of student (i) to item (j).
+  #   number.answersoptions: Vector with number of answer options per item, should be equal to number of collumns of input.answers.
+  # 
+  # Returns:
+  #  list with:
+  #   Cronbach's alpha 
+  #   Maximum number of answer options
+  #   Vector of number of correct per item
+  #   Vector of percentage correct per item
+  #   Vector of IRC per item
+  #   Matrix[i,j] of number of students answering option i  to item j
+  #   Matrix[i,j] of percentage of students answering option i  to item j
+  #   Matrix[i,j] of IRC of answer option i to item j
+
   number.students <- nrow(input.answers)
   number.questions <- ncol(input.answers)
 
-  if (number.questions > 2 & number.students > 1) {
-    # Correct/Incorrect Matrix
+  if (number.questions > 2 & number.students > 1) { # Do the analysis only if there are at least 3 items and 2 students.
+    # Create Correct/Incorrect matrix
     input.correct <- matrix(0, number.students, number.questions) 
 
     # Fill in Correct/Incorrect Matrix
@@ -20,7 +40,7 @@ Analyse <- function(key, input.answers, number.answeroptions) {
       }
     }
 
-    # Creating Frequency Matrix and Item rest Cor for total scores
+    # Creating Frequency Matrix and Item Rest Correlation matrix for total scores
     correct.frequency <- apply(input.correct, 2, sum)
     correct.percentage <- round(correct.frequency / number.students * 100,
                                 digits = 1)
@@ -38,7 +58,7 @@ Analyse <- function(key, input.answers, number.answeroptions) {
     corrected.item.tot.cor <- round(corrected.item.tot.cor, digits = 3)
 
     # Creating Frequency Matrix and Item rest Cor for each answer options
-    # only if any non 0's are present in key
+    # only if any non 0's are present in key, i.e. it is a multiple choice item
 
     if (any(key != 0)) {
       frequency.answer.options <- matrix(, max(number.answeroptions) + 1,
@@ -65,7 +85,7 @@ Analyse <- function(key, input.answers, number.answeroptions) {
       percentage.answer.options <- round(frequency.answer.options / number.students * 100,
                                          digits = 1)
 
-      # Calculating corrected item total correlation per Answeroptions
+      # Calculating corrected item total correlation per answer option
       corrected.item.tot.cor.answ.option <- matrix(, max(number.answeroptions) + 1,
                                                    number.questions)
 
@@ -95,7 +115,7 @@ Analyse <- function(key, input.answers, number.answeroptions) {
       corrected.item.tot.cor.answ.option <- 0
     }
     
-    # Computes Cronbach's Alpha
+    # Computes Cronbach's Alpha for overall test
     cronbach <- round(cronbach(input.correct)$alpha, digits = 3)
 
     list(cronbach, max(number.answeroptions), correct.frequency,

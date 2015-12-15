@@ -97,17 +97,19 @@ item.list <- CreateItemList(input.correct = input.correct, n.answer.op = n.answe
 
 # General
 
- What | Result | Explanation of the tables |
-:---------------------- | :------------- | :-----------------------
-  Number of students| `r n.stud` |   For each question the frequency, percentage and item rest correlations (IRC)
-Number of questions | `r n.item` |  from every answer option are diplayed. The IRC should be (highly) positive
-Average score | `r round(mean(rowSums(input.correct)), digits = 3)`  | for the right answer option and low for the wrong answer option(s).
-Standard deviation | `r round(sd(rowSums(input.correct)), digits = 3)`  | |
-  Cronbach's alpha | `r cronbach`  | |
-Standard error | `r round(sd(rowSums(input.correct) * sqrt(1 - cronbach)), digits = 3)` | |
+ What | Result |
+:---------------------- | :------------- |
+  Number of students| `r n.stud` |
+Number of questions | `r n.item` |
+Average score | `r round(mean(rowSums(input.correct)), digits = 3)`  |
+Standard deviation | `r round(sd(rowSums(input.correct)), digits = 3)`  | 
+  Cronbach's alpha | `r cronbach`  | 
+Standard error | `r round(sd(rowSums(input.correct) * sqrt(1 - cronbach)), digits = 3)` | 
 
 
 # Item statistics
+
+For each question the frequency, percentage and item rest correlations (IRC) of every answer option are diplayed. The IRC should be (highly) positive for the right answer option and low for the wrong answer option(s).
 
 ```{r pander, results = "asis", eval = TRUE, echo = FALSE, warning = FALSE, message = FALSE}
 # Create tables per item with frequency chosen, percentage chosen and the item-rest correlation. Correct answers are highlighted in bold
@@ -466,7 +468,7 @@ CumHist(input.correct)
 ```{r, echo = FALSE, eval = TRUE, warnings = FALSE, message = FALSE, results = 'asis', fig.width = 11}
 for(s in 1:nrow(error))
 {
-  cat(paste("### Sub category analysis could not be performed for category", error[s,1], "as this subcategory holds less than three items.", sep = " "))
+  cat(paste("#### Sub category analysis could not be performed for category", error[s,1], "as this subcategory holds less than three items.", sep = " "))
   cat('\n\n')
 }
 ```
