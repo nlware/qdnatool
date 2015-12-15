@@ -11,19 +11,17 @@
 
 # General
 
- What | Result |
-:---------------------- | :------------- |
-  Number of students| 349 |
-Number of questions | 26 |
-Average score | 10.189  |
-Standard deviation | 1.835  | 
-  Cronbach's alpha | -0.16  | 
-Standard error | 1.976 | 
+ What | Result | Explanation of the tables |
+:---------------------- | :------------- | :-----------------------
+  Number of students| 349 |   For each question the frequency, percentage and item rest correlations (IRC)
+Number of questions | 26 |  from every answer option are diplayed. The IRC should be (highly) positive
+Average score | 10.189  | for the right answer option and low for the wrong answer option(s).
+Standard deviation | 1.835  | |
+  Cronbach's alpha | -0.16  | |
+Standard error | 1.976 | |
 
 
 # Item statistics
-
-For each question the frequency, percentage and item rest correlations (IRC) of every answer option are diplayed. The IRC should be (highly) positive for the right answer option and low for the wrong answer option(s).
 
 
   * **Item 1**:
@@ -550,7 +548,7 @@ For each question the frequency, percentage and item rest correlations (IRC) of 
 
 Plot of percentage correct per item. If *more than 70%* of the students answer an item correctly, the students have mastered the material well enough, thus it is coloured *green*. If *less than 40%* of the students answer an item correctly, the students have not mastered the material, and is coloured *red*. *Orange* indicates the percentage correct lies *between 40% and 70%*. The boundaries of the colours are based on multiple choice items with 3 or 4 answer options.
 
-![](Rapport_subcategories_files/figure-html/unnamed-chunk-4-1.png) 
+![](Rapport_subcategories_1__files/figure-html/unnamed-chunk-4-1.png) 
 
 \pagebreak
 
@@ -559,7 +557,7 @@ Plot of percentage correct per item. If *more than 70%* of the students answer a
 Plot of Item Rest Correlations per item: The correlation between an item (0 for wrong answers and 1 for right answers) and the sum of all other items.
 Items with a correlation *higher than .05* indicate that students who answered this item correctly answered the other items more often correctly than students who answered this item incorrectly. Thus it is coloured *green*. Items with a correlation *lower than 0* indicate no relationship between this item and the other items, thus it is coloured *red*. *Between 0 and .05*, an item is coloured *orange*.
 
-![](Rapport_subcategories_files/figure-html/unnamed-chunk-5-1.png) 
+![](Rapport_subcategories_1__files/figure-html/unnamed-chunk-5-1.png) 
 
 
 
@@ -577,7 +575,7 @@ The border represents the performance of an item. The **right** answer options a
 
 The **wrong** answer options are coloured *green* if an option is chosen *10 percentage point less than the right option*. In that case, more students chose the right answer option than the wrong option indicating that students are not confused by the wrong option. They are coloured *red* if an option is chosen *equally or more often than the right option*. In this case, students pick the wrong answer option often, indicating that this option may be right as well. It is coloured *orange* in between these two.
 
-![](Rapport_subcategories_files/figure-html/unnamed-chunk-7-1.png) ![](Rapport_subcategories_files/figure-html/unnamed-chunk-7-2.png) 
+![](Rapport_subcategories_1__files/figure-html/unnamed-chunk-7-1.png) ![](Rapport_subcategories_1__files/figure-html/unnamed-chunk-7-2.png) 
 
 
 
@@ -591,7 +589,7 @@ The border represents the performance of an item. The **right** answer options a
 
 The **wrong** answer options are coloured *green* if the IRC is *more than .1 lower than the right option*. In that case, students who answered the other items incorrectly, usually answered this item incorrectly as well. They are coloured *red* if the IRC is *equal or higher than the right answer option*. In that case, students who answered the other items correctly may have answered this item incorrectly. In between these two, the option is coloured *orange*.
 
-![](Rapport_subcategories_files/figure-html/unnamed-chunk-8-1.png) ![](Rapport_subcategories_files/figure-html/unnamed-chunk-8-2.png) 
+![](Rapport_subcategories_1__files/figure-html/unnamed-chunk-8-1.png) ![](Rapport_subcategories_1__files/figure-html/unnamed-chunk-8-2.png) 
 
 \pagebreak
 
@@ -599,11 +597,11 @@ The **wrong** answer options are coloured *green* if the IRC is *more than .1 lo
 
 Cumulative Distribution showing all possible scores and the percentage of students that scored that number or higher
 
-![](Rapport_subcategories_files/figure-html/unnamed-chunk-9-1.png) 
+![](Rapport_subcategories_1__files/figure-html/unnamed-chunk-9-1.png) 
 
 # Categories
 
-#### Sub category analysis could not be performed for category 3 as this subcategory holds less than three items.
+### Sub category analysis could not be performed for category 3 as this subcategory holds less than three items.
 
 \pagebreak
 
@@ -617,14 +615,14 @@ Cumulative Distribution showing all possible scores and the percentage of studen
 
 Plot of percentage correct per item. If *more than 70%* of the students answer an item correctly, the students have mastered the material well enough, thus it is coloured *green*. If *less than 40%* of the students answer an item correctly, the students have not mastered the material, and is coloured *red*. *Orange* indicates the percentage correct lies *between 40% and 70%*. The boundaries of the colours are based on multiple choice items with 3 or 4 answer options.
 
-![](Rapport_subcategories_files/figure-html/unnamed-chunk-11-1.png) \pagebreak
+![](Rapport_subcategories_1__files/figure-html/unnamed-chunk-11-1.png) \pagebreak
 
 ## Item rest correlations
 
 Plot of Item Rest Correlations per item: The correlation between an item (0 for wrong answers and 1 for right answers) and the sum of all other items.
 Items with a correlation *higher than .05* indicate that students who answered this item correctly answered the other items more often correctly than students who answered this item incorrectly. Thus it is coloured *green*. Items with a correlation *lower than 0* indicate no relationship between this item and the other items, thus it is coloured *red*. *Between 0 and .05*, an item is coloured *orange*.
 
-![](Rapport_subcategories_files/figure-html/unnamed-chunk-11-2.png) \pagebreak
+![](Rapport_subcategories_1__files/figure-html/unnamed-chunk-11-2.png) \pagebreak
 
 ## Percentage chosen per answer options
 
@@ -634,7 +632,7 @@ The border represents the performance of an item. The **right** answer options a
 
 The **wrong** answer options are coloured *green* if an option is chosen *10 percentage point less than the right option*. In that case, more students chose the right answer option than the wrong option indicating that students are not confused by the wrong option. They are coloured *red* if an option is chosen *equally or more often than the right option*. In this case, students pick the wrong answer option often, indicating that this option may be right as well. It is coloured *orange* in between these two.
 
-![](Rapport_subcategories_files/figure-html/unnamed-chunk-11-3.png) \pagebreak
+![](Rapport_subcategories_1__files/figure-html/unnamed-chunk-11-3.png) \pagebreak
 
 ## Item rest correlations per answer option
 
@@ -644,11 +642,11 @@ The border represents the performance of an item. The **right** answer options a
 
 The **wrong** answer options are coloured *green* if the IRC is *more than .1 lower than the right option*. In that case, students who answered the other items incorrectly, usually answered this item incorrectly as well. They are coloured *red* if the IRC is *equal or higher than the right answer option*. In that case, students who answered the other items correctly may have answered this item incorrectly. In between these two, the option is coloured *orange*.
 
-![](Rapport_subcategories_files/figure-html/unnamed-chunk-11-4.png) \newpage
+![](Rapport_subcategories_1__files/figure-html/unnamed-chunk-11-4.png) \newpage
 
 ## Cumulative Distribution
 
-![](Rapport_subcategories_files/figure-html/unnamed-chunk-11-5.png) \pagebreak
+![](Rapport_subcategories_1__files/figure-html/unnamed-chunk-11-5.png) \pagebreak
 
         
               
@@ -660,14 +658,14 @@ The **wrong** answer options are coloured *green* if the IRC is *more than .1 lo
 
 Plot of percentage correct per item. If *more than 70%* of the students answer an item correctly, the students have mastered the material well enough, thus it is coloured *green*. If *less than 40%* of the students answer an item correctly, the students have not mastered the material, and is coloured *red*. *Orange* indicates the percentage correct lies *between 40% and 70%*. The boundaries of the colours are based on multiple choice items with 3 or 4 answer options.
 
-![](Rapport_subcategories_files/figure-html/unnamed-chunk-11-6.png) \pagebreak
+![](Rapport_subcategories_1__files/figure-html/unnamed-chunk-11-6.png) \pagebreak
 
 ## Item rest correlations
 
 Plot of Item Rest Correlations per item: The correlation between an item (0 for wrong answers and 1 for right answers) and the sum of all other items.
 Items with a correlation *higher than .05* indicate that students who answered this item correctly answered the other items more often correctly than students who answered this item incorrectly. Thus it is coloured *green*. Items with a correlation *lower than 0* indicate no relationship between this item and the other items, thus it is coloured *red*. *Between 0 and .05*, an item is coloured *orange*.
 
-![](Rapport_subcategories_files/figure-html/unnamed-chunk-11-7.png) \pagebreak
+![](Rapport_subcategories_1__files/figure-html/unnamed-chunk-11-7.png) \pagebreak
 
 ## Percentage chosen per answer options
 
@@ -677,7 +675,7 @@ The border represents the performance of an item. The **right** answer options a
 
 The **wrong** answer options are coloured *green* if an option is chosen *10 percentage point less than the right option*. In that case, more students chose the right answer option than the wrong option indicating that students are not confused by the wrong option. They are coloured *red* if an option is chosen *equally or more often than the right option*. In this case, students pick the wrong answer option often, indicating that this option may be right as well. It is coloured *orange* in between these two.
 
-![](Rapport_subcategories_files/figure-html/unnamed-chunk-11-8.png) \pagebreak
+![](Rapport_subcategories_1__files/figure-html/unnamed-chunk-11-8.png) \pagebreak
 
 ## Item rest correlations per answer option
 
@@ -687,11 +685,11 @@ The border represents the performance of an item. The **right** answer options a
 
 The **wrong** answer options are coloured *green* if the IRC is *more than .1 lower than the right option*. In that case, students who answered the other items incorrectly, usually answered this item incorrectly as well. They are coloured *red* if the IRC is *equal or higher than the right answer option*. In that case, students who answered the other items correctly may have answered this item incorrectly. In between these two, the option is coloured *orange*.
 
-![](Rapport_subcategories_files/figure-html/unnamed-chunk-11-9.png) \newpage
+![](Rapport_subcategories_1__files/figure-html/unnamed-chunk-11-9.png) \newpage
 
 ## Cumulative Distribution
 
-![](Rapport_subcategories_files/figure-html/unnamed-chunk-11-10.png) \pagebreak
+![](Rapport_subcategories_1__files/figure-html/unnamed-chunk-11-10.png) \pagebreak
 
         
               
@@ -703,14 +701,14 @@ The **wrong** answer options are coloured *green* if the IRC is *more than .1 lo
 
 Plot of percentage correct per item. If *more than 70%* of the students answer an item correctly, the students have mastered the material well enough, thus it is coloured *green*. If *less than 40%* of the students answer an item correctly, the students have not mastered the material, and is coloured *red*. *Orange* indicates the percentage correct lies *between 40% and 70%*. The boundaries of the colours are based on multiple choice items with 3 or 4 answer options.
 
-![](Rapport_subcategories_files/figure-html/unnamed-chunk-11-11.png) \pagebreak
+![](Rapport_subcategories_1__files/figure-html/unnamed-chunk-11-11.png) \pagebreak
 
 ## Item rest correlations
 
 Plot of Item Rest Correlations per item: The correlation between an item (0 for wrong answers and 1 for right answers) and the sum of all other items.
 Items with a correlation *higher than .05* indicate that students who answered this item correctly answered the other items more often correctly than students who answered this item incorrectly. Thus it is coloured *green*. Items with a correlation *lower than 0* indicate no relationship between this item and the other items, thus it is coloured *red*. *Between 0 and .05*, an item is coloured *orange*.
 
-![](Rapport_subcategories_files/figure-html/unnamed-chunk-11-12.png) \pagebreak
+![](Rapport_subcategories_1__files/figure-html/unnamed-chunk-11-12.png) \pagebreak
 
 ## Percentage chosen per answer options
 
@@ -720,7 +718,7 @@ The border represents the performance of an item. The **right** answer options a
 
 The **wrong** answer options are coloured *green* if an option is chosen *10 percentage point less than the right option*. In that case, more students chose the right answer option than the wrong option indicating that students are not confused by the wrong option. They are coloured *red* if an option is chosen *equally or more often than the right option*. In this case, students pick the wrong answer option often, indicating that this option may be right as well. It is coloured *orange* in between these two.
 
-![](Rapport_subcategories_files/figure-html/unnamed-chunk-11-13.png) \pagebreak
+![](Rapport_subcategories_1__files/figure-html/unnamed-chunk-11-13.png) \pagebreak
 
 ## Item rest correlations per answer option
 
@@ -730,11 +728,11 @@ The border represents the performance of an item. The **right** answer options a
 
 The **wrong** answer options are coloured *green* if the IRC is *more than .1 lower than the right option*. In that case, students who answered the other items incorrectly, usually answered this item incorrectly as well. They are coloured *red* if the IRC is *equal or higher than the right answer option*. In that case, students who answered the other items correctly may have answered this item incorrectly. In between these two, the option is coloured *orange*.
 
-![](Rapport_subcategories_files/figure-html/unnamed-chunk-11-14.png) \newpage
+![](Rapport_subcategories_1__files/figure-html/unnamed-chunk-11-14.png) \newpage
 
 ## Cumulative Distribution
 
-![](Rapport_subcategories_files/figure-html/unnamed-chunk-11-15.png) \pagebreak
+![](Rapport_subcategories_1__files/figure-html/unnamed-chunk-11-15.png) \pagebreak
 
         
               
@@ -746,14 +744,14 @@ The **wrong** answer options are coloured *green* if the IRC is *more than .1 lo
 
 Plot of percentage correct per item. If *more than 70%* of the students answer an item correctly, the students have mastered the material well enough, thus it is coloured *green*. If *less than 40%* of the students answer an item correctly, the students have not mastered the material, and is coloured *red*. *Orange* indicates the percentage correct lies *between 40% and 70%*. The boundaries of the colours are based on multiple choice items with 3 or 4 answer options.
 
-![](Rapport_subcategories_files/figure-html/unnamed-chunk-11-16.png) \pagebreak
+![](Rapport_subcategories_1__files/figure-html/unnamed-chunk-11-16.png) \pagebreak
 
 ## Item rest correlations
 
 Plot of Item Rest Correlations per item: The correlation between an item (0 for wrong answers and 1 for right answers) and the sum of all other items.
 Items with a correlation *higher than .05* indicate that students who answered this item correctly answered the other items more often correctly than students who answered this item incorrectly. Thus it is coloured *green*. Items with a correlation *lower than 0* indicate no relationship between this item and the other items, thus it is coloured *red*. *Between 0 and .05*, an item is coloured *orange*.
 
-![](Rapport_subcategories_files/figure-html/unnamed-chunk-11-17.png) \pagebreak
+![](Rapport_subcategories_1__files/figure-html/unnamed-chunk-11-17.png) \pagebreak
 
 ## Percentage chosen per answer options
 
@@ -763,7 +761,7 @@ The border represents the performance of an item. The **right** answer options a
 
 The **wrong** answer options are coloured *green* if an option is chosen *10 percentage point less than the right option*. In that case, more students chose the right answer option than the wrong option indicating that students are not confused by the wrong option. They are coloured *red* if an option is chosen *equally or more often than the right option*. In this case, students pick the wrong answer option often, indicating that this option may be right as well. It is coloured *orange* in between these two.
 
-![](Rapport_subcategories_files/figure-html/unnamed-chunk-11-18.png) \pagebreak
+![](Rapport_subcategories_1__files/figure-html/unnamed-chunk-11-18.png) \pagebreak
 
 ## Item rest correlations per answer option
 
@@ -773,9 +771,9 @@ The border represents the performance of an item. The **right** answer options a
 
 The **wrong** answer options are coloured *green* if the IRC is *more than .1 lower than the right option*. In that case, students who answered the other items incorrectly, usually answered this item incorrectly as well. They are coloured *red* if the IRC is *equal or higher than the right answer option*. In that case, students who answered the other items correctly may have answered this item incorrectly. In between these two, the option is coloured *orange*.
 
-![](Rapport_subcategories_files/figure-html/unnamed-chunk-11-19.png) \newpage
+![](Rapport_subcategories_1__files/figure-html/unnamed-chunk-11-19.png) \newpage
 
 ## Cumulative Distribution
 
-![](Rapport_subcategories_files/figure-html/unnamed-chunk-11-20.png) 
+![](Rapport_subcategories_1__files/figure-html/unnamed-chunk-11-20.png) 
 

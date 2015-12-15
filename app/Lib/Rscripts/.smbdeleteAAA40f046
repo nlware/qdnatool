@@ -1,0 +1,898 @@
+
+
+
+  
+
+
+
+
+
+<environment: R_GlobalEnv>
+
+# General
+
+ What | Result | Explanation of the tables |
+:---------------------- | :------------- | :-----------------------
+  Number of students| 240 |   For each question the frequency, percentage and item rest correlations (IRC)
+Number of questions | 40 |  from every answer option are diplayed. The IRC should be (highly) positive
+Average score | 16.417  | for the right answer option and low for the wrong answer option(s).
+Standard deviation | 2.973  | |
+  Cronbach's alpha | -0.061  | |
+Standard error | 3.062 | |
+
+
+# Item statistics
+
+
+  * **Item 1**:
+
+    ------------------------------------------------------------
+     Answer Option   Frequency   Percentage     IRC     Correct
+    --------------- ----------- ------------ --------- ---------
+         **A**        **84**       **35**    **0.052**   **X**
+
+           B            74          30.8      -0.056
+
+           C            79          32.9       0.005
+
+        Missing          3          1.2       -0.016
+    ------------------------------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 2**:
+
+    ------------------------------------------------------------
+     Answer Option   Frequency   Percentage     IRC     Correct
+    --------------- ----------- ------------ --------- ---------
+           A            83          34.6       0.02
+
+         **B**        **67**      **27.9**   **0.002**   **X**
+
+           C            90          37.5      -0.022
+
+        Missing          0           0           0
+    ------------------------------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 3**:
+
+    -------------------------------------------------------------
+     Answer Option   Frequency   Percentage     IRC      Correct
+    --------------- ----------- ------------ ---------- ---------
+           A            86          35.8       0.043
+
+         **B**        **71**      **29.6**   **-0.027**   **X**
+
+           C            82          34.2       -0.006
+
+        Missing          1          0.4        -0.091
+    -------------------------------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 4**:
+
+    --------------------------------------
+             frequency   percentage   IRC
+    ------- ----------- ------------ -----
+    Correct     138         57.5     0.034
+    --------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 5**:
+
+    ---------------------------------------
+             frequency   percentage   IRC
+    ------- ----------- ------------ ------
+    Correct     112         46.7     -0.018
+    ---------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 6**:
+
+    ------------------------------------------------------------
+     Answer Option   Frequency   Percentage     IRC     Correct
+    --------------- ----------- ------------ --------- ---------
+         **A**        **85**      **35.4**   **0.035**   **X**
+
+           B            80          33.3       0.055
+
+           C            74          30.8      -0.083
+
+        Missing          1          0.4       -0.068
+    ------------------------------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 7**:
+
+    ---------------------------------------
+             frequency   percentage   IRC
+    ------- ----------- ------------ ------
+    Correct     119         49.6     -0.004
+    ---------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 8**:
+
+    --------------------------------------
+             frequency   percentage   IRC
+    ------- ----------- ------------ -----
+    Correct     123         51.2     0.005
+    --------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 9**:
+
+    ---------------------------------------
+             frequency   percentage   IRC
+    ------- ----------- ------------ ------
+    Correct     124         51.7     -0.007
+    ---------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 10**:
+
+    -------------------------------------------------------------
+     Answer Option   Frequency   Percentage     IRC      Correct
+    --------------- ----------- ------------ ---------- ---------
+         **A**        **89**      **37.1**   **-0.067**   **X**
+
+           B            74          30.8       0.124
+
+           C            73          30.4       -0.032
+
+        Missing          4          1.7        -0.079
+    -------------------------------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 11**:
+
+    ---------------------------------------
+             frequency   percentage   IRC
+    ------- ----------- ------------ ------
+    Correct     119         49.6     -0.047
+    ---------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 12**:
+
+    ------------------------------------------------------------
+     Answer Option   Frequency   Percentage     IRC     Correct
+    --------------- ----------- ------------ --------- ---------
+           A            81          33.8       -0.06
+
+         **B**        **77**      **32.1**   **0.042**   **X**
+
+           C            77          32.1       0.014
+
+        Missing          5          2.1        0.015
+    ------------------------------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 13**:
+
+    ------------------------------------------------------------
+     Answer Option   Frequency   Percentage     IRC     Correct
+    --------------- ----------- ------------ --------- ---------
+           A            87          36.2      -0.046
+
+           B            79          32.9      -0.045
+
+         **C**        **71**      **29.6**   **0.077**   **X**
+
+        Missing          3          1.2        0.073
+    ------------------------------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 14**:
+
+    --------------------------------------
+             frequency   percentage   IRC
+    ------- ----------- ------------ -----
+    Correct     126         52.5     0.039
+    --------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 15**:
+
+    -------------------------------------------------------------
+     Answer Option   Frequency   Percentage     IRC      Correct
+    --------------- ----------- ------------ ---------- ---------
+           A            85          35.4       0.029
+
+         **B**        **80**      **33.3**   **-0.056**   **X**
+
+           C            71          29.6       0.031
+
+        Missing          4          1.7        -0.015
+    -------------------------------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 16**:
+
+    -------------------------------------------------------------
+     Answer Option   Frequency   Percentage     IRC      Correct
+    --------------- ----------- ------------ ---------- ---------
+         **A**        **79**      **32.9**   **-0.042**   **X**
+
+           B            69          28.7       0.012
+
+           C            91          37.9       0.029
+
+        Missing          1          0.4        -0.002
+    -------------------------------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 17**:
+
+    ------------------------------------------------------------
+     Answer Option   Frequency   Percentage     IRC     Correct
+    --------------- ----------- ------------ --------- ---------
+         **A**        **69**      **28.7**   **0.025**   **X**
+
+           B            69          28.7       -0.11
+
+           C            99          41.2       0.059
+
+        Missing          3          1.2        0.085
+    ------------------------------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 18**:
+
+    -------------------------------------------------------------
+     Answer Option   Frequency   Percentage     IRC      Correct
+    --------------- ----------- ------------ ---------- ---------
+           A            78          32.5       0.046
+
+           B            70          29.2       0.046
+
+         **C**        **89**      **37.1**   **-0.064**   **X**
+
+        Missing          3          1.2        -0.103
+    -------------------------------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 19**:
+
+    ---------------------------------------
+             frequency   percentage   IRC
+    ------- ----------- ------------ ------
+    Correct     111         46.2     -0.045
+    ---------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 20**:
+
+    --------------------------------------
+             frequency   percentage   IRC
+    ------- ----------- ------------ -----
+    Correct     112         46.7     0.051
+    --------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 21**:
+
+    --------------------------------------
+             frequency   percentage   IRC
+    ------- ----------- ------------ -----
+    Correct     132          55      0.092
+    --------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 22**:
+
+    ---------------------------------------
+             frequency   percentage   IRC
+    ------- ----------- ------------ ------
+    Correct     108          45      -0.049
+    ---------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 23**:
+
+    --------------------------------------
+             frequency   percentage   IRC
+    ------- ----------- ------------ -----
+    Correct     134         55.8     -0.04
+    --------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 24**:
+
+    ---------------------------------------
+             frequency   percentage   IRC
+    ------- ----------- ------------ ------
+    Correct     116         48.3     -0.113
+    ---------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 25**:
+
+    -------------------------------------------------------------
+     Answer Option   Frequency   Percentage     IRC      Correct
+    --------------- ----------- ------------ ---------- ---------
+           A            77          32.1       -0.018
+
+           B            78          32.5       0.081
+
+         **C**        **81**      **33.8**   **-0.058**   **X**
+
+        Missing          4          1.7        -0.014
+    -------------------------------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 26**:
+
+    ------------------------------------------------------------
+     Answer Option   Frequency   Percentage     IRC     Correct
+    --------------- ----------- ------------ --------- ---------
+           A            84           35       -0.091
+
+           B            77          32.1       0.017
+
+         **C**        **77**      **32.1**   **0.063**   **X**
+
+        Missing          2          0.8        0.06
+    ------------------------------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 27**:
+
+    -------------------------------------------------------------
+     Answer Option   Frequency   Percentage     IRC      Correct
+    --------------- ----------- ------------ ---------- ---------
+         **A**        **85**      **35.4**   **-0.031**   **X**
+
+           B            71          29.6       -0.004
+
+           C            80          33.3       0.036
+
+        Missing          4          1.7        -0.003
+    -------------------------------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 28**:
+
+    --------------------------------------
+             frequency   percentage   IRC
+    ------- ----------- ------------ -----
+    Correct     127         52.9     0.015
+    --------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 29**:
+
+    -----------------------------------------------------------
+     Answer Option   Frequency   Percentage    IRC     Correct
+    --------------- ----------- ------------ -------- ---------
+           A            96           40       -0.013
+
+         **B**        **74**      **30.8**   **-0.1**   **X**
+
+           C            70          29.2      0.115
+
+        Missing          0           0          0
+    -----------------------------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 30**:
+
+    ---------------------------------------
+             frequency   percentage   IRC
+    ------- ----------- ------------ ------
+    Correct     108          45      -0.032
+    ---------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 31**:
+
+    ------------------------------------------------------------
+     Answer Option   Frequency   Percentage     IRC     Correct
+    --------------- ----------- ------------ --------- ---------
+           A            75          31.2       0.007
+
+         **B**        **82**      **34.2**   **0.079**   **X**
+
+           C            81          33.8      -0.086
+
+        Missing          2          0.8       -0.002
+    ------------------------------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 32**:
+
+    ---------------------------------------
+             frequency   percentage   IRC
+    ------- ----------- ------------ ------
+    Correct     120          50      -0.054
+    ---------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 33**:
+
+    --------------------------------------
+             frequency   percentage   IRC
+    ------- ----------- ------------ -----
+    Correct     127         52.9     0.088
+    --------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 34**:
+
+    -------------------------------------------------------------
+     Answer Option   Frequency   Percentage     IRC      Correct
+    --------------- ----------- ------------ ---------- ---------
+         **A**        **70**      **29.2**   **-0.037**   **X**
+
+           B            81          33.8        0.08
+
+           C            89          37.1       -0.044
+
+        Missing          0           0           0
+    -------------------------------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 35**:
+
+    ------------------------------------------------------------
+     Answer Option   Frequency   Percentage     IRC     Correct
+    --------------- ----------- ------------ --------- ---------
+           A            76          31.7      -0.008
+
+         **B**        **66**      **27.5**   **0.018**   **X**
+
+           C            95          39.6      -0.001
+
+        Missing          3          1.2       -0.031
+    ------------------------------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 36**:
+
+    ------------------------------------------------------------
+     Answer Option   Frequency   Percentage     IRC     Correct
+    --------------- ----------- ------------ --------- ---------
+           A            90          37.5      -0.095
+
+         **B**        **73**      **30.4**   **0.021**   **X**
+
+           C            76          31.7       0.078
+
+        Missing          1          0.4       -0.002
+    ------------------------------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 37**:
+
+    ------------------------------------------------------------
+     Answer Option   Frequency   Percentage     IRC     Correct
+    --------------- ----------- ------------ --------- ---------
+           A            82          34.2      -0.025
+
+         **B**        **85**      **35.4**   **0.038**   **X**
+
+           C            72           30       -0.014
+
+        Missing          1          0.4       -0.001
+    ------------------------------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 38**:
+
+    ---------------------------------------
+             frequency   percentage   IRC
+    ------- ----------- ------------ ------
+    Correct     120          50      -0.056
+    ---------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 39**:
+
+    -------------------------------------------------------------
+     Answer Option   Frequency   Percentage     IRC      Correct
+    --------------- ----------- ------------ ---------- ---------
+           A            77          32.1       -0.013
+
+         **B**        **90**      **37.5**   **-0.058**   **X**
+
+           C            71          29.6        0.09
+
+        Missing          2          0.8        -0.079
+    -------------------------------------------------------------
+
+
+<!-- end of list -->
+
+
+
+
+  * **Item 40**:
+
+    ---------------------------------------
+             frequency   percentage   IRC
+    ------- ----------- ------------ ------
+    Correct     120          50      -0.109
+    ---------------------------------------
+
+
+<!-- end of list -->
+
+\pagebreak
+
+
+## Percentage Correct
+
+Plot of percentage correct per item. If *more than 70%* of the students answer an item correctly, the students have mastered the material well enough, thus it is coloured *green*. If *less than 40%* of the students answer an item correctly, the students have not mastered the material, and is coloured *red*. *Orange* indicates the percentage correct lies *between 40% and 70%*. The boundaries of the colours are based on multiple choice items with 3 or 4 answer options.
+
+![](Rapport_subcategories_files/figure-html/unnamed-chunk-4-1.png) 
+
+\pagebreak
+
+## Item rest correlations
+
+Plot of Item Rest Correlations per item: The correlation between an item (0 for wrong answers and 1 for right answers) and the sum of all other items.
+Items with a correlation *higher than .1* indicate that students who answered this item correctly answered the other items more often correctly than students who answered this item incorrectly. Thus it is coloured *green*. Items with a correlation *lower than 0* indicate no relationship between this item and the other items, thus it is coloured *red*. *Between 0 and .1*, an item is coloured *orange*.
+
+![](Rapport_subcategories_files/figure-html/unnamed-chunk-5-1.png) 
+
+
+
+
+
+
+
+\pagebreak
+
+## Percentage chosen per answer options
+
+Percentage plot of all answer options per question. **White** bars represent the **right** answer option(s) and **black** the **wrong** options. 
+
+The border represents the performance of an item. The **right** answer options are coloured *green* if *more than 70%* of the students choose this option. In that case, the students have mastered the material. They are coloured *red* if *less than 40%* choose this option. *Between 40% and 70%*, it is coloured *orange*.
+
+The **wrong** answer options are coloured *green* if an option is chosen *10 percentage point less than the right option*. In that case, more students chose the right answer option than the wrong option indicating that students are not confused by the wrong option. They are coloured *red* if an option is chosen *equally or more often than the right option*. In this case, students pick the wrong answer option often, indicating that this option may be right as well. It is coloured *orange* in between these two.
+
+![](Rapport_subcategories_files/figure-html/unnamed-chunk-7-1.png) ![](Rapport_subcategories_files/figure-html/unnamed-chunk-7-2.png) 
+
+
+
+\pagebreak
+
+## Item rest correlations per answer option
+
+Item rest correlation (IRC) plot of all answer options per question. The IRC is the correlation between an answer option (1 for students who chose this options and 0 for student who did not) and the sumscore on all other items. **White** bars represent the **right** answer option(s) and **black** the **wrong** options. 
+
+The border represents the performance of an item. The **right** answer options are coloured *green* if the IRC is *higher than .1*. In that case, students who picked the right answer option scored higher on all other items than student who did not pick the right option. They are coloured *red* if the IRC is *less than 0*. In that case, students who picked the right answer option scored equally or worse on the other items than students who picked the other options. Between *0 and .1*, the option is coloured *orange*.
+
+The **wrong** answer options are coloured *green* if the IRC is *more than .1 lower than the right option*. In that case, students who answered the other items incorrectly, usually answered this item incorrectly as well. They are coloured *red* if the IRC is *equal or higher than the right answer option*. In that case, students who answered the other items correctly may have answered this item incorrectly. In between these two, the option is coloured *orange*.
+
+![](Rapport_subcategories_files/figure-html/unnamed-chunk-8-1.png) ![](Rapport_subcategories_files/figure-html/unnamed-chunk-8-2.png) 
+
+\pagebreak
+
+## Cumulative Distribution
+
+Cumulative Distribution showing all possible scores and the percentage of students that scored that number or higher
+
+![](Rapport_subcategories_files/figure-html/unnamed-chunk-9-1.png) 
+
+
+\pagebreak
+
+        
+              
+# Category 1 
+        
+        
+
+## Percentage Correct
+
+Plot of percentage correct per item. If *more than 70%* of the students answer an item correctly, the students have mastered the material well enough, thus it is coloured *green*. If *less than 40%* of the students answer an item correctly, the students have not mastered the material, and is coloured *red*. *Orange* indicates the percentage correct lies *between 40% and 70%*. The boundaries of the colours are based on multiple choice items with 3 or 4 answer options.
+
+![](Rapport_subcategories_files/figure-html/unnamed-chunk-10-1.png) \pagebreak
+
+## Item rest correlations
+
+Plot of Item Rest Correlations per item: The correlation between an item (0 for wrong answers and 1 for right answers) and the sum of all other items.
+Items with a correlation *higher than .1* indicate that students who answered this item correctly answered the other items more often correctly than students who answered this item incorrectly. Thus it is coloured *green*. Items with a correlation *lower than 0* indicate no relationship between this item and the other items, thus it is coloured *red*. *Between 0 and .1*, an item is coloured *orange*.
+
+![](Rapport_subcategories_files/figure-html/unnamed-chunk-10-2.png) \pagebreak
+
+## Percentage chosen per answer options
+
+Percentage plot of all answer options per question. **White** bars represent the **right** answer option(s) and **black** the **wrong** options. 
+
+The border represents the performance of an item. The **right** answer options are coloured *green* if *more than 70%* of the students choose this option. In that case, the students have mastered the material. They are coloured *red* if *less than 40%* choose this option. *Between 40% and 70%*, it is coloured *orange*.
+
+The **wrong** answer options are coloured *green* if an option is chosen *10 percentage point less than the right option*. In that case, more students chose the right answer option than the wrong option indicating that students are not confused by the wrong option. They are coloured *red* if an option is chosen *equally or more often than the right option*. In this case, students pick the wrong answer option often, indicating that this option may be right as well. It is coloured *orange* in between these two.
+
+![](Rapport_subcategories_files/figure-html/unnamed-chunk-10-3.png) \pagebreak
+
+## Item rest correlations per answer option
+
+Item rest correlation (IRC) plot of all answer options per question. The IRC is the correlation between an answer option (1 for students who chose this options and 0 for student who did not) and the sumscore on all other items. **White** bars represent the **right** answer option(s) and **black** the **wrong** options. 
+
+The border represents the performance of an item. The **right** answer options are coloured *green* if the IRC is *higher than .1*. In that case, students who picked the right answer option scored higher on all other items than student who did not pick the right option. They are coloured *red* if the IRC is *less than 0*. In that case, students who picked the right answer option scored equally or worse on the other items than students who picked the other options. Between *0 and .1*, the option is coloured *orange*.
+
+The **wrong** answer options are coloured *green* if the IRC is *more than .1 lower than the right option*. In that case, students who answered the other items incorrectly, usually answered this item incorrectly as well. They are coloured *red* if the IRC is *equal or higher than the right answer option*. In that case, students who answered the other items correctly may have answered this item incorrectly. In between these two, the option is coloured *orange*.
+
+![](Rapport_subcategories_files/figure-html/unnamed-chunk-10-4.png) \newpage
+
+## Cumulative Distribution
+
+![](Rapport_subcategories_files/figure-html/unnamed-chunk-10-5.png) \pagebreak
+
+        
+              
+# Category 2 
+        
+        
+
+## Percentage Correct
+
+Plot of percentage correct per item. If *more than 70%* of the students answer an item correctly, the students have mastered the material well enough, thus it is coloured *green*. If *less than 40%* of the students answer an item correctly, the students have not mastered the material, and is coloured *red*. *Orange* indicates the percentage correct lies *between 40% and 70%*. The boundaries of the colours are based on multiple choice items with 3 or 4 answer options.
+
+![](Rapport_subcategories_files/figure-html/unnamed-chunk-10-6.png) \pagebreak
+
+## Item rest correlations
+
+Plot of Item Rest Correlations per item: The correlation between an item (0 for wrong answers and 1 for right answers) and the sum of all other items.
+Items with a correlation *higher than .1* indicate that students who answered this item correctly answered the other items more often correctly than students who answered this item incorrectly. Thus it is coloured *green*. Items with a correlation *lower than 0* indicate no relationship between this item and the other items, thus it is coloured *red*. *Between 0 and .1*, an item is coloured *orange*.
+
+![](Rapport_subcategories_files/figure-html/unnamed-chunk-10-7.png) \pagebreak
+
+## Percentage chosen per answer options
+
+Percentage plot of all answer options per question. **White** bars represent the **right** answer option(s) and **black** the **wrong** options. 
+
+The border represents the performance of an item. The **right** answer options are coloured *green* if *more than 70%* of the students choose this option. In that case, the students have mastered the material. They are coloured *red* if *less than 40%* choose this option. *Between 40% and 70%*, it is coloured *orange*.
+
+The **wrong** answer options are coloured *green* if an option is chosen *10 percentage point less than the right option*. In that case, more students chose the right answer option than the wrong option indicating that students are not confused by the wrong option. They are coloured *red* if an option is chosen *equally or more often than the right option*. In this case, students pick the wrong answer option often, indicating that this option may be right as well. It is coloured *orange* in between these two.
+
+![](Rapport_subcategories_files/figure-html/unnamed-chunk-10-8.png) \pagebreak
+
+## Item rest correlations per answer option
+
+Item rest correlation (IRC) plot of all answer options per question. The IRC is the correlation between an answer option (1 for students who chose this options and 0 for student who did not) and the sumscore on all other items. **White** bars represent the **right** answer option(s) and **black** the **wrong** options. 
+
+The border represents the performance of an item. The **right** answer options are coloured *green* if the IRC is *higher than .1*. In that case, students who picked the right answer option scored higher on all other items than student who did not pick the right option. They are coloured *red* if the IRC is *less than 0*. In that case, students who picked the right answer option scored equally or worse on the other items than students who picked the other options. Between *0 and .1*, the option is coloured *orange*.
+
+The **wrong** answer options are coloured *green* if the IRC is *more than .1 lower than the right option*. In that case, students who answered the other items incorrectly, usually answered this item incorrectly as well. They are coloured *red* if the IRC is *equal or higher than the right answer option*. In that case, students who answered the other items correctly may have answered this item incorrectly. In between these two, the option is coloured *orange*.
+
+![](Rapport_subcategories_files/figure-html/unnamed-chunk-10-9.png) \newpage
+
+## Cumulative Distribution
+
+![](Rapport_subcategories_files/figure-html/unnamed-chunk-10-10.png) \pagebreak
+
+        
+              
+# Category 3 
+        
+        
+
+## Percentage Correct
+
+Plot of percentage correct per item. If *more than 70%* of the students answer an item correctly, the students have mastered the material well enough, thus it is coloured *green*. If *less than 40%* of the students answer an item correctly, the students have not mastered the material, and is coloured *red*. *Orange* indicates the percentage correct lies *between 40% and 70%*. The boundaries of the colours are based on multiple choice items with 3 or 4 answer options.
+
+![](Rapport_subcategories_files/figure-html/unnamed-chunk-10-11.png) \pagebreak
+
+## Item rest correlations
+
+Plot of Item Rest Correlations per item: The correlation between an item (0 for wrong answers and 1 for right answers) and the sum of all other items.
+Items with a correlation *higher than .1* indicate that students who answered this item correctly answered the other items more often correctly than students who answered this item incorrectly. Thus it is coloured *green*. Items with a correlation *lower than 0* indicate no relationship between this item and the other items, thus it is coloured *red*. *Between 0 and .1*, an item is coloured *orange*.
+
+![](Rapport_subcategories_files/figure-html/unnamed-chunk-10-12.png) \pagebreak
+
+## Percentage chosen per answer options
+
+Percentage plot of all answer options per question. **White** bars represent the **right** answer option(s) and **black** the **wrong** options. 
+
+The border represents the performance of an item. The **right** answer options are coloured *green* if *more than 70%* of the students choose this option. In that case, the students have mastered the material. They are coloured *red* if *less than 40%* choose this option. *Between 40% and 70%*, it is coloured *orange*.
+
+The **wrong** answer options are coloured *green* if an option is chosen *10 percentage point less than the right option*. In that case, more students chose the right answer option than the wrong option indicating that students are not confused by the wrong option. They are coloured *red* if an option is chosen *equally or more often than the right option*. In this case, students pick the wrong answer option often, indicating that this option may be right as well. It is coloured *orange* in between these two.
+
+![](Rapport_subcategories_files/figure-html/unnamed-chunk-10-13.png) \pagebreak
+
+## Item rest correlations per answer option
+
+Item rest correlation (IRC) plot of all answer options per question. The IRC is the correlation between an answer option (1 for students who chose this options and 0 for student who did not) and the sumscore on all other items. **White** bars represent the **right** answer option(s) and **black** the **wrong** options. 
+
+The border represents the performance of an item. The **right** answer options are coloured *green* if the IRC is *higher than .1*. In that case, students who picked the right answer option scored higher on all other items than student who did not pick the right option. They are coloured *red* if the IRC is *less than 0*. In that case, students who picked the right answer option scored equally or worse on the other items than students who picked the other options. Between *0 and .1*, the option is coloured *orange*.
+
+The **wrong** answer options are coloured *green* if the IRC is *more than .1 lower than the right option*. In that case, students who answered the other items incorrectly, usually answered this item incorrectly as well. They are coloured *red* if the IRC is *equal or higher than the right answer option*. In that case, students who answered the other items correctly may have answered this item incorrectly. In between these two, the option is coloured *orange*.
+
+![](Rapport_subcategories_files/figure-html/unnamed-chunk-10-14.png) \newpage
+
+## Cumulative Distribution
+
+![](Rapport_subcategories_files/figure-html/unnamed-chunk-10-15.png) 
