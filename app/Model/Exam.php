@@ -388,8 +388,6 @@ class Exam extends AppModel {
 		if ($result) {
 			$cronbachsAlpha = $result[0];
 			$maxAnswerOptionCount = $result[1];
-			$averageScore = null;
-			$standardDeviation = null;
 			$correctAnswerCount = $result[2];
 			$correctAnswerPercentage = $result[3];
 			$correctAnswerIrc = $result[4];
@@ -401,8 +399,6 @@ class Exam extends AppModel {
 				'Exam' => array(
 					'id' => $exam['Exam']['id'],
 					'exam_state_id' => ExamState::ANALYSED,
-					'average_score' => $averageScore,
-					'standard_deviation' => $standardDeviation,
 					'cronbachs_alpha' => $cronbachsAlpha,
 					'max_answer_option_count' => $maxAnswerOptionCount,
 					'analysed' => date('Y-m-d H:i:s')
