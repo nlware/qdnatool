@@ -417,17 +417,32 @@ class Exam extends AppModel {
  * Execute analysis
  *
  * @param int $id An exam id
+ * @param int[optional] $domainId A domain id
  * @return array
  */
-	public function executeAnalysis($id) {
+	public function executeAnalysis($id, $domainId = null) {
 		$conditions = array('Exam.id' => $id);
 		$contain = array(
-			'Item' => 'AnswerOption',
-			'Subject' => 'GivenAnswer'
+			'Item' => array('AnswerOption'),
+			'Subject' => array('GivenAnswer')
 		);
+		if ($domainId !== null) {
+			$fields = array('Item.id', 'Item.id');
+			$conditions = array(
+				'Item.exam_id' => $examId,
+				'Item.domain_id' => $id
+			);
+			$itemIds = $this->Item->find('list', compact('fields', 'conditions'));
+
+			$contain['Item']['conditions'] = array('Item.domain_id' => $domainId);
+			$contain['Subject']['conditions'] = array('GivenAnswer.item_id' => $itemIds);
+		}
 		$exam = $this->find('first', compact('conditions', 'contain'));
 		$fields = array('MAX(Item.answer_option_count) as answer_option_count');
 		$conditions = array('Item.exam_id' => $exam['Exam']['id']);
+		if ($domainId !== null) {
+			$conditions['Item.domain_id'] = $domainId;
+		}
 		$maxAnswerOptionCount = $this->Item->find('first', compact('fields', 'conditions'));
 		$maxAnswerOptionCount = $maxAnswerOptionCount[0]['answer_option_count'];
 

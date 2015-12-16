@@ -73,6 +73,25 @@ class Domain extends AppModel {
 	);
 
 /**
+ * analyse
+ *
+ * @param int $id A domain id
+ * @param int $examId An exam id
+ * @return bool
+ */
+	public function analyse($id, $examId) {
+		$result = $this->Exam->executeAnalysis($id, $examId);
+
+		if ($result) {
+			$cronbachsAlpha = $result[0];
+
+			$this->id = $id;
+			$this->saveField('cronbachs_alpha', $cronbachsAlpha);
+		}
+		return $result;
+	}
+
+/**
  * Creates domains and returns ids
  *
  * @param int $examId An exam id
