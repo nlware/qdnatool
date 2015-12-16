@@ -6,10 +6,6 @@
 		<dd><?php echo h($exam['Exam']['id']); ?>&nbsp;</dd>
 		<dt><?php echo __('Name'); ?></dt>
 		<dd><?php echo h($exam['Exam']['name']); ?>&nbsp;</dd>
-		<dt><?php echo __('Average Score'); ?></dt>
-		<dd><?php echo h($exam['Exam']['average_score']); ?>&nbsp;</dd>
-		<dt><?php echo __('Standard Deviation'); ?></dt>
-		<dd><?php echo h($exam['Exam']['standard_deviation']); ?>&nbsp;</dd>
 		<dt><?php echo __('Cronbachs Alpha'); ?></dt>
 		<dd><?php echo h($exam['Exam']['cronbachs_alpha']); ?>&nbsp;</dd>
 		<dt><?php echo __('Default Answer Option Count'); ?></dt>

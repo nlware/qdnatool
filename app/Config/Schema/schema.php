@@ -323,8 +323,6 @@ class AppSchema extends CakeSchema {
 		'mapping_filename' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'answer_option_count' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10),
 		'max_answer_option_count' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10),
-		'average_score' => array('type' => 'float', 'null' => true, 'default' => null, 'length' => '10,3'),
-		'standard_deviation' => array('type' => 'float', 'null' => true, 'default' => null, 'length' => '10,8'),
 		'cronbachs_alpha' => array('type' => 'float', 'null' => true, 'default' => null, 'length' => '4,3'),
 		'report_filename' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'uploaded' => array('type' => 'datetime', 'null' => true, 'default' => null),
