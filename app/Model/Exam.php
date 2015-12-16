@@ -388,8 +388,6 @@ class Exam extends AppModel {
 		if ($result) {
 			$cronbachsAlpha = $result[0];
 			$maxAnswerOptionCount = $result[1];
-			$averageScore = null;
-			$standardDeviation = null;
 			$correctAnswerCount = $result[2];
 			$correctAnswerPercentage = $result[3];
 			$correctAnswerIrc = $result[4];
