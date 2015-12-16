@@ -341,7 +341,7 @@ class Exam extends AppModel {
 		$conditions = array('Exam.id' => $id);
 		$exam = $this->find('first', compact('conditions'));
 		if (!empty($exam)) {
-			return $this->__analyse($exam);
+			return $this->__analyse($id);
 		}
 		return false;
 	}
@@ -349,41 +349,14 @@ class Exam extends AppModel {
 /**
  * __analyse
  *
- * @param array $exam Exam data
+ * @param int $id An exam id
  * @return bool
  */
-	private function __analyse($exam) {
-		$this->id = $exam['Exam']['id'];
+	private function __analyse($id) {
+		$this->id = $id;
 		$this->saveField('exam_state_id', ExamState::ANALYSING);
 
-		$conditions = array('Exam.id' => $exam['Exam']['id']);
-		$contain = array(
-			'Item' => 'AnswerOption',
-			'Subject' => 'GivenAnswer'
-		);
-		$exam = $this->find('first', compact('conditions', 'contain'));
-		$fields = array('MAX(Item.answer_option_count) as answer_option_count');
-		$conditions = array('Item.exam_id' => $exam['Exam']['id']);
-		$maxAnswerOptionCount = $this->Item->find('first', compact('fields', 'conditions'));
-		$maxAnswerOptionCount = $maxAnswerOptionCount[0]['answer_option_count'];
-
-		$questionCount = count($exam['Item']);
-		$studentCount = count($exam['Subject']);
-
-		$answerOptionCount = array();
-		for ($i = 0; $i < $questionCount; $i++) {
-			$answerOptionCount[$i] = $exam['Item'][$i]['answer_option_count'];
-		}
-
-		$givenAnswers = array();
-		for ($i = 0; $i < $studentCount; $i++) {
-			$givenAnswerCount = count($exam['Subject'][$i]['GivenAnswer']);
-			for ($j = 0; $j < $givenAnswerCount; $j++) {
-				$givenAnswers[$i][$j] = $exam['Subject'][$i]['GivenAnswer'][$j]['value'];
-			}
-		}
-
-		$result = $this->_executeAnalysis($questionCount, $studentCount, $maxAnswerOptionCount, $exam, $givenAnswers, $answerOptionCount);
+		$result = $this->executeAnalysis($id);
 
 		if ($result) {
 			$cronbachsAlpha = $result[0];
@@ -438,6 +411,43 @@ class Exam extends AppModel {
 		}
 
 		return $result;
+	}
+
+/**
+ * Execute analysis
+ *
+ * @param int $id An exam id
+ * @return array
+ */
+	public function executeAnalysis($id) {
+		$conditions = array('Exam.id' => $id);
+		$contain = array(
+			'Item' => 'AnswerOption',
+			'Subject' => 'GivenAnswer'
+		);
+		$exam = $this->find('first', compact('conditions', 'contain'));
+		$fields = array('MAX(Item.answer_option_count) as answer_option_count');
+		$conditions = array('Item.exam_id' => $exam['Exam']['id']);
+		$maxAnswerOptionCount = $this->Item->find('first', compact('fields', 'conditions'));
+		$maxAnswerOptionCount = $maxAnswerOptionCount[0]['answer_option_count'];
+
+		$questionCount = count($exam['Item']);
+		$studentCount = count($exam['Subject']);
+
+		$answerOptionCount = array();
+		for ($i = 0; $i < $questionCount; $i++) {
+			$answerOptionCount[$i] = $exam['Item'][$i]['answer_option_count'];
+		}
+
+		$givenAnswers = array();
+		for ($i = 0; $i < $studentCount; $i++) {
+			$givenAnswerCount = count($exam['Subject'][$i]['GivenAnswer']);
+			for ($j = 0; $j < $givenAnswerCount; $j++) {
+				$givenAnswers[$i][$j] = $exam['Subject'][$i]['GivenAnswer'][$j]['value'];
+			}
+		}
+
+		return $this->_executeAnalysis($questionCount, $studentCount, $maxAnswerOptionCount, $exam, $givenAnswers, $answerOptionCount);
 	}
 
 /**
