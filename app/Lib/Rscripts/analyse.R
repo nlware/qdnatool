@@ -2,15 +2,24 @@
 library(psy)
 
 Analyse <- function(key, input.answers, number.answeroptions) {
-  # Calculates standard psychometric properties of an exam, notably the percentage correct and the item rest correlation (IRC) per item and 
+  # Calculates standard psychometric properties of an exam, notably the 
+  # percentage correct and the item rest correlation (IRC) per item and
   # per answer option and the cronbach's alpha for the whole exam.
   #
   # Arguments:
-  #   key: Matrix of 0's and 1's. key[i,j] implies wether answer option i to item j is right (1) or wrong (0). If a row (item) consists of
-  #        only 0s, the item is interpreted as graded manually.
-  #   input.answers: Ungraded matrix of answers. input.answers[i,j] is the answer of student (i) to item (j).
-  #   number.answersoptions: Vector with number of answer options per item, should be equal to number of collumns of input.answers.
-  # 
+  #   key: Matrix of 0's and 1's. key[i,j] implies wether answer option i 
+	#        to item j is right (1) or wrong (0). If a row (item) consists of 
+	#        only 0s, the item is interpreted as graded manually. 
+	#        Should be at least of length 3 (3 items), there is no maximum length.
+  #   input.answers: Ungraded matrix of answers. input.answers[i,j] is 
+	#                  the answer of student (i) to item (j). Should consist of
+	#                  at least 3 rows (items) and 2 columns (items).
+  #                  Number of collumns should be equal to the length of key and 
+	#                  number.answeroptions. There is no maximum.
+  #   number.answersoptions: Vector with number of answer options per item,
+  #                          length should be equal to length of key and number 
+  #                          of collumns in input.answers. There is no maximum.
+  #
   # Returns:
   #  list with:
   #   Cronbach's alpha 
@@ -18,14 +27,19 @@ Analyse <- function(key, input.answers, number.answeroptions) {
   #   Vector of number of correct per item
   #   Vector of percentage correct per item
   #   Vector of IRC per item
-  #   Matrix[i,j] of number of students answering option i  to item j
-  #   Matrix[i,j] of percentage of students answering option i  to item j
-  #   Matrix[i,j] of IRC of answer option i to item j
+  #   Matrix[i,j] of number of students answering option i to item j 
+	#     (only if any multiple choice items are present, else returns a 0)
+  #   Matrix[i,j] of percentage of students answering option i to item j 
+	#     (only if any multiple choice items are present, else returns a 0)
+  #   Matrix[i,j] of IRC of answer option i to item j 
+	#     (only if any multiple choice items are present, else returns a 0)
 
   number.students <- nrow(input.answers)
   number.questions <- ncol(input.answers)
 
-  if (number.questions > 2 & number.students > 1) { # Do the analysis only if there are at least 3 items and 2 students.
+  if (number.questions > 2 & number.students > 1) {  
+    # Do the analysis only if there are at least 3 items and 2 students.
+    
     # Create Correct/Incorrect matrix
     input.correct <- matrix(0, number.students, number.questions) 
 
@@ -40,7 +54,7 @@ Analyse <- function(key, input.answers, number.answeroptions) {
       }
     }
 
-    # Creating Frequency Matrix and Item Rest Correlation matrix for total scores
+    # Create Frequency Matrix and Item Rest Correlation matrix for total scores
     correct.frequency <- apply(input.correct, 2, sum)
     correct.percentage <- round(correct.frequency / number.students * 100,
                                 digits = 1)
@@ -123,5 +137,3 @@ Analyse <- function(key, input.answers, number.answeroptions) {
          percentage.answer.options, corrected.item.tot.cor.answ.option)
   }
 }
-
-Analyse(key, input.answers, number.answeroptions)
