@@ -12,6 +12,7 @@ class ItemFixture extends CakeTestFixture {
 	public $fields = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
 		'exam_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'index'),
+		'domain_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'index'),
 		'order' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true),
 		'second_version_order' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'unsigned' => true),
 		'value' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
@@ -23,7 +24,8 @@ class ItemFixture extends CakeTestFixture {
 		'missing_answer_percentage' => array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '4,1', 'unsigned' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
-			'exam_id' => array('column' => 'exam_id', 'unique' => 0)
+			'exam_id' => array('column' => 'exam_id', 'unique' => 0),
+			'domain_id' => array('column' => 'domain_id', 'unique' => 0)
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
@@ -37,6 +39,7 @@ class ItemFixture extends CakeTestFixture {
 		array(
 			'id' => 1,
 			'exam_id' => 2,
+			'domain_id' => null,
 			'order' => 1,
 			'second_version_order' => null,
 			'value' => '1B 05 individualisering 002',
@@ -50,6 +53,7 @@ class ItemFixture extends CakeTestFixture {
 		array(
 			'id' => 21773,
 			'exam_id' => 747,
+			'domain_id' => null,
 			'order' => 35,
 			'second_version_order' => null,
 			'value' => '35',
