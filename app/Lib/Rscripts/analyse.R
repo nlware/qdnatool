@@ -8,8 +8,8 @@ Analyse <- function(key, input.answers, number.answeroptions) {
   #
   # Args:
   #   key: Matrix of 0's and 1's. key[i,j] implies wether answer option i 
-	#        to item j is right (1) or wrong (0). If a row (item) consists of 
-	#        only 0s, the item is interpreted as graded manually. 
+  #        to item j is right (1) or wrong (0). If a row (item) consists of 
+  #        only 0s, the item is interpreted as graded manually. 
   #        Should be at least of length 3 (3 items), there is no maximum length.
   #   input.answers: Ungraded matrix of answers. input.answers[i,j] is 
   #                  the answer of student (i) to item (j). Should consist of
@@ -28,11 +28,11 @@ Analyse <- function(key, input.answers, number.answeroptions) {
   #   Vector of percentage correct per item
   #   Vector of IRC per item
   #   Matrix[i,j] of number of students answering option i to item j 
-	#     (only if any multiple choice items are present, else returns a 0)
+  #     (only if any multiple choice items are present, else returns a 0)
   #   Matrix[i,j] of percentage of students answering option i to item j 
-	#     (only if any multiple choice items are present, else returns a 0)
+  #     (only if any multiple choice items are present, else returns a 0)
   #   Matrix[i,j] of IRC of answer option i to item j 
-	#     (only if any multiple choice items are present, else returns a 0)
+  #     (only if any multiple choice items are present, else returns a 0)
 
   number.students <- nrow(input.answers)
   number.questions <- ncol(input.answers)
