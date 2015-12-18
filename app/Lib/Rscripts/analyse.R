@@ -6,19 +6,19 @@ Analyse <- function(key, input.answers, number.answeroptions) {
   # percentage correct and the item rest correlation (IRC) per item and
   # per answer option and the cronbach's alpha for the whole exam.
   #
-  # Arguments:
+  # Args:
   #   key: Matrix of 0's and 1's. key[i,j] implies wether answer option i 
 	#        to item j is right (1) or wrong (0). If a row (item) consists of 
 	#        only 0s, the item is interpreted as graded manually. 
-	#        Should be at least of length 3 (3 items), there is no maximum length.
+  #        Should be at least of length 3 (3 items), there is no maximum length.
   #   input.answers: Ungraded matrix of answers. input.answers[i,j] is 
-	#                  the answer of student (i) to item (j). Should consist of
-	#                  at least 3 rows (items) and 2 columns (items).
-  #                  Number of collumns should be equal to the length of key and 
-	#                  number.answeroptions. There is no maximum.
+  #                  the answer of student (i) to item (j). Should consist of
+  #                  at least 3 rows (items) and 2 columns (students).
+  #                  Number of columns should be equal to the length of key and 
+  #                  number.answeroptions. There is no maximum.
   #   number.answersoptions: Vector with number of answer options per item,
   #                          length should be equal to length of key and number 
-  #                          of collumns in input.answers. There is no maximum.
+  #                          of columns in input.answers. There is no maximum.
   #
   # Returns:
   #  list with:
@@ -104,7 +104,7 @@ Analyse <- function(key, input.answers, number.answeroptions) {
                                                    number.questions)
 
       suppressWarnings(
-        for (i in 0:max(number.answeroptions)) {
+      	for (i in 0:max(number.answeroptions)) {
           for (j in 1:number.questions) {
             if (any(key[, j] != 0)) {
               corrected.item.tot.cor.answ.option[i + 1, j]=
