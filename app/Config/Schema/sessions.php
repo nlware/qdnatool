@@ -12,7 +12,6 @@
 /**
  * Using the Schema command line utility
  * cake schema run create Sessions
- *
  */
 class SessionsSchema extends CakeSchema {
 
@@ -24,26 +23,26 @@ class SessionsSchema extends CakeSchema {
 	public $name = 'Sessions';
 
 /**
- * Before event.
+ * Before callback.
  *
- * @param array $event The event data.
- * @return bool Success
+ * @param array $event Schema object properties
+ * @return bool Should process continue
  */
 	public function before($event = array()) {
 		return true;
 	}
 
 /**
- * After event.
+ * After callback.
  *
- * @param array $event The event data.
+ * @param array $event Schema object properties
  * @return void
  */
 	public function after($event = array()) {
 	}
 
 /**
- * cake_sessions table definition
+ * The cake_sessions table definition
  *
  * @var array
  */

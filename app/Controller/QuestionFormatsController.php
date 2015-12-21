@@ -45,10 +45,10 @@ class QuestionFormatsController extends AppController {
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->QuestionFormat->save($this->request->data)) {
-				$this->setFlashSuccess(__('The question format has been saved'));
+				$this->Flash->success(__('The question format has been saved'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->setFlashError(__('The question format could not be saved. Please, try again.'));
+				$this->Flash->error(__('The question format could not be saved. Please, try again.'));
 			}
 		} else {
 			$this->request->data = $this->QuestionFormat->read(null, $id);

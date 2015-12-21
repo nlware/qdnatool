@@ -5,7 +5,7 @@ Analyse <- function(key, input.answers, number.answeroptions) {
   number.students <- nrow(input.answers)
   number.questions <- ncol(input.answers)
 
-  if (number.questions > 1 & number.students > 1) {
+  if (number.questions > 2 & number.students > 1) {
     # Correct/Incorrect Matrix
     input.correct <- matrix(0, number.students, number.questions) 
 

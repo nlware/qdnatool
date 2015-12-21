@@ -32,7 +32,7 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
 		</table>
 	</div>
 	<div class="span7">
-		<?php echo $this->Html->link('<i class="icon-plus icon-white"></i> ' . __('Add Question'), array('action' => 'add'), array('class' => 'btn btn-primary pull-right', 'escape' => false)); ?>
+		<?php echo $this->Html->link('<i class="icon-plus icon-white"></i> ' . __('Add Question'), array('action' => 'add'), array('class' => 'btn btn-primary pull-right', 'escapeTitle' => false)); ?>
 		<div class="btn-group pull-right">
 			<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><?php echo __('Export'); ?> <span class="caret"></span></a>
 			<ul class="dropdown-menu">
@@ -72,7 +72,7 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
 						if (!empty($question['Tag'])):
 							foreach ($question['Tag'] as $tag):
 						?>
-						<span class="label label-info" title="<?php echo h($tag['name']); ?>"><?php echo h(String::truncate($tag['name'], 20, array('ellipsis' => '...'))); ?></span>
+						<span class="label label-info" title="<?php echo h($tag['name']); ?>"><?php echo h(CakeText::truncate($tag['name'], 20, array('ellipsis' => '...'))); ?></span>
 						<?php
 							endforeach;
 						endif;
@@ -86,7 +86,7 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
 							</button>
 							<ul class="dropdown-menu">
 								<li><?php echo $this->Html->link(__('Edit'), array('action' => 'edit',	$question['Question']['id'])); ?></li>
-								<li><?php echo $this->Form->postLink( __('Delete'), array('action' => 'delete',	$question['Question']['id']), null, __('Are you sure you want to delete # %s "%s"?', $question['Question']['id'], $question['Question']['name'])); ?></li>
+								<li><?php echo $this->Form->postLink( __('Delete'), array('action' => 'delete',	$question['Question']['id']), array('confirm' => __('Are you sure you want to delete # %s "%s"?', $question['Question']['id'], $question['Question']['name']))); ?></li>
 							</ul>
 						</div>
 					</td>

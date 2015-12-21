@@ -4,8 +4,6 @@ App::uses('AppController', 'Controller');
  * QuestionsTags Controller
  *
  * @property QuestionsTag $QuestionsTag
- * @throws MethodNotAllowedException
- * @throws NotFoundException
  */
 class QuestionsTagsController extends AppController {
 
@@ -26,10 +24,10 @@ class QuestionsTagsController extends AppController {
 			throw new NotFoundException(__('Invalid questionstag'));
 		}
 		if ($this->QuestionsTag->remove($id)) {
-			$this->setFlashSuccess(__('Question removed from tag'));
+			$this->Flash->success(__('Question removed from tag'));
 			return $this->redirect($this->referer());
 		}
-		$this->setFlashError(__('Question was not removed from tag'));
+		$this->Flash->error(__('Question was not removed from tag'));
 		return $this->redirect($this->referer());
 	}
 
@@ -50,10 +48,10 @@ class QuestionsTagsController extends AppController {
 			throw new NotFoundException(__('Invalid questionstag'));
 		}
 		if ($this->QuestionsTag->moveDown($id)) {
-			$this->setFlashSuccess(__('Question moved down'));
+			$this->Flash->success(__('Question moved down'));
 			return $this->redirect($this->referer());
 		}
-		$this->setFlashError(__('Question was not moved down'));
+		$this->Flash->error(__('Question was not moved down'));
 		return $this->redirect($this->referer());
 	}
 
@@ -74,10 +72,10 @@ class QuestionsTagsController extends AppController {
 			throw new NotFoundException(__('Invalid questionstag'));
 		}
 		if ($this->QuestionsTag->moveUp($id)) {
-			$this->setFlashSuccess(__('Question moved up'));
+			$this->Flash->success(__('Question moved up'));
 			return $this->redirect($this->referer());
 		}
-		$this->setFlashError(__('Question was not moved up'));
+		$this->Flash->error(__('Question was not moved up'));
 		return $this->redirect($this->referer());
 	}
 

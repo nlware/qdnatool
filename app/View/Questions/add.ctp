@@ -130,7 +130,7 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
 	echo $this->Form->input('id');
 	echo $this->Form->submit(__('Save'), array('class' => 'btn btn-primary pull-right', 'div' => false));
 	?>
-	<?php echo $this->Html->link('<i class="icon-chevron-left"></i>', $referer, array('class' => 'btn pull-right', 'escape' => false, 'title' => __('Go back one page'))); ?>
+	<?php echo $this->Html->link('<i class="icon-chevron-left"></i>', $referer, array('class' => 'btn pull-right', 'escapeTitle' => false, 'title' => __('Go back one page'))); ?>
 		<h4><?php echo __('Add Question'); ?></h4>
 		<div class="row">
 			<div class="span6">
@@ -202,7 +202,7 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
 									event.returnValue = false;
 									return false;
 								',
-								'escape' => false
+								'escapeTitle' => false
 							)
 						);
 					endif;
@@ -237,7 +237,7 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
 						return false;',
 					'style' => (($this->Form->value('Question.question_format_id') == QuestionFormat::MULTIPLE_CHOICE || $this->Form->value('Question.question_format_id') == QuestionFormat::MULTIPLE_RESPONSE)?'':'display:none'),
 					'id' => 'btnAddAnswer',
-					'escape' => false
+					'escapeTitle' => false
 				)
 			);
 			echo $this->CkSource->ckeditor(
@@ -284,7 +284,7 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
 											event.returnValue = false;
 											return false;
 										',
-										'escape' => false
+										'escapeTitle' => false
 									)
 								);
 								echo $this->Form->input('QuestionsTag.' . $i . '.destroy', array('type' => 'hidden', 'default' => 1));

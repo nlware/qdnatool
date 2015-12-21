@@ -1,5 +1,10 @@
 <?php
 App::uses('Rserve', 'Lib');
+
+/**
+ * Rserve Test Case
+ *
+ */
 class RserveTest extends CakeTestCase {
 
 /**
@@ -22,18 +27,34 @@ class RserveTest extends CakeTestCase {
 		unset($this->Rserve);
 	}
 
+/**
+ * testGetConfig method
+ *
+ * @return void
+ */
 	public function testGetConfig() {
 		$this->markTestIncomplete(
-				'This test has not been implemented yet.'
+			'This test has not been implemented yet.'
 		);
 	}
 
+/**
+ * testExecute method
+ *
+ * @return void
+ */
 	public function testExecute() {
-		$this->markTestIncomplete(
-				'This test has not been implemented yet.'
-		);
+		$expected = 'Hello world!';
+		$script = 'x ="Hello world!"; x';
+		$result = $this->Rserve->execute($script);
+		$this->assertEquals($expected, $result);
 	}
 
+/**
+ * testConnect method
+ *
+ * @return void
+ */
 	public function testConnect() {
 		$result = $this->Rserve->connect();
 		$this->assertTrue((bool)$result);
