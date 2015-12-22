@@ -37,11 +37,17 @@ Analyse <- function(key, input.answers, number.answeroptions) {
   number.students <- nrow(input.answers)
   number.questions <- ncol(input.answers)
 
+<<<<<<< HEAD
   if (number.questions > 2 & number.students > 1) {  
     # Do the analysis only if there are at least 3 items and 2 students.
 
     # Create Correct/Incorrect matrix
     input.correct <- matrix(0, number.students, number.questions)
+=======
+  if (number.questions > 2 & number.students > 1) {
+    # Correct/Incorrect Matrix
+    input.correct <- matrix(0, number.students, number.questions) 
+>>>>>>> nlware/master
 
     # Fill in Correct/Incorrect Matrix
     for (j in 1: number.questions) {

@@ -22,13 +22,13 @@ class Tag extends AppModel {
  */
 	public $validate = array(
 		'name' => array(
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
+			'notBlank' => array(
+				'rule' => 'notBlank',
 				'last' => true,
 				'message' => 'This field cannot be left blank'
 			),
 			'required' => array(
-				'rule' => 'notEmpty',
+				'rule' => 'notBlank',
 				'required' => true,
 				'on' => 'create'
 			)
@@ -92,14 +92,11 @@ class Tag extends AppModel {
  */
 	public function beforeSave($options = array()) {
 		if (empty($this->data[$this->alias]['id'])) {
-			$tag = $this->find(
-				'first', array(
-					'conditions' => array(
-						'Tag.name' => $this->data[$this->alias]['name'],
-						'Tag.user_id' => AuthComponent::user('id')
-					)
-				)
+			$conditions = array(
+				'Tag.name' => $this->data[$this->alias]['name'],
+				'Tag.user_id' => AuthComponent::user('id')
 			);
+			$tag = $this->find('first', compact('conditions'));
 			if (!empty($tag)) {
 				$this->id = $tag['Tag']['id'];
 				unset($this->data['Tag']);
@@ -113,13 +110,8 @@ class Tag extends AppModel {
  * @return array
  */
 	public function getList() {
-		return $this->find(
-			'list', array(
-				'conditions' => array(
-					'Tag.user_id' => AuthComponent::user('id')
-				)
-			)
-		);
+		$conditions = array('Tag.user_id' => AuthComponent::user('id'));
+		return $this->find('list', compact('conditions'));
 	}
 
 /**
@@ -134,13 +126,9 @@ class Tag extends AppModel {
 			$conditions['Tag.id'] = $tagIds;
 		}
 
-		$tags = $this->find(
-			'all', array(
-				'conditions' => $conditions,
-				'contain' => 'QuestionsTagFilter'
-			)
-		);
-		$tagIds = Set::extract('/Tag/id', $tags);
+		$contain = array('QuestionsTagFilter');
+		$tags = $this->find('all', compact('conditions', 'contain'));
+		$tagIds = Hash::extract($tags, '{n}.Tag.id');
 		$this->deleteAll(array('Tag.id' => $tagIds), false);
 	}
 

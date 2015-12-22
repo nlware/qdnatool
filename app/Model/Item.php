@@ -82,27 +82,17 @@ class Item extends AppModel {
 		$isCorrect = ($score == $maximumScore && $maximumScore > 0);
 
 		// lookup item
-		$item = $this->find(
-			'first', array(
-				'conditions' => array(
-					'Item.exam_id' => $examId,
-					'Item.value' => $question
-				),
-				'contain' => 'AnswerOption'
-			)
+		$conditions = array(
+			'Item.exam_id' => $examId,
+			'Item.value' => $question
 		);
+		$contain = array('AnswerOption');
+		$item = $this->find('first', compact('conditions', 'contain'));
 
 		if (empty($item)) {
-			$lastItem = $this->find(
-				'first', array(
-					'conditions' => array(
-						'Item.exam_id' => $examId
-					),
-					'order' => array(
-						'Item.order' => 'DESC'
-					)
-				)
-			);
+			$conditions = array('Item.exam_id' => $examId);
+			$order = array('Item.order' => 'DESC');
+			$lastItem = $this->find('first', compact('conditions', 'order'));
 			$item = array(
 				'Item' => array(
 					'exam_id' => $examId,

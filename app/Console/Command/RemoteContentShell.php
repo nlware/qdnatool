@@ -8,6 +8,12 @@ App::uses('AppShell', 'Console/Command');
  */
 class RemoteContentShell extends AppShell {
 
+/**
+ * Contains models to load and instantiate.
+ *
+ * @var array
+ * @see AppShell::uses
+ */
 	public $uses = array('Instruction', 'Tip');
 
 /**
@@ -86,13 +92,8 @@ class RemoteContentShell extends AppShell {
 					}
 					if (is_array($xml['rss']['channel']['item'])) {
 						foreach ($xml['rss']['channel']['item'] as $item) {
-							$instructions = $this->Instruction->find(
-								'all', array(
-									'conditions' => array(
-										'Instruction.url' => $item['link']
-									)
-								)
-							);
+							$conditions = array('Instruction.url' => $item['link']);
+							$instructions = $this->Instruction->find('all', compact('conditions'));
 
 							if (!empty($instructions)) {
 								foreach ($instructions as $instruction) {

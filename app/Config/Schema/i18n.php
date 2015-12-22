@@ -26,26 +26,26 @@ class I18nSchema extends CakeSchema {
 	public $name = 'i18n';
 
 /**
- * Before event.
+ * Before callback.
  *
- * @param array $event The event data.
- * @return bool success
+ * @param array $event Schema object properties
+ * @return bool Should process continue
  */
 	public function before($event = array()) {
 		return true;
 	}
 
 /**
- * After event.
+ * After callback.
  *
- * @param array $event The event data.
+ * @param array $event Schema object properties
  * @return void
  */
 	public function after($event = array()) {
 	}
 
 /**
- * The i18n table property
+ * The i18n table definition
  *
  * @var array
  */

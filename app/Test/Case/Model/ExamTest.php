@@ -30,6 +30,14 @@ class TestExam extends Exam {
 	}
 
 /**
+ * Public test double of `parent::_executeAnalysis`.
+ *
+ */
+	public function executeAnalysis($questionCount, $studentCount, $maxAnswerOptionCount, $exam, $givenAnswers, $answerOptionCount) {
+		return self::_executeAnalysis($questionCount, $studentCount, $maxAnswerOptionCount, $exam, $givenAnswers, $answerOptionCount);
+	}
+
+/**
  * Public test double of `parent::_duplicate`.
  *
  */
@@ -81,6 +89,47 @@ class ExamTest extends CakeTestCase {
 	}
 
 /**
+ * testExecuteAnalysis method
+ *
+ * @return void
+ */
+	public function testExecuteAnalysis() {
+		$questionCount = 3;
+		$studentCount = 6;
+		$maxAnswerOptionCount = 3;
+		$exam = array(
+			'Item' => array(
+				array(
+					'AnswerOption' => array(
+						array('is_correct' => true)
+					)
+				),
+				array(
+					'AnswerOption' => array(
+						array('is_correct' => true)
+					)
+				),
+				array(
+					'AnswerOption' => array(
+						array('is_correct' => true)
+					)
+				)
+			)
+		);
+		$givenAnswers = array(
+			array(2, 1, 1),
+			array(3, 1, 2),
+			array(1, 1, 3),
+			array(2, 1, 1),
+			array(2, 3, 2),
+			array(1, 1, 3),
+		);
+		$answerOptionCount = array(3, 3, 3);
+		$result = $this->Exam->executeAnalysis($questionCount, $studentCount, $maxAnswerOptionCount, $exam, $givenAnswers, $answerOptionCount);
+		$this->assertTrue((bool)$result);
+	}
+
+/**
  * testGetIndexOfVersionFromTeleformHeader method
  *
  * @return void
@@ -96,10 +145,10 @@ class ExamTest extends CakeTestCase {
 		);
 		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 1);
 		$expected = false;
-		$this->assertIdentical($result, $expected);
+		$this->assertSame($expected, $result);
 		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 2);
 		$expected = false;
-		$this->assertIdentical($result, $expected);
+		$this->assertSame($expected, $result);
 
 		//
 		// Header does contain requested versions
@@ -111,10 +160,10 @@ class ExamTest extends CakeTestCase {
 		);
 		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 1);
 		$expected = 0;
-		$this->assertIdentical($result, $expected);
+		$this->assertSame($expected, $result);
 		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 2);
 		$expected = 1;
-		$this->assertIdentical($result, $expected);
+		$this->assertSame($expected, $result);
 
 		$header = array(
 			'Versie.2',
@@ -122,10 +171,10 @@ class ExamTest extends CakeTestCase {
 		);
 		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 1);
 		$expected = 1;
-		$this->assertIdentical($result, $expected);
+		$this->assertSame($expected, $result);
 		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 2);
 		$expected = 0;
-		$this->assertIdentical($result, $expected);
+		$this->assertSame($expected, $result);
 
 		//
 		// case insensitive
@@ -137,10 +186,10 @@ class ExamTest extends CakeTestCase {
 		);
 		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 1);
 		$expected = 0;
-		$this->assertIdentical($result, $expected);
+		$this->assertSame($expected, $result);
 		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 2);
 		$expected = 1;
-		$this->assertIdentical($result, $expected);
+		$this->assertSame($expected, $result);
 
 		//
 		// Seperator whitespace instead of dot and case insensitive
@@ -152,10 +201,10 @@ class ExamTest extends CakeTestCase {
 		);
 		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 1);
 		$expected = 0;
-		$this->assertIdentical($result, $expected);
+		$this->assertSame($expected, $result);
 		$result = $this->Exam->getIndexOfVersionFromTeleformHeader($header, 2);
 		$expected = 1;
-		$this->assertIdentical($result, $expected);
+		$this->assertSame($expected, $result);
 	}
 
 /**

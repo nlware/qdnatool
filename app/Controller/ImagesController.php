@@ -11,6 +11,7 @@ class ImagesController extends AppController {
  * beforeFilter
  *
  * @return void
+ * @see AppController::beforeFilter()
  */
 	public function beforeFilter() {
 		parent::beforeFilter();
@@ -45,7 +46,7 @@ class ImagesController extends AppController {
 
 				$this->Image->create();
 				if ($this->Image->save($data)) {
-					$file = Image::UPLOAD_DIRECTORY . $this->Image->id . '.' . $extension;
+					$file = Image::UPLOADS . $this->Image->id . '.' . $extension;
 					$fh = fopen($file, 'w');
 					fwrite($fh, $img);
 					fclose($fh);
@@ -67,20 +68,15 @@ class ImagesController extends AppController {
  * @return void
  */
 	public function get($id) {
-		$image = $this->Image->find(
-			'first', array(
-				'conditions' => array(
-					'Image.id' => $id
-				)
-			)
-		);
+		$conditions = array('Image.id' => $id);
+		$image = $this->Image->find('first', compact('conditions'));
 
 		if (empty($image)) {
 			return $this->redirect404Error();
 		}
 
 		$this->response->file(
-			Image::UPLOAD_DIRECTORY . $image['Image']['id'] . '.' . $image['Image']['extension'], array(
+			Image::UPLOADS . $image['Image']['id'] . '.' . $image['Image']['extension'], array(
 				'download' => true,
 				'name' => $image['Image']['filename']
 			)
@@ -114,7 +110,7 @@ class ImagesController extends AppController {
 
 			$this->Image->create();
 			if ($this->Image->save($data)) {
-				$file = Image::UPLOAD_DIRECTORY . $this->Image->id . '.' . $extension;
+				$file = Image::UPLOADS . $this->Image->id . '.' . $extension;
 				$result = move_uploaded_file($_FILES['upload']['tmp_name'], $file);
 			}
 
@@ -145,13 +141,8 @@ class ImagesController extends AppController {
  * @return void
  */
 	public function browse($questionId) {
-		$images = $this->Image->find(
-			'all', array(
-				'conditions' => array(
-					'Image.question_id' => $questionId
-				)
-			)
-		);
+		$conditions = array('Image.question_id' => $questionId);
+		$images = $this->Image->find('all', compact('conditions'));
 		$this->set(compact('images'));
 	}
 
@@ -172,10 +163,10 @@ class ImagesController extends AppController {
 			throw new NotFoundException(__('Invalid image'));
 		}
 		if ($this->Image->delete()) {
-			$this->setFlashSuccess(__('Image deleted'));
+			$this->Flash->success(__('Image deleted'));
 			return $this->redirect(array('action' => 'index'));
 		}
-		$this->setFlashError(__('Image was not deleted'));
+		$this->Flash->error(__('Image was not deleted'));
 		return $this->redirect(array('action' => 'index'));
 	}
 
