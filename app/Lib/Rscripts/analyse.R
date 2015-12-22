@@ -29,7 +29,7 @@ Analyse <- function(key, input.answers, number.answeroptions) {
   #   Vector of IRC per item
   #   Matrix[i,j] of number of students answering option i to item j
   #     (only if any multiple choice items are present, else returns a 0)
-  #   Matrix[i,j] of percentage of students answering option i to item j 
+  #   Matrix[i,j] of percentage of students answering option i to item j
   #     (only if any multiple choice items are present, else returns a 0)
   #   Matrix[i,j] of IRC of answer option i to item j
   #     (only if any multiple choice items are present, else returns a 0)
@@ -37,17 +37,11 @@ Analyse <- function(key, input.answers, number.answeroptions) {
   number.students <- nrow(input.answers)
   number.questions <- ncol(input.answers)
 
-<<<<<<< HEAD
-  if (number.questions > 2 & number.students > 1) {  
+  if (number.questions > 2 & number.students > 1) {
     # Do the analysis only if there are at least 3 items and 2 students.
 
     # Create Correct/Incorrect matrix
     input.correct <- matrix(0, number.students, number.questions)
-=======
-  if (number.questions > 2 & number.students > 1) {
-    # Correct/Incorrect Matrix
-    input.correct <- matrix(0, number.students, number.questions) 
->>>>>>> nlware/master
 
     # Fill in Correct/Incorrect Matrix
     for (j in 1: number.questions) {
@@ -73,7 +67,7 @@ Analyse <- function(key, input.answers, number.answeroptions) {
                                     apply(input.correct[, -j], 1, sum)))
       }
     )
-    
+
     corrected.item.tot.cor[is.na(corrected.item.tot.cor)] <- 0
     corrected.item.tot.cor <- round(corrected.item.tot.cor, digits = 3)
 
