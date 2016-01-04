@@ -1313,7 +1313,7 @@ class Exam extends AppModel {
 		$result = array();
 		foreach ($postData['Item'] as $item) {
 			$result[$item['id']] = array();
-			foreach ($item['AnswerOption'][0] as $i => $answerOption) {
+			foreach ($item['AnswerOption'] as $i => $answerOption) {
 				if ($answerOption['is_correct']) {
 					$result[$item['id']][] = $i;
 				}
