@@ -88,10 +88,12 @@ class AnswerOptionTest extends CakeTestCase {
 		$this->assertEquals($srcRecords, $srcRecordsAfter);
 
 		$srcRecords = Hash::remove($srcRecords, '{n}.AnswerOption.id');
+		$srcRecords = Hash::insert($srcRecords, '{n}.AnswerOption.item_id', 100000);
 		$conditions = array('AnswerOption.item_id' => array_values($itemIds));
 		$dstRecords = $this->AnswerOption->find('all', compact('conditions'));
 		$dstRecords = Hash::remove($dstRecords, '{n}.AnswerOption.id');
 
 		$this->assertEquals($srcRecords, $dstRecords);
 	}
+
 }
