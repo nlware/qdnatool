@@ -80,7 +80,7 @@ class Domain extends AppModel {
  * @return bool
  */
 	public function analyse($id, $examId) {
-		$result = $this->Exam->executeAnalysis($examId, $id);
+		$result = $this->Exam->doAnalyse($examId, $id);
 
 		if ($result) {
 			$result = $this->saveAnalysis($id, $result);

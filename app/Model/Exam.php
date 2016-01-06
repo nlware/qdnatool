@@ -347,7 +347,7 @@ class Exam extends AppModel {
 	}
 
 /**
- * __analyse
+ * Analyse an exam
  *
  * @param int $id An exam id
  * @return bool
@@ -356,7 +356,7 @@ class Exam extends AppModel {
 		$this->id = $id;
 		$this->saveField('exam_state_id', ExamState::ANALYSING);
 
-		$result = $this->executeAnalysis($id);
+		$result = $this->doAnalyse($id);
 
 		if ($result) {
 			$result = $this->saveAnalysis($id, $result);
@@ -373,13 +373,13 @@ class Exam extends AppModel {
 	}
 
 /**
- * Execute analysis
+ * Analyse an exam, optionally filter items by a domain
  *
  * @param int $id An exam id
  * @param int[optional] $domainId A domain id
  * @return array
  */
-	public function executeAnalysis($id, $domainId = null) {
+	public function doAnalyse($id, $domainId = null) {
 		$conditions = array('Exam.id' => $id);
 		$contain = array(
 			'Item' => array('AnswerOption'),
