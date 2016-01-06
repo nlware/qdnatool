@@ -26,6 +26,19 @@ class DomainFixture extends CakeTestFixture {
  *
  * @var array
  */
-	public $records = array();
+	public $records = array(
+		array(
+			'id' => 1,
+			'exam_id' => null,
+			'name' => 'A',
+			'cronbachs_alpha' => null
+		),
+		array(
+			'id' => 2,
+			'exam_id' => null,
+			'name' => 'B',
+			'cronbachs_alpha' => null
+		),
+	);
 
 }

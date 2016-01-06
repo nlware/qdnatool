@@ -113,4 +113,82 @@ class AppModel extends Model {
 		unset($this->_schema[$fieldname]);
 	}
 
+/**
+ * Save analysis to an ezam or a domain
+ *
+ * @param int $id An domain/exam id
+ * @param array $analysis An array with analysis data
+ * @return bool True on success, or false on failure.
+ * @throws NotImplementedException
+ */
+	public function saveAnalysis($id, $analysis) {
+		if (!in_array($this->alias, array('Domain', 'Exam'))) {
+			throw new NotImplementedException();
+		}
+
+		$cronbachsAlpha = $result[0];
+		$maxAnswerOptionCount = $result[1];
+		$correctAnswerCount = $result[2];
+		$correctAnswerPercentage = $result[3];
+		$correctAnswerIrc = $result[4];
+		$givenAnswerOptionCount = $result[5];
+		$givenAnswerOptionPercentage = $result[6];
+		$givenAnswerOptionIrc = $result[7];
+
+		$conditions = array(sprintf('%s.id', $this->alias) => $id);
+		$contain = array('Item' => array('AnswerOption'));
+		$object = $this->find('first', compact('conditions', 'contain'));
+
+		if ($this->alias === 'Domain') {
+			$data = array(
+				'Domain' =>array(
+					'id' => $id,
+					'cronbachs_alpha' => $cronbachsAlpha,
+				)
+			);
+		} elseif ($this->alias === 'Exam') {
+			$data = array(
+				'Exam' => array(
+					'id' => $id,
+					'exam_state_id' => ExamState::ANALYSED,
+					'cronbachs_alpha' => $cronbachsAlpha,
+					'max_answer_option_count' => $maxAnswerOptionCount,
+					'analysed' => date('Y-m-d H:i:s')
+				)
+			);
+		}
+
+		foreach ($object['Item'] as $i => $item) {
+			$data['Item'][$i] = array('id' => $item['id']);
+			if ($this->alias === 'Domain') {
+				$data['Item'][$i]['domain_correct_answer_irc'] = $correctAnswerIrc[$i];
+			} elseif ($this->alias === 'Exam') {
+				$data['Item'][$i]['correct_answer_count'] = $correctAnswerCount[$i];
+				$data['Item'][$i]['correct_answer_percentage'] = $correctAnswerPercentage[$i];
+				$data['Item'][$i]['correct_answer_irc'] = $correctAnswerIrc[$i];
+				$data['Item'][$i]['missing_answer_count'] = $givenAnswerOptionCount[$i * ($maxAnswerOptionCount + 1)];
+				$data['Item'][$i]['missing_answer_percentage'] = $givenAnswerOptionPercentage[$i * ($maxAnswerOptionCount + 1)];
+			}
+
+			for ($j = 0; !empty($item['answer_option_count']) && $j < $item['answer_option_count']; $j++) {
+				if (empty($item['AnswerOption'][$j]['id'])) {
+					$data['Item'][$i]['AnswerOption'][$j]['order'] = ($j + 1);
+				} else {
+					$data['Item'][$i]['AnswerOption'][$j]['id'] = $item['AnswerOption'][$j]['id'];
+				}
+
+				if ($this->alias === 'Domain') {
+					$data['Item'][$i]['AnswerOption'][$j]['domain_given_answer_irc'] = (is_nan($givenAnswerOptionIrc[$i * ($maxAnswerOptionCount + 1) + $j + 1])?null:$givenAnswerOptionIrc[$i * ($maxAnswerOptionCount + 1) + $j + 1]);
+				} elseif ($this->alias === 'Exam') {
+					$data['Item'][$i]['AnswerOption'][$j]['given_answer_count'] = $givenAnswerOptionCount[$i * ($maxAnswerOptionCount + 1) + $j + 1];
+					$data['Item'][$i]['AnswerOption'][$j]['given_answer_percentage'] = $givenAnswerOptionPercentage[$i * ($maxAnswerOptionCount + 1) + $j + 1];
+					$data['Item'][$i]['AnswerOption'][$j]['given_answer_irc'] = (is_nan($givenAnswerOptionIrc[$i * ($maxAnswerOptionCount + 1) + $j + 1])?null:$givenAnswerOptionIrc[$i * ($maxAnswerOptionCount + 1) + $j + 1]);
+				} else {
+				}
+			}
+		}
+		$this->id = $id;
+		return $this->saveAll($data, array('deep' => true));
+	}
+
 }

@@ -359,54 +359,13 @@ class Exam extends AppModel {
 		$result = $this->executeAnalysis($id);
 
 		if ($result) {
-			$cronbachsAlpha = $result[0];
-			$maxAnswerOptionCount = $result[1];
-			$correctAnswerCount = $result[2];
-			$correctAnswerPercentage = $result[3];
-			$correctAnswerIrc = $result[4];
-			$givenAnswerOptionCount = $result[5];
-			$givenAnswerOptionPercentage = $result[6];
-			$givenAnswerOptionIrc = $result[7];
-
-			$data = array(
-				'Exam' => array(
-					'id' => $exam['Exam']['id'],
-					'exam_state_id' => ExamState::ANALYSED,
-					'cronbachs_alpha' => $cronbachsAlpha,
-					'max_answer_option_count' => $maxAnswerOptionCount,
-					'analysed' => date('Y-m-d H:i:s')
-				)
-			);
-
-			foreach ($exam['Item'] as $i => $item) {
-				$data['Item'][$i] = array(
-					'id' => $item['id'],
-					'correct_answer_count' => $correctAnswerCount[$i],
-					'correct_answer_percentage' => $correctAnswerPercentage[$i],
-					'correct_answer_irc' => $correctAnswerIrc[$i]
-				);
-				$data['Item'][$i]['missing_answer_count'] = $givenAnswerOptionCount[$i * ($maxAnswerOptionCount + 1)];
-				$data['Item'][$i]['missing_answer_percentage'] = $givenAnswerOptionPercentage[$i * ($maxAnswerOptionCount + 1)];
-
-				for ($j = 0; !empty($item['answer_option_count']) && $j < $item['answer_option_count']; $j++) {
-					if (empty($item['AnswerOption'][$j]['id'])) {
-						$data['Item'][$i]['AnswerOption'][$j]['order'] = ($j + 1);
-					} else {
-						$data['Item'][$i]['AnswerOption'][$j]['id'] = $item['AnswerOption'][$j]['id'];
-					}
-					$data['Item'][$i]['AnswerOption'][$j]['given_answer_count'] = $givenAnswerOptionCount[$i * ($maxAnswerOptionCount + 1) + $j + 1];
-					$data['Item'][$i]['AnswerOption'][$j]['given_answer_percentage'] = $givenAnswerOptionPercentage[$i * ($maxAnswerOptionCount + 1) + $j + 1];
-					$data['Item'][$i]['AnswerOption'][$j]['given_answer_irc'] = (is_nan($givenAnswerOptionIrc[$i * ($maxAnswerOptionCount + 1) + $j + 1])?null:$givenAnswerOptionIrc[$i * ($maxAnswerOptionCount + 1) + $j + 1]);
-				}
-			}
-			$this->id = $exam['Exam']['id'];
-			$result = $this->saveAll($data, array('deep' => true));
+			$result = $this->saveAnalysis($id, $result);
 		}
 
 		if ($result) {
-			$this->scheduleReport($exam['Exam']['id']);
+			$this->scheduleReport($id);
 		} else {
-			$this->id = $exam['Exam']['id'];
+			$this->id = $id;
 			$this->saveField('exam_state_id', ExamState::ANALYSE_FAILED);
 		}
 
@@ -427,12 +386,7 @@ class Exam extends AppModel {
 			'Subject' => array('GivenAnswer')
 		);
 		if ($domainId !== null) {
-			$fields = array('Item.id', 'Item.id');
-			$conditions = array(
-				'Item.exam_id' => $examId,
-				'Item.domain_id' => $id
-			);
-			$itemIds = $this->Item->find('list', compact('fields', 'conditions'));
+			$itemIds = $this->Item->getIds($examId, $domainId);
 
 			$contain['Item']['conditions'] = array('Item.domain_id' => $domainId);
 			$contain['Subject']['conditions'] = array('GivenAnswer.item_id' => $itemIds);
@@ -1358,7 +1312,14 @@ class Exam extends AppModel {
 			$examId = $this->id;
 
 			if ($success) {
-				$itemMapping = $this->Item->duplicate(array($parentId => $examId), $filteredItemIds);
+				$domainMapping = $this->Domain->duplicate(array($parentId => $examId));
+				if ($domainMapping === false) {
+					$success = false;
+				}
+			}
+
+			if ($success) {
+				$itemMapping = $this->Item->duplicate(array($parentId => $examId), $domainMapping, $filteredItemIds);
 				if ($itemMapping === false) {
 					$success = false;
 				}

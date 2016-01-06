@@ -80,13 +80,10 @@ class Domain extends AppModel {
  * @return bool
  */
 	public function analyse($id, $examId) {
-		$result = $this->Exam->executeAnalysis($id, $examId);
+		$result = $this->Exam->executeAnalysis($examId, $id);
 
 		if ($result) {
-			$cronbachsAlpha = $result[0];
-
-			$this->id = $id;
-			$this->saveField('cronbachs_alpha', $cronbachsAlpha);
+			$result = $this->saveAnalysis($id, $result);
 		}
 		return $result;
 	}
@@ -127,6 +124,32 @@ class Domain extends AppModel {
 			}
 			return $domainIds;
 		}
+	}
+
+/**
+ * Duplicate all domains of given exam ids
+ *
+ * @param array $examIds A hash with original exam ids as key and corresponding duplicated exam ids as value
+ * @return array|bool A hash with original domain ids as key and corresponding duplicated domain ids as value, false on failure
+ */
+	public function duplicate($examIds) {
+		$mapping = array();
+
+		$conditions = array('Domain.exam_id' => array_keys($examIds));
+		$domains = $this->find('all', compact('conditions'));
+
+		foreach ($domains as $domain) {
+			$oldId = $domain['Domain']['id'];
+			unset($domain['Domain']['id']);
+			$domain['Domain']['exam_id'] = $examIds[$domain['Domain']['exam_id']];
+
+			$this->create();
+			if (!$this->save($domain)) {
+				return false;
+			}
+			$mapping[$oldId] = $this->getInsertID();
+		}
+		return $mapping;
 	}
 
 }

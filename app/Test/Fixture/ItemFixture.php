@@ -22,6 +22,7 @@ class ItemFixture extends CakeTestFixture {
 		'correct_answer_irc' => array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '4,3', 'unsigned' => false),
 		'missing_answer_count' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'unsigned' => true),
 		'missing_answer_percentage' => array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '4,1', 'unsigned' => true),
+		'domain_correct_answer_irc' => array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '4,3', 'unsigned' => false),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'exam_id' => array('column' => 'exam_id', 'unique' => 0),
@@ -63,6 +64,34 @@ class ItemFixture extends CakeTestFixture {
 			'correct_answer_irc' => -0.187,
 			'missing_answer_count' => 1,
 			'missing_answer_percentage' => 1.1
+		),
+		array(
+			'id' => 1000000,
+			'exam_id' => 1,
+			'domain_id' => 1,
+			'order' => 1,
+			'value' => 'Item 1000000',
+		),
+		array(
+			'id' => 1000001,
+			'exam_id' => 1,
+			'domain_id' => 1,
+			'order' => 2,
+			'value' => 'Item 1000001',
+		),
+		array(
+			'id' => 1000002,
+			'exam_id' => 1,
+			'domain_id' => 2,
+			'order' => 3,
+			'value' => 'Item 1000002',
+		),
+		array(
+			'id' => 1000003,
+			'exam_id' => 1,
+			'domain_id' => 3,
+			'order' => 4,
+			'value' => 'Item 1000003',
 		),
 	);
 

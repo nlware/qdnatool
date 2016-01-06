@@ -214,13 +214,31 @@ class Item extends AppModel {
 	}
 
 /**
+ * Get items ids of an exam and optionally filter by a domain
+ *
+ * @param int $examId An exam id
+ * @param int[optional] $domainId A domain id
+ * @return array An array with items ids
+ */
+	public function getIds($examId, $domainId = null) {
+		$fields = array('Item.id', 'Item.id');
+		$conditions = array('Item.exam_id' => $examId);
+		if ($domainId !== null) {
+			$conditions[] = array('Item.domain_id' => $domainId);
+		}
+		$data = $this->find('list', compact('fields', 'conditions'));
+		return array_values($data);
+	}
+
+/**
  * Duplicate all or optionally only filtered items of given exam ids
  *
  * @param array $examIds A hash with original exam ids as key and corresponding duplicated exam ids as value
+ * @param array $domainIds A hash with original domain ids as key and corresponding duplicated domain ids as value
  * @param array[optional] $filteredIds A list of item ids to filter
  * @return array|bool A hash with original item ids as key and corresponding duplicated item ids as value, false on failure
  */
-	public function duplicate($examIds, $filteredIds = null) {
+	public function duplicate($examIds, $domainIds, $filteredIds = null) {
 		$mapping = array();
 
 		$conditions = array('Item.exam_id' => array_keys($examIds));
@@ -233,6 +251,9 @@ class Item extends AppModel {
 			$oldId = $item['Item']['id'];
 			unset($item['Item']['id']);
 			$item['Item']['exam_id'] = $examIds[$item['Item']['exam_id']];
+			if ($item['Item']['domain_id'] !== null) {
+				$item['Item']['domain_id'] = $domainIds[$item['Item']['domain_id']];
+			}
 
 			$this->create();
 			if (!$this->save($item)) {
