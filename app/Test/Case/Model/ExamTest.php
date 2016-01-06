@@ -73,7 +73,7 @@ class ExamTest extends CakeTestCase {
  *
  * @var array
  */
-	public $fixtures = array('app.answer_option', 'app.exam', 'app.given_answer', 'app.item', 'app.subject');
+	public $fixtures = array('app.answer_option', 'app.domain', 'app.exam', 'app.given_answer', 'app.item', 'app.subject');
 
 /**
  * setUp method
@@ -392,7 +392,7 @@ class ExamTest extends CakeTestCase {
 	}
 
 	protected function _testDuplicateExamWithSubjectsWithNonUniqueIdentifiers() {
-		$this->loadFixtures('AnswerOption', 'Exam', 'GivenAnswer', 'Item', 'Subject');
+		$this->loadFixtures('AnswerOption', 'Domain', 'Exam', 'GivenAnswer', 'Item', 'Subject');
 
 		$examId = 2;
 		$postData = $this->_createPostDataForDuplicate($examId);
@@ -417,7 +417,7 @@ class ExamTest extends CakeTestCase {
 	}
 
 	protected function _testDuplicateExamWithMissingGivenAnswers() {
-		$this->loadFixtures('AnswerOption', 'Exam', 'GivenAnswer', 'Item', 'Subject');
+		$this->loadFixtures('AnswerOption', 'Domain', 'Exam', 'GivenAnswer', 'Item', 'Subject');
 
 		$expected = 748;
 

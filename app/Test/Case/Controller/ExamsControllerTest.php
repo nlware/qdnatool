@@ -20,7 +20,7 @@ class ExamsControllerTest extends ControllerTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'app.exam', 'app.exam_format', 'app.exam_state', 'app.item', 'app.user'
+		'app.answer_option', 'app.exam', 'app.exam_format', 'app.exam_state', 'app.item', 'app.user'
 	);
 
 /**
@@ -76,7 +76,7 @@ class ExamsControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testViewGet() {
-		$this->loadFixtures('Item', 'User');
+		$this->loadFixtures('AnswerOption', 'Item', 'User');
 
 		$this->testAction('/exams/view/1', array('method' => 'get', 'return' => 'contents'));
 		$this->assertInternalType('array', $this->vars['exam']);
