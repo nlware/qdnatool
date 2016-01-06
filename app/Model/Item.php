@@ -208,4 +208,34 @@ class Item extends AppModel {
 		return $item;
 	}
 
+/**
+ * Duplicate all or optionally only filtered items of given exam ids
+ *
+ * @param array $examIds A hash with original exam ids as key and corresponding duplicated exam ids as value
+ * @param array[optional] $filteredIds A list of item ids to filter
+ * @return array|bool A hash with original item ids as key and corresponding duplicated item ids as value, false on failure
+ */
+	public function duplicate($examIds, $filteredIds = null) {
+		$mapping = array();
+
+		$conditions = array('Item.exam_id' => array_keys($examIds));
+		if ($filteredIds !== null) {
+			$conditions['Item.id'] = $filteredIds;
+		}
+		$items = $this->find('all', compact('conditions'));
+
+		foreach ($items as $item) {
+			$oldId = $item['Item']['id'];
+			unset($item['Item']['id']);
+			$item['Item']['exam_id'] = $examIds[$item['Item']['exam_id']];
+
+			$this->create();
+			if (!$this->save($item)) {
+				return false;
+			}
+			$mapping[$oldId] = $this->getInsertID();
+		}
+		return $mapping;
+	}
+
 }
