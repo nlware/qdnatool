@@ -141,7 +141,7 @@ class AppModel extends Model {
 
 		if ($this->alias === 'Domain') {
 			$data = array(
-				'Domain' =>array(
+				'Domain' => array(
 					'id' => $id,
 					'cronbachs_alpha' => $cronbachsAlpha,
 				)
