@@ -1356,6 +1356,7 @@ class Exam extends AppModel {
 			// Start transaction
 			$this->begin();
 
+			$this->validator()->remove('data_file', 'extension');
 			$this->create();
 			$success &= $this->save($data);
 
@@ -1393,6 +1394,7 @@ class Exam extends AppModel {
 				$this->commit();
 			} else {
 				$this->rollback();
+				$examId = false;
 			}
 		}
 

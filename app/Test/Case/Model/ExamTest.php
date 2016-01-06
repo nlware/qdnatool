@@ -26,7 +26,7 @@ class TestExam extends Exam {
  *
  */
 	public function getIndexOfVersionFromTeleformHeader($header, $version) {
-		return self::_getIndexOfVersionFromTeleformHeader($header, $version);
+		return parent::_getIndexOfVersionFromTeleformHeader($header, $version);
 	}
 
 /**
@@ -34,7 +34,7 @@ class TestExam extends Exam {
  *
  */
 	public function executeAnalysis($questionCount, $studentCount, $maxAnswerOptionCount, $exam, $givenAnswers, $answerOptionCount) {
-		return self::_executeAnalysis($questionCount, $studentCount, $maxAnswerOptionCount, $exam, $givenAnswers, $answerOptionCount);
+		return parent::_executeAnalysis($questionCount, $studentCount, $maxAnswerOptionCount, $exam, $givenAnswers, $answerOptionCount);
 	}
 
 /**

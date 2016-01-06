@@ -61,7 +61,7 @@ class AnswerOption extends AppModel {
 
 		foreach ($answerOptions as $answerOption) {
 			if ($correctAnswerOptions !== null) {
-				$answerOption['AnswerOption']['is_correct'] = in_array($correctAnswerOptions[$answerOption['AnswerOption']['item_id']], $answerOption['AnswerOption']['order']);
+				$answerOption['AnswerOption']['is_correct'] = in_array($answerOption['AnswerOption']['order'], $correctAnswerOptions[$answerOption['AnswerOption']['item_id']]);
 			}
 
 			$oldId = $answerOption['AnswerOption']['id'];

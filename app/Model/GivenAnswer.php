@@ -48,7 +48,7 @@ class GivenAnswer extends AppModel {
 		foreach ($givenAnswers as $givenAnswer) {
 			if ($correctAnswerOptions !== null) {
 				if ($givenAnswer['GivenAnswer']['value'] !== null) {
-					$givenAnswer['GivenAnswer']['score'] = in_array($correctAnswerOptions[$givenAnswer['GivenAnswer']['item_id']], ($givenAnswer['GivenAnswer']['value'] - 1))?1:0;
+					$givenAnswer['GivenAnswer']['score'] = in_array(($givenAnswer['GivenAnswer']['value'] - 1), $correctAnswerOptions[$givenAnswer['GivenAnswer']['item_id']])?1:0;
 				}
 			}
 
