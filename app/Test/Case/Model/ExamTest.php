@@ -26,7 +26,7 @@ class TestExam extends Exam {
  *
  */
 	public function getIndexOfVersionFromTeleformHeader($header, $version) {
-		return self::_getIndexOfVersionFromTeleformHeader($header, $version);
+		return parent::_getIndexOfVersionFromTeleformHeader($header, $version);
 	}
 
 /**
@@ -34,7 +34,7 @@ class TestExam extends Exam {
  *
  */
 	public function executeAnalysis($questionCount, $studentCount, $maxAnswerOptionCount, $exam, $givenAnswers, $answerOptionCount) {
-		return self::_executeAnalysis($questionCount, $studentCount, $maxAnswerOptionCount, $exam, $givenAnswers, $answerOptionCount);
+		return parent::_executeAnalysis($questionCount, $studentCount, $maxAnswerOptionCount, $exam, $givenAnswers, $answerOptionCount);
 	}
 
 /**
@@ -386,11 +386,49 @@ class ExamTest extends CakeTestCase {
  * @return void
  */
 	public function testDuplicate() {
+		$this->_testDuplicateExamWithSubjectsWithNonUniqueIdentifiers();
+
+		$this->_testDuplicateExamWithMissingGivenAnswers();
+	}
+
+	protected function _testDuplicateExamWithSubjectsWithNonUniqueIdentifiers() {
+		$this->loadFixtures('AnswerOption', 'Exam', 'GivenAnswer', 'Item', 'Subject');
+
+		$examId = 2;
+		$postData = $this->_createPostDataForDuplicate($examId);
+		$result = $this->Exam->duplicate($postData);
+		$this->assertTrue((bool)$result);
+
+		$contain = array('Subject' => 'GivenAnswer');
+
+		$conditions = array('Exam.id' => $examId);
+		$originalExam = $this->Exam->find('first', compact('conditions', 'contain'));
+		$originalExam = $this->_stripIds($originalExam);
+
+		$conditions = array('Exam.id' => $result);
+		$duplicateExam = $this->Exam->find('first', compact('conditions', 'contain'));
+
+		$this->assertNotNull($duplicateExam['Exam']['duplicated']);
+		$duplicateExam['Exam']['duplicated'] = null;
+
+		$duplicateExam = $this->_stripIds($duplicateExam);
+
+		$this->assertEquals($originalExam, $duplicateExam);
+	}
+
+	protected function _testDuplicateExamWithMissingGivenAnswers() {
 		$this->loadFixtures('AnswerOption', 'Exam', 'GivenAnswer', 'Item', 'Subject');
 
 		$expected = 748;
 
 		$examId = 747;
+		$postData = $this->_createPostDataForDuplicate($examId);
+
+		$result = $this->Exam->duplicate($postData);
+		$this->assertEquals($expected, $result);
+	}
+
+	protected function _createPostDataForDuplicate($examId) {
 		$conditions = array('Exam.id' => $examId);
 		$contain = array('Item' => 'AnswerOption');
 		$postData = $this->Exam->find('first', compact('conditions', 'contain'));
@@ -402,9 +440,18 @@ class ExamTest extends CakeTestCase {
 		foreach ($postData['Item'] as $i => $item) {
 			$postData['Item'][$i]['include'] = '1';
 		}
+		return $postData;
+	}
 
-		$result = $this->Exam->duplicate($postData);
-		$this->assertEquals($expected, $result);
+	protected function _stripIds($data) {
+		foreach ($data as $key => $value) {
+			if (in_array($key, array('id', 'created', 'modified'), true) || (strpos($key, '_id') === (strlen($key) - 3))) {
+				$data[$key] = null;
+			} elseif (is_array($value)) {
+				$data[$key] = $this->_stripIds($value);
+			}
+		}
+		return $data;
 	}
 
 /**

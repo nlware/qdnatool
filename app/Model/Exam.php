@@ -1299,26 +1299,40 @@ class Exam extends AppModel {
 	}
 
 /**
+ * Extract correct answer options from post data
+ *
+ * @param array $postData Post data
+ * @return array Hash with item ids as key and indices of related correct answer options as value
+ */
+	protected function _extractCorrectAnswerOptions($postData) {
+		$result = array();
+		foreach ($postData['Item'] as $item) {
+			$result[$item['id']] = array();
+			foreach ($item['AnswerOption'] as $i => $answerOption) {
+				if ($answerOption['is_correct']) {
+					$result[$item['id']][] = $i;
+				}
+			}
+		}
+		return $result;
+	}
+
+/**
  * _duplicate method
  *
  * @param data $postData Exam data
- * @return int
+ * @return int|bool The created exam id, false on failure
  */
 	protected function _duplicate($postData) {
 		$examId = false;
 
-		$conditions = array('Exam.id' => $postData['Exam']['parent_id']);
-		$contain = array(
-			'Item' => array(
-				'conditions' => array(
-					'Item.id' => Hash::extract($postData, 'Item.{n}[include=1].id')
-				),
-				'AnswerOption',
-				'GivenAnswer' => 'Subject'
-			),
-			'Subject'
-		);
-		$parentExam = $this->find('first', compact('conditions', 'contain'));
+		$parentId = $postData['Exam']['parent_id'];
+		$filteredItemIds = Hash::extract($postData, 'Item.{n}[include=1].id');
+		$correctAnswerOptions = $this->_extractCorrectAnswerOptions($postData);
+
+		$conditions = array('Exam.id' => $parentId);
+		$parentExam = $this->find('first', compact('conditions'));
+
 		if (!empty($parentExam)) {
 			$data = array(
 				'Exam' => array(
@@ -1332,76 +1346,53 @@ class Exam extends AppModel {
 				)
 			);
 
-			if (!empty($parentExam['Item'])) {
-				foreach ($parentExam['Item'] as $i => $item) {
-					$data['Item'][$i] = array(
-						'exam_id' => $examId,
-						'order' => $item['order'],
-						'second_version_order' => $item['second_version_order'],
-						'value' => $item['value'],
-						'answer_option_count' => $item['answer_option_count']
-					);
+			$success = true;
 
-					if (!empty($item['AnswerOption'])) {
-						$answerOptions = Hash::extract($postData, 'Item.{n}[id=' . $item['id'] . '].AnswerOption');
-						foreach ($item['AnswerOption'] as $j => $answerOption) {
-							$data['Item'][$i]['AnswerOption'][] = array(
-								'order' => $answerOption['order'],
-								'value' => $answerOption['value'],
-								'is_correct' => $answerOptions[0][$j]['is_correct']
-							);
-						}
-					}
-				}
-			}
-
-			if (!empty($parentExam['Subject'])) {
-				foreach ($parentExam['Subject'] as $i => $subject) {
-					$data['Subject'][$i] = array(
-						'value' => $subject['value'],
-						'is_second_version' => $subject['is_second_version']
-					);
-				}
-			}
+			// Start transaction
+			$this->begin();
 
 			$this->validator()->remove('data_file', 'extension');
 			$this->create();
-			if ($this->saveAll($data, array('deep' => true))) {
-				$examId = $this->id;
-			}
-			if ($examId) {
-				$conditions = array('Exam.id' => $examId);
-				$contain = array('Item' => 'AnswerOption');
-				$childExam = $this->find('first', compact('conditions', 'contain'));
-				if (!empty($parentExam['Item'])) {
-					$data = array();
-					foreach ($parentExam['Item'] as $i => $item) {
-						if (!empty($item['GivenAnswer'])) {
-							foreach ($item['GivenAnswer'] as $givenAnswer) {
-								$conditions = array(
-									'Subject.exam_id' => $examId,
-									'Subject.value' => $givenAnswer['Subject']['value']
-								);
-								$subject = $this->Subject->find('first', compact('conditions'));
-								$score = 0;
-								if ($givenAnswer['value'] !== null) {
-									$score = $childExam['Item'][$i]['AnswerOption'][($givenAnswer['value'] - 1)]['is_correct'];
-								}
-								$data[] = array(
-									'item_id' => $childExam['Item'][$i]['id'],
-									'value' => $givenAnswer['value'],
-									'score' => $score,
-									'subject_id' => $subject['Subject']['id']
-								);
-							}
-						}
-					}
-					if (!$this->Item->GivenAnswer->saveAll($data)) {
-						$examId = false;
-					}
+			$success &= $this->save($data);
+
+			$examId = $this->id;
+
+			if ($success) {
+				$itemMapping = $this->Item->duplicate(array($parentId => $examId), $filteredItemIds);
+				if ($itemMapping === false) {
+					$success = false;
 				}
 			}
+
+			if ($success) {
+				$answerOptionMapping = $this->Item->AnswerOption->duplicate($itemMapping, $correctAnswerOptions);
+				if ($answerOptionMapping === false) {
+					$success = false;
+				}
+			}
+
+			if ($success) {
+				$subjectMapping = $this->Subject->duplicate(array($parentId => $examId));
+				if ($subjectMapping === false) {
+					$success = false;
+				}
+			}
+
+			if ($success) {
+				$givenAnswerMapping = $this->Subject->GivenAnswer->duplicate($itemMapping, $subjectMapping, $correctAnswerOptions);
+				if ($givenAnswerMapping === false) {
+					$success = false;
+				}
+			}
+
+			if ($success) {
+				$this->commit();
+			} else {
+				$this->rollback();
+				$examId = false;
+			}
 		}
+
 		return $examId;
 	}
 

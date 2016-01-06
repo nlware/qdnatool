@@ -32,6 +32,12 @@ class AnswerOptionFixture extends CakeTestFixture {
  */
 	public $records = array(
 		array(
+			'id' => 1,
+			'item_id' => 1,
+			'order' => 1,
+			'is_correct' => true,
+		),
+		array(
 			'id' => 99456,
 			'item_id' => 21773,
 			'order' => 1,
