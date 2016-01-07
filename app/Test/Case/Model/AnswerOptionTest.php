@@ -8,6 +8,13 @@ App::uses('AnswerOption', 'Model');
 class AnswerOptionTest extends CakeTestCase {
 
 /**
+ * Auto fixtures.
+ *
+ * @var bool
+ */
+	public $autoFixtures = false;
+
+/**
  * Fixtures
  *
  * @var array
@@ -75,6 +82,13 @@ class AnswerOptionTest extends CakeTestCase {
  * @return void
  */
 	public function testDuplicate() {
+		$this->loadFixtures('AnswerOption');
+
+		$expected = array();
+		$examIds = array();
+		$result = $this->AnswerOption->duplicate($examIds);
+		$this->assertSame($expected, $result);
+
 		$itemIds = array(21773 => 100000);
 
 		$conditions = array('AnswerOption.item_id' => array_keys($itemIds));

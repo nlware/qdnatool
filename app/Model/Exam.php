@@ -386,10 +386,10 @@ class Exam extends AppModel {
 			'Subject' => array('GivenAnswer')
 		);
 		if ($domainId !== null) {
-			$itemIds = $this->Item->getIds($examId, $domainId);
+			$itemIds = $this->Item->getIds($id, $domainId);
 
 			$contain['Item']['conditions'] = array('Item.domain_id' => $domainId);
-			$contain['Subject']['conditions'] = array('GivenAnswer.item_id' => $itemIds);
+			$contain['Subject']['GivenAnswer']['conditions'] = array('GivenAnswer.item_id' => $itemIds);
 		}
 		$exam = $this->find('first', compact('conditions', 'contain'));
 		$fields = array('MAX(Item.answer_option_count) as answer_option_count');

@@ -89,11 +89,11 @@ class Domain extends AppModel {
 	}
 
 /**
- * Creates domains and returns ids
+ * Creates domains for given domain names and exam and returns ids
  *
  * @param int $examId An exam id
  * @param array $names An array with names of domains
- * @return array An array with domain ids
+ * @return bool|array An array with domain ids in the same order as corresponding given names, false on failure
  */
 	public function createDomains($examId, $names) {
 		$domainIds = array();
@@ -101,29 +101,31 @@ class Domain extends AppModel {
 			$uniqueNames = array_values($names);
 			$uniqueNames = array_unique($uniqueNames);
 
-			$data = array('Domain' => array());
+			$data = array();
 			foreach ($uniqueNames as $name) {
-				$data['Domain'][] = array(
+				$data[] = array(
 					'exam_id' => $examId,
 					'name' => $name
 				);
 			}
 			$this->create();
-			$this->saveAll($data);
+			if ($this->saveAll($data)) {
+				$conditions = array('Domain.exam_id' => $examId);
+				$domains = $this->find('list', compact('conditions'));
 
-			$conditions = array('Domain.exam_id' => $examId);
-			$domains = $this->find('list', compact('conditions'));
-
-			foreach ($names as $i => $name) {
-				foreach ($domains as $id => $domain) {
-					if ($name === $domain) {
-						$domainIds[$i] = $id;
-						break;
+				foreach ($names as $i => $name) {
+					foreach ($domains as $id => $domain) {
+						if ($name === $domain) {
+							$domainIds[$i] = $id;
+							break;
+						}
 					}
 				}
+			} else {
+				$domainIds = false;
 			}
-			return $domainIds;
 		}
+		return $domainIds;
 	}
 
 /**

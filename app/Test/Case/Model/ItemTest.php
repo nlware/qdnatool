@@ -7,13 +7,18 @@ App::uses('Item', 'Model');
 class ItemTest extends CakeTestCase {
 
 /**
+ * Auto fixtures.
+ *
+ * @var bool
+ */
+	public $autoFixtures = false;
+
+/**
  * Fixtures
  *
  * @var array
  */
-	public $fixtures = array(
-		'app.item',
-	);
+	public $fixtures = array('app.item');
 
 /**
  * setUp method
@@ -60,6 +65,8 @@ class ItemTest extends CakeTestCase {
  * @return void
  */
 	public function testGetIds() {
+		$this->loadFixtures('Item');
+
 		$expected = array();
 		$examId = 0;
 		$result = $this->Item->getIds($examId);
@@ -90,6 +97,45 @@ class ItemTest extends CakeTestCase {
 		$examId = 1;
 		$domainId = 2;
 		$result = $this->Item->getIds($examId, $domainId);
+		$this->assertEquals($expected, $result);
+	}
+
+/**
+ * testDuplicate method
+ *
+ * @return void
+ */
+	public function testDuplicate() {
+		$this->loadFixtures('Item');
+
+		$expected = array();
+		$examIds = array();
+		$domainIds = array();
+		$result = $this->Item->duplicate($examIds, $domainIds);
+		$this->assertSame($expected, $result);
+
+		$expected = array(1 => 1000004);
+		$examIds = array(2 => 987);
+		$domainIds = array();
+		$result = $this->Item->duplicate($examIds, $domainIds);
+		$this->assertEquals($expected, $result);
+
+		$expected = array(
+			1000000 => 1000005,
+			1000001 => 1000006,
+			1000002 => 1000007,
+			1000003 => 1000008
+		);
+		$examIds = array(1 => 1001);
+		$domainIds = array(1 => 1001, 2 => 1002, 3 => 1003);
+		$result = $this->Item->duplicate($examIds, $domainIds);
+		$this->assertEquals($expected, $result);
+
+		$expected = array(1000001 => 1000009);
+		$examIds = array(1 => 1001);
+		$domainIds = array(1 => 1001, 2 => 1002, 3 => 1003);
+		$filteredIds = array(1000001);
+		$result = $this->Item->duplicate($examIds, $domainIds, $filteredIds);
 		$this->assertEquals($expected, $result);
 	}
 
