@@ -254,7 +254,7 @@ class ExamTest extends CakeTestCase {
  * @return void
  */
 	public function testAnalyse() {
-		$this->loadFixtures('AnswerOption', 'Exam', 'Item', 'Subject');
+		$this->loadFixtures('AnswerOption', 'Exam', 'GivenAnswer', 'Item', 'Subject');
 
 		$id = 1;
 		$result = $this->Exam->analyse($id);
