@@ -74,7 +74,7 @@ class DomainTest extends CakeTestCase {
  * @return void
  */
 	public function testAnalyse() {
-		$this->loadFixtures('AnswerOption', 'Domain', 'Exam', 'Item', 'Subject');
+		$this->loadFixtures('AnswerOption', 'Domain', 'Exam', 'GivenAnswer', 'Item', 'Subject');
 
 		$id = 1;
 		$examId = 1;
