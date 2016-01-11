@@ -254,9 +254,11 @@ class ExamTest extends CakeTestCase {
  * @return void
  */
 	public function testAnalyse() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->loadFixtures('AnswerOption', 'Exam', 'Item', 'Subject');
+
+		$id = 1;
+		$result = $this->Exam->analyse($id);
+		$this->assertTrue((bool)$result);
 	}
 
 /**

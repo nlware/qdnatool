@@ -78,6 +78,78 @@ class AnswerOptionFixture extends CakeTestFixture {
 			'given_answer_irc' => 0.045,
 			'given_answer_percentage' => 29.9
 		),
+		array(
+			'id' => 1000000,
+			'item_id' => 1000000,
+			'order' => 1,
+			'is_correct' => true,
+		),
+		array(
+			'id' => 1000001,
+			'item_id' => 1000000,
+			'order' => 2,
+			'is_correct' => false,
+		),
+		array(
+			'id' => 1000002,
+			'item_id' => 1000000,
+			'order' => 3,
+			'is_correct' => false,
+		),
+		array(
+			'id' => 1000003,
+			'item_id' => 1000000,
+			'order' => 4,
+			'is_correct' => false,
+		),
+		array(
+			'id' => 1000004,
+			'item_id' => 1000001,
+			'order' => 1,
+			'is_correct' => true,
+		),
+		array(
+			'id' => 1000005,
+			'item_id' => 1000001,
+			'order' => 2,
+			'is_correct' => false,
+		),
+		array(
+			'id' => 1000006,
+			'item_id' => 1000001,
+			'order' => 3,
+			'is_correct' => false,
+		),
+		array(
+			'id' => 1000007,
+			'item_id' => 1000001,
+			'order' => 4,
+			'is_correct' => false,
+		),
+		array(
+			'id' => 1000008,
+			'item_id' => 1000002,
+			'order' => 1,
+			'is_correct' => true,
+		),
+		array(
+			'id' => 1000009,
+			'item_id' => 1000002,
+			'order' => 2,
+			'is_correct' => false,
+		),
+		array(
+			'id' => 1000010,
+			'item_id' => 1000002,
+			'order' => 3,
+			'is_correct' => false,
+		),
+		array(
+			'id' => 1000011,
+			'item_id' => 1000002,
+			'order' => 4,
+			'is_correct' => false,
+		),
 	);
 
 }
