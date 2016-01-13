@@ -71,6 +71,7 @@ class ItemFixture extends CakeTestFixture {
 			'domain_id' => 1,
 			'order' => 1,
 			'value' => 'Item 1000000',
+			'answer_option_count' => 4,
 		),
 		array(
 			'id' => 1000001,
@@ -78,6 +79,7 @@ class ItemFixture extends CakeTestFixture {
 			'domain_id' => 1,
 			'order' => 2,
 			'value' => 'Item 1000001',
+			'answer_option_count' => 4,
 		),
 		array(
 			'id' => 1000002,
@@ -85,6 +87,7 @@ class ItemFixture extends CakeTestFixture {
 			'domain_id' => 2,
 			'order' => 3,
 			'value' => 'Item 1000002',
+			'answer_option_count' => 4,
 		),
 		array(
 			'id' => 1000003,
@@ -92,6 +95,7 @@ class ItemFixture extends CakeTestFixture {
 			'domain_id' => 3,
 			'order' => 4,
 			'value' => 'Item 1000003',
+			'answer_option_count' => 4,
 		),
 	);
 

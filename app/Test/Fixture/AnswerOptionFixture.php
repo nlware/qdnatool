@@ -150,6 +150,30 @@ class AnswerOptionFixture extends CakeTestFixture {
 			'order' => 4,
 			'is_correct' => false,
 		),
+		array(
+			'id' => 1000012,
+			'item_id' => 1000003,
+			'order' => 1,
+			'is_correct' => true,
+		),
+		array(
+			'id' => 1000013,
+			'item_id' => 1000003,
+			'order' => 2,
+			'is_correct' => false,
+		),
+		array(
+			'id' => 1000014,
+			'item_id' => 1000003,
+			'order' => 3,
+			'is_correct' => false,
+		),
+		array(
+			'id' => 1000015,
+			'item_id' => 1000003,
+			'order' => 4,
+			'is_correct' => false,
+		),
 	);
 
 }

@@ -50,6 +50,62 @@ class GivenAnswerFixture extends CakeTestFixture {
 			'score' => 0.00000000,
 			'content' => null
 		),
+		array(
+			'id' => 1000000,
+			'item_id' => 1000000,
+			'subject_id' => 1000000,
+			'value' => 3,
+			'score' => 0,
+		),
+		array(
+			'id' => 1000001,
+			'item_id' => 1000001,
+			'subject_id' => 1000000,
+			'value' => 3,
+			'score' => 0,
+		),
+		array(
+			'id' => 1000002,
+			'item_id' => 1000002,
+			'subject_id' => 1000000,
+			'value' => 3,
+			'score' => 0,
+		),
+		array(
+			'id' => 1000003,
+			'item_id' => 1000003,
+			'subject_id' => 1000000,
+			'value' => 3,
+			'score' => 0,
+		),
+		array(
+			'id' => 1000004,
+			'item_id' => 1000000,
+			'subject_id' => 1000001,
+			'value' => 3,
+			'score' => 0,
+		),
+		array(
+			'id' => 1000005,
+			'item_id' => 1000001,
+			'subject_id' => 1000001,
+			'value' => 3,
+			'score' => 0,
+		),
+		array(
+			'id' => 1000006,
+			'item_id' => 1000002,
+			'subject_id' => 1000001,
+			'value' => 3,
+			'score' => 0,
+		),
+		array(
+			'id' => 1000007,
+			'item_id' => 1000003,
+			'subject_id' => 1000001,
+			'value' => 3,
+			'score' => 0,
+		),
 	);
 
 }
