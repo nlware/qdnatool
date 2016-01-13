@@ -1,4 +1,5 @@
 <?php
+App::uses('AppUtil', 'Lib');
 App::uses('AppModel', 'Model');
 /**
  * AnswerOption Model
@@ -33,7 +34,7 @@ class AnswerOption extends AppModel {
  * @return string
  */
 	public static function printIndex($index) {
-		return chr(65 + $index);
+		return AppUtil::printIndex($index);
 	}
 
 /**
@@ -43,7 +44,7 @@ class AnswerOption extends AppModel {
  * @return string
  */
 	public static function printValue($value) {
-		return chr(65 + $value - 1);
+		return AppUtil::printValue($value);
 	}
 
 /**

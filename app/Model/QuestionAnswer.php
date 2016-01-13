@@ -1,4 +1,5 @@
 <?php
+App::uses('AppUtil', 'Lib');
 App::uses('AppModel', 'Model');
 /**
  * QuestionAnswer Model
@@ -48,7 +49,7 @@ class QuestionAnswer extends AppModel {
  * @return string
  */
 	public static function printIndex($index) {
-		return chr(65 + $index);
+		return AppUtil::printIndex($index);
 	}
 
 }
