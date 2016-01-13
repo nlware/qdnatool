@@ -39,7 +39,8 @@ install:
   - echo 'options(repos = "http://cran.rstudio.com")' > .Rprofile
   - echo '.travis.yml' > .Rbuildignore
   - Rscript -e 'if(!"gplots" %in% rownames(installed.packages())) { install.packages("gplots", dependencies = TRUE) }'
-  - Rscript -e 'if(!"psy" %in% rownames(installed.packages())) { install.packages("psy", dependencies = TRUE) }'  
+  - Rscript -e 'if(!"psy" %in% rownames(installed.packages())) { install.packages("psy", dependencies = TRUE) }'
+  - Rscript -e 'if(!"Rserve" %in% rownames(installed.packages())) { install.packages("Rserve", dependencies = TRUE) }'
   - R CMD Rserve
 
 before_script:
