@@ -40,7 +40,8 @@ install:
   - echo '.travis.yml' > .Rbuildignore
   - Rscript -e 'if(!"gplots" %in% rownames(installed.packages())) { install.packages("gplots", dependencies = TRUE) }'
   - Rscript -e 'if(!"psy" %in% rownames(installed.packages())) { install.packages("psy", dependencies = TRUE) }'
-  - Rscript -e 'if(!"Rserve" %in% rownames(installed.packages())) { install.packages("Rserve", dependencies = TRUE) }'
+  - ln -s /usr/lib/R/site-library/Rserve/libs/Rserve ~/Rlib/Rserve
+  - ln -s /usr/lib/R/site-library/Rserve/libs/Rserve.db ~/Rlib/Rserve.db
   - R CMD Rserve
 
 before_script:
