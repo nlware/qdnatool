@@ -1,6 +1,6 @@
-sudo: false
-
 language: php
+
+sudo: false
 
 php:
   - 5.3
@@ -33,12 +33,14 @@ addons:
     - r-base
     - r-cran-rserve
 
-before_script:
-  - sh -c "composer global require 'phpunit/phpunit=3.7.33'"
-  - sh -c "ln -s ~/.composer/vendor/phpunit/phpunit/PHPUnit ./app/Vendor/PHPUnit"
+install:
   - Rscript -e "install.packages(c('gplots'),,'http://cran.rstudio.com')"
   - Rscript -e "install.packages(c('psy'),,'http://cran.rstudio.com')"
   - R CMD Rserve
+
+before_script:
+  - sh -c "composer global require 'phpunit/phpunit=3.7.33'"
+  - sh -c "ln -s ~/.composer/vendor/phpunit/phpunit/PHPUnit ./app/Vendor/PHPUnit"
   - sh -c "mysql -e 'CREATE DATABASE qdnatool_test;'"
   - chmod -R 777 ./app/tmp
   - composer install --dev --no-interaction --prefer-source
