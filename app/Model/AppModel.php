@@ -126,14 +126,14 @@ class AppModel extends Model {
 			throw new NotImplementedException();
 		}
 
-		$cronbachsAlpha = $result[0];
-		$maxAnswerOptionCount = $result[1];
-		$correctAnswerCount = $result[2];
-		$correctAnswerPercentage = $result[3];
-		$correctAnswerIrc = $result[4];
-		$givenAnswerOptionCount = $result[5];
-		$givenAnswerOptionPercentage = $result[6];
-		$givenAnswerOptionIrc = $result[7];
+		$cronbachsAlpha = $analysis[0];
+		$maxAnswerOptionCount = $analysis[1];
+		$correctAnswerCount = $analysis[2];
+		$correctAnswerPercentage = $analysis[3];
+		$correctAnswerIrc = $analysis[4];
+		$givenAnswerOptionCount = $analysis[5];
+		$givenAnswerOptionPercentage = $analysis[6];
+		$givenAnswerOptionIrc = $analysis[7];
 
 		$conditions = array(sprintf('%s.id', $this->alias) => $id);
 		$contain = array('Item' => array('AnswerOption'));
