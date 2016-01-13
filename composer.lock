@@ -230,7 +230,7 @@
                 "composer/installers": "*"
             },
             "type": "cakephp-vendor",
-            "time": "2015-11-09 12:04:36"
+            "time": "2015-12-09 13:03:30"
         },
         {
             "name": "slywalker/twitter_bootstrap",

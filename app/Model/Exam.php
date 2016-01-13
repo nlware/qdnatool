@@ -383,77 +383,11 @@ class Exam extends AppModel {
 			}
 		}
 
-		$script = array();
-		$script[] = file_get_contents(APP . 'Lib' . DS . 'Rscripts' . DS . 'analyse.R');
-		$script[] = sprintf('nvragen = %d;', $questionCount);
-		$script[] = sprintf('ndeel = %d;', $studentCount);
-
-		$keyMatrix = array();
-		foreach ($exam['Item'] as $i => $item) {
-			foreach ($item['AnswerOption'] as $j => $answerOption) {
-				if ($answerOption['is_correct']) {
-					$keyMatrix[] = 1;
-				} else {
-					$keyMatrix[] = 0;
-				}
-			}
-		}
-
-		// Create the key matrix (with given dimensions) by filling it with a vector (by column)
-
-		// > matrix(1:4, 2, 2, byrow = FALSE)
-		//      [,1] [,2]
-		// [1,]    1    3
-		// [2,]    2    4
-
-		$script[] = sprintf(
-			'key = matrix(c(%s), %d, %d, byrow = FALSE);',
-			implode(',', $keyMatrix), $maxAnswerOptionCount, count($exam['Item'])
-		);
-
-		$inputAnswersMaxtrix = array();
-		foreach ($givenAnswers as $i => $givenAnswersByStudent) {
-			foreach ($givenAnswersByStudent as $j => $givenAnswer) {
-				if (empty($givenAnswer)) {
-					$givenAnswer = 0;
-				}
-				$script .= 'input_answers[' . ($i + 1) . ',' . ($j + 1) . '] = ' . $givenAnswer . ';';
-			}
-		}
-
-		// Create the input_answers matrix (with given dimensions) by filling it with a vector (by row)
-
-		// > matrix(1:4, 2, 2, byrow = TRUE)
-		//      [,1] [,2]
-		// [1,]    1    2
-		// [2,]    3    4
-
-		$script[] = sprintf(
-			'input_answers = matrix(c(%s), ndeel, nvragen, byrow = TRUE);',
-			implode(',', $inputAnswersMaxtrix)
-		);
-
-		$numberAnsweroptionsVector = array();
-		foreach ($answerOptionCount as $i => $count) {
-			if (empty($count)) {
-				$count = 0;
-			}
-			$numberAnsweroptionsVector[] = $count;
-		}
-
-		$script[] = sprintf('number_answeroptions = c(%s);', implode(',', $numberAnsweroptionsVector));
-
-		$script[] = 'Analyse(key, input_answers, number_answeroptions);';
-
-		$script = implode("\n", $script);
-
-		$result = Rserve::execute($script);
+		$result = $this->_executeAnalysis($questionCount, $studentCount, $maxAnswerOptionCount, $exam, $givenAnswers, $answerOptionCount);
 
 		if ($result) {
 			$cronbachsAlpha = $result[0];
 			$maxAnswerOptionCount = $result[1];
-			$averageScore = null;
-			$standardDeviation = null;
 			$correctAnswerCount = $result[2];
 			$correctAnswerPercentage = $result[3];
 			$correctAnswerIrc = $result[4];
@@ -465,8 +399,6 @@ class Exam extends AppModel {
 				'Exam' => array(
 					'id' => $exam['Exam']['id'],
 					'exam_state_id' => ExamState::ANALYSED,
-					'average_score' => $averageScore,
-					'standard_deviation' => $standardDeviation,
 					'cronbachs_alpha' => $cronbachsAlpha,
 					'max_answer_option_count' => $maxAnswerOptionCount,
 					'analysed' => date('Y-m-d H:i:s')
@@ -1372,26 +1304,40 @@ class Exam extends AppModel {
 	}
 
 /**
+ * Extract correct answer options from post data
+ *
+ * @param array $postData Post data
+ * @return array Hash with item ids as key and indices of related correct answer options as value
+ */
+	protected function _extractCorrectAnswerOptions($postData) {
+		$result = array();
+		foreach ($postData['Item'] as $item) {
+			$result[$item['id']] = array();
+			foreach ($item['AnswerOption'] as $i => $answerOption) {
+				if ($answerOption['is_correct']) {
+					$result[$item['id']][] = $i;
+				}
+			}
+		}
+		return $result;
+	}
+
+/**
  * _duplicate method
  *
  * @param data $postData Exam data
- * @return int
+ * @return int|bool The created exam id, false on failure
  */
 	protected function _duplicate($postData) {
 		$examId = false;
 
-		$conditions = array('Exam.id' => $postData['Exam']['parent_id']);
-		$contain = array(
-			'Item' => array(
-				'conditions' => array(
-					'Item.id' => Hash::extract($postData, 'Item.{n}[include=1].id')
-				),
-				'AnswerOption',
-				'GivenAnswer' => 'Subject'
-			),
-			'Subject'
-		);
-		$parentExam = $this->find('first', compact('conditions', 'contain'));
+		$parentId = $postData['Exam']['parent_id'];
+		$filteredItemIds = Hash::extract($postData, 'Item.{n}[include=1].id');
+		$correctAnswerOptions = $this->_extractCorrectAnswerOptions($postData);
+
+		$conditions = array('Exam.id' => $parentId);
+		$parentExam = $this->find('first', compact('conditions'));
+
 		if (!empty($parentExam)) {
 			$data = array(
 				'Exam' => array(
@@ -1405,76 +1351,53 @@ class Exam extends AppModel {
 				)
 			);
 
-			if (!empty($parentExam['Item'])) {
-				foreach ($parentExam['Item'] as $i => $item) {
-					$data['Item'][$i] = array(
-						'exam_id' => $examId,
-						'order' => $item['order'],
-						'second_version_order' => $item['second_version_order'],
-						'value' => $item['value'],
-						'answer_option_count' => $item['answer_option_count']
-					);
+			$success = true;
 
-					if (!empty($item['AnswerOption'])) {
-						$answerOptions = Hash::extract($postData, 'Item.{n}[id=' . $item['id'] . '].AnswerOption');
-						foreach ($item['AnswerOption'] as $j => $answerOption) {
-							$data['Item'][$i]['AnswerOption'][] = array(
-								'order' => $answerOption['order'],
-								'value' => $answerOption['value'],
-								'is_correct' => $answerOptions[0][$j]['is_correct']
-							);
-						}
-					}
-				}
-			}
-
-			if (!empty($parentExam['Subject'])) {
-				foreach ($parentExam['Subject'] as $i => $subject) {
-					$data['Subject'][$i] = array(
-						'value' => $subject['value'],
-						'is_second_version' => $subject['is_second_version']
-					);
-				}
-			}
+			// Start transaction
+			$this->begin();
 
 			$this->validator()->remove('data_file', 'extension');
 			$this->create();
-			if ($this->saveAll($data, array('deep' => true))) {
-				$examId = $this->id;
-			}
-			if ($examId) {
-				$conditions = array('Exam.id' => $examId);
-				$contain = array('Item' => 'AnswerOption');
-				$childExam = $this->find('first', compact('conditions', 'contain'));
-				if (!empty($parentExam['Item'])) {
-					$data = array();
-					foreach ($parentExam['Item'] as $i => $item) {
-						if (!empty($item['GivenAnswer'])) {
-							foreach ($item['GivenAnswer'] as $givenAnswer) {
-								$conditions = array(
-									'Subject.exam_id' => $examId,
-									'Subject.value' => $givenAnswer['Subject']['value']
-								);
-								$subject = $this->Subject->find('first', compact('conditions'));
-								$score = 0;
-								if ($givenAnswer['value'] !== null) {
-									$score = $childExam['Item'][$i]['AnswerOption'][($givenAnswer['value'] - 1)]['is_correct'];
-								}
-								$data[] = array(
-									'item_id' => $childExam['Item'][$i]['id'],
-									'value' => $givenAnswer['value'],
-									'score' => $score,
-									'subject_id' => $subject['Subject']['id']
-								);
-							}
-						}
-					}
-					if (!$this->Item->GivenAnswer->saveAll($data)) {
-						$examId = false;
-					}
+			$success &= $this->save($data);
+
+			$examId = $this->id;
+
+			if ($success) {
+				$itemMapping = $this->Item->duplicate(array($parentId => $examId), $filteredItemIds);
+				if ($itemMapping === false) {
+					$success = false;
 				}
 			}
+
+			if ($success) {
+				$answerOptionMapping = $this->Item->AnswerOption->duplicate($itemMapping, $correctAnswerOptions);
+				if ($answerOptionMapping === false) {
+					$success = false;
+				}
+			}
+
+			if ($success) {
+				$subjectMapping = $this->Subject->duplicate(array($parentId => $examId));
+				if ($subjectMapping === false) {
+					$success = false;
+				}
+			}
+
+			if ($success) {
+				$givenAnswerMapping = $this->Subject->GivenAnswer->duplicate($itemMapping, $subjectMapping, $correctAnswerOptions);
+				if ($givenAnswerMapping === false) {
+					$success = false;
+				}
+			}
+
+			if ($success) {
+				$this->commit();
+			} else {
+				$this->rollback();
+				$examId = false;
+			}
 		}
+
 		return $examId;
 	}
 
@@ -1531,6 +1454,85 @@ class Exam extends AppModel {
 
 		}
 		return $missings;
+	}
+
+/**
+ * _executeAnalysis
+ *
+ * @param int $questionCount Number of questions
+ * @param int $studentCount Number of students
+ * @param int $maxAnswerOptionCount Maximum number of answer options
+ * @param array $exam
+ * @param array $givenAnswers
+ * @param array $answerOptionCount Array of number of answer options per question
+ * @return array
+ */
+	protected function _executeAnalysis($questionCount, $studentCount, $maxAnswerOptionCount, $exam, $givenAnswers, $answerOptionCount) {
+		$script = array();
+		$script[] = file_get_contents(APP . 'Lib' . DS . 'Rscripts' . DS . 'analyse.R');
+		$script[] = sprintf('nvragen = %d;', $questionCount);
+		$script[] = sprintf('ndeel = %d;', $studentCount);
+
+		$keyMatrix = array();
+		foreach ($exam['Item'] as $i => $item) {
+			foreach ($item['AnswerOption'] as $j => $answerOption) {
+				if ($answerOption['is_correct']) {
+					$keyMatrix[] = 1;
+				} else {
+					$keyMatrix[] = 0;
+				}
+			}
+		}
+
+		// Create the key matrix (with given dimensions) by filling it with a vector (by column)
+
+		// > matrix(1:4, 2, 2, byrow = FALSE)
+		//      [,1] [,2]
+		// [1,]    1    3
+		// [2,]    2    4
+
+		$script[] = sprintf(
+			'key = matrix(c(%s), %d, %d, byrow = FALSE);',
+			implode(',', $keyMatrix), $maxAnswerOptionCount, count($exam['Item'])
+		);
+
+		$inputAnswersMaxtrix = array();
+		foreach ($givenAnswers as $i => $givenAnswersByStudent) {
+			foreach ($givenAnswersByStudent as $j => $givenAnswer) {
+				if (empty($givenAnswer)) {
+					$givenAnswer = 0;
+				}
+				$inputAnswersMaxtrix[] = $givenAnswer;
+			}
+		}
+
+		// Create the input_answers matrix (with given dimensions) by filling it with a vector (by row)
+
+		// > matrix(1:4, 2, 2, byrow = TRUE)
+		//      [,1] [,2]
+		// [1,]    1    2
+		// [2,]    3    4
+
+		$script[] = sprintf(
+			'input_answers = matrix(c(%s), ndeel, nvragen, byrow = TRUE);',
+			implode(',', $inputAnswersMaxtrix)
+		);
+
+		$numberAnsweroptionsVector = array();
+		foreach ($answerOptionCount as $i => $count) {
+			if (empty($count)) {
+				$count = 0;
+			}
+			$numberAnsweroptionsVector[] = $count;
+		}
+
+		$script[] = sprintf('number_answeroptions = c(%s);', implode(',', $numberAnsweroptionsVector));
+
+		$script[] = 'Analyse(key, input_answers, number_answeroptions);';
+
+		$script = implode("\n", $script);
+
+		return Rserve::execute($script);
 	}
 
 }

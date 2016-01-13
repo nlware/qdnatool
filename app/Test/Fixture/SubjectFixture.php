@@ -29,6 +29,18 @@ class SubjectFixture extends CakeTestFixture {
  */
 	public $records = array(
 		array(
+			'id' => 1,
+			'exam_id' => 2,
+			'value' => '123',
+			'is_second_version' => false
+		),
+		array(
+			'id' => 2,
+			'exam_id' => 2,
+			'value' => '123',
+			'is_second_version' => true
+		),
+		array(
 			'id' => 100843,
 			'exam_id' => 747,
 			'value' => '10825363',
