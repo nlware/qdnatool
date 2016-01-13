@@ -1,4 +1,5 @@
 <?php
+App::uses('AppUtil', 'Lib');
 App::uses('AppHelper', 'View/Helper');
 class OutputHelper extends AppHelper {
 
@@ -68,4 +69,25 @@ class OutputHelper extends AppHelper {
 		$value = str_replace('<a href=', '<a target="_blank" href=', $value);
 		return $value;
 	}
+
+/**
+ * index method
+ *
+ * @param int $index Numeric index between 0 and 7
+ * @return string Human-friendly presentation of index
+ */
+	public function index($index) {
+		return AppUtil::printIndex($index);
+	}
+
+/**
+ * value method
+ *
+ * @param int $value Numeric value between 1 and 8
+ * @return string Human-friendly presentation of value
+ */
+	public function value($value) {
+		return AppUtil::printValue($value);
+	}
+
 }
