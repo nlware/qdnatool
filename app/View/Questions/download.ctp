@@ -57,7 +57,7 @@ $this->addScript('<style type="text/css">body {font-family: \'Arial\',sans-serif
 		if (!empty($question['QuestionAnswer'])):
 			foreach ($question['QuestionAnswer'] as $i => $questionAnswer):
 				if ($questionAnswer['is_correct']):
-					$correctAnswers[] = QuestionAnswer::printIndex($i);
+					$correctAnswers[] = $this->Output->optionIndex($i);
 				endif;
 			endforeach;
 		endif;

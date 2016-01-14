@@ -1,4 +1,5 @@
 <?php
+App::uses('AppUtil', 'Lib');
 App::uses('AppHelper', 'View/Helper');
 class OutputHelper extends AppHelper {
 
@@ -68,4 +69,25 @@ class OutputHelper extends AppHelper {
 		$value = str_replace('<a href=', '<a target="_blank" href=', $value);
 		return $value;
 	}
+
+/**
+ * Returns a human-friendly presentation for a given answer option index
+ *
+ * @param int $index Numeric index (between 0 and 7) of an answer option
+ * @return string Human-friendly presentation of an answer option
+ */
+	public function optionIndex($index) {
+		return AppUtil::optionIndex($index);
+	}
+
+/**
+ * Returns a human-friendly presentation for a given answer option value
+ *
+ * @param int $value Numeric value (between 1 and 8) of an answer option
+ * @return string Human-friendly presentation of an answer option
+ */
+	public function optionValue($value) {
+		return AppUtil::optionValue($value);
+	}
+
 }

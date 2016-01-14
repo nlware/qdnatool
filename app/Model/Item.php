@@ -1,4 +1,5 @@
 <?php
+App::uses('AppUtil', 'Lib');
 App::uses('AppModel', 'Model');
 /**
  * Item Model
@@ -157,7 +158,7 @@ class Item extends AppModel {
 		if ($item['correct_answer_irc'] < -0.1) {
 			$mostGivenIncorrectAnswerOption = $this->__getMostGivenIncorrectAnswerOption($item);
 			if (!empty($mostGivenIncorrectAnswerOption) && $mostGivenIncorrectAnswerOption['given_answer_percentage'] > 35) {
-				$item['Messages'][] = __('Has the correct alternative been assessed as correct? Most students choose the alternative %s.', AnswerOption::printValue($mostGivenIncorrectAnswerOption['order']));
+				$item['Messages'][] = __('Has the correct alternative been assessed as correct? Most students choose the alternative %s.', AppUtil::optionValue($mostGivenIncorrectAnswerOption['order']));
 				$item['Messages'][] = __('In case the correct alternative has been assessed as correct, remove the question (it is probably a so called ‘trick question’: these type of questions do not measure the knowledge of the student).');
 			} else {
 				$item['Messages'][] = __('Good students generally answer this question incorrectly. The advice is to remove this question from the test.');
@@ -196,8 +197,8 @@ class Item extends AppModel {
 					$mostGivenIncorrectAnswerOption = $this->__getMostGivenIncorrectAnswerOption($item);
 					// when a> 0.35:
 					if (!empty($mostGivenIncorrectAnswerOption) && $mostGivenIncorrectAnswerOption['given_answer_percentage'] > 35) {
-						$item['Messages'][] = __('Instead of choosing the correct alternative, students are choosing the alternative %s.', AnswerOption::printValue($mostGivenIncorrectAnswerOption['order']));
-						$item['Messages'][] = __('Is it possible that the alternative answer should also be assessed as correct? Examine why many students are choosing the alternative answer %s.', AnswerOption::printValue($mostGivenIncorrectAnswerOption['order']));
+						$item['Messages'][] = __('Instead of choosing the correct alternative, students are choosing the alternative %s.', AppUtil::optionValue($mostGivenIncorrectAnswerOption['order']));
+						$item['Messages'][] = __('Is it possible that the alternative answer should also be assessed as correct? Examine why many students are choosing the alternative answer %s.', AppUtil::optionValue($mostGivenIncorrectAnswerOption['order']));
 					} else {
 						$item['Messages'][] = __('This question does not distinguish between good and less good students: guessing has taken place. Has the content been covered in class?');
 						$item['Messages'][] = __('It is not necessary to remove this question from the exam.');

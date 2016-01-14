@@ -110,7 +110,7 @@ endif;
 					continue;
 				endif;
 			?>
-			<dt><?php echo __('Incorrect answer %s', AnswerOption::printIndex($i)); ?></dt>
+			<dt><?php echo __('Incorrect answer %s', $this->Output->optionIndex($i)); ?></dt>
 			<dd><?php echo __('%s %%', $this->Output->decimal($answerOption['given_answer_percentage'])); ?>&nbsp;</dd>
 			<?php endforeach; ?>
 		</dl>

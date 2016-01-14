@@ -37,9 +37,9 @@
 				<th><?php echo __('# Missing Answers'); ?></th>
 				<th><?php echo __('% Missing Answers'); ?></th>
 				<?php for ($i = 0; !empty($exam['Exam']['max_answer_option_count']) && $i < $exam['Exam']['max_answer_option_count']; $i++): ?>
-				<th><?php echo __('# Answer %s', AnswerOption::printIndex($i)); ?></th>
-				<th><?php echo __('%% Answer %s', AnswerOption::printIndex($i)); ?></th>
-				<th><?php echo __('Rit Answer %s', AnswerOption::printIndex($i)); ?></th>
+				<th><?php echo __('# Answer %s', $this->Output->optionIndex($i)); ?></th>
+				<th><?php echo __('%% Answer %s', $this->Output->optionIndex($i)); ?></th>
+				<th><?php echo __('Rit Answer %s', $this->Output->optionIndex($i)); ?></th>
 				<?php endfor; ?>
 			</tr>
 		</thead>

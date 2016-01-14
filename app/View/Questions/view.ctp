@@ -33,7 +33,7 @@
 							$correctAnswers = array();
 							foreach ($question['QuestionAnswer'] as $i => $questionAnswer):
 								if ($questionAnswer['is_correct']):
-									$correctAnswers[] = QuestionAnswer::printIndex($i);
+									$correctAnswers[] = $this->Output->optionIndex($i);
 								endif;
 							endforeach;
 							echo $this->Text->toList($correctAnswers, __('and'));
@@ -65,7 +65,7 @@
 							foreach ($question['QuestionAnswer'] as $i => $questionAnswer):
 								if (!empty($questionAnswer['feedback'])):
 					?>
-					<dt><?php echo __('Feedback Option %s', QuestionAnswer::printIndex($i)); ?></dt>
+					<dt><?php echo __('Feedback Option %s', $this->Output->optionIndex($i)); ?></dt>
 					<dd><?php echo $this->HtmLawed->display($questionAnswer['feedback']); ?>&nbsp;</dd>
     	  			<?php
 								endif;
