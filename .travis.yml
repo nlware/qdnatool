@@ -40,7 +40,7 @@ install:
   - echo '.travis.yml' > .Rbuildignore
   - Rscript -e 'if(!"gplots" %in% rownames(installed.packages())) { install.packages("gplots", dependencies = TRUE) }'
   - Rscript -e 'if(!"psy" %in% rownames(installed.packages())) { install.packages("psy", dependencies = TRUE) }'
-  - R CMD /usr/lib/R/site-library/Rserve/libs/Rserve
+  - R CMD Rserve
 
 before_script:
   - sh -c "composer global require 'phpunit/phpunit=3.7.33'"
