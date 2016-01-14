@@ -67,35 +67,35 @@ class OutputHelperTest extends CakeTestCase {
 	}
 
 /**
- * testIndex method
+ * testOptionIndex method
  *
  * @return void
  */
-	public function testIndex() {
-		$this->assertEquals('A', $this->Output->index(0));
-		$this->assertEquals('B', $this->Output->index(1));
-		$this->assertEquals('C', $this->Output->index(2));
-		$this->assertEquals('D', $this->Output->index(3));
-		$this->assertEquals('E', $this->Output->index(4));
-		$this->assertEquals('F', $this->Output->index(5));
-		$this->assertEquals('G', $this->Output->index(6));
-		$this->assertEquals('H', $this->Output->index(7));
+	public function testOptionIndex() {
+		$this->assertEquals('A', $this->Output->optionIndex(0));
+		$this->assertEquals('B', $this->Output->optionIndex(1));
+		$this->assertEquals('C', $this->Output->optionIndex(2));
+		$this->assertEquals('D', $this->Output->optionIndex(3));
+		$this->assertEquals('E', $this->Output->optionIndex(4));
+		$this->assertEquals('F', $this->Output->optionIndex(5));
+		$this->assertEquals('G', $this->Output->optionIndex(6));
+		$this->assertEquals('H', $this->Output->optionIndex(7));
 	}
 
 /**
- * testValue method
+ * testOptionValue method
  *
  * @return void
  */
-	public function testValue() {
-		$this->assertEquals('A', $this->Output->value(1));
-		$this->assertEquals('B', $this->Output->value(2));
-		$this->assertEquals('C', $this->Output->value(3));
-		$this->assertEquals('D', $this->Output->value(4));
-		$this->assertEquals('E', $this->Output->value(5));
-		$this->assertEquals('F', $this->Output->value(6));
-		$this->assertEquals('G', $this->Output->value(7));
-		$this->assertEquals('H', $this->Output->value(8));
+	public function testOptionValue() {
+		$this->assertEquals('A', $this->Output->optionValue(1));
+		$this->assertEquals('B', $this->Output->optionValue(2));
+		$this->assertEquals('C', $this->Output->optionValue(3));
+		$this->assertEquals('D', $this->Output->optionValue(4));
+		$this->assertEquals('E', $this->Output->optionValue(5));
+		$this->assertEquals('F', $this->Output->optionValue(6));
+		$this->assertEquals('G', $this->Output->optionValue(7));
+		$this->assertEquals('H', $this->Output->optionValue(8));
 	}
 
 }
