@@ -190,7 +190,7 @@
 							)
 						);
 					endif;
-					echo __('Answer %s', QuestionAnswer::printIndex($i));
+					echo __('Answer %s', $this->Output->optionIndex($i));
 					?>
 					</legend>
 				<?php

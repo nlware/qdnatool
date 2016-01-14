@@ -1,4 +1,5 @@
 <?php
+App::uses('AppUtil', 'Lib');
 App::uses('AppModel', 'Model');
 /**
  * AnswerOption Model
@@ -25,26 +26,6 @@ class AnswerOption extends AppModel {
 			'foreignKey' => 'item_id'
 		)
 	);
-
-/**
- * printIndex method
- *
- * @param int $index Index
- * @return string
- */
-	public static function printIndex($index) {
-		return chr(65 + $index);
-	}
-
-/**
- * printValue method
- *
- * @param int $value Value
- * @return string
- */
-	public static function printValue($value) {
-		return chr(65 + $value - 1);
-	}
 
 /**
  * Duplicate all answer options of given item ids and optionally update correct answer options
