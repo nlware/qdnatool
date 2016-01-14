@@ -43,40 +43,6 @@ class AnswerOptionTest extends CakeTestCase {
 	}
 
 /**
- * testPrintIndex method
- *
- * @return void
- */
-	public function testPrintIndex() {
-		$expected = 'A';
-		$value = 0;
-		$result = $this->AnswerOption->printIndex($value);
-		$this->assertEquals($expected, $result);
-
-		$expected = 'B';
-		$value = 1;
-		$result = $this->AnswerOption->printIndex($value);
-		$this->assertEquals($expected, $result);
-	}
-
-/**
- * testPrintValue method
- *
- * @return void
- */
-	public function testPrintValue() {
-		$expected = 'A';
-		$value = 1;
-		$result = $this->AnswerOption->printValue($value);
-		$this->assertEquals($expected, $result);
-
-		$expected = 'B';
-		$value = 2;
-		$result = $this->AnswerOption->printValue($value);
-		$this->assertEquals($expected, $result);
-	}
-
-/**
  * testDuplicate method
  *
  * @return void
