@@ -35,20 +35,4 @@ class QuestionAnswerTest extends CakeTestCase {
 		parent::tearDown();
 	}
 
-/**
- * testPrintIndex method
- *
- * @return void
- */
-	public function testPrintIndex() {
-		$this->assertEquals('A', $this->QuestionAnswer->printIndex(0));
-		$this->assertEquals('B', $this->QuestionAnswer->printIndex(1));
-		$this->assertEquals('C', $this->QuestionAnswer->printIndex(2));
-		$this->assertEquals('D', $this->QuestionAnswer->printIndex(3));
-		$this->assertEquals('E', $this->QuestionAnswer->printIndex(4));
-		$this->assertEquals('F', $this->QuestionAnswer->printIndex(5));
-		$this->assertEquals('G', $this->QuestionAnswer->printIndex(6));
-		$this->assertEquals('H', $this->QuestionAnswer->printIndex(7));
-	}
-
 }

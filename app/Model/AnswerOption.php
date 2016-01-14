@@ -28,26 +28,6 @@ class AnswerOption extends AppModel {
 	);
 
 /**
- * printIndex method
- *
- * @param int $index Index
- * @return string
- */
-	public static function printIndex($index) {
-		return AppUtil::optionIndex($index);
-	}
-
-/**
- * printValue method
- *
- * @param int $value Value
- * @return string
- */
-	public static function printValue($value) {
-		return AppUtil::optionValue($value);
-	}
-
-/**
  * Duplicate all answer options of given item ids and optionally update correct answer options
  *
  * @param array $itemIds A hash with original item ids as key and corresponding duplicated item ids as value

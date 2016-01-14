@@ -42,14 +42,4 @@ class QuestionAnswer extends AppModel {
 		)
 	);
 
-/**
- * printIndex method
- *
- * @param int $index Index
- * @return string
- */
-	public static function printIndex($index) {
-		return AppUtil::optionIndex($index);
-	}
-
 }
