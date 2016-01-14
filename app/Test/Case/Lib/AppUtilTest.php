@@ -8,35 +8,35 @@ App::uses('AppUtil', 'Lib');
 class AppUtilTest extends CakeTestCase {
 
 /**
- * testPrintIndex method
+ * testOptionIndex method
  *
  * @return void
  */
-	public function testPrintIndex() {
-		$this->assertEquals('A', AppUtil::printIndex(0));
-		$this->assertEquals('B', AppUtil::printIndex(1));
-		$this->assertEquals('C', AppUtil::printIndex(2));
-		$this->assertEquals('D', AppUtil::printIndex(3));
-		$this->assertEquals('E', AppUtil::printIndex(4));
-		$this->assertEquals('F', AppUtil::printIndex(5));
-		$this->assertEquals('G', AppUtil::printIndex(6));
-		$this->assertEquals('H', AppUtil::printIndex(7));
+	public function testOptionIndex() {
+		$this->assertEquals('A', AppUtil::optionIndex(0));
+		$this->assertEquals('B', AppUtil::optionIndex(1));
+		$this->assertEquals('C', AppUtil::optionIndex(2));
+		$this->assertEquals('D', AppUtil::optionIndex(3));
+		$this->assertEquals('E', AppUtil::optionIndex(4));
+		$this->assertEquals('F', AppUtil::optionIndex(5));
+		$this->assertEquals('G', AppUtil::optionIndex(6));
+		$this->assertEquals('H', AppUtil::optionIndex(7));
 	}
 
 /**
- * testPrintValue method
+ * testOptionValue method
  *
  * @return void
  */
-	public function testPrintValue() {
-		$this->assertEquals('A', AppUtil::printValue(1));
-		$this->assertEquals('B', AppUtil::printValue(2));
-		$this->assertEquals('C', AppUtil::printValue(3));
-		$this->assertEquals('D', AppUtil::printValue(4));
-		$this->assertEquals('E', AppUtil::printValue(5));
-		$this->assertEquals('F', AppUtil::printValue(6));
-		$this->assertEquals('G', AppUtil::printValue(7));
-		$this->assertEquals('H', AppUtil::printValue(8));
+	public function testOptionValue() {
+		$this->assertEquals('A', AppUtil::optionValue(1));
+		$this->assertEquals('B', AppUtil::optionValue(2));
+		$this->assertEquals('C', AppUtil::optionValue(3));
+		$this->assertEquals('D', AppUtil::optionValue(4));
+		$this->assertEquals('E', AppUtil::optionValue(5));
+		$this->assertEquals('F', AppUtil::optionValue(6));
+		$this->assertEquals('G', AppUtil::optionValue(7));
+		$this->assertEquals('H', AppUtil::optionValue(8));
 	}
 
 }

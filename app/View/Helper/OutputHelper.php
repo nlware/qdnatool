@@ -71,23 +71,23 @@ class OutputHelper extends AppHelper {
 	}
 
 /**
- * index method
+ * Returns a human-friendly presentation for a given answer option index
  *
- * @param int $index Numeric index between 0 and 7
- * @return string Human-friendly presentation of index
+ * @param int $index Numeric index (between 0 and 7) of an answer option
+ * @return string Human-friendly presentation of an answer option
  */
-	public function index($index) {
-		return AppUtil::printIndex($index);
+	public function optionIndex($index) {
+		return AppUtil::optionIndex($index);
 	}
 
 /**
- * value method
+ * Returns a human-friendly presentation for a given answer option value
  *
- * @param int $value Numeric value between 1 and 8
- * @return string Human-friendly presentation of value
+ * @param int $value Numeric value (between 1 and 8) of an answer option
+ * @return string Human-friendly presentation of an answer option
  */
-	public function value($value) {
-		return AppUtil::printValue($value);
+	public function optionValue($value) {
+		return AppUtil::optionValue($value);
 	}
 
 }

@@ -49,7 +49,7 @@ class QuestionAnswer extends AppModel {
  * @return string
  */
 	public static function printIndex($index) {
-		return AppUtil::printIndex($index);
+		return AppUtil::optionIndex($index);
 	}
 
 }

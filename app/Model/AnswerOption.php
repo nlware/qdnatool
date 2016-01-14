@@ -34,7 +34,7 @@ class AnswerOption extends AppModel {
  * @return string
  */
 	public static function printIndex($index) {
-		return AppUtil::printIndex($index);
+		return AppUtil::optionIndex($index);
 	}
 
 /**
@@ -44,7 +44,7 @@ class AnswerOption extends AppModel {
  * @return string
  */
 	public static function printValue($value) {
-		return AppUtil::printValue($value);
+		return AppUtil::optionValue($value);
 	}
 
 /**
