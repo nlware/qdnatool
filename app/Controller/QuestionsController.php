@@ -1,7 +1,6 @@
 <?php
 App::uses('CakeText', 'Utility');
 App::uses('DevelopmentPhase', 'Model');
-App::uses('QuestionAnswer', 'Model');
 App::uses('AppController', 'Controller');
 /**
  * Questions Controller
@@ -26,7 +25,7 @@ class QuestionsController extends AppController {
  * @var mixed A single name as a string or a list of names as an array.
  * @see AppController::helpers
  */
-	public $helpers = array('CkSource');
+	public $helpers = array('CkSource', 'Output');
 
 /**
  * beforeFilter

@@ -1,4 +1,5 @@
 <?php
+App::uses('AppUtil', 'Lib');
 App::uses('AppModel', 'Model');
 /**
  * QuestionAnswer Model
@@ -40,15 +41,5 @@ class QuestionAnswer extends AppModel {
 			'foreignKey' => 'question_id'
 		)
 	);
-
-/**
- * printIndex method
- *
- * @param int $index Index
- * @return string
- */
-	public static function printIndex($index) {
-		return chr(65 + $index);
-	}
 
 }
