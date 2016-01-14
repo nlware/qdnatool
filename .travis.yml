@@ -1,5 +1,7 @@
 language: php
 
+sudo: false
+
 php:
   - 5.3
   - 5.4
@@ -23,17 +25,26 @@ matrix:
       env:
         - PHPCS=1
 
+addons:
+  apt:
+    sources:
+    - r-packages-precise
+    packages:
+    - r-base
+    - r-cran-rserve
+
+install:
+  - mkdir -p ~/Rlib
+  - echo 'R_LIBS=~/Rlib' > .Renviron
+  - echo 'options(repos = "http://cran.rstudio.com")' > .Rprofile
+  - echo '.travis.yml' > .Rbuildignore
+  - Rscript -e 'if(!"gplots" %in% rownames(installed.packages())) { install.packages("gplots", dependencies = TRUE) }'
+  - Rscript -e 'if(!"psy" %in% rownames(installed.packages())) { install.packages("psy", dependencies = TRUE) }'
+  - R CMD Rserve
+
 before_script:
   - sh -c "composer global require 'phpunit/phpunit=3.7.33'"
   - sh -c "ln -s ~/.composer/vendor/phpunit/phpunit/PHPUnit ./app/Vendor/PHPUnit"
-  - sudo sh -c "echo deb http://cran.rstudio.com/bin/linux/ubuntu precise/ >> /etc/apt/sources.list.d/rstudio.list"
-  - sudo apt-get update -qq
-  # workaround for missing dependency in r-base which causes the following error: /var/lib/dpkg/info/r-base-core.postinst: 57: /var/lib/dpkg/info/r-base-core.postinst: mktexlsr: not found
-  - sudo apt-get install -y --force-yes texlive-binaries
-  - sudo apt-get install -y --force-yes r-base r-cran-rserve
-  - sudo Rscript -e "install.packages(c('gplots'),,'http://cran.rstudio.com')"
-  - sudo Rscript -e "install.packages(c('psy'),,'http://cran.rstudio.com')"
-  - sudo R CMD Rserve
   - sh -c "mysql -e 'CREATE DATABASE qdnatool_test;'"
   - chmod -R 777 ./app/tmp
   - composer install --dev --no-interaction --prefer-source
