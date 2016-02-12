@@ -14,7 +14,7 @@ Analyse <- function(key, input.answers, number.answeroptions) {
   #   input.answers: Ungraded matrix of answers. input.answers[i,j] is
   #                  the answer of student (i) to item (j). Should consist of
   #                  at least 3 columns (items) and 2 rows (students).
-  #                  Number of columns should be equal to the number of 
+  #                  Number of columns should be equal to the number of
   #                  columns of key and length of number.answeroptions
   #                  number.answeroptions. There is no maximum.
   #   number.answersoptions: Vector with number of answer options per item,
@@ -130,8 +130,13 @@ Analyse <- function(key, input.answers, number.answeroptions) {
       corrected.item.tot.cor.answ.option <- 0
     }
 
-    # Computes Cronbach's Alpha for overall test
-    cronbach <- round(cronbach(input.correct)$alpha, digits = 3)
+    # Computes Cronbach's Alpha for overall test, only if there is variance in
+    # the sum score
+    if(!all(rowSums(input.correct) == rowSums(input.correct)[1])){
+    	cronbach <- round(cronbach(input.correct)$alpha, digits = 3)
+    } else {
+    		cronbach <- 0
+    	}
 
     list(cronbach, max(number.answeroptions), correct.frequency,
          correct.percentage, corrected.item.tot.cor, frequency.answer.options,
