@@ -135,8 +135,8 @@ Analyse <- function(key, input.answers, number.answeroptions) {
     if(!all(rowSums(input.correct) == rowSums(input.correct)[1])){
     	cronbach <- round(cronbach(input.correct)$alpha, digits = 3)
     } else {
-    		cronbach <- 0
-    	}
+      cronbach <- 0
+    }
 
     list(cronbach, max(number.answeroptions), correct.frequency,
          correct.percentage, corrected.item.tot.cor, frequency.answer.options,
