@@ -8,13 +8,14 @@ Analyse <- function(key, input.answers, number.answeroptions) {
   #
   # Args:
   #   key: Matrix of 0's and 1's. key[i,j] implies wether answer option i
-  #        to item j is right (1) or wrong (0). If a row (item) consists of
+  #        to item j is right (1) or wrong (0). If a column (item) consists of
   #        only 0s, the item is interpreted as graded manually.
-  #        Should be at least of length 3 (3 items), there is no maximum length.
+  #        Number of columns (items) should be at least 3, there is no maximum.
   #   input.answers: Ungraded matrix of answers. input.answers[i,j] is
   #                  the answer of student (i) to item (j). Should consist of
-  #                  at least 3 rows (items) and 2 columns (students).
-  #                  Number of columns should be equal to the length of key and
+  #                  at least 3 columns (items) and 2 rows (students).
+  #                  Number of columns should be equal to the number of 
+  #                  columns of key and length of number.answeroptions
   #                  number.answeroptions. There is no maximum.
   #   number.answersoptions: Vector with number of answer options per item,
   #                          length should be equal to length of key and number
@@ -39,7 +40,7 @@ Analyse <- function(key, input.answers, number.answeroptions) {
 
   if (number.questions > 2 & number.students > 1) {
     # Do the analysis only if there are at least 3 items and 2 students.
-   
+
     # Create Correct/Incorrect matrix
     input.correct <- matrix(0, number.students, number.questions)
 
