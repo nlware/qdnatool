@@ -9,17 +9,22 @@ Analyse <- function(key, input.answers, number.answeroptions) {
   # Args:
   #   key: Matrix of 0's and 1's. key[i,j] implies wether answer option i
   #        to item j is right (1) or wrong (0). If a column (item) consists of
-  #        only 0s, the item is interpreted as graded manually.
-  #        Number of columns (items) should be at least 3, there is no maximum.
+  #        only 0s, the item is interpreted as graded manually. This means
+	#        that the same column of input.answers is used directly as a score
+	#        (i.e. 1 is interpreted as a score of 1 instead of "answer option" 1).
+  #        Number of columns (items) should be at least 3 and equal to the
+	#        number of columns of input.answers and length of number.answeroptions.
+  #        There is no maximum number of columns or rows
   #   input.answers: Ungraded matrix of answers. input.answers[i,j] is
   #                  the answer of student (i) to item (j). Should consist of
   #                  at least 3 columns (items) and 2 rows (students).
-  #                  Number of columns should be equal to the number of
-  #                  columns of key and length of number.answeroptions
-  #                  number.answeroptions. There is no maximum.
-  #   number.answersoptions: Vector with number of answer options per item,
-  #                          length should be equal to length of key and number
-  #                          of columns in input.answers. There is no maximum.
+  #                  Number of columns should be at least 3 and equal to the
+	#                  number of columns of key and length of number.answeroptions
+  #                  There is no maximum.
+  #   number.answersoptions: Vector with number of answer options per item.
+  #                          Length should be at least 3 and equal to number of
+	#                          columns of key and input.answers.
+  #                          There is no maximum length.
   #
   # Returns:
   #  list with:
@@ -49,8 +54,9 @@ Analyse <- function(key, input.answers, number.answeroptions) {
       for (i in 1: number.students) {
         if (!is.null(input.answers[i, j]) & all(key[, j] == 0)) {
           input.correct[i, j] <- input.answers[i, j]
-        } else if(any(input.answers[i, j] == which(key[, j] == 1))) {
-          input.correct[i, j] <- 1
+        } else {
+          if(any(input.answers[i, j] == which(key[, j] == 1))) {
+            input.correct[i, j] <- 1
         }
       }
     }
@@ -130,12 +136,12 @@ Analyse <- function(key, input.answers, number.answeroptions) {
       corrected.item.tot.cor.answ.option <- 0
     }
 
-    # Computes Cronbach's Alpha for overall test, only if there is variance in
-    # the sum score
+    # Computes Cronbach's Alpha for overall test
+    # If there is no variance in the total score returns -100
     if(!all(rowSums(input.correct) == rowSums(input.correct)[1])){
     	cronbach <- round(cronbach(input.correct)$alpha, digits = 3)
     } else {
-      cronbach <- 0
+    	cronbach <- -100
     }
 
     list(cronbach, max(number.answeroptions), correct.frequency,
