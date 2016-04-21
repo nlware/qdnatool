@@ -7,6 +7,15 @@ Analyse <- function(key, input.answers, number.answeroptions) {
 
   if (number.questions > 2 & number.students > 1) {
     # Correct/Incorrect Matrix
+    
+    # Creating this matrix should not require control structures
+    # I propose something like this.
+    
+    # input.answers <- matrix(sample(1:4, 50, replace = TRUE), 5, 10) # some random answers
+    # key           <- matrix(1:10, 5, 10, byrow=TRUE)                # some key. Equal for all rows
+    # input.correct <- ( input.answers == key ) * 1                   # Compare answers to key matrix gets a boolean result
+                                                                      # convert to 0 and 1 by multiplying with 1
+    
     input.correct <- matrix(0, number.students, number.questions) 
 
     # Fill in Correct/Incorrect Matrix
