@@ -35,19 +35,7 @@ class ExamsController extends AppController {
  * @return void
  */
 	public function index() {
-		$conditions = array(
-			'Exam.user_id' => $this->Auth->user('id'),
-			'Exam.parent_id' => null,
-			'Exam.deleted' => null
-		);
-		$contain = array(
-			'Child' => array(
-				'conditions' => array('Child.deleted' => null),
-				'ExamState'
-			),
-			'ExamState'
-		);
-		$this->paginate = compact('conditions', 'contain');
+		$this->paginate = $this->Exam->getPaginationSettings($this->Auth->user('id'));
 		$exams = $this->paginate();
 		$this->set(compact('exams'));
 	}
