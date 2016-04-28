@@ -2,6 +2,7 @@
 	"minimum-stability": "dev",
 	"prefer-stable" : true,
 	"config" : {
+		"secure-http": false,
 		"vendor-dir" : "app/Vendor"
 	},
 	"repositories" : [
@@ -48,6 +49,7 @@
 		}
 	},
 	"require" : {
+		"composer/installers": "~1.0",
 		"cakephp/cakephp": "2.7.*",
 		"cakephp/debug_kit": "2.2.*",
 		"slywalker/twitter_bootstrap": "1.5.7",
