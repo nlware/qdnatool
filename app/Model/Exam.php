@@ -202,6 +202,29 @@ class Exam extends AppModel {
 	}
 
 /**
+ * Returns (default) pagination settings for a given user.
+ *
+ * @param int $userId A user id
+ * @var array Hash with pagination settings (conditions, contain and order)
+ */
+	public function getPaginationSettings($userId) {
+		$conditions = array(
+			'Exam.user_id' => $userId,
+			'Exam.parent_id' => null,
+			'Exam.deleted' => null
+		);
+		$contain = array(
+			'Child' => array(
+				'conditions' => array('Child.deleted' => null),
+				'ExamState'
+			),
+			'ExamState'
+		);
+		$order = array('Exam.modified' => 'DESC');
+		return compact('conditions', 'contain', 'order');
+	}
+
+/**
  * add method
  *
  * @param array $data Data
