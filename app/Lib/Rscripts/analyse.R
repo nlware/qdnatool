@@ -10,20 +10,20 @@ Analyse <- function(key, input.answers, number.answeroptions) {
   #   key: Matrix of 0's and 1's. key[i,j] implies wether answer option i
   #        to item j is right (1) or wrong (0). If a column (item) consists of
   #        only 0s, the item is interpreted as graded manually. This means
-	#        that the same column of input.answers is used directly as a score
-	#        (i.e. 1 is interpreted as a score of 1 instead of "answer option" 1).
+  #        that the same column of input.answers is used directly as a score
+  #        (i.e. 1 is interpreted as a score of 1 instead of "answer option" 1).
   #        Number of columns (items) should be at least 3 and equal to the
-	#        number of columns of input.answers and length of number.answeroptions.
+  #        number of columns of input.answers and length of number.answeroptions.
   #        There is no maximum number of columns or rows
   #   input.answers: Ungraded matrix of answers. input.answers[i,j] is
   #                  the answer of student (i) to item (j). Should consist of
   #                  at least 3 columns (items) and 2 rows (students).
   #                  Number of columns should be at least 3 and equal to the
-	#                  number of columns of key and length of number.answeroptions
+  #                  number of columns of key and length of number.answeroptions
   #                  There is no maximum.
   #   number.answersoptions: Vector with number of answer options per item.
   #                          Length should be at least 3 and equal to number of
-	#                          columns of key and input.answers.
+  #                          columns of key and input.answers.
   #                          There is no maximum length.
   #
   # Returns:
@@ -55,7 +55,7 @@ Analyse <- function(key, input.answers, number.answeroptions) {
         if (!is.null(input.answers[i, j]) & all(key[, j] == 0)) {
           input.correct[i, j] <- input.answers[i, j]
         } else {
-          if(any(input.answers[i, j] == which(key[, j] == 1))) {
+          if(any(input.answers[i, j] == which(key[, j] == 1))) 
             input.correct[i, j] <- 1
         }
       }
