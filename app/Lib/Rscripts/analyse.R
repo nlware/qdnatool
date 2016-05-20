@@ -50,8 +50,8 @@ Analyse <- function(key, input.answers, number.answeroptions) {
     input.correct <- matrix(0, number.students, number.questions)
 
     # Fill in Correct/Incorrect Matrix
-    for (j in 1: number.questions) {
-      for (i in 1: number.students) {
+    for (j in 1 : number.questions) {
+      for (i in 1 : number.students) {
         if (!is.null(input.answers[i, j]) & all(key[, j] == 0)) {
           input.correct[i, j] <- input.answers[i, j]
         } else {
@@ -79,7 +79,7 @@ Analyse <- function(key, input.answers, number.answeroptions) {
     corrected.item.tot.cor[is.na(corrected.item.tot.cor)] <- 0
     corrected.item.tot.cor <- round(corrected.item.tot.cor, digits = 3)
 
-    # Creating Frequency Matrix and Item rest Cor for each answer options
+    # Creating Frequency Matrix and Item rest Cor for each answer option
     # only if any non 0's are present in key, i.e. it is a multiple choice item
 
     if (any(key != 0)) {
@@ -96,7 +96,7 @@ Analyse <- function(key, input.answers, number.answeroptions) {
       }
 
       rownames <- "Times_Answer_Missing"
-      for (i in 1: max(number.answeroptions)) {
+      for (i in 1 : max(number.answeroptions)) {
         rownames <- c(rownames, paste(c("Times_", LETTERS[i], "_answered"),
                       collapse = ""))
       }
@@ -112,8 +112,8 @@ Analyse <- function(key, input.answers, number.answeroptions) {
                                                    number.questions)
 
       suppressWarnings(
-      	for (i in 0:max(number.answeroptions)) {
-          for (j in 1:number.questions) {
+      	for (i in 0 : max(number.answeroptions)) {
+          for (j in 1 : number.questions) {
             if (any(key[, j] != 0)) {
               corrected.item.tot.cor.answ.option[i + 1, j] <-
                 round(cor(as.numeric(input.answers[, j] == i),
