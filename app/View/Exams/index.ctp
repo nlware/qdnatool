@@ -148,7 +148,7 @@
 </div>
 <?php
 if ($doAutoRefresh):
-	$script = "setTimeout(function(){ window.location.reload(1); }, 10000);";
+	$script = "setTimeout(function(){ //window.location.reload(1); }, 10000);";
 	$script .= "$('a[rel=popover]').popover();";
 	$script = '$(document).ready(function() {' . $script . '});';
 	echo $this->Html->scriptBlock($script, array('inline' => false));

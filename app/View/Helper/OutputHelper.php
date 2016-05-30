@@ -1,8 +1,16 @@
 <?php
 App::uses('AppUtil', 'Lib');
 App::uses('AppHelper', 'View/Helper');
+/**
+ * Output Helper.
+ */
 class OutputHelper extends AppHelper {
 
+/**
+ * List of helpers used by this helper.
+ *
+ * @var array
+ */
 	public $helpers = array('Number', 'Time');
 
 /**
@@ -31,12 +39,6 @@ class OutputHelper extends AppHelper {
 			$thousandSeperator = '';
 		}
 
-		/*
-		$value = round($value, 2);
-		$places = 2;
-		if(round($value) == $value) $places = 0;
-		elseif(round($value, 1) == $value) $places = 1;
-		*/
 		return $this->Number->format($value, array('before' => '', 'places' => $places, 'thousands' => $thousandSeperator, 'decimals' => $decimalPoint));
 	}
 
@@ -62,9 +64,9 @@ class OutputHelper extends AppHelper {
  *
  * @param string $value A HTML string
  * @return string
+ * @todo use regex to set all link targets to "_blank"
  */
 	public function html($value) {
-		//TODO: use regex to set all link targets to "_blank"
 		$value = str_replace(' target="_self"', '', $value);
 		$value = str_replace('<a href=', '<a target="_blank" href=', $value);
 		return $value;
