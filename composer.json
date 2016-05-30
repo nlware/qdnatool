@@ -2,6 +2,7 @@
 	"minimum-stability": "dev",
 	"prefer-stable" : true,
 	"config" : {
+		"secure-http": false,
 		"vendor-dir" : "app/Vendor"
 	},
 	"repositories" : [
@@ -9,10 +10,10 @@
 			"type": "package",
 			"package": {
 				"name": "htmlawed/htmlawed",
-				"version": "1.1.20",
+				"version": "1.1.22",
 				"type": "cakephp-vendor",
 				"dist": {
-					"url": "http://www.bioinformatics.org/phplabware/downloads/htmLawed1120.zip",
+					"url": "http://www.bioinformatics.org/phplabware/downloads/htmLawed1122.zip",
 					"type": "zip"
 				},
 				"require": {
@@ -48,7 +49,8 @@
 		}
 	},
 	"require" : {
-		"cakephp/cakephp": "2.7.*",
+		"composer/installers": "~1.0",
+		"cakephp/cakephp": "2.8.*",
 		"cakephp/debug_kit": "2.2.*",
 		"slywalker/twitter_bootstrap": "1.5.7",
 		"htmlawed/htmlawed": "1.1.*",

@@ -2,18 +2,21 @@
 /**
  * AllControllerTest class
  *
- * This test group will run Controller related tests.
  */
 class AllControllerTest extends CakeTestSuite {
 
 /**
- * suite method, defines tests for this suite.
+ * Get the suite object.
  *
- * @return void
+ * @return CakeTestSuite Suite class instance.
  */
 	public static function suite() {
-		$suite = new CakeTestSuite('All Controller tests');
-		$suite->addTestDirectory(TESTS . 'Case' . DS . 'Controller');
+		$suite = new CakeTestSuite('All controller tests');
+
+		$path = TESTS . 'Case' . DS . 'Controller';
+
+		$suite->addTestDirectory($path);
+
 		return $suite;
 	}
 

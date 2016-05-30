@@ -1,8 +1,17 @@
 <?php
-class CkSourceHelper extends FormHelper {
+App::uses('AppHelper', 'View/Helper');
+/**
+ * CkSource Helper.
+ */
+class CkSourceHelper extends AppHelper {
 
 	private $__included = false;
 
+/**
+ * List of helpers used by this helper.
+ *
+ * @var array
+ */
 	public $helpers = array('Form', 'Html', 'Js');
 
 /**
@@ -50,7 +59,8 @@ class CkSourceHelper extends FormHelper {
 		if (!$this->__included) {
 			$this->__included = true;
 
-			$script = '';
+			$script = array();
+			$script[] = '';
 
 			// Config language
 			$lang = Configure::read('Config.language');
@@ -59,47 +69,43 @@ class CkSourceHelper extends FormHelper {
 					$lang = 'nl';
 				}
 				// Load language
-				$script .= 'CKEDITOR.config.language = \'' . $lang . '\';';
+				$script[] = "CKEDITOR.config.language = '$lang';";
 			}
 
-			$script .=
-				"
-		CKEDITOR.plugins.addExternal('fmath_formula', 'plugins/fmath_formula/', 'plugin.js');
+			$script[] = "CKEDITOR.plugins.addExternal('fmath_formula', 'plugins/fmath_formula/', 'plugin.js');";
+			$script[] = <<<EOF
+CKEDITOR.on('dialogDefinition', function(ev) {
+	// Take the dialog name and its definition from the event data.
+	var dialogName = ev.data.name;
+	var dialogDefinition = ev.data.definition;
 
-		CKEDITOR.on( 'dialogDefinition', function( ev )
-		{
-			// Take the dialog name and its definition from the event data.
-			var dialogName = ev.data.name;
-			var dialogDefinition = ev.data.definition;
+	if(dialogName == 'image') {
+		dialogDefinition.removeContents('advanced');
+		dialogDefinition.removeContents('Link');
+	}
+});
+EOF;
 
-			if( dialogName == 'image' )
-			{
-				// FCKConfig.ImageDlgHideAdvanced = true
-				dialogDefinition.removeContents( 'advanced' );
-				// FCKConfig.ImageDlgHideLink = true
-				dialogDefinition.removeContents( 'Link' );
-			}
-		});
+			$script[] = <<<EOF
+CKEDITOR.on('instanceReady', function(ev) {
+	// Clean up HTML on paste in CKEditor
+	ev.editor.on('paste', function(evt) {
+		evt.data['html'] = '<!--class=\"Mso\"-->'+evt.data['html'];
+	}, null, null, 9);
 
-		CKEDITOR.on( 'instanceReady', function( ev )
-    {
-      // Clean up HTML on paste in CKEditor
-      ev.editor.on('paste', function(evt) {
-          evt.data['html'] = '<!--class=\"Mso\"-->'+evt.data['html'];
-      }, null, null, 9);
+	// Ends self closing tags the HTML4 way, like <br>.
+	ev.editor.dataProcessor.writer.setRules('p', {
+		indent: false,
+		breakBeforeOpen: true,
+		breakAfterOpen: false,
+		breakBeforeClose: false,
+		breakAfterClose: true
+	});
+});
+EOF;
+			$script[] = '';
 
-      // Ends self closing tags the HTML4 way, like <br>.
-      ev.editor.dataProcessor.writer.setRules('p',
-      {
-        indent : false,
-        breakBeforeOpen : true,
-        breakAfterOpen : false,
-        breakBeforeClose : false,
-        breakAfterClose : true
-      });
-    });";
-
-			$script = '$(document).ready(function () {' . $script . '});';
+			$script = '$(document).ready(function() {' . implode("\n", $script) . '});';
 
 			$this->Html->scriptBlock($script, array('inline' => false));
 		}
@@ -139,10 +145,13 @@ class CkSourceHelper extends FormHelper {
 		require_once WWW_ROOT . DS . 'js' . DS . 'ckeditor' . DS . 'ckeditor.php';
 		$CKEditor = new CKEditor();
 		$CKEditor->basePath = $this->webroot . 'js/ckeditor/';
+		$CKEditor->returnOutput = true;
 
-		//unset($options['name']);
-		//		debug($options);
-		echo $this->Form->input($fieldName, $options);
-		return $CKEditor->replace($options['id'], $config, $events);
+		$output = $this->Form->input($fieldName, $options);
+		$script = $CKEditor->replace($options['id'], $config, $events);
+		$this->_View->append('script', $script);
+
+		return $output;
 	}
+
 }
