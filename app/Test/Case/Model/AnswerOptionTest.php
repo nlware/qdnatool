@@ -21,6 +21,7 @@ class AnswerOptionTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
+
 		$this->AnswerOption = ClassRegistry::init('AnswerOption');
 	}
 

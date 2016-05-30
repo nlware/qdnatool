@@ -36,7 +36,20 @@ class OutputHelperTest extends CakeTestCase {
  * @return void
  */
 	public function testDate() {
-		$this->markTestIncomplete('testDate not implemented.');
+		$expected = '-';
+		$value = '';
+		$result = $this->Output->date($value);
+		$this->assertEquals($expected, $result);
+
+		$expected = '-';
+		$value = null;
+		$result = $this->Output->date($value);
+		$this->assertEquals($expected, $result);
+
+		$expected = '31-01-2016';
+		$value = '2016-01-31';
+		$result = $this->Output->date($value);
+		$this->assertEquals($expected, $result);
 	}
 
 /**
@@ -45,7 +58,16 @@ class OutputHelperTest extends CakeTestCase {
  * @return void
  */
 	public function testDecimal() {
-		$this->markTestIncomplete('testDecimal not implemented.');
+		$expected = '123.456,8';
+		$value = '123456.789';
+		$result = $this->Output->decimal($value);
+		$this->assertEquals($expected, $result);
+
+		$expected = '123.456,789';
+		$value = '123456.789';
+		$places = 3;
+		$result = $this->Output->decimal($value, $places);
+		$this->assertEquals($expected, $result);
 	}
 
 /**
@@ -54,7 +76,35 @@ class OutputHelperTest extends CakeTestCase {
  * @return void
  */
 	public function testBoolean() {
-		$this->markTestIncomplete('testBoolean not implemented.');
+		$expected = 'Ja';
+		$value = true;
+		$result = $this->Output->boolean($value);
+		$this->assertEquals($expected, $result);
+
+		$expected = 'Nee';
+		$value = false;
+		$result = $this->Output->boolean($value);
+		$this->assertEquals($expected, $result);
+
+		$expected = '-';
+		$value = 1;
+		$result = $this->Output->boolean($value);
+		$this->assertEquals($expected, $result);
+
+		$expected = '-';
+		$value = 0;
+		$result = $this->Output->boolean($value);
+		$this->assertEquals($expected, $result);
+
+		$expected = '-';
+		$value = '';
+		$result = $this->Output->boolean($value);
+		$this->assertEquals($expected, $result);
+
+		$expected = '-';
+		$value = null;
+		$result = $this->Output->boolean($value);
+		$this->assertEquals($expected, $result);
 	}
 
 /**
@@ -63,7 +113,15 @@ class OutputHelperTest extends CakeTestCase {
  * @return void
  */
 	public function testHtml() {
-		$this->markTestIncomplete('testHtml not implemented.');
+		$expected = '<a target="_blank" href="http://www.example.org">link</a>';
+		$value = '<a href="http://www.example.org">link</a>';
+		$result = $this->Output->html($value);
+		$this->assertEquals($expected, $result);
+
+		$expected = '<a target="_blank" href="http://www.example.org">link</a>';
+		$value = '<a href="http://www.example.org" target="_self">link</a>';
+		$result = $this->Output->html($value);
+		$this->assertEquals($expected, $result);
 	}
 
 /**

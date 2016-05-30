@@ -9,6 +9,9 @@
  * @since         CakePHP(tm) v 0.2.9
  */
 
+setlocale(LC_ALL, 'nl_NL.utf8');
+Configure::write('Config.language', 'nld');
+
 /**
  * CakePHP Debug Level:
  *
@@ -59,6 +62,8 @@
  * - `renderer` - string - The class responsible for rendering uncaught exceptions. If you choose a custom class you
  *   should place the file for that class in app/Lib/Error. This class needs to implement a render method.
  * - `log` - boolean - Should Exceptions be logged?
+ * - `extraFatalErrorMemory` - integer - Increases memory limit at shutdown so fatal errors are logged. Specify
+ *   amount in megabytes or use 0 to disable (default: 4 MB)
  * - `skipLog` - array - list of exceptions to skip for logging. Exceptions that
  *   extend one of the listed exceptions will also be skipped for logging.
  *   Example: `'skipLog' => array('NotFoundException', 'UnauthorizedException')`
@@ -187,6 +192,8 @@
  *    to the ini array.
  * - `Session.autoRegenerate` - Enabling this setting, turns on automatic renewal of sessions, and
  *    sessionids that change frequently. See CakeSession::$requestCountdown.
+ * - `Session.cacheLimiter` - Configure the cache control headers used for the session cookie.
+ *   See http://php.net/session_cache_limiter for accepted values. *
  * - `Session.ini` - An associative array of additional ini values to set.
  *
  * The built in defaults are:
@@ -362,7 +369,6 @@ Cache::config('_cake_model_', array(
 	'duration' => $duration
 ));
 
-Configure::write('Config.language', 'nld');
 Configure::write('Config.googleAnalytics', '');
 Configure::write('Config.tipsFeedUrl', '');
 Configure::write('Config.instructionsFeedUrl', '');

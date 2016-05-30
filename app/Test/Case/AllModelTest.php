@@ -2,18 +2,21 @@
 /**
  * AllModelTest class
  *
- * This test group will run Model related tests.
  */
 class AllModelTest extends CakeTestSuite {
 
 /**
- * suite method, defines tests for this suite.
+ * Get the suite object.
  *
- * @return void
+ * @return CakeTestSuite Suite class instance.
  */
 	public static function suite() {
-		$suite = new CakeTestSuite('All Model tests');
-		$suite->addTestDirectory(TESTS . 'Case' . DS . 'Model');
+		$suite = new CakeTestSuite('All model tests');
+
+		$path = TESTS . 'Case' . DS . 'Model';
+
+		$suite->addTestDirectory($path);
+
 		return $suite;
 	}
 

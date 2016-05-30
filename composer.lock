@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7fcc0a76da4b5df5403f603879a7c6f4",
-    "content-hash": "a3fec4683f32b1235489010f3ef1ba2a",
+    "hash": "586bbdf6d040149f934a010e2303ac10",
+    "content-hash": "260f586d10f8a17f66b457123fc61697",
     "packages": [
         {
             "name": "cakephp/cakephp",
-            "version": "2.7.8",
+            "version": "2.8.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/cakephp.git",
-                "reference": "2ee72e2ad2340d707901dc7a5e8520f1cb235916"
+                "reference": "13b914917d6e3b5650c41e19ea6d530fb91bd9c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/2ee72e2ad2340d707901dc7a5e8520f1cb235916",
-                "reference": "2ee72e2ad2340d707901dc7a5e8520f1cb235916",
+                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/13b914917d6e3b5650c41e19ea6d530fb91bd9c1",
+                "reference": "13b914917d6e3b5650c41e19ea6d530fb91bd9c1",
                 "shasum": ""
             },
             "require": {
@@ -49,7 +49,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2015-12-21 19:55:52"
+            "time": "2016-03-29 02:17:27"
         },
         {
             "name": "cakephp/debug_kit",
@@ -202,10 +202,10 @@
         },
         {
             "name": "htmlawed/htmlawed",
-            "version": "1.1.20",
+            "version": "1.1.22",
             "dist": {
                 "type": "zip",
-                "url": "http://www.bioinformatics.org/phplabware/downloads/htmLawed1120.zip",
+                "url": "http://www.bioinformatics.org/phplabware/downloads/htmLawed1122.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -642,16 +642,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.8.2",
+            "version": "v2.8.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "34c8a4b51e751e7ea869b8262f883d008a2b81b8"
+                "reference": "584e52cb8f788a887553ba82db6caacb1d6260bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/34c8a4b51e751e7ea869b8262f883d008a2b81b8",
-                "reference": "34c8a4b51e751e7ea869b8262f883d008a2b81b8",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/584e52cb8f788a887553ba82db6caacb1d6260bb",
+                "reference": "584e52cb8f788a887553ba82db6caacb1d6260bb",
                 "shasum": ""
             },
             "require": {
@@ -687,7 +687,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2016-01-13 10:28:07"
+            "time": "2016-03-04 07:54:35"
         }
     ],
     "aliases": [],
