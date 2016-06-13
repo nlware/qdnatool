@@ -7,7 +7,7 @@ Analyse <- function(key, input.answers, number.answeroptions) {
   # per answer option and the cronbach's alpha for the whole exam.
   #
   # Args:
-  #   key: Matrix of 0's and 1's. key[i,j] implies wether answer option i
+  #   key: Matrix of 0's and 1's. key[i,j] indicates whether answer option i
   #        to item j is right (1) or wrong (0). If a column (item) consists of
   #        only 0s, the item is interpreted as graded manually. This means
   #        that the same column of input.answers is used directly as a score
@@ -139,10 +139,10 @@ Analyse <- function(key, input.answers, number.answeroptions) {
 
     # Computes Cronbach's Alpha for overall test
     # If there is no variance in the total score returns -100
-    if(!all(rowSums(input.correct) == rowSums(input.correct)[1])){
+    if(!all(rowSums(input.correct) == rowSums(input.correct)[1])) {
     	cronbach <- round(cronbach(input.correct)$alpha, digits = 3)
     } else {
-    	cronbach <- -100
+    	cronbach <- -9
     }
 
     list(cronbach, max(number.answeroptions), correct.frequency,
