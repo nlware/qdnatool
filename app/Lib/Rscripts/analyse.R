@@ -137,7 +137,7 @@ Analyse <- function(key, input.answers, number.answeroptions) {
 
     # Computes Cronbach's Alpha for overall test
     # If there is no variance in the total score returns -100
-    if(!all(rowSums(input.correct) == rowSums(input.correct)[1])) {
+    if (!all(rowSums(input.correct) == rowSums(input.correct)[1])) {
     	cronbach <- round(cronbach(input.correct)$alpha, digits = 3)
     } else {
     	cronbach <- -9
