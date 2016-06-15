@@ -9,16 +9,16 @@
     "packages": [
         {
             "name": "cakephp/cakephp",
-            "version": "2.8.4",
+            "version": "2.8.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/cakephp.git",
-                "reference": "8cd5a64c27abf47e02aba29403428f8e4937de45"
+                "reference": "64e7c8d9914c845efa8d1865fe0472fd6b6706b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/8cd5a64c27abf47e02aba29403428f8e4937de45",
-                "reference": "8cd5a64c27abf47e02aba29403428f8e4937de45",
+                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/64e7c8d9914c845efa8d1865fe0472fd6b6706b6",
+                "reference": "64e7c8d9914c845efa8d1865fe0472fd6b6706b6",
                 "shasum": ""
             },
             "require": {
@@ -27,7 +27,6 @@
             },
             "require-dev": {
                 "cakephp/cakephp-codesniffer": "^1.0.0",
-                "cakephp/debug_kit": "^2.2.0",
                 "phpunit/phpunit": "3.7.*"
             },
             "bin": [
@@ -49,7 +48,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2016-05-03 02:18:41"
+            "time": "2016-06-13 02:15:08"
         },
         {
             "name": "cakephp/debug_kit",
@@ -645,16 +644,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.8.6",
+            "version": "v2.8.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "e4fbcc65f90909c999ac3b4dfa699ee6563a9940"
+                "reference": "815fabf3f48c7d1df345a69d1ad1a88f59757b34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/e4fbcc65f90909c999ac3b4dfa699ee6563a9940",
-                "reference": "e4fbcc65f90909c999ac3b4dfa699ee6563a9940",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/815fabf3f48c7d1df345a69d1ad1a88f59757b34",
+                "reference": "815fabf3f48c7d1df345a69d1ad1a88f59757b34",
                 "shasum": ""
             },
             "require": {
@@ -690,7 +689,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-29 19:00:15"
+            "time": "2016-06-06 11:11:27"
         }
     ],
     "aliases": [],
