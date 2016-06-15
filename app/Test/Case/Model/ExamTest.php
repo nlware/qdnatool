@@ -74,6 +74,7 @@ class ExamTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
+
 		$this->Exam = ClassRegistry::init('TestExam');
 	}
 
@@ -94,6 +95,8 @@ class ExamTest extends CakeTestCase {
  * @return void
  */
 	public function testExecuteAnalysis() {
+		$this->skipIf(!file_exists(APP . 'Config' . DS . 'rserve.php'), 'Rserve configuration file is NOT present.');
+
 		$questionCount = 3;
 		$studentCount = 6;
 		$maxAnswerOptionCount = 3;

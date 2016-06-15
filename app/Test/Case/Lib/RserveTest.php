@@ -13,6 +13,8 @@ class RserveTest extends CakeTestCase {
  * @return void
  */
 	public function setUp() {
+		$this->skipIf(!file_exists(APP . 'Config' . DS . 'rserve.php'), 'Rserve configuration file is NOT present.');
+
 		parent::setUp();
 		$this->Rserve = new Rserve();
 	}

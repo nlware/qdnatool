@@ -1,5 +1,8 @@
 <?php
 App::uses('BootstrapFormHelper', 'TwitterBootstrap.View/Helper');
+/**
+ * CustomBootstrapForm Helper.
+ */
 class CustomBootstrapFormHelper extends BootstrapFormHelper {
 
 /**

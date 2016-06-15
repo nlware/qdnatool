@@ -13,7 +13,6 @@ env:
 
 matrix:
   allow_failures:
-    - php: 7.0
     - php: hhvm
   include:
     - php: 5.5
@@ -45,9 +44,9 @@ before_script:
   - echo -e "<?php\n\$config = array(\n\t'Rserve' => array(\n\t\t'host' => 'localhost',\n\t\t'port' => 6311,\n\t\t'debug' => false\n\t)\n);\n" > app/Config/rserve.php
  
 script:
-  - sh -c "if [ '$COVERALLS' = 1 ]; then cd ./app; Vendor/bin/cake test app AllTests --stderr --coverage-clover ../build/logs/clover.xml --configuration ../phpunit.xml; fi;"
+  - sh -c "if [ '$COVERALLS' = 1 ]; then cd ./app; Vendor/bin/cake test app All --stderr --coverage-clover ../build/logs/clover.xml --configuration ../phpunit.xml; fi;"
   - sh -c "if [ '$PHPCS' = '1' ]; then ~/.composer/vendor/bin/phpcs -p --extensions=php --standard=CakePHP --ignore=Plugin --ignore=Vendor --ignore=webroot/js/ckeditor -n ./app; fi;"
-  - sh -c "if [ '$PHPCS' != '1' ] && [ '$COVERALLS' != 1 ]; then cd ./app; Vendor/bin/cake test app AllTests --stderr; fi"
+  - sh -c "if [ '$PHPCS' != '1' ] && [ '$COVERALLS' != 1 ]; then cd ./app; Vendor/bin/cake test app All --stderr; fi"
 
 after_success:
   - sh -c "if [ '$COVERALLS' = '1' ]; then php ~/.composer/vendor/bin/coveralls -c .coveralls.yml -v; fi"
