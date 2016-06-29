@@ -89,14 +89,14 @@ class ItemTest extends CakeTestCase {
 
 		$expected = array(1000000, 1000001);
 		$examId = 1;
-		$domainId = 1;
-		$result = $this->Item->getIds($examId, $domainId);
+		$categoryId = 1;
+		$result = $this->Item->getIds($examId, $categoryId);
 		$this->assertEquals($expected, $result);
 
 		$expected = array(1000002);
 		$examId = 1;
-		$domainId = 2;
-		$result = $this->Item->getIds($examId, $domainId);
+		$categoryId = 2;
+		$result = $this->Item->getIds($examId, $categoryId);
 		$this->assertEquals($expected, $result);
 	}
 
@@ -110,14 +110,14 @@ class ItemTest extends CakeTestCase {
 
 		$expected = array();
 		$examIds = array();
-		$domainIds = array();
-		$result = $this->Item->duplicate($examIds, $domainIds);
+		$categoryIds = array();
+		$result = $this->Item->duplicate($examIds, $categoryIds);
 		$this->assertSame($expected, $result);
 
 		$expected = array(1 => 1000004);
 		$examIds = array(2 => 987);
-		$domainIds = array();
-		$result = $this->Item->duplicate($examIds, $domainIds);
+		$categoryIds = array();
+		$result = $this->Item->duplicate($examIds, $categoryIds);
 		$this->assertEquals($expected, $result);
 
 		$expected = array(
@@ -127,15 +127,15 @@ class ItemTest extends CakeTestCase {
 			1000003 => 1000008
 		);
 		$examIds = array(1 => 1001);
-		$domainIds = array(1 => 1001, 2 => 1002, 3 => 1003);
-		$result = $this->Item->duplicate($examIds, $domainIds);
+		$categoryIds = array(1 => 1001, 2 => 1002, 3 => 1003);
+		$result = $this->Item->duplicate($examIds, $categoryIds);
 		$this->assertEquals($expected, $result);
 
 		$expected = array(1000001 => 1000009);
 		$examIds = array(1 => 1001);
-		$domainIds = array(1 => 1001, 2 => 1002, 3 => 1003);
+		$categoryIds = array(1 => 1001, 2 => 1002, 3 => 1003);
 		$filteredIds = array(1000001);
-		$result = $this->Item->duplicate($examIds, $domainIds, $filteredIds);
+		$result = $this->Item->duplicate($examIds, $categoryIds, $filteredIds);
 		$this->assertEquals($expected, $result);
 	}
 

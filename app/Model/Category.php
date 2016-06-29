@@ -1,12 +1,12 @@
 <?php
 App::uses('AppModel', 'Model');
 /**
- * Domain Model
+ * Category Model
  *
  * @property Exam $Exam
  * @property Item $Item
  */
-class Domain extends AppModel {
+class Category extends AppModel {
 
 /**
  * Validation rules
@@ -67,7 +67,7 @@ class Domain extends AppModel {
 	public $hasMany = array(
 		'Item' => array(
 			'className' => 'Item',
-			'foreignKey' => 'domain_id',
+			'foreignKey' => 'category_id',
 			'dependent' => false
 		)
 	);
@@ -75,7 +75,7 @@ class Domain extends AppModel {
 /**
  * analyse
  *
- * @param int $id A domain id
+ * @param int $id A category id
  * @param int $examId An exam id
  * @return bool
  */
@@ -89,14 +89,14 @@ class Domain extends AppModel {
 	}
 
 /**
- * Creates domains for given domain names and exam and returns ids
+ * Creates categories for given category names and exam and returns ids
  *
  * @param int $examId An exam id
- * @param array $names An array with names of domains
- * @return bool|array An array with domain ids in the same order as corresponding given names, false on failure
+ * @param array $names An array with names of categories
+ * @return bool|array An array with category ids in the same order as corresponding given names, false on failure
  */
-	public function createDomains($examId, $names) {
-		$domainIds = array();
+	public function createCategories($examId, $names) {
+		$categoryIds = array();
 		if (!empty($names)) {
 			$uniqueNames = array_values($names);
 			$uniqueNames = array_unique($uniqueNames);
@@ -110,43 +110,43 @@ class Domain extends AppModel {
 			}
 			$this->create();
 			if ($this->saveAll($data)) {
-				$conditions = array('Domain.exam_id' => $examId);
-				$domains = $this->find('list', compact('conditions'));
+				$conditions = array('Category.exam_id' => $examId);
+				$categories = $this->find('list', compact('conditions'));
 
 				foreach ($names as $i => $name) {
-					foreach ($domains as $id => $domain) {
-						if ($name === $domain) {
-							$domainIds[$i] = $id;
+					foreach ($categories as $id => $category) {
+						if ($name === $category) {
+							$categoryIds[$i] = $id;
 							break;
 						}
 					}
 				}
 			} else {
-				$domainIds = false;
+				$categoryIds = false;
 			}
 		}
-		return $domainIds;
+		return $categoryIds;
 	}
 
 /**
- * Duplicate all domains of given exam ids
+ * Duplicate all categories of given exam ids
  *
  * @param array $examIds A hash with original exam ids as key and corresponding duplicated exam ids as value
- * @return array|bool A hash with original domain ids as key and corresponding duplicated domain ids as value, false on failure
+ * @return array|bool A hash with original category ids as key and corresponding duplicated category ids as value, false on failure
  */
 	public function duplicate($examIds) {
 		$mapping = array();
 
-		$conditions = array('Domain.exam_id' => array_keys($examIds));
-		$domains = $this->find('all', compact('conditions'));
+		$conditions = array('Category.exam_id' => array_keys($examIds));
+		$categories = $this->find('all', compact('conditions'));
 
-		foreach ($domains as $domain) {
-			$oldId = $domain['Domain']['id'];
-			unset($domain['Domain']['id']);
-			$domain['Domain']['exam_id'] = $examIds[$domain['Domain']['exam_id']];
+		foreach ($categories as $category) {
+			$oldId = $category['Category']['id'];
+			unset($category['Category']['id']);
+			$category['Category']['exam_id'] = $examIds[$category['Category']['exam_id']];
 
 			$this->create();
-			if (!$this->save($domain)) {
+			if (!$this->save($category)) {
 				return false;
 			}
 			$mapping[$oldId] = $this->getInsertID();

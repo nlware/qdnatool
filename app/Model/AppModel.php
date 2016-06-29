@@ -114,15 +114,15 @@ class AppModel extends Model {
 	}
 
 /**
- * Save analysis to an ezam or a domain
+ * Save analysis to an ezam or a category
  *
- * @param int $id An domain/exam id
+ * @param int $id A category/exam id
  * @param array $analysis An array with analysis data
  * @return bool True on success, or false on failure.
  * @throws NotImplementedException
  */
 	public function saveAnalysis($id, $analysis) {
-		if (!in_array($this->alias, array('Domain', 'Exam'))) {
+		if (!in_array($this->alias, array('Category', 'Exam'))) {
 			throw new NotImplementedException();
 		}
 
@@ -139,9 +139,9 @@ class AppModel extends Model {
 		$contain = array('Item' => array('AnswerOption'));
 		$object = $this->find('first', compact('conditions', 'contain'));
 
-		if ($this->alias === 'Domain') {
+		if ($this->alias === 'Category') {
 			$data = array(
-				'Domain' => array(
+				'Category' => array(
 					'id' => $id,
 					'cronbachs_alpha' => $cronbachsAlpha,
 				)
@@ -160,8 +160,8 @@ class AppModel extends Model {
 
 		foreach ($object['Item'] as $i => $item) {
 			$data['Item'][$i] = array('id' => $item['id']);
-			if ($this->alias === 'Domain') {
-				$data['Item'][$i]['domain_correct_answer_irc'] = $correctAnswerIrc[$i];
+			if ($this->alias === 'Category') {
+				$data['Item'][$i]['category_correct_answer_irc'] = $correctAnswerIrc[$i];
 			} elseif ($this->alias === 'Exam') {
 				$data['Item'][$i]['correct_answer_count'] = $correctAnswerCount[$i];
 				$data['Item'][$i]['correct_answer_percentage'] = $correctAnswerPercentage[$i];
@@ -177,8 +177,8 @@ class AppModel extends Model {
 					$data['Item'][$i]['AnswerOption'][$j]['id'] = $item['AnswerOption'][$j]['id'];
 				}
 
-				if ($this->alias === 'Domain') {
-					$data['Item'][$i]['AnswerOption'][$j]['domain_given_answer_irc'] = (is_nan($givenAnswerOptionIrc[$i * ($maxAnswerOptionCount + 1) + $j + 1])?null:$givenAnswerOptionIrc[$i * ($maxAnswerOptionCount + 1) + $j + 1]);
+				if ($this->alias === 'Category') {
+					$data['Item'][$i]['AnswerOption'][$j]['category_given_answer_irc'] = (is_nan($givenAnswerOptionIrc[$i * ($maxAnswerOptionCount + 1) + $j + 1])?null:$givenAnswerOptionIrc[$i * ($maxAnswerOptionCount + 1) + $j + 1]);
 				} elseif ($this->alias === 'Exam') {
 					$data['Item'][$i]['AnswerOption'][$j]['given_answer_count'] = $givenAnswerOptionCount[$i * ($maxAnswerOptionCount + 1) + $j + 1];
 					$data['Item'][$i]['AnswerOption'][$j]['given_answer_percentage'] = $givenAnswerOptionPercentage[$i * ($maxAnswerOptionCount + 1) + $j + 1];

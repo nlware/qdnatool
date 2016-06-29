@@ -1,8 +1,8 @@
 <?php
 /**
- * Domain Fixture
+ * Category Fixture
  */
-class DomainFixture extends CakeTestFixture {
+class CategoryFixture extends CakeTestFixture {
 
 /**
  * Fields

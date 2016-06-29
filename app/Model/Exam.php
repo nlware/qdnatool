@@ -11,8 +11,8 @@ App::uses('AppModel', 'Model');
 /**
  * Exam Model
  *
+ * @property Category $Category
  * @property Exam $Child
- * @property Domain $Domain
  * @property ExamFormat $ExamFormat
  * @property ExamState $ExamState
  * @property Item $Item
@@ -165,15 +165,15 @@ class Exam extends AppModel {
  * @var array
  */
 	public $hasMany = array(
+		'Category' => array(
+			'className' => 'Category',
+			'foreignKey' => 'exam_id',
+			'dependent' => true
+		),
 		'Child' => array(
 			'className' => 'Exam',
 			'foreignKey' => 'parent_id',
 			'dependent' => false
-		),
-		'Domain' => array(
-			'className' => 'Domain',
-			'foreignKey' => 'exam_id',
-			'dependent' => true
 		),
 		'Item' => array(
 			'className' => 'Item',
@@ -396,29 +396,29 @@ class Exam extends AppModel {
 	}
 
 /**
- * Analyse an exam, optionally filter items by a domain
+ * Analyse an exam, optionally filter items by a category
  *
  * @param int $id An exam id
- * @param int[optional] $domainId A domain id
+ * @param int[optional] $categoryId A category id
  * @return array
  */
-	public function doAnalyse($id, $domainId = null) {
+	public function doAnalyse($id, $categoryId = null) {
 		$conditions = array('Exam.id' => $id);
 		$contain = array(
 			'Item' => array('AnswerOption'),
 			'Subject' => array('GivenAnswer')
 		);
-		if ($domainId !== null) {
-			$itemIds = $this->Item->getIds($id, $domainId);
+		if ($categoryId !== null) {
+			$itemIds = $this->Item->getIds($id, $categoryId);
 
-			$contain['Item']['conditions'] = array('Item.domain_id' => $domainId);
+			$contain['Item']['conditions'] = array('Item.category_id' => $categoryId);
 			$contain['Subject']['GivenAnswer']['conditions'] = array('GivenAnswer.item_id' => $itemIds);
 		}
 		$exam = $this->find('first', compact('conditions', 'contain'));
 		$fields = array('MAX(Item.answer_option_count) as answer_option_count');
 		$conditions = array('Item.exam_id' => $exam['Exam']['id']);
-		if ($domainId !== null) {
-			$conditions['Item.domain_id'] = $domainId;
+		if ($categoryId !== null) {
+			$conditions['Item.category_id'] = $categoryId;
 		}
 		$maxAnswerOptionCount = $this->Item->find('first', compact('fields', 'conditions'));
 		$maxAnswerOptionCount = $maxAnswerOptionCount[0]['answer_option_count'];
@@ -1059,9 +1059,9 @@ class Exam extends AppModel {
 			$versionMappingFilename = Exam::UPLOADS . $exam['Exam']['mapping_filename'];
 		}
 
-		list($versionMapping, $answerOptionCount, $domains) = $this->_extractTeleformMappingfile($versionMappingFilename);
+		list($versionMapping, $answerOptionCount, $categories) = $this->_extractTeleformMappingfile($versionMappingFilename);
 
-		$domainIds = $this->Domain->createDomains($exam['Exam']['id'], $domains);
+		$categoryIds = $this->Category->createCategories($exam['Exam']['id'], $categories);
 
 		$result = true;
 		ini_set('auto_detect_line_endings', true);
@@ -1089,7 +1089,7 @@ class Exam extends AppModel {
 
 						$item = array(
 							'exam_id' => $exam['Exam']['id'],
-							'domain_id' => Hash::get($domainIds, $j - 1),
+							'category_id' => Hash::get($categoryIds, $j - 1),
 							'order' => $j - 1,
 							'second_version_order' => $secondVersionOrder,
 							'value' => $j - 1
@@ -1335,14 +1335,14 @@ class Exam extends AppModel {
 			$examId = $this->id;
 
 			if ($success) {
-				$domainMapping = $this->Domain->duplicate(array($parentId => $examId));
-				if ($domainMapping === false) {
+				$categoryMapping = $this->Category->duplicate(array($parentId => $examId));
+				if ($categoryMapping === false) {
 					$success = false;
 				}
 			}
 
 			if ($success) {
-				$itemMapping = $this->Item->duplicate(array($parentId => $examId), $domainMapping, $filteredItemIds);
+				$itemMapping = $this->Item->duplicate(array($parentId => $examId), $categoryMapping, $filteredItemIds);
 				if ($itemMapping === false) {
 					$success = false;
 				}
@@ -1515,15 +1515,15 @@ class Exam extends AppModel {
 	}
 
 /**
- * Extract version mappings, answer option counts and domains from Teleform mapping file
+ * Extract version mappings, answer option counts and categories from Teleform mapping file
  *
  * @param string $filename Filename of a Teleform mapping file
- * @return array List of verion mappings, answer option counts and domains
+ * @return array List of verion mappings, answer option counts and categories
  */
 	protected function _extractTeleformMappingfile($filename) {
 		$versionMappings = array();
 		$answerOptionCounts = array();
-		$domains = array();
+		$categories = array();
 
 		if (!empty($filename) && file_exists($filename)) {
 			ini_set('auto_detect_line_endings', true);
@@ -1531,7 +1531,7 @@ class Exam extends AppModel {
 				$version1Index = false;
 				$version2Index = false;
 				$answerOptionCountIndex = false;
-				$domainIndex = false;
+				$categoryIndex = false;
 				for ($i = 0; !feof($handle); $i++) {
 					$line = fgets($handle);
 					$line = $this->__decodeLine($line, $i == 0);
@@ -1542,7 +1542,7 @@ class Exam extends AppModel {
 						$version1Index = $this->_getIndexOfVersionFromTeleformHeader($header, 1);
 						$version2Index = $this->_getIndexOfVersionFromTeleformHeader($header, 2);
 						$answerOptionCountIndex = array_search('Answer Option Count', $header);
-						$domainIndex = array_search('Domain', $header);
+						$categoryIndex = array_search('Category', $header);
 					} else {
 						$values = str_getcsv($line, ';', '"', '"');
 						if (count($values) <= 1) {
@@ -1556,8 +1556,8 @@ class Exam extends AppModel {
 							$answerOptionCounts[$values[$version1Index]] = intval($values[$answerOptionCountIndex]);
 						}
 
-						if ($version1Index !== false && $domainIndex !== false) {
-							$domains[$values[$version1Index]] = $values[$domainIndex];
+						if ($version1Index !== false && $categoryIndex !== false) {
+							$categories[$values[$version1Index]] = $values[$categoryIndex];
 						}
 					}
 				}
@@ -1566,7 +1566,7 @@ class Exam extends AppModel {
 			}
 		}
 
-		return array($versionMappings, $answerOptionCounts, $domains);
+		return array($versionMappings, $answerOptionCounts, $categories);
 	}
 
 }

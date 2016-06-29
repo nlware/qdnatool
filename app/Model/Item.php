@@ -5,7 +5,7 @@ App::uses('AppModel', 'Model');
  * Item Model
  *
  * @property AnswerOption $AnswerOption
- * @property Domain $Domain
+ * @property Category $Category
  * @property Exam $Exam
  */
 class Item extends AppModel {
@@ -23,8 +23,8 @@ class Item extends AppModel {
  * @var array
  */
 	public $belongsTo = array(
-		'Domain' => array(
-			'className' => 'Domain',
+		'Category' => array(
+			'className' => 'Category',
 			'foreignKey' => 'exam_id'
 		),
 		'Exam' => array(
@@ -215,17 +215,17 @@ class Item extends AppModel {
 	}
 
 /**
- * Get items ids of an exam and optionally filter by a domain
+ * Get items ids of an exam and optionally filter by a category
  *
  * @param int $examId An exam id
- * @param int[optional] $domainId A domain id
+ * @param int[optional] $categoryId A category id
  * @return array An array with items ids
  */
-	public function getIds($examId, $domainId = null) {
+	public function getIds($examId, $categoryId = null) {
 		$fields = array('Item.id', 'Item.id');
 		$conditions = array('Item.exam_id' => $examId);
-		if ($domainId !== null) {
-			$conditions[] = array('Item.domain_id' => $domainId);
+		if ($categoryId !== null) {
+			$conditions[] = array('Item.category_id' => $categoryId);
 		}
 		$data = $this->find('list', compact('fields', 'conditions'));
 		return array_values($data);
@@ -235,11 +235,11 @@ class Item extends AppModel {
  * Duplicate all or optionally only filtered items of given exam ids
  *
  * @param array $examIds A hash with original exam ids as key and corresponding duplicated exam ids as value
- * @param array $domainIds A hash with original domain ids as key and corresponding duplicated domain ids as value
+ * @param array $categoryIds A hash with original category ids as key and corresponding duplicated category ids as value
  * @param array[optional] $filteredIds A list of item ids to filter
  * @return array|bool A hash with original item ids as key and corresponding duplicated item ids as value, false on failure
  */
-	public function duplicate($examIds, $domainIds, $filteredIds = null) {
+	public function duplicate($examIds, $categoryIds, $filteredIds = null) {
 		$mapping = array();
 
 		$conditions = array('Item.exam_id' => array_keys($examIds));
@@ -252,8 +252,8 @@ class Item extends AppModel {
 			$oldId = $item['Item']['id'];
 			unset($item['Item']['id']);
 			$item['Item']['exam_id'] = $examIds[$item['Item']['exam_id']];
-			if ($item['Item']['domain_id'] !== null) {
-				$item['Item']['domain_id'] = $domainIds[$item['Item']['domain_id']];
+			if ($item['Item']['category_id'] !== null) {
+				$item['Item']['category_id'] = $categoryIds[$item['Item']['category_id']];
 			}
 
 			$this->create();

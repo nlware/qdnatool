@@ -73,7 +73,7 @@ class ExamTest extends CakeTestCase {
  *
  * @var array
  */
-	public $fixtures = array('app.answer_option', 'app.domain', 'app.exam', 'app.given_answer', 'app.item', 'app.subject');
+	public $fixtures = array('app.answer_option', 'app.category', 'app.exam', 'app.given_answer', 'app.item', 'app.subject');
 
 /**
  * setUp method
@@ -397,7 +397,7 @@ class ExamTest extends CakeTestCase {
 	}
 
 	protected function _testDuplicateExamWithSubjectsWithNonUniqueIdentifiers() {
-		$this->loadFixtures('AnswerOption', 'Domain', 'Exam', 'GivenAnswer', 'Item', 'Subject');
+		$this->loadFixtures('AnswerOption', 'Category', 'Exam', 'GivenAnswer', 'Item', 'Subject');
 
 		$examId = 2;
 		$postData = $this->_createPostDataForDuplicate($examId);
@@ -422,7 +422,7 @@ class ExamTest extends CakeTestCase {
 	}
 
 	protected function _testDuplicateExamWithMissingGivenAnswers() {
-		$this->loadFixtures('AnswerOption', 'Domain', 'Exam', 'GivenAnswer', 'Item', 'Subject');
+		$this->loadFixtures('AnswerOption', 'Category', 'Exam', 'GivenAnswer', 'Item', 'Subject');
 
 		$expected = 748;
 
@@ -486,19 +486,19 @@ class ExamTest extends CakeTestCase {
 			$filename = APP . DS . 'Test' . DS . 'File' . DS . 'Exam' . DS . $file;
 			$result = $this->Exam->extractTeleformMappingfile($filename);
 			$this->assertTrue((bool)$result);
-			list($versionMapping, $answerOptionCount, $domains) = $result;
+			list($versionMapping, $answerOptionCount, $categories) = $result;
 			$this->assertEquals($expectedVersionMapping, $versionMapping);
 			$this->assertEquals($expectedAnswerOptionCount, $answerOptionCount);
-			$this->assertEmpty($domains);
+			$this->assertEmpty($categories);
 		}
 	}
 
 /**
- * testExtractTeleformMappingfileWithDomain method
+ * testExtractTeleformMappingfileWithCategory method
  *
  * @return void
  */
-	public function testExtractTeleformMappingfileWithDomain() {
+	public function testExtractTeleformMappingfileWithCategory() {
 		$expectedVersionMapping = array(
 			2 => array(
 				1 => 2,
@@ -510,26 +510,26 @@ class ExamTest extends CakeTestCase {
 			2 => 3
 		);
 
-		$expectedDomains = array(
+		$expectedCategories = array(
 			1 => 'M',
 			2 => 'G'
 		);
 
-		$filename = APP . DS . 'Test' . DS . 'File' . DS . 'Exam' . DS . 'Teleform-mappingfile-with-domain.csv';
+		$filename = APP . DS . 'Test' . DS . 'File' . DS . 'Exam' . DS . 'Teleform-mappingfile-with-category.csv';
 		$result = $this->Exam->extractTeleformMappingfile($filename);
 		$this->assertTrue((bool)$result);
-		list($versionMapping, $answerOptionCount, $domains) = $result;
+		list($versionMapping, $answerOptionCount, $categories) = $result;
 		$this->assertEquals($expectedVersionMapping, $versionMapping);
 		$this->assertEquals($expectedAnswerOptionCount, $answerOptionCount);
-		$this->assertEquals($expectedDomains, $domains);
+		$this->assertEquals($expectedCategories, $categories);
 	}
 
 /**
- * testExtractTeleformMappingfileWithDomainWithoutAnswerOptionCount method
+ * testExtractTeleformMappingfileWithCategoryWithoutAnswerOptionCount method
  *
  * @return void
  */
-	public function testExtractTeleformMappingfileWithDomainWithoutAnswerOptionCount() {
+	public function testExtractTeleformMappingfileWithCategoryWithoutAnswerOptionCount() {
 		$expectedVersionMapping = array(
 			2 => array(
 				1 => 2,
@@ -537,18 +537,18 @@ class ExamTest extends CakeTestCase {
 			)
 		);
 
-		$expectedDomains = array(
+		$expectedCategories = array(
 			1 => 'M',
 			2 => 'G'
 		);
 
-		$filename = APP . DS . 'Test' . DS . 'File' . DS . 'Exam' . DS . 'Teleform-mappingfile-with-domain-without-answer-option-count.csv';
+		$filename = APP . DS . 'Test' . DS . 'File' . DS . 'Exam' . DS . 'Teleform-mappingfile-with-categories-without-answer-option-count.csv';
 		$result = $this->Exam->extractTeleformMappingfile($filename);
 		$this->assertTrue((bool)$result);
-		list($versionMapping, $answerOptionCount, $domains) = $result;
+		list($versionMapping, $answerOptionCount, $categories) = $result;
 		$this->assertEquals($expectedVersionMapping, $versionMapping);
 		$this->assertEmpty($answerOptionCount);
-		$this->assertEquals($expectedDomains, $domains);
+		$this->assertEquals($expectedCategories, $categories);
 	}
 
 }

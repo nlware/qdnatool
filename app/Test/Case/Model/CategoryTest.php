@@ -1,10 +1,10 @@
 <?php
-App::uses('Domain', 'Model');
+App::uses('Category', 'Model');
 
 /**
- * Domain Test Case
+ * Category Test Case
  */
-class DomainTest extends CakeTestCase {
+class CategoryTest extends CakeTestCase {
 
 /**
  * Auto fixtures.
@@ -18,7 +18,7 @@ class DomainTest extends CakeTestCase {
  *
  * @var array
  */
-	public $fixtures = array('app.answer_option', 'app.domain', 'app.exam', 'app.item', 'app.subject');
+	public $fixtures = array('app.answer_option', 'app.category', 'app.exam', 'app.item', 'app.subject');
 
 /**
  * setUp method
@@ -27,7 +27,7 @@ class DomainTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
-		$this->Domain = ClassRegistry::init('Domain');
+		$this->Category = ClassRegistry::init('Category');
 	}
 
 /**
@@ -36,35 +36,35 @@ class DomainTest extends CakeTestCase {
  * @return void
  */
 	public function tearDown() {
-		unset($this->Domain);
+		unset($this->Category);
 
 		parent::tearDown();
 	}
 
 /**
- * testCreateDomains method
+ * testCreateCategories method
  *
  * @return void
  */
-	public function testCreateDomains() {
-		$this->loadFixtures('Domain');
+	public function testCreateCategories() {
+		$this->loadFixtures('Category');
 
 		$expected = array();
 		$examId = 2;
 		$names = array();
-		$result = $this->Domain->createDomains($examId, $names);
+		$result = $this->Category->createCategories($examId, $names);
 		$this->assertSame($expected, $result);
 
 		$expected = array(3);
 		$examId = 2;
 		$names = array('test');
-		$result = $this->Domain->createDomains($examId, $names);
+		$result = $this->Category->createCategories($examId, $names);
 		$this->assertEquals($expected, $result);
 
 		$expected = array(4, 4);
 		$examId = 3;
 		$names = array('test', 'test');
-		$result = $this->Domain->createDomains($examId, $names);
+		$result = $this->Category->createCategories($examId, $names);
 		$this->assertEquals($expected, $result);
 	}
 
@@ -74,11 +74,11 @@ class DomainTest extends CakeTestCase {
  * @return void
  */
 	public function testAnalyse() {
-		$this->loadFixtures('AnswerOption', 'Domain', 'Exam', 'GivenAnswer', 'Item', 'Subject');
+		$this->loadFixtures('AnswerOption', 'Category', 'Exam', 'GivenAnswer', 'Item', 'Subject');
 
 		$id = 1;
 		$examId = 1;
-		$result = $this->Domain->analyse($id, $examId);
+		$result = $this->Category->analyse($id, $examId);
 		$this->assertTrue($result);
 	}
 
@@ -88,11 +88,11 @@ class DomainTest extends CakeTestCase {
  * @return void
  */
 	public function testDuplicate() {
-		$this->loadFixtures('Domain');
+		$this->loadFixtures('Category');
 
 		$expected = array();
 		$examIds = array();
-		$result = $this->Domain->duplicate($examIds);
+		$result = $this->Category->duplicate($examIds);
 		$this->assertSame($expected, $result);
 
 		$expected = array(
@@ -100,11 +100,11 @@ class DomainTest extends CakeTestCase {
 			2 => 4
 		);
 		$examIds = array(1 => 987);
-		$result = $this->Domain->duplicate($examIds);
+		$result = $this->Category->duplicate($examIds);
 		$this->assertEquals($expected, $result);
 
 		$examIds = array(1 => 1);
-		$result = $this->Domain->duplicate($examIds);
+		$result = $this->Category->duplicate($examIds);
 		$this->assertFalse($result);
 	}
 
