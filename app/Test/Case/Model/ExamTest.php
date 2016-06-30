@@ -73,7 +73,9 @@ class ExamTest extends CakeTestCase {
  *
  * @var array
  */
-	public $fixtures = array('app.answer_option', 'app.category', 'app.exam', 'app.given_answer', 'app.item', 'app.subject');
+	public $fixtures = array(
+		'app.answer_option', 'app.category', 'app.exam', 'app.given_answer', 'app.item', 'app.queued_task', 'app.subject'
+	);
 
 /**
  * setUp method
@@ -257,7 +259,7 @@ class ExamTest extends CakeTestCase {
  * @return void
  */
 	public function testAnalyse() {
-		$this->loadFixtures('AnswerOption', 'Exam', 'GivenAnswer', 'Item', 'Subject');
+		$this->loadFixtures('AnswerOption', 'Exam', 'GivenAnswer', 'Item', 'QueuedTask', 'Subject');
 
 		$id = 1;
 		$result = $this->Exam->analyse($id);
