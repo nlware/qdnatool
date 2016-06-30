@@ -1,12 +1,18 @@
 <?php
-App::uses('Exam', 'Model');
+App::uses('AppShell', 'Console/Command');
+
 /**
  * QueueReanalyseExamTask Shell
  *
  * @property Exam $Exam
  */
-class QueueReanalyseExamTask extends Shell {
+class QueueReanalyseExamTask extends AppShell {
 
+/**
+ * An array of names of models to load.
+ *
+ * @var array
+ */
 	public $uses = array('Exam');
 
 /**
