@@ -18,7 +18,7 @@ class QueuedTaskFixture extends CakeTestFixture {
 		'not_before' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'fetched' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'completed' => array('type' => 'datetime', 'null' => true, 'default' => null),
-		'failed' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true),
+		'failed' => array('type' => 'integer', 'null' => false, 'default' => '0', 'length' => 10, 'unsigned' => true),
 		'failure_message' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'worker_key' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'created' => array('type' => 'datetime', 'null' => false, 'default' => null),
