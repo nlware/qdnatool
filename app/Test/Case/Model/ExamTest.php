@@ -544,7 +544,7 @@ class ExamTest extends CakeTestCase {
 			2 => 'G'
 		);
 
-		$filename = APP . DS . 'Test' . DS . 'File' . DS . 'Exam' . DS . 'Teleform-mappingfile-with-categories-without-answer-option-count.csv';
+		$filename = APP . DS . 'Test' . DS . 'File' . DS . 'Exam' . DS . 'Teleform-mappingfile-with-category-without-answer-option-count.csv';
 		$result = $this->Exam->extractTeleformMappingfile($filename);
 		$this->assertTrue((bool)$result);
 		list($versionMapping, $answerOptionCount, $categories) = $result;
