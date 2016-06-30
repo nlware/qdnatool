@@ -1,6 +1,7 @@
 <?php
 define('IMAGE_UPLOADS', ROOT . DS . 'data' . DS . 'images' . DS);
 App::uses('AppModel', 'Model');
+
 /**
  * Image Model
  *
