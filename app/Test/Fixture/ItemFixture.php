@@ -92,7 +92,7 @@ class ItemFixture extends CakeTestFixture {
 		array(
 			'id' => 1000003,
 			'exam_id' => 1,
-			'category_id' => 3,
+			'category_id' => 1,
 			'order' => 4,
 			'value' => 'Item 1000003',
 			'answer_option_count' => 4,

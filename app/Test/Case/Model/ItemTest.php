@@ -87,7 +87,7 @@ class ItemTest extends CakeTestCase {
 		$result = $this->Item->getIds($examId);
 		$this->assertEquals($expected, $result);
 
-		$expected = array(1000000, 1000001);
+		$expected = array(1000000, 1000001, 1000003);
 		$examId = 1;
 		$categoryId = 1;
 		$result = $this->Item->getIds($examId, $categoryId);
