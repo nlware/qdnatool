@@ -33,14 +33,14 @@ class CategoryFixture extends CakeTestFixture {
 			'exam_id' => 1,
 			'name' => 'A',
 			'cronbachs_alpha' => null,
-			'max_answer_option_count' =>null
+			'max_answer_option_count' => null
 		),
 		array(
 			'id' => 2,
 			'exam_id' => 1,
 			'name' => 'B',
 			'cronbachs_alpha' => null,
-			'max_answer_option_count' =>null
+			'max_answer_option_count' => null
 		),
 	);
 
