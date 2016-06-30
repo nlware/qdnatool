@@ -8,7 +8,6 @@ App::uses('ClassRegistry', 'Utility');
 App::uses('ExamFormat', 'Model');
 App::uses('ExamState', 'Model');
 App::uses('AppModel', 'Model');
-
 /**
  * Exam Model
  *
@@ -376,11 +375,56 @@ class Exam extends AppModel {
  * @param array $exam Exam data
  * @return bool
  */
+<<<<<<< Updated upstream
 	private function __analyse($exam) {
 		$this->id = $exam['Exam']['id'];
 		$this->saveField('exam_state_id', ExamState::ANALYSING);
 
 		$conditions = array('Exam.id' => $exam['Exam']['id']);
+=======
+	private function __analyse($id) {
+		$success = true;
+		$this->id = $id;
+		$this->saveField('exam_state_id', ExamState::ANALYSING);
+
+		$categoryIds = array();
+		foreach ($categoryIds as $categoryId) {
+			if ($success) {
+				$success = $this->Category->analyse($categoryId, $id);
+			}
+		}
+
+		if ($success) {
+			$analyses = $this->doAnalyse($id);
+			if (!$analyses) {
+				$success = false;
+			}
+		}
+
+		if ($success) {
+			$success = $this->saveAnalysis($id, $analyses);
+		}
+
+		if ($success) {
+			$this->scheduleReport($id);
+		} else {
+			$this->id = $id;
+			$this->saveField('exam_state_id', ExamState::ANALYSE_FAILED);
+		}
+
+		return $success;
+	}
+
+/**
+ * Analyse an exam, optionally filter items by a category
+ *
+ * @param int $id An exam id
+ * @param int[optional] $categoryId A category id
+ * @return array
+ */
+	public function doAnalyse($id, $categoryId = null) {
+		$conditions = array('Exam.id' => $id);
+>>>>>>> Stashed changes
 		$contain = array(
 			'Item' => 'AnswerOption',
 			'Subject' => 'GivenAnswer'

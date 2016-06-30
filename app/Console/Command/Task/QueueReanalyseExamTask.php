@@ -2,7 +2,7 @@
 App::uses('AppShell', 'Console/Command');
 
 /**
- * QueueReanalyseExamTask Shell
+ * QueueReanalyseExam Task
  *
  * @property Exam $Exam
  */

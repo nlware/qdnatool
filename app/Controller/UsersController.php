@@ -1,6 +1,7 @@
 <?php
 App::uses('Role', 'Model');
 App::uses('AppController', 'Controller');
+
 /**
  * Users Controller
  *
