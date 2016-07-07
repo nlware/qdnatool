@@ -54,7 +54,7 @@ class Item extends AppModel {
  * @param array $item Item data
  * @return array AnswerOption data
  */
-	private function __getMostGivenIncorrectAnswerOption($item) {
+	protected function _getMostGivenIncorrectAnswerOption($item) {
 		$mostIncorrectAnswerOption = false;
 		foreach ($item['AnswerOption'] as $i => $answerOption) {
 			if (!$answerOption['is_correct']) {
@@ -157,7 +157,7 @@ class Item extends AppModel {
 	public function stevie($item, $answerOptionCount = null) {
 		$item['Messages'] = array();
 		if ($item['correct_answer_irc'] < -0.1) {
-			$mostGivenIncorrectAnswerOption = $this->__getMostGivenIncorrectAnswerOption($item);
+			$mostGivenIncorrectAnswerOption = $this->_getMostGivenIncorrectAnswerOption($item);
 			if (!empty($mostGivenIncorrectAnswerOption) && $mostGivenIncorrectAnswerOption['given_answer_percentage'] > 35) {
 				$item['Messages'][] = __('Has the correct alternative been assessed as correct? Most students choose the alternative %s.', AppUtil::optionValue($mostGivenIncorrectAnswerOption['order']));
 				$item['Messages'][] = __('In case the correct alternative has been assessed as correct, remove the question (it is probably a so called ‘trick question’: these type of questions do not measure the knowledge of the student).');
@@ -195,7 +195,7 @@ class Item extends AppModel {
 				} elseif ($item['correct_answer_percentage'] < $correctAnswerPercentageUpperLimit) {
 					// when 0.25 < p < 0.70:
 
-					$mostGivenIncorrectAnswerOption = $this->__getMostGivenIncorrectAnswerOption($item);
+					$mostGivenIncorrectAnswerOption = $this->_getMostGivenIncorrectAnswerOption($item);
 					// when a> 0.35:
 					if (!empty($mostGivenIncorrectAnswerOption) && $mostGivenIncorrectAnswerOption['given_answer_percentage'] > 35) {
 						$item['Messages'][] = __('Instead of choosing the correct alternative, students are choosing the alternative %s.', AppUtil::optionValue($mostGivenIncorrectAnswerOption['order']));

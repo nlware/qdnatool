@@ -60,9 +60,7 @@ class UsersControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testView() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testView not implemented.');
 	}
 
 /**
@@ -71,9 +69,7 @@ class UsersControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testAdminAdd() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testAdminAdd not implemented.');
 	}
 
 /**
@@ -82,9 +78,7 @@ class UsersControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testAdminEdit() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testAdminEdit not implemented.');
 	}
 
 /**
@@ -93,9 +87,7 @@ class UsersControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testAdminDelete() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testAdminDelete not implemented.');
 	}
 
 /**
@@ -104,9 +96,7 @@ class UsersControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testIndex() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testIndex not implemented.');
 	}
 
 /**
@@ -115,9 +105,7 @@ class UsersControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testAccount() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testAccount not implemented.');
 	}
 
 /**
@@ -126,9 +114,7 @@ class UsersControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testHome() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testHome not implemented.');
 	}
 
 /**
@@ -137,9 +123,7 @@ class UsersControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testClassicLogin() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testClassicLogin not implemented.');
 	}
 
 /**
@@ -148,9 +132,7 @@ class UsersControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testLogin() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testLogin not implemented.');
 	}
 
 /**
@@ -159,9 +141,7 @@ class UsersControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testSamlLogin() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testSamlLogin not implemented.');
 	}
 
 /**
@@ -170,9 +150,7 @@ class UsersControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testLogout() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testLogout not implemented.');
 	}
 
 /**
@@ -181,9 +159,7 @@ class UsersControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testChangePassword() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testChangePassword not implemented.');
 	}
 
 }

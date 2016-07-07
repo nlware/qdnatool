@@ -60,9 +60,7 @@ class QuestionsControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testAnalyse() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testAnalyse not implemented.');
 	}
 
 /**
@@ -71,9 +69,7 @@ class QuestionsControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testInstruction() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testInstruction not implemented.');
 	}
 
 /**
@@ -82,9 +78,7 @@ class QuestionsControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testView() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testView not implemented.');
 	}
 
 /**
@@ -93,9 +87,7 @@ class QuestionsControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testAdd() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testAdd not implemented.');
 	}
 
 /**
@@ -104,9 +96,7 @@ class QuestionsControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testEdit() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testEdit not implemented.');
 	}
 
 /**
@@ -115,9 +105,7 @@ class QuestionsControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testDelete() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testDelete not implemented.');
 	}
 
 /**
@@ -126,9 +114,7 @@ class QuestionsControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testIndex() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testIndex not implemented.');
 	}
 
 /**
@@ -137,9 +123,7 @@ class QuestionsControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testDownload() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testDownload not implemented.');
 	}
 
 /**
@@ -148,9 +132,7 @@ class QuestionsControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testExportQmp() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testExportQmp not implemented.');
 	}
 
 /**
@@ -159,9 +141,7 @@ class QuestionsControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testExportRespondus() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testExportRespondus not implemented.');
 	}
 
 }
