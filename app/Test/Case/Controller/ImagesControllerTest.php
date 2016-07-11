@@ -60,9 +60,7 @@ class ImagesControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testCapture() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testCapture not implemented.');
 	}
 
 /**
@@ -71,9 +69,7 @@ class ImagesControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testGet() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testGet not implemented.');
 	}
 
 /**
@@ -82,9 +78,7 @@ class ImagesControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testUpload() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testUpload not implemented.');
 	}
 
 /**
@@ -93,9 +87,7 @@ class ImagesControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testBrowse() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testBrowse not implemented.');
 	}
 
 /**
@@ -104,9 +96,7 @@ class ImagesControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testDelete() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testDelete not implemented.');
 	}
 
 }

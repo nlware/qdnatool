@@ -45,6 +45,14 @@ class TestExam extends Exam {
 		return parent::_duplicate($postData);
 	}
 
+/**
+ * Public test double of `parent::_decodeLine`.
+ *
+ */
+	public function decodeLine($line, $firstLine = false) {
+		return parent::_decodeLine($line, $firstLine);
+	}
+
 }
 
 /**
@@ -90,7 +98,7 @@ class ExamTest extends CakeTestCase {
 	}
 
 /**
- * testExecuteAnalysis method
+ * Tests `Exam::executeAnalysis`.
  *
  * @return void
  */
@@ -133,7 +141,7 @@ class ExamTest extends CakeTestCase {
 	}
 
 /**
- * testGetIndexOfVersionFromTeleformHeader method
+ * Tests `Exam::getIndexOfVersionFromTeleformHeader`.
  *
  * @return void
  */
@@ -211,172 +219,142 @@ class ExamTest extends CakeTestCase {
 	}
 
 /**
- * testAdd method
+ * Tests `Exam::add`.
  *
  * @return void
  */
 	public function testAdd() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testAdd not implemented.');
 	}
 
 /**
- * testRemove method
+ * Tests `Exam::remove`.
  *
  * @return void
  */
 	public function testRemove() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testRemove not implemented.');
 	}
 
 /**
- * testScheduleAnalyse method
+ * Tests `Exam::scheduleAnalyse`.
  *
  * @return void
  */
 	public function testScheduleAnalyse() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testScheduleAnalyse not implemented.');
 	}
 
 /**
- * testAnalyse method
+ * Tests `Exam::analyse`.
  *
  * @return void
  */
 	public function testAnalyse() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testAnalyse not implemented.');
 	}
 
 /**
- * testScheduleReport method
+ * Tests `Exam::scheduleReport`.
  *
  * @return void
  */
 	public function testScheduleReport() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testScheduleReport not implemented.');
 	}
 
 /**
- * testReport method
+ * Tests `Exam::report`.
  *
  * @return void
  */
 	public function testReport() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testReport not implemented.');
 	}
 
 /**
- * testImport method
+ * Tests `Exam::import`.
  *
  * @return void
  */
 	public function testImport() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testImport not implemented.');
 	}
 
 /**
- * testImportBlackboard method
+ * Tests `Exam::importBlackboard`.
  *
  * @return void
  */
 	public function testImportBlackboard() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testImportBlackboard not implemented.');
 	}
 
 /**
- * testImportQMP method
+ * Tests `Exam::importQMP`.
  *
  * @return void
  */
 	public function testImportQMP() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testImportQMP not implemented.');
 	}
 
 /**
- * testImportTeleform method
+ * Tests `Exam::importTeleform`.
  *
  * @return void
  */
 	public function testImportTeleform() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testImportTeleform not implemented.');
 	}
 
 /**
- * testStevie method
+ * Tests `Exam::stevie`.
  *
  * @return void
  */
 	public function testStevie() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testStevie not implemented.');
 	}
 
 /**
- * testScheduleReanalyse method
+ * Tests `Exam::scheduleReanalyse`.
  *
  * @return void
  */
 	public function testScheduleReanalyse() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testScheduleReanalyse not implemented.');
 	}
 
 /**
- * testReanalyse method
+ * Tests `Exam::reanalyse`.
  *
  * @return void
  */
 	public function testReanalyse() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testReanalyse not implemented.');
 	}
 
 /**
- * testScores method
+ * Tests `Exam::scores`.
  *
  * @return void
  */
 	public function testScores() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testScores not implemented.');
 	}
 
 /**
- * testMissings method
+ * Tests `Exam::missings`.
  *
  * @return void
  */
 	public function testMissings() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testMissings not implemented.');
 	}
 
 /**
- * testDuplicate method
+ * Tests `Exam::duplicate`.
  *
  * @return void
  */
@@ -447,6 +425,15 @@ class ExamTest extends CakeTestCase {
 			}
 		}
 		return $data;
+	}
+
+/**
+ * Tests `Exam::_decodeLine`.
+ *
+ * @return void
+ */
+	public function testDecodeLine() {
+		$this->markTestIncomplete('testDecodeLine not implemented.');
 	}
 
 }

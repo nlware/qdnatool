@@ -54,19 +54,19 @@ class QuestionsTag extends AppModel {
  * @return bool
  */
 	public function remove($id) {
-		if ($this->__allowed($id)) {
+		if ($this->_allowed($id)) {
 			return $this->delete($id);
 		}
 		return false;
 	}
 
 /**
- * __allowed
+ * _allowed
  *
  * @param int $id A QuestionsTag ID
  * @return bool
  */
-	private function __allowed($id) {
+	protected function _allowed($id) {
 		$conditions = array(
 			'QuestionsTag.id' => $id,
 			'QuestionsTag.tag_id' => $this->Tag->getMineIds()

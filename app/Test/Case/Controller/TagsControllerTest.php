@@ -60,9 +60,7 @@ class TagsControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testAutocomplete() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testAutocomplete not implemented.');
 	}
 
 }

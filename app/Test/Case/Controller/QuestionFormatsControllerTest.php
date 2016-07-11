@@ -60,9 +60,7 @@ class QuestionFormatsControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testAdminIndex() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testAdminIndex not implemented.');
 	}
 
 /**
@@ -71,9 +69,7 @@ class QuestionFormatsControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testAdminView() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testAdminView not implemented.');
 	}
 
 /**
@@ -82,9 +78,7 @@ class QuestionFormatsControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testAdminEdit() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testAdminEdit not implemented.');
 	}
 
 }

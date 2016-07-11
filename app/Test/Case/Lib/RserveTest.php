@@ -35,9 +35,7 @@ class RserveTest extends CakeTestCase {
  * @return void
  */
 	public function testGetConfig() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testGetConfig not implemented.');
 	}
 
 /**

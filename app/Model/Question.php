@@ -226,7 +226,7 @@ class Question extends AppModel {
 	public function beforeSave($options = array()) {
 		$this->__oldTagIds = array();
 		if (!empty($this->data['Question']['id'])) {
-			$this->__oldTagIds = $this->__getTagIds($this->data['Question']['id']);
+			$this->__oldTagIds = $this->_getTagIds($this->data['Question']['id']);
 		}
 		return true;
 	}
@@ -259,7 +259,7 @@ class Question extends AppModel {
  * @param int $id A question id
  * @return array List of tag ids
  */
-	private function __getTagIds($id) {
+	protected function _getTagIds($id) {
 		$fields = array('tag_id', 'tag_id');
 		$conditions = array('QuestionsTag.question_id' => $id);
 		return $this->QuestionsTag->find('list', compact('fields', 'conditions'));
@@ -296,7 +296,7 @@ class Question extends AppModel {
 		$messages = array();
 		if (!empty($question['Question'])) {
 			// Samengesteld antwoord maken en checks op uit te voeren
-			$wordCountStimulus = $this->__wordCount($question['Question']['stimulus']);
+			$wordCountStimulus = $this->_wordCount($question['Question']['stimulus']);
 
 			$answers = $question['Question']['answer'];
 
@@ -316,7 +316,7 @@ class Question extends AppModel {
 				if ($wordCountStimulus >= 40) {
 					$messages[] = 'Uw stimulus bestaat uit meer dan veertig woorden. Is uw schrijfstijl niet te breedsprakig? Probeert u uw studenten niet iets nieuws te leren? Geeft u niet - in feite - irrelevante informatie? <br>Hou uw stimulus beknopt en vraag hetgeen u wilt weten van de student zo rechtstreeks mogelijk. Dat voorkomt veel interpretatiefouten door overbodig leeswerk.';
 				}
-				if ($this->__contains($question['Question']['stimulus'], 'elke bewering is waar')) {
+				if ($this->_contains($question['Question']['stimulus'], 'elke bewering is waar')) {
 					$messages[] = 'Heeft u alleen de tekst \'welke bewering is waar\' in uw vraag opgenomen?<br><br> De stam van de vraag is daarmee waarschijnlijk niet in de vorm van een vraag of probleem gesteld. De alternatieven zijn mogelijk stellingen waarvan er slechts één correct is. De student moet in feite nu bij elk alternatief raden wat de vragenmaker bedoelt.';
 				}
 				$keywords = array(
@@ -346,19 +346,19 @@ class Question extends AppModel {
 					"tspraak I)",
 					"telling I)"
 				);
-				if ($this->__contains($question['Question']['stimulus'], $keywords)) {
+				if ($this->_contains($question['Question']['stimulus'], $keywords)) {
 					$messages[] = 'U heeft waarschijnlijk een meerkeuzevraag gemaakt met daarin 2 stellingen verwerkt. U vraagt daarbij misschien welke combinatie van stellingen correct is. Het probleem van een dergelijke vraag is dat u waarschijnlijk twee onderwerpen in één vraag behandelt. Daarmee weet u achteraf niet precies wat de studenten wel of niet weet. Ook resulteren dergelijke vragen vaak in lage correlatiewaarden. Het is beter om deze vraag te splitsen in twee juist/onjuist vragen of in een meerkeuzevraag met duidelijk één goed alternatief. Gebruik stellingenvragen alleen als de onderwerpen over hetzelfde onderwerp gaan. Zie o.a. ook http://testdevelopment.nl/qdst/qdst-nl/prompts/a12.htm';
 				}
 
-				if ($this->__contains($question['Question']['stimulus'], array("at is nu juis", "at is juis"))) {
+				if ($this->_contains($question['Question']['stimulus'], array("at is nu juis", "at is juis"))) {
 					$messages[] = 'U heeft waarschijnlijk de tekst \'wat is nu juist\' opgenomen in uw vraag. Nu moet de student bepalen welke van de gegeven alternatieven in overeenstemming is met dat gegeven. Dat is onzorgvuldig. Verwoord dit preciezer. Bijvoorbeeld: \'Op basis van dit gegeven, welke van onderstaande conclusie is dan correct\', of \'Welke van volgende stellingen is een correcte gevolgtrekking van dit gegeven\'.';
 				}
 
-				if ($this->__contains($question['Question']['stimulus'], array("niet", "NIET", "geen", "GEEN"))) {
+				if ($this->_contains($question['Question']['stimulus'], array("niet", "NIET", "geen", "GEEN"))) {
 					$messages[] = 'U heeft waarschijnlijk in de tekst een ontkenning opgenomen door het woord \'niet\' te gebruiken. Uw vraag is wellicht negatief gesteld. Is het mogelijk de vraag positief te formuleren? Zo niet, <u>onderstreep</u> dan in ieder geval de ontkenning';
 				}
 
-				if ($this->__contains($question['Question']['stimulus'], "geen")) {
+				if ($this->_contains($question['Question']['stimulus'], "geen")) {
 					$messages[] = 'U heeft waarschijnlijk de tekst een ontkenning opgenomen. Uw vraag is wellicht negatief gesteld. Is het mogelijk de vraag positief te formuleren? Zo niet, <u>onderstreep</u> dan in ieder geval de ontkenning.';
 				}
 
@@ -369,11 +369,11 @@ class Question extends AppModel {
 					"llemaal",
 					"ltijd"
 				);
-				if ($this->__contains($question['Question']['stimulus'], $keywords)) {
+				if ($this->_contains($question['Question']['stimulus'], $keywords)) {
 					$messages[] = 'U heeft in de tekst het woord \'nooit\', \'alleen\', \'geen enkele\', \'allemaal\' of \'altijd\' gebruikt. Probeer de vraag of de alternatieven zo te formuleren dat een dergelijke absolute aanduiding niet gebruikt hoeft te worden. Immers, er zijn altijd uitzondering denkbaar waardoor een dergelijk alternatief in principe altijd goed gerekend zou moeten worden. Bovendien weten studenten dat dergelijke alternatieven juist vaak niet correct zijn.';
 				}
 
-				if ($this->__contains($question['Question']['stimulus'], array("moeten", "dienen", "zinloos"))) {
+				if ($this->_contains($question['Question']['stimulus'], array("moeten", "dienen", "zinloos"))) {
 					$messages[] = 'U heeft in de tekst het woord \'moeten\', \'dienen\' of \'zinloos\' gebruikt. Dit is een \'normatieve\' aanduiding waardoor impliciet naar een mening wordt gevraagd. Probeer of vraag of de alternatieven zo te formuleren dat deze aanduiding niet nodig is.';
 				}
 
@@ -386,11 +386,11 @@ class Question extends AppModel {
 					"en paar",
 					"nkele"
 				);
-				if ($this->__contains($question['Question']['stimulus'], $keywords)) {
+				if ($this->_contains($question['Question']['stimulus'], $keywords)) {
 					$messages[] = 'U heeft in de tekst het woord \'kan\', \'misschien\', \'soms\', \'in het algemeen\', \'een paar\' of \'enkele\' gebruikt. Dergelijke woorden zijn vage aanduidingen. Die kunnen door studenten verschillend worden geïnterpreteerd. Gebruik deze woorden niet. Wees precies in uw aanduidingen.';
 				}
 
-				if ($this->__contains($question['Question']['stimulus'], array("Men", "men"))) {
+				if ($this->_contains($question['Question']['stimulus'], array("Men", "men"))) {
 					$keywords = array(
 						"mens",
 						"Mens",
@@ -402,7 +402,7 @@ class Question extends AppModel {
 						"meng",
 						"menk"
 					);
-					if (!$this->__contains($question['Question']['stimulus'], $keywords)) {
+					if (!$this->_contains($question['Question']['stimulus'], $keywords)) {
 						$messages[] = 'U heeft waarschijnlijk de tekst \'men\' opgenomen in uw vraag. Het kan zijn dat uw vraag naar \'Wat vond men van .....\'. U vraag dus naar een mening. Zorg ervoor dat het duidelijk is van wie die mening is door de naam te vermelden.';
 					}
 				}
@@ -413,11 +413,11 @@ class Question extends AppModel {
 					$wordCountPerAnswer = array();
 					if (!empty($question['QuestionAnswer'])) {
 						foreach ($question['QuestionAnswer'] as $questionAnswer) {
-							$wordCountPerAnswer[] = $this->__wordCount($questionAnswer['name']);
+							$wordCountPerAnswer[] = $this->_wordCount($questionAnswer['name']);
 						}
 					}
 
-					$averageWordCount = $this->__average($wordCountPerAnswer);
+					$averageWordCount = $this->_average($wordCountPerAnswer);
 					if (!empty($wordCountPerAnswer[0]) && $wordCountPerAnswer[0] >= 6) {
 						foreach ($wordCountPerAnswer as $wordCount) {
 							if ($wordCount >= 1.2 * $averageWordCount) {
@@ -439,43 +439,43 @@ class Question extends AppModel {
 									break;
 								}
 							}
-							$wordCountPerAnswer[] = $this->__wordCount($questionAnswer['name']);
+							$wordCountPerAnswer[] = $this->_wordCount($questionAnswer['name']);
 						}
 					}
 					if ($problemExists) {
 						$messages[] = 'U begint de antwoordalternatieven met exact dezelfde letters cq.woorden. Het is beter om dit woord (of deze woorden) te verwerken in de stimulus zodat u herhaling van woorden voorkomt.';
 					}
 				}
-				if ($this->__contains($answers, "lle bovenstaande")) {
+				if ($this->_contains($answers, "lle bovenstaande")) {
 					$messages[] = 'U heeft de alternatieven de tekst \'alle bovenstaande\' opgenomen. Dat levert vaak vragen op de minder studenten goed hebben, maar ook minder goed de goede van de slechte onderscheiden. Gebruik deze constructie alleen als er sprake is van een probleem waarbij het gelijktijdig aanwezig zijn van verschillende elementen/condities een noodzakelijke voorwaarde zijn om het gegeven probleem van de stimulus te kunnen oplossen of aan te voldoen.';
 				}
 
-				if ($this->__contains($answers, "n van bovenstaande")) {
+				if ($this->_contains($answers, "n van bovenstaande")) {
 					$messages[] = 'U heeft waarschijnlijk de tekst \'géén van bovenstaande\' in uw alternatieven opgenomen. Dit wordt niet aanbevolen. De stimulus is waarschijnlijk niet in de vorm van een vraag of probleem gesteld of u kunt geen goed alternatief verzinnen. Het is het best om in dit geval deze afleider in het gehaal te laten vervallen.';
 				}
 
-				if ($this->__contains($answers, "niet")) {
+				if ($this->_contains($answers, "niet")) {
 					$messages[] = 'U heeft waarschijnlijk in de alternatieven een ontkenning opgenomen door het woord \'niet\' te gebruiken. Is het mogelijk de alternatieven positief te formuleren? Zo niet, <u>onderstreep</u> dan in ieder geval de ontkenning.';
 				}
 
-				if ($this->__contains($answers, array("geen", "géén", "GEEN"))) {
+				if ($this->_contains($answers, array("geen", "géén", "GEEN"))) {
 					$messages[] = 'U heeft misschien in de alternatieven een ontkenning opgenomen (het woord \'geen\'). Uw vraag is wellicht negatief gesteld. Is het mogelijk de vraag positief te formuleren? Zo niet, <u>onderstreep</u> dan in ieder geval de ontkenning.';
 				}
 
-				if ($this->__contains($answers, array("ooit", "lleen", "geen enkel", "llemaal", "ltijd"))) {
+				if ($this->_contains($answers, array("ooit", "lleen", "geen enkel", "llemaal", "ltijd"))) {
 					$messages[] = 'U heeft in de alternatieven misschien één van de woorden \'nooit\', \'alleen\', \'geen enkele\', \'allemaal’ of ‘altijd’ gebruikt. Probeer de vraag of de alternatieven zo te formuleren dat een dergelijke absolute aanduiding niet gebruikt hoeft te worden. Immers, er zijn altijd uitzondering denkbaar waardoor een dergelijk alternatief in principe goed gerekend zou moeten worden. Bovendien weten studenten dat dergelijke alternatieven juist vaak niet correct zijn.';
 				}
 
-				if ($this->__contains($answers, array("moeten", "Moeten", "dienen", "Dienen", "Dient", "inloos"))) {
+				if ($this->_contains($answers, array("moeten", "Moeten", "dienen", "Dienen", "Dient", "inloos"))) {
 					$messages[] = 'U heeft in de tekst wellicht één van de woorden \'moeten\', \'dienen\' of \'zinloos\' gebruikt. Dit is een \'normatieve\' aanduiding waardoor impliciet naar een mening wordt gevraagd. Probeer of vraag of de alternatieven zo te formuleren dat deze aanduiding niet nodig is.';
 				}
 
-				if ($this->__contains($answers, array("isschien", "kan", "Kan", "ormaal", "soms", "n het algemeen", "en paar", "nkele", "ebaald", "lgemen"))) {
+				if ($this->_contains($answers, array("isschien", "kan", "Kan", "ormaal", "soms", "n het algemeen", "en paar", "nkele", "ebaald", "lgemen"))) {
 					$messages[] = 'U heeft in de tekst het woord \'normaal\', \'kan\', \'misschien\', \'soms\', \'in het algemeen\', \'een paar\', \'bepaalde\', \'algemene\' of \'enkele\' gebruikt. Dergelijke woorden zijn vage aanduidingen. Die kunnen door studenten verschillend worden geïnterpreteerd. Gebruik deze woorden niet. Wees precies in uw aanduidingen.';
 				}
 
-				if ($this->__contains($answers, array("Men", "men"))) {
-					if (!$this->__contains($answers, array("mens", "Mens", "omen", "amen", "emen", "ment", "mend", "meng", "menk"))) {
+				if ($this->_contains($answers, array("Men", "men"))) {
+					if (!$this->_contains($answers, array("mens", "Mens", "omen", "amen", "emen", "ment", "mend", "meng", "menk"))) {
 						$messages[] = 'U heeft waarschijnlijk in de alternatieven \'men\' opgenomen. Het kan zijn dat uw alternatieven iets bevatten zoals naar \'Men is van mening dat .....\'. U vraag dus naar een mening. Zorg ervoor dat het duidelijk is van wie die mening is door de naam te vermelden.';
 					}
 				}
@@ -684,7 +684,7 @@ class Question extends AppModel {
 
 		if (!empty($questions)) {
 			foreach ($questions as $question) {
-				list($item, $extraFiles) = $this->__toQMP($question, $dom);
+				list($item, $extraFiles) = $this->_toQMP($question, $dom);
 				$questestinterop->appendChild($item);
 
 				$files = array_merge($files, $extraFiles);
@@ -737,7 +737,7 @@ class Question extends AppModel {
 
 		if (!empty($questions)) {
 			foreach ($questions as $question) {
-				list($item, $extraFiles) = $this->__toRespondus($question, $dom);
+				list($item, $extraFiles) = $this->_toRespondus($question, $dom);
 				$section->appendChild($item);
 
 				$files = array_merge($files, $extraFiles);
@@ -756,7 +756,7 @@ class Question extends AppModel {
  * @param DOMDocument $dom DOMDocument
  * @return array()
  */
-	private function __toQMP($question, $dom) {
+	protected function _toQMP($question, $dom) {
 		$files = array();
 
 		$item = $dom->createElement("item");
@@ -795,11 +795,11 @@ class Question extends AppModel {
 		$presentation = $dom->createElement("presentation");
 		$item->appendChild($presentation);
 
-		list($material, $extraFiles) = $this->__materialToRespondus($question['Question']['stimulus'], $dom);
+		list($material, $extraFiles) = $this->_materialToRespondus($question['Question']['stimulus'], $dom);
 		$files = array_merge($files, $extraFiles);
 		$presentation->appendChild($material);
 
-		list($response, $extraFiles) = $this->__responseToQMP($question, $dom);
+		list($response, $extraFiles) = $this->_responseToQMP($question, $dom);
 		$files = array_merge($files, $extraFiles);
 		$presentation->appendChild($response);
 
@@ -807,7 +807,7 @@ class Question extends AppModel {
 		$files = array_merge($files, $extraFiles);
 		$item->appendChild($itemResprocessing);
 
-		list($itemFeedbacks, $extraFiles) = $this->__itemFeedbackToRespondus($question, $dom);
+		list($itemFeedbacks, $extraFiles) = $this->_itemFeedbackToRespondus($question, $dom);
 		$files = array_merge($files, $extraFiles);
 		if (!is_array($itemFeedbacks)) {
 			$itemFeedbacks = array($itemFeedbacks);
@@ -827,7 +827,7 @@ class Question extends AppModel {
  * @param DOMDocument $dom DOMDocument
  * @return array()
  */
-	private function __toRespondus($question, $dom) {
+	protected function _toRespondus($question, $dom) {
 		$files = array();
 
 		$item = $dom->createElement("item");
@@ -866,19 +866,19 @@ class Question extends AppModel {
 		$presentation = $dom->createElement("presentation");
 		$item->appendChild($presentation);
 
-		list($material, $extraFiles) = $this->__materialToRespondus($question['Question']['stimulus'], $dom);
+		list($material, $extraFiles) = $this->_materialToRespondus($question['Question']['stimulus'], $dom);
 		$files = array_merge($files, $extraFiles);
 		$presentation->appendChild($material);
 
-		list($response, $extraFiles) = $this->__responseToRespondus($question, $dom);
+		list($response, $extraFiles) = $this->_responseToRespondus($question, $dom);
 		$files = array_merge($files, $extraFiles);
 		$presentation->appendChild($response);
 
-		list($itemResprocessing, $extraFiles) = $this->__itemResprocessingToRespondus($question, $dom);
+		list($itemResprocessing, $extraFiles) = $this->_itemResprocessingToRespondus($question, $dom);
 		$files = array_merge($files, $extraFiles);
 		$item->appendChild($itemResprocessing);
 
-		list($itemFeedbacks, $extraFiles) = $this->__itemFeedbackToRespondus($question, $dom);
+		list($itemFeedbacks, $extraFiles) = $this->_itemFeedbackToRespondus($question, $dom);
 		$files = array_merge($files, $extraFiles);
 		if (!is_array($itemFeedbacks)) {
 			$itemFeedbacks = array($itemFeedbacks);
@@ -898,7 +898,7 @@ class Question extends AppModel {
  * @param DOMDocument $dom DOMDocument
  * @return array()
  */
-	private function __itemResprocessingToRespondus($question, $dom) {
+	protected function _itemResprocessingToRespondus($question, $dom) {
 		$files = array();
 
 		$resprocessing = $dom->createElement("resprocessing");
@@ -1002,7 +1002,7 @@ class Question extends AppModel {
  * @param DOMDocument $dom DOMDocument
  * @return array()
  */
-	private function __itemFeedbackToRespondus($question, $dom) {
+	protected function _itemFeedbackToRespondus($question, $dom) {
 		$itemFeedbacks = array();
 		$files = array();
 
@@ -1016,7 +1016,7 @@ class Question extends AppModel {
 		$itemfeedback->appendChild($view);
 		$view->appendChild($dom->createTextNode('Candidate'));
 
-		list($material, $extraFiles) = $this->__materialToRespondus($question['Question']['feedback_when_correct'], $dom);
+		list($material, $extraFiles) = $this->_materialToRespondus($question['Question']['feedback_when_correct'], $dom);
 		$files = array_merge($files, $extraFiles);
 		$itemfeedback->appendChild($material);
 
@@ -1032,7 +1032,7 @@ class Question extends AppModel {
 		$itemfeedback->appendChild($view);
 		$view->appendChild($dom->createTextNode('Candidate'));
 
-		list($material, $extraFiles) = $this->__materialToRespondus($question['Question']['feedback_when_wrong'], $dom);
+		list($material, $extraFiles) = $this->_materialToRespondus($question['Question']['feedback_when_wrong'], $dom);
 		$files = array_merge($files, $extraFiles);
 		$itemfeedback->appendChild($material);
 
@@ -1050,7 +1050,7 @@ class Question extends AppModel {
 				$itemfeedback->appendChild($view);
 				$view->appendChild($dom->createTextNode('Candidate'));
 
-				list($material, $extraFiles) = $this->__materialToRespondus($questionAnswer['feedback'], $dom);
+				list($material, $extraFiles) = $this->_materialToRespondus($questionAnswer['feedback'], $dom);
 				$files = array_merge($files, $extraFiles);
 				$itemfeedback->appendChild($material);
 
@@ -1068,7 +1068,7 @@ class Question extends AppModel {
  * @param DOMDocument $dom DOMDocument
  * @return array()
  */
-	private function __responseToQMP($question, $dom) {
+	protected function _responseToQMP($question, $dom) {
 		$files = array();
 		$response = $dom->createElement("response_lid");
 
@@ -1100,7 +1100,7 @@ class Question extends AppModel {
 				$responseLabel->appendChild($ident);
 				$ident->appendChild($dom->createTextNode('QUE_' . $question['Question']['id'] . '_A1'));
 
-				list($material, $extraFiles) = $this->__materialToRespondus((empty($question['QuestionAnswer'][0]['name'])?'':$question['QuestionAnswer'][0]['name']), $dom);
+				list($material, $extraFiles) = $this->_materialToRespondus((empty($question['QuestionAnswer'][0]['name'])?'':$question['QuestionAnswer'][0]['name']), $dom);
 				$files = array_merge($files, $extraFiles);
 				$responseLabel->appendChild($material);
 
@@ -1111,7 +1111,7 @@ class Question extends AppModel {
 				$responseLabel->appendChild($ident);
 				$ident->appendChild($dom->createTextNode('QUE_' . $question['Question']['id'] . '_A2'));
 
-				list($material, $extraFiles) = $this->__materialToRespondus((empty($question['QuestionAnswer'][1]['name'])?'':$question['QuestionAnswer'][1]['name']), $dom);
+				list($material, $extraFiles) = $this->_materialToRespondus((empty($question['QuestionAnswer'][1]['name'])?'':$question['QuestionAnswer'][1]['name']), $dom);
 				$files = array_merge($files, $extraFiles);
 				$responseLabel->appendChild($material);
 				break;
@@ -1132,7 +1132,7 @@ class Question extends AppModel {
 						$responseLabel->appendChild($ident);
 						$ident->appendChild($dom->createTextNode('QUE_' . $question['Question']['id'] . '_A' . ($i + 1)));
 
-						list($material, $extraFiles) = $this->__materialToRespondus($questionAnswer['name'], $dom);
+						list($material, $extraFiles) = $this->_materialToRespondus($questionAnswer['name'], $dom);
 						$files = array_merge($files, $extraFiles);
 						$responseLabel->appendChild($material);
 					}
@@ -1185,7 +1185,7 @@ class Question extends AppModel {
  * @param DOMDocument $dom DOMDocument
  * @return array()
  */
-	private function __responseToRespondus($question, $dom) {
+	protected function _responseToRespondus($question, $dom) {
 		$files = array();
 		$response = $dom->createElement("response_lid");
 
@@ -1213,7 +1213,7 @@ class Question extends AppModel {
 				$responseLabel->appendChild($ident);
 				$ident->appendChild($dom->createTextNode('QUE_' . $question['Question']['id'] . '_A1'));
 
-				list($material, $extraFiles) = $this->__materialToRespondus((empty($question['QuestionAnswer'][0]['name'])?'':$question['QuestionAnswer'][0]['name']), $dom);
+				list($material, $extraFiles) = $this->_materialToRespondus((empty($question['QuestionAnswer'][0]['name'])?'':$question['QuestionAnswer'][0]['name']), $dom);
 				$files = array_merge($files, $extraFiles);
 				$responseLabel->appendChild($material);
 
@@ -1227,7 +1227,7 @@ class Question extends AppModel {
 				$responseLabel->appendChild($ident);
 				$ident->appendChild($dom->createTextNode('QUE_' . $question['Question']['id'] . '_A2'));
 
-				list($material, $extraFiles) = $this->__materialToRespondus((empty($question['QuestionAnswer'][1]['name'])?'':$question['QuestionAnswer'][1]['name']), $dom);
+				list($material, $extraFiles) = $this->_materialToRespondus((empty($question['QuestionAnswer'][1]['name'])?'':$question['QuestionAnswer'][1]['name']), $dom);
 				$files = array_merge($files, $extraFiles);
 				$responseLabel->appendChild($material);
 				break;
@@ -1245,7 +1245,7 @@ class Question extends AppModel {
 						$responseLabel->appendChild($ident);
 						$ident->appendChild($dom->createTextNode('QUE_' . $question['Question']['id'] . '_A' . ($i + 1)));
 
-						list($material, $extraFiles) = $this->__materialToRespondus($questionAnswer['name'], $dom);
+						list($material, $extraFiles) = $this->_materialToRespondus($questionAnswer['name'], $dom);
 						$files = array_merge($files, $extraFiles);
 						$responseLabel->appendChild($material);
 					}
@@ -1298,7 +1298,7 @@ class Question extends AppModel {
  * @param DOMDocument $dom DOMDocument
  * @return array()
  */
-	private function __materialToRespondus($stimulus, $dom) {
+	protected function _materialToRespondus($stimulus, $dom) {
 		$files = array();
 		$parts = preg_split('/<img[^>]+>/i', $stimulus);
 		preg_match_all('/<img[^>]+>/i', $stimulus, $images);
@@ -1350,21 +1350,21 @@ class Question extends AppModel {
 /**
  * Returns the number of words in given string
  *
- * @param string $str String
- * @return int
+ * @param string $value A string
+ * @return int Number of words
  */
-	private function __wordCount($str) {
-		return count(explode(" ", $str));
+	protected function _wordCount($value) {
+		return count(explode(' ', $value));
 	}
 
 /**
- * Returns whether or not the given check contains given keywords
+ * Returns whether or not the given check contains one or more of given keywords
  *
  * @param string $check Value to validate
  * @param array $keywords Keywords to check
  * @return bool
  */
-	private function __contains($check, $keywords) {
+	protected function _contains($check, $keywords) {
 		if (!is_array($keywords)) {
 			$keywords = array($keywords);
 		}
@@ -1379,11 +1379,11 @@ class Question extends AppModel {
 /**
  * Calculates the average of given values
  *
- * @param array $array Array of values
+ * @param array $values An array with values
  * @return float
  */
-	private function __average($array) {
-		return array_sum($array) / count($array);
+	protected function _average($values) {
+		return array_sum($values) / count($values);
 	}
 
 }
