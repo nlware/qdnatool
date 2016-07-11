@@ -365,7 +365,7 @@ class Exam extends AppModel {
 		$conditions = array('Exam.id' => $id);
 		$exam = $this->find('first', compact('conditions'));
 		if (!empty($exam)) {
-			return $this->_analyse($exam);
+			return $this->_analyse($id);
 		}
 		return false;
 	}
@@ -376,7 +376,7 @@ class Exam extends AppModel {
  * @param int $id An exam id
  * @return bool
  */
-	private function _analyse($id) {
+	protected function _analyse($id) {
 		$this->id = $id;
 		$this->saveField('exam_state_id', ExamState::ANALYSING);
 
@@ -1535,7 +1535,7 @@ class Exam extends AppModel {
 				$categoryIndex = false;
 				for ($i = 0; !feof($handle); $i++) {
 					$line = fgets($handle);
-					$line = $this->__decodeLine($line, $i == 0);
+					$line = $this->_decodeLine($line, $i == 0);
 
 					if ($i == 0) {
 						$header = str_getcsv($line, ';', '"', '"');

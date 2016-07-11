@@ -19,7 +19,7 @@ class TestItem extends Item {
  *
  * @var mixed False or table name
  */
-	public $useTable = 'Items';
+	public $useTable = 'items';
 
 /**
  * Public test double of `parent::_getMostGivenIncorrectAnswerOption`.
