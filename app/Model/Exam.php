@@ -314,7 +314,7 @@ class Exam extends AppModel {
  * @param bool $firstLine Whether this is the first line
  * @return string
  */
-	private function __decodeLine($line, $firstLine = false) {
+	protected function _decodeLine($line, $firstLine = false) {
 		if ($firstLine) {
 			$this->__encoding = null;
 			if (substr($line, 0, 3) == pack("CCC", 0xef, 0xbb, 0xbf)) {
@@ -365,7 +365,7 @@ class Exam extends AppModel {
 		$conditions = array('Exam.id' => $id);
 		$exam = $this->find('first', compact('conditions'));
 		if (!empty($exam)) {
-			return $this->__analyse($id);
+			return $this->_analyse($exam);
 		}
 		return false;
 	}
@@ -376,7 +376,7 @@ class Exam extends AppModel {
  * @param int $id An exam id
  * @return bool
  */
-	private function __analyse($id) {
+	private function _analyse($id) {
 		$this->id = $id;
 		$this->saveField('exam_state_id', ExamState::ANALYSING);
 
@@ -469,18 +469,18 @@ class Exam extends AppModel {
 		$conditions = array('Exam.id' => $id);
 		$exam = $this->find('first', compact('conditions'));
 		if (!empty($exam)) {
-			return $this->__report($exam);
+			return $this->_report($exam);
 		}
 		return false;
 	}
 
 /**
- * __report
+ * _report
  *
  * @param array $exam Exam data
  * @return bool
  */
-	private function __report($exam) {
+	protected function _report($exam) {
 		$result = true;
 
 		$this->id = $exam['Exam']['id'];
@@ -685,7 +685,7 @@ class Exam extends AppModel {
 		if (($handle = fopen($filename, "r")) !== false) {
 			for ($i = 0; !feof($handle); $i++) {
 				$line = fgets($handle);
-				$line = $this->__decodeLine($line, $i == 0);
+				$line = $this->_decodeLine($line, $i == 0);
 				if (!empty($line)) {
 					$row = str_getcsv($line, $delimiter, $enclosure, $escape);
 					if (!empty($row)) {
@@ -1070,7 +1070,7 @@ class Exam extends AppModel {
 			for ($i = 0; !feof($handle); $i++) {
 				$skipLine = false;
 				$line = fgets($handle);
-				$line = $this->__decodeLine($line, $i == 0);
+				$line = $this->_decodeLine($line, $i == 0);
 
 				if ($i == 0) {
 					// first line contains correct answers for first version

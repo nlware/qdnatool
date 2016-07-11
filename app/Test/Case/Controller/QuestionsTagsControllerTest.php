@@ -60,9 +60,7 @@ class QuestionsTagsControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testDelete() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testDelete not implemented.');
 	}
 
 /**
@@ -71,9 +69,7 @@ class QuestionsTagsControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testMoveDown() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testMoveDown not implemented.');
 	}
 
 /**
@@ -82,9 +78,7 @@ class QuestionsTagsControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testMoveUp() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->markTestIncomplete('testMoveUp not implemented.');
 	}
 
 }
