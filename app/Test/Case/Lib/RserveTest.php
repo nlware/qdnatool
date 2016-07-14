@@ -138,4 +138,42 @@ class RserveTest extends CakeTestCase {
 		$this->assertNotEquals('NAN', $cronbach);
 	}
 
+/**
+ * testExecuteRscriptsAnalyseToLittleItems method
+ *
+ * @return void
+ */
+	public function testExecuteRscriptsAnalyseToLittleItems() {
+		$script = array();
+		$script[] = file_get_contents(APP . 'Lib' . DS . 'Rscripts' . DS . 'analyse.R');
+		$script[] = 'nvragen = 2;';
+		$script[] = 'ndeel = 2;';
+		$script[] = 'key = matrix(c(1,0,0,0,1,0), nrow = 3, ncol = nvragen, byrow = FALSE);';
+		$script[] = 'input_answers = matrix(c(2,1,1,3), nrow = ndeel, ncol = nvragen, byrow = TRUE);';
+		$script[] = 'number_answeroptions = c(3,3);';
+		$script[] = 'Analyse(key, input_answers, number_answeroptions);';
+		$script = implode("\n", $script);
+		$result = $this->Rserve->execute($script);
+		$this->assertFalse($result);
+	}
+
+/**
+ * testExecuteRscriptsAnalyseToLittleItems method
+ *
+ * @return void
+ */
+	public function testExecuteRscriptsAnalyseToLittleStudents() {
+		$script = array();
+		$script[] = file_get_contents(APP . 'Lib' . DS . 'Rscripts' . DS . 'analyse.R');
+		$script[] = 'nvragen = 3;';
+		$script[] = 'ndeel = 1;';
+		$script[] = 'key = matrix(c(1,0,0,0,1,0,0,0,1), nrow = 3, ncol = nvragen, byrow = FALSE);';
+		$script[] = 'input_answers = matrix(c(2,1,1), nrow = ndeel, ncol = nvragen, byrow = TRUE);';
+		$script[] = 'number_answeroptions = c(3,3,3);';
+		$script[] = 'Analyse(key, input_answers, number_answeroptions);';
+		$script = implode("\n", $script);
+		$result = $this->Rserve->execute($script);
+		$this->assertFalse($result);
+	}
+
 }
