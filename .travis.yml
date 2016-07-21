@@ -52,6 +52,7 @@ before_script:
   - sudo Rscript -e 'if(!"ggplot2" %in% rownames(installed.packages())) { install.packages("ggplot2", dependencies = TRUE) }'
   - sudo Rscript -e 'if(!"gridExtra" %in% rownames(installed.packages())) { install.packages("gridExtra", dependencies = TRUE) }'
   - sudo Rscript -e 'if(!"psy" %in% rownames(installed.packages())) { install.packages("psy", dependencies = TRUE) }'
+  - sudo Rscript -e 'update.packages(ask = FALSE, instlib = "~/R/Library")'
   - sudo R CMD Rserve
   - sh -c "mysql -e 'CREATE DATABASE qdnatool_test;'"
   - chmod -R 777 ./app/tmp
