@@ -33,6 +33,8 @@ before_script:
   # workaround for missing dependency in r-base which causes the following error: /var/lib/dpkg/info/r-base-core.postinst: 57: /var/lib/dpkg/info/r-base-core.postinst: mktexlsr: not found
   - sudo apt-get install -y --force-yes texlive-binaries
   - sudo apt-get install -y --force-yes r-base r-cran-rserve
+  - sudo Rscript -e "install.packages(c('covr'),,dependencies = TRUE,'http://cran.rstudio.com')"
+  - sudo Rscript -e "install.packages(c('devtools'),,dependencies = TRUE,'http://cran.rstudio.com')"
   - sudo Rscript -e "install.packages(c('gplots'),,'http://cran.rstudio.com')"
   - sudo Rscript -e "install.packages(c('ggplot2'),,'http://cran.rstudio.com')"
   - sudo Rscript -e "install.packages(c('gridExtra'),,'http://cran.rstudio.com')"
