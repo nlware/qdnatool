@@ -156,11 +156,11 @@ class RserveTest extends CakeTestCase {
 	}
 
 /**
- * testExecuteRscriptsAnalyseToLittleItems method
+ * testExecuteRscriptsAnalyseTooLittleItems method
  *
  * @return void
  */
-	public function testExecuteRscriptsAnalyseToLittleItems() {
+	public function testExecuteRscriptsAnalyseTooLittleItems() {
 		$script = array();
 		$script[] = file_get_contents(APP . 'Lib' . DS . 'Rscripts' . DS . 'analyse.R');
 		$script[] = 'nvragen = 2;';
@@ -175,11 +175,11 @@ class RserveTest extends CakeTestCase {
 	}
 
 /**
- * testExecuteRscriptsAnalyseToLittleItems method
+ * testExecuteRscriptsAnalyseTooLittleItems method
  *
  * @return void
  */
-	public function testExecuteRscriptsAnalyseToLittleStudents() {
+	public function testExecuteRscriptsAnalyseTooLittleStudents() {
 		$script = array();
 		$script[] = file_get_contents(APP . 'Lib' . DS . 'Rscripts' . DS . 'analyse.R');
 		$script[] = 'nvragen = 3;';
