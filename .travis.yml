@@ -10,7 +10,7 @@ php:
 
 env:
   - DB=mysql
-  - LINTR_COMMENT_BOT=false
+    LINTR_COMMENT_BOT=false
 
 matrix:
   allow_failures:
