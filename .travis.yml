@@ -14,6 +14,9 @@ env:
 matrix:
   allow_failures:
     - php: hhvm
+    - php: 5.5
+      env:
+        - LINTR=1
   include:
     - php: 5.5
       env:
@@ -25,6 +28,11 @@ matrix:
       env:
         - LINTR=1
 
+# cache local R libraries directory:
+cache:
+  directories:
+    - ~root/Rlib
+
 before_script:
   - sh -c "composer global require 'phpunit/phpunit=3.7.33'"
   - sh -c "ln -s ~/.composer/vendor/phpunit/phpunit/PHPUnit ./app/Vendor/PHPUnit"
@@ -33,12 +41,19 @@ before_script:
   # workaround for missing dependency in r-base which causes the following error: /var/lib/dpkg/info/r-base-core.postinst: 57: /var/lib/dpkg/info/r-base-core.postinst: mktexlsr: not found
   - sudo apt-get install -y --force-yes texlive-binaries
   - sudo apt-get install -y --force-yes r-base r-cran-rserve
-  - sudo Rscript -e "install.packages(c('covr'),,dependencies = TRUE,'http://cran.rstudio.com')"
-  - sudo Rscript -e "install.packages(c('devtools'),,dependencies = TRUE,'http://cran.rstudio.com')"
-  - sudo Rscript -e "install.packages(c('gplots'),,'http://cran.rstudio.com')"
-  - sudo Rscript -e "install.packages(c('ggplot2'),,'http://cran.rstudio.com')"
-  - sudo Rscript -e "install.packages(c('gridExtra'),,'http://cran.rstudio.com')"
-  - sudo Rscript -e "install.packages(c('psy'),,'http://cran.rstudio.com')"
+  - sudo apt-get install -y --force-yes libcurl4-gnutls-dev
+  - sudo apt-get install -y --force-yes libxml2-dev
+  - sudo mkdir -p ~/Rlib
+  - sudo echo 'R_LIBS=~/Rlib' > .Renviron
+  - sudo echo 'options(repos = "http://cran.rstudio.com")' > .Rprofile
+  - sudo echo '.travis.yml' > .Rbuildignore
+  - sudo Rscript -e 'if(!"devtools" %in% rownames(installed.packages())) { install.packages("devtools", dependencies = TRUE) }'
+  - sudo Rscript -e 'if(!"covr" %in% rownames(installed.packages())) { install.packages("covr", dependencies = TRUE) }'
+  - sudo Rscript -e 'if(!"covr" %in% rownames(installed.packages())) { install.packages("gplots", dependencies = TRUE) }'
+  - sudo Rscript -e 'if(!"covr" %in% rownames(installed.packages())) { install.packages("ggplot2", dependencies = TRUE) }'
+  - sudo Rscript -e 'if(!"covr" %in% rownames(installed.packages())) { install.packages("gridExtra", dependencies = TRUE) }'
+  - sudo Rscript -e 'if(!"covr" %in% rownames(installed.packages())) { install.packages("psy", dependencies = TRUE) }'
+  - sudo Rscript -e 'update.packages(ask = FALSE, instlib = "~/Rlib")'
   - sudo R CMD Rserve
   - sh -c "mysql -e 'CREATE DATABASE qdnatool_test;'"
   - chmod -R 777 ./app/tmp
