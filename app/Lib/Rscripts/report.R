@@ -2,6 +2,7 @@
 library(gplots)
 library(ggplot2)
 library(plyr)
+library(grid)
 library(gridExtra)
 
 GenerateReport <- function(file.name, number.students, number.answeroptions,
