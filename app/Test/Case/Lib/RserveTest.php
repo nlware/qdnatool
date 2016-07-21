@@ -220,8 +220,6 @@ class RserveTest extends CakeTestCase {
 		$script[] = 'corrected.item.tot.cor.answ.option = matrix(c(1,0,0,1,0,0,1,0,0,1,0,0), nrow = 4, ncol = number.questions, byrow = FALSE);';
 		$script[] = 'title = "Test Title";';
 		$script[] = 'item.names = c("Item 1","Item 2","Item 3");';
-
-
 		$script[] = 'GenerateReport(file.name, number.students, number.answeroptions, number.questions, cronbach,
 			frequency.answer.options, percentage.answer.options,
 			input.correct, key, correct.frequency,
@@ -234,7 +232,6 @@ class RserveTest extends CakeTestCase {
 		$this->assertTrue((bool)$result);
 
 		$this->assertFileExists($filename);
-		unlink($filename);
 	}
 
 }
