@@ -49,10 +49,10 @@ before_script:
   - sudo echo '.travis.yml' > .Rbuildignore
   - sudo Rscript -e 'if(!"devtools" %in% rownames(installed.packages())) { install.packages("devtools", dependencies = TRUE) }'
   - sudo Rscript -e 'if(!"covr" %in% rownames(installed.packages())) { install.packages("covr", dependencies = TRUE) }'
-  - sudo Rscript -e 'if(!"covr" %in% rownames(installed.packages())) { install.packages("gplots", dependencies = TRUE) }'
-  - sudo Rscript -e 'if(!"covr" %in% rownames(installed.packages())) { install.packages("ggplot2", dependencies = TRUE) }'
-  - sudo Rscript -e 'if(!"covr" %in% rownames(installed.packages())) { install.packages("gridExtra", dependencies = TRUE) }'
-  - sudo Rscript -e 'if(!"covr" %in% rownames(installed.packages())) { install.packages("psy", dependencies = TRUE) }'
+  - sudo Rscript -e 'if(!"gplots" %in% rownames(installed.packages())) { install.packages("gplots", dependencies = TRUE) }'
+  - sudo Rscript -e 'if(!"ggplot2" %in% rownames(installed.packages())) { install.packages("ggplot2", dependencies = TRUE) }'
+  - sudo Rscript -e 'if(!"gridExtra" %in% rownames(installed.packages())) { install.packages("gridExtra", dependencies = TRUE) }'
+  - sudo Rscript -e 'if(!"psy" %in% rownames(installed.packages())) { install.packages("psy", dependencies = TRUE) }'
   - sudo Rscript -e 'update.packages(ask = FALSE, instlib = "~/Rlib")'
   - sudo R CMD Rserve
   - sh -c "mysql -e 'CREATE DATABASE qdnatool_test;'"
