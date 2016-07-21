@@ -10,7 +10,6 @@ php:
 
 env:
   - DB=mysql
-    LINTR_COMMENT_BOT=false
 
 matrix:
   allow_failures:
@@ -18,6 +17,7 @@ matrix:
     - php: 5.5
       env:
         - LINTR=1
+          LINTR_COMMENT_BOT=false
   include:
     - php: 5.5
       env:
@@ -28,6 +28,7 @@ matrix:
     - php: 5.5
       env:
         - LINTR=1
+          LINTR_COMMENT_BOT=false
 
 cache:
   directories:
