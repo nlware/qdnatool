@@ -29,10 +29,9 @@ matrix:
       env:
         - LINTR=1
 
-# cache local R libraries directory:
 cache:
   directories:
-    - /home/travis/Rlib
+    - $HOME/Rlib
 
 before_script:
   - sh -c "composer global require 'phpunit/phpunit=3.7.33'"
@@ -44,6 +43,8 @@ before_script:
   - sudo apt-get install -y --force-yes r-base r-cran-rserve
   - sudo apt-get install -y --force-yes libcurl4-gnutls-dev
   - sudo apt-get install -y --force-yes libxml2-dev
+  - sudo mkdir -p ~/Rlib
+  - sudo echo 'R_LIBS=~/Rlib' > ~/.Renviron
   - sudo echo 'options(repos = "http://cran.rstudio.com")' > ~/.Rprofile
   - sudo Rscript -e 'if(!"devtools" %in% rownames(installed.packages())) { install.packages("devtools", dependencies = TRUE) }'
   - sudo Rscript -e 'if(!"covr" %in% rownames(installed.packages())) { install.packages("covr", dependencies = TRUE) }'
