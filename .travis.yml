@@ -21,6 +21,9 @@ matrix:
     - php: 5.5
       env:
         - PHPCS=1
+    - php: 5.5
+      env:
+        - LINTR=1
 
 before_script:
   - sh -c "composer global require 'phpunit/phpunit=3.7.33'"
@@ -48,8 +51,8 @@ before_script:
 script:
   - sh -c "if [ '$COVERALLS' = 1 ]; then cd ./app; Vendor/bin/cake test app All --stderr --coverage-clover ../build/logs/clover.xml --configuration ../phpunit.xml; fi;"
   - sh -c "if [ '$PHPCS' = '1' ]; then ~/.composer/vendor/bin/phpcs -p --extensions=php --standard=CakePHP --ignore=Plugin --ignore=Vendor --ignore=webroot/js/ckeditor -n ./app; fi;"
-  - sh -c "if [ '$PHPCS' != '1' ] && [ '$COVERALLS' != 1 ]; then cd ./app; Vendor/bin/cake test app All --stderr; fi"
-
+  - sh -c "if [ '$PHPCS' != '1' ] && [ '$COVERALLS' != 1 ] && [ '$LINTR' != 1 ]; then cd ./app; Vendor/bin/cake test app All --stderr; fi"
+  - sh -c "if [ '$LINTR' = '1' ]; then ./bin/travis-linter.sh; fi"
 after_success:
   - sh -c "if [ '$COVERALLS' = '1' ]; then php ~/.composer/vendor/bin/coveralls -c .coveralls.yml -v; fi"
 
