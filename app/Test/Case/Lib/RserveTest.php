@@ -193,6 +193,11 @@ class RserveTest extends CakeTestCase {
 		$this->assertFalse($result);
 	}
 
+/**
+ * testExecuteRscriptsReport method
+ *
+ * @return void
+ */
 	public function testExecuteRscriptsReport() {
 		$filename = $this->__tmpPath . DS . 'testExecuteRscriptsReport.pdf';
 
@@ -202,7 +207,7 @@ class RserveTest extends CakeTestCase {
 		$script[] = file_get_contents(APP . 'Lib' . DS . 'Rscripts' . DS . 'report.R');
 		$script[] = sprintf('file.name = "%s";', $filename);
 		$script[] = 'number.students = 2;';
-		$script[] = 'number.answeroptions = 3;';
+		$script[] = 'number.answeroptions = c(3,3,3);';
 		$script[] = 'number.questions = 3;';
 		$script[] = 'cronbach = 0.5;';
 		$script[] = 'frequency.answer.options = matrix(c(1,0,0,1,0,0,1,0,0,1,0,0), nrow = 4, ncol = number.questions, byrow = FALSE);';
@@ -212,7 +217,7 @@ class RserveTest extends CakeTestCase {
 		$script[] = 'correct.frequency = c(0,0,0);';
 		$script[] = 'correct.percentage = c(0,0,0);';
 		$script[] = 'corrected.item.tot.cor = 3;';
-		$script[] = 'corrected.item.tot.cor.answ.option = 3;';
+		$script[] = 'corrected.item.tot.cor.answ.option = matrix(c(1,0,0,1,0,0,1,0,0,1,0,0), nrow = 4, ncol = number.questions, byrow = FALSE);';
 		$script[] = 'title = "Test Title";';
 		$script[] = 'item.names = c("Item 1","Item 2","Item 3");';
 
