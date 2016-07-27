@@ -68,30 +68,30 @@ Analyse <- function(key, input.answers, number.answeroptions) {
   correct.percentage <- round(correct.frequency / number.students * 100,
                               digits = 1)
 
-  corrected.item.tot.cor <- numeric()
+  corrected_item_tot_cor <- numeric()
   suppressWarnings(
     for (j in 1 : number.questions) {
-      corrected.item.tot.cor <- c(corrected.item.tot.cor,
+      corrected_item_tot_cor <- c(corrected_item_tot_cor,
                                   cor(input.correct[, j],
                                   apply(input.correct[, -j], 1, sum)))
     }
   )
 
-  corrected.item.tot.cor[is.na(corrected.item.tot.cor)] <- 0
-  corrected.item.tot.cor <- round(corrected.item.tot.cor, digits = 3)
+  corrected_item_tot_cor[is.na(corrected_item_tot_cor)] <- 0
+  corrected_item_tot_cor <- round(corrected_item_tot_cor, digits = 3)
 
   # Creating Frequency Matrix and Item rest Cor for each answer option
   # only if any non 0's are present in key, i.e. it is a multiple choice item
 
   if (any(key != 0)) {
-    frequency.answer.options <- matrix(, max(number.answeroptions) + 1,
+    frequency_answer_options <- matrix(, max(number.answeroptions) + 1,
                                        number.questions)
     for (i in 0 : max(number.answeroptions)) {
       for (j in 1 : number.questions) {
         if (any(key[, j] != 0)) {
-          frequency.answer.options[i + 1, j] <- sum(input.answers[, j] == i)
+          frequency_answer_options[i + 1, j] <- sum(input.answers[, j] == i)
         } else {
-          frequency.answer.options[i + 1, j] <- 0
+          frequency_answer_options[i + 1, j] <- 0
         }
       }
     }
@@ -102,40 +102,40 @@ Analyse <- function(key, input.answers, number.answeroptions) {
                     collapse = ""))
     }
 
-    rownames(frequency.answer.options) <- rownames
+    rownames(frequency_answer_options) <- rownames
 
     # Percentage answered per answer option per questions
-    percentage.answer.options <- round(frequency.answer.options / number.students * 100,
+    percentage_answer_options <- round(frequency_answer_options / number.students * 100,
                                        digits = 1)
 
     # Calculating corrected item total correlation per answer option
-    corrected.item.tot.cor.answ.option <- matrix(, max(number.answeroptions) + 1,
+    corrected_item_tot_cor_answ_option <- matrix(, max(number.answeroptions) + 1,
                                                  number.questions)
 
     suppressWarnings(
       for (i in 0 : max(number.answeroptions)) {
         for (j in 1 : number.questions) {
           if (any(key[, j] != 0)) {
-            corrected.item.tot.cor.answ.option[i + 1, j] <-
+            corrected_item_tot_cor_answ_option[i + 1, j] <-
               round(cor(as.numeric(input.answers[, j] == i),
                     apply(input.correct[, -j], 1, sum)), digits = 3)
-            if (is.na(corrected.item.tot.cor.answ.option[i + 1, j])) {
-              corrected.item.tot.cor.answ.option[i + 1, j] <- 0
+            if (is.na(corrected_item_tot_cor_answ_option[i + 1, j])) {
+              corrected_item_tot_cor_answ_option[i + 1, j] <- 0
             }
           } else {
-            corrected.item.tot.cor.answ.option[i + 1, j] <- NA
+            corrected_item_tot_cor_answ_option[i + 1, j] <- NA
           }
         }
       }
     )
 
-    rownames(corrected.item.tot.cor.answ.option) <- rownames
+    rownames(corrected_item_tot_cor_answ_option) <- rownames
   }
 
   if (all(key == 0)) {
-    frequency.answer.options <- 0
-    percentage.answer.options <- 0
-    corrected.item.tot.cor.answ.option <- 0
+    frequency_answer_options <- 0
+    percentage_answer_options <- 0
+    corrected_item_tot_cor_answ_option <- 0
   }
 
   # Computes Cronbach's Alpha for overall test
@@ -147,6 +147,6 @@ Analyse <- function(key, input.answers, number.answeroptions) {
   }
 
   list(cronbach, max(number.answeroptions), correct.frequency,
-       correct.percentage, corrected.item.tot.cor, frequency.answer.options,
-       percentage.answer.options, corrected.item.tot.cor.answ.option)
+       correct.percentage, corrected_item_tot_cor, frequency_answer_options,
+       percentage_answer_options, corrected_item_tot_cor_answ_option)
 }
