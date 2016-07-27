@@ -1,2 +1,0 @@
-linters: with_defaults(multiple_dots_linter = NULL)
-
