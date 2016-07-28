@@ -30,17 +30,17 @@ GenerateReport <- function(filename, number_students, number_answeroptions,
 
       # Frequency is also stored at this point, but not used.
       # in case someone wants to alter the script to display the frequency instead of the percentage
-      item_list[[i]] <- data.frame(c(LETTERS[1:number_answeroptions[i]], "Missing"),
-                                   c(frequency_answer_options[c(2:(number_answeroptions[i] + 1), 1), i]),
-                                   c(percentage_answer_options[c(2:(number_answeroptions[i] + 1), 1), i]),
-                                   c(corrected_item_tot_cor_answ_option[c(2:(number_answeroptions[i] + 1), 1), i]),
-                                   Correct,
-                                   row.names = NULL)
+      item_list[[i]] <- data.frame(
+        c(LETTERS[1:number_answeroptions[i]], "Missing"),
+        c(frequency_answer_options[c(2:(number_answeroptions[i] + 1), 1), i]),
+        c(percentage_answer_options[c(2:(number_answeroptions[i] + 1), 1), i]),
+        c(corrected_item_tot_cor_answ_option[c(2:(number_answeroptions[i] + 1), 1), i]),
+        Correct,
+        row.names = NULL
+      )
       colnames(item_list[[i]]) <- colnames2
     } else {
-      item_list[[i]] <- data.frame("Total", correct_frequency[i],
-                                   correct_percentage[i],
-                                   corrected_item_tot_cor[i])
+      item_list[[i]] <- data.frame("Total", correct_frequency[i], correct_percentage[i], corrected_item_tot_cor[i])
       # Frequency is also stored at this point, but not used,
       # in case someone wants to alter the script to display the frequency instead of the percentage
       colnames(item_list[[i]]) <- colnames1
@@ -60,8 +60,10 @@ GenerateReport <- function(filename, number_students, number_answeroptions,
   for (i in 1:number_questions) {
     #Create right order on the x-axis (Missingness last)
     if (any(key[, i] != 0) & number_answeroptions[i] < 15) {
-      item_list1[[i]]$Ans_Factor <- factor(item_list1[[i]]$"Answer Option",
-                                           levels = c(LETTERS[1 : max(number_answeroptions)], "Missing"))
+      item_list1[[i]]$Ans_Factor <- factor(
+        item_list1[[i]]$"Answer Option",
+        levels = c(LETTERS[1 : max(number_answeroptions)], "Missing")
+      )
       item_list1[[i]]$Col_scale <- as.numeric(item_list1[[i]]$Correct) * 2 - 3
       item_list1[[i]]$IRC_col_scale <- with(item_list1[[i]], IRC * Col_scale)
       item_list1[[i]]$Perc_col_scale <- with(item_list1[[i]], Percentage)
@@ -70,23 +72,29 @@ GenerateReport <- function(filename, number_students, number_answeroptions,
 
   #Create data frame of all the items which have answer options. This is used to make barplots per answer option
   if (any(key != 0)) {
-    ans_opt_dataframe <- plyr::ldply(item_list1[number_answeroptions != 0 & number_answeroptions < 15], data.frame)
-    names(ans_opt_dataframe)[1] <- "id"
-    ans_opt_dataframe[, 2] <- gsub("Missing", "Mis", ans_opt_dataframe[, 2])
-    ans_opt_dataframe$Ans_Factor <- gsub("Missing", "Mis", ans_opt_dataframe$Ans_Factor)
-    ans_opt_dataframe$Ans_Factor <- factor(ans_opt_dataframe$Ans_Factor,
-                                          levels = c(LETTERS[1 : max(number_answeroptions)], "Mis"))
-    ans_opt_dataframe$id <- factor(ans_opt_dataframe$id, levels = items[number_answeroptions != 0])
-    ans_opt_dataframe$Perc_col_scale[ans_opt_dataframe$Correct == "Correct"] <-
-      100 - ans_opt_dataframe$Perc_col_scale[ans_opt_dataframe$Correct == "Correct"]
+    ans_opt_datafrm <- plyr::ldply(item_list1[number_answeroptions != 0 & number_answeroptions < 15], data.frame)
+    names(ans_opt_datafrm)[1] <- "id"
+    ans_opt_datafrm[, 2] <- gsub("Missing", "Mis", ans_opt_datafrm[, 2])
+    ans_opt_datafrm$Ans_Factor <- gsub("Missing", "Mis", ans_opt_datafrm$Ans_Factor)
+    ans_opt_datafrm$Ans_Factor <- factor(
+      ans_opt_datafrm$Ans_Factor,
+      levels = c(LETTERS[1 : max(number_answeroptions)], "Mis")
+    )
+    ans_opt_datafrm$id <- factor(ans_opt_datafrm$id, levels = items[number_answeroptions != 0])
+    ans_opt_datafrm$Perc_col_scale[ans_opt_datafrm$Correct == "Correct"] <-
+      100 - ans_opt_datafrm$Perc_col_scale[ans_opt_datafrm$Correct == "Correct"]
 
-    id2 <- as.numeric(ans_opt_dataframe$id)
-    ans_opt_dataframe <- cbind(ans_opt_dataframe, id2)
+    id2 <- as.numeric(ans_opt_datafrm$id)
+    ans_opt_datafrm <- cbind(ans_opt_datafrm, id2)
   }
 
   # Create a dataframe with only the correct statistics in it. This is used in the general item plots
-  dataframe_correct <- data.frame(factor(1:number_questions), correct_frequency,
-                                  correct_percentage, corrected_item_tot_cor)
+  dataframe_correct <- data.frame(
+    factor(1:number_questions),
+    correct_frequency,
+    correct_percentage,
+    corrected_item_tot_cor
+  )
   names(dataframe_correct)[1] <- "item"
 
   # Starting explanation
@@ -97,14 +105,16 @@ GenerateReport <- function(filename, number_students, number_answeroptions,
     "Standard deviation  : ", round(sd(rowSums(input_correct)), digits = 3), "\n",
     "Cronbach's alpha    : ", cronbach, "\n",
     "Standard error      : ", round(sd(rowSums(input_correct) * sqrt(1 - cronbach)), digits = 3), "\n",
-    sep = "")
+    sep = ""
+  )
 
   explanation_items <- paste(
     "Explanation Table", "\n", "\n",
     "For each question the frequency, percentage and item rest correlations (IRC)", "\n",
     "from every answer option are diplayed. The IRC should be (highly) positive", "\n",
     "for the right answer option and low for the wrong answer option(s).", "\n",
-    sep = "")
+    sep = ""
+  )
 
   pdf(file = filename, h = 8, w = 10)
 
@@ -316,26 +326,26 @@ GenerateReport <- function(filename, number_students, number_answeroptions,
     Questions_p2 <- numeric()
     Questions_p3 <- numeric()
     Questions_p4 <- numeric()
-    questions_with_ans_opts <- nlevels(ans_opt_dataframe$id)
+    questions_with_ans_opts <- nlevels(ans_opt_datafrm$id)
 
     # Calculating which questions are on the first plot. Total answeroptions should be less than 100
     while (tot_answer_options < 100 & Questions_p1 < questions_with_ans_opts) {
       Questions_p1 <- Questions_p1 + 1
-      tot_answer_options <- tot_answer_options + sum(ans_opt_dataframe$id2 == Questions_p1)
+      tot_answer_options <- tot_answer_options + sum(ans_opt_datafrm$id2 == Questions_p1)
     }
 
     # Calculating which questions are on the second plot. Total answeroptions should be less than 100
     Questions_p2 <- Questions_p1
     while (tot_answer_options < 200 & Questions_p2 < questions_with_ans_opts) {
       Questions_p2 <- Questions_p2 + 1
-      tot_answer_options <- tot_answer_options + sum(ans_opt_dataframe$id2 == Questions_p2)
+      tot_answer_options <- tot_answer_options + sum(ans_opt_datafrm$id2 == Questions_p2)
     }
 
     # Calculating which questions are on the third plot. Total answeroptions should be less than 100
     Questions_p3 <- Questions_p2
     while (tot_answer_options < 300 & Questions_p3 < questions_with_ans_opts) {
       Questions_p3 <- Questions_p3 + 1
-      tot_answer_options <- tot_answer_options + sum(ans_opt_dataframe$id2 == Questions_p3)
+      tot_answer_options <- tot_answer_options + sum(ans_opt_datafrm$id2 == Questions_p3)
     }
 
     # Emptying the plots if no questions are present for that plot
@@ -349,7 +359,7 @@ GenerateReport <- function(filename, number_students, number_answeroptions,
 
     bar_plot_freq1 <- ggplot2::ggplot(
       # Create subset of first 16 questions
-      ans_opt_dataframe[ans_opt_dataframe$id %in% c(levels(ans_opt_dataframe$id)[1:Questions_p1]), ],
+      ans_opt_datafrm[ans_opt_datafrm$id %in% c(levels(ans_opt_datafrm$id)[1:Questions_p1]), ],
       # Create chart with Answer Option on x-axis and IRC on y-asix
       ggplot2::aes("Answer Option", Percentage, fill = Correct, colour = Perc_col_scale)
     )
@@ -388,7 +398,7 @@ GenerateReport <- function(filename, number_students, number_answeroptions,
     if (Questions_p2 != 0) {
       bar_plot_freq2 <- ggplot2::ggplot(
         # Create subset of the other questions
-        ans_opt_dataframe[ans_opt_dataframe$id %in% c(levels(ans_opt_dataframe$id)[(Questions_p1 + 1) : Questions_p2]), ],
+        ans_opt_datafrm[ans_opt_datafrm$id %in% c(levels(ans_opt_datafrm$id)[(Questions_p1 + 1) : Questions_p2]), ],
         # Create chart with Answer Option on x-axis and IRC on y-asix
         ggplot2::aes("Answer Option", Percentage, fill = Correct, colour = Perc_col_scale)
       )
@@ -417,7 +427,7 @@ GenerateReport <- function(filename, number_students, number_answeroptions,
     if (Questions_p3 != 0) {
       bar_plot_freq3 <- ggplot2::ggplot(
         # Create subset of the other questions
-        ans_opt_dataframe[ans_opt_dataframe[, 1] %in% c(levels(ans_opt_dataframe$id)[(Questions_p2 + 1) : Questions_p3]), ],
+        ans_opt_datafrm[ans_opt_datafrm[, 1] %in% c(levels(ans_opt_datafrm$id)[(Questions_p2 + 1) : Questions_p3]), ],
         # Create chart with Answer Option on x-axis and IRC on y-asix
         ggplot2::aes("Answer Option", Percentage, fill = Correct, colour = Perc_col_scale)
       )
@@ -446,7 +456,7 @@ GenerateReport <- function(filename, number_students, number_answeroptions,
     if (Questions_p4 != 0) {
       bar_plot_freq4 <- ggplot2::ggplot(
         # Create subset of the other questions
-        ans_opt_dataframe[ans_opt_dataframe[, 1] %in% c(levels(ans_opt_dataframe$id)[(Questions_p3 + 1) : Questions_p4]), ],
+        ans_opt_datafrm[ans_opt_datafrm[, 1] %in% c(levels(ans_opt_datafrm$id)[(Questions_p3 + 1) : Questions_p4]), ],
         # Create chart with Answer Option on x-axis and IRC on y-asix
         ggplot2::aes("Answer Option", Percentage, fill = Correct, colour = Perc_col_scale)
       )
@@ -478,7 +488,7 @@ GenerateReport <- function(filename, number_students, number_answeroptions,
 
     bar_plot_IRC1 <- ggplot2::ggplot(
       # Create subset of first 16 questions
-      ans_opt_dataframe[ans_opt_dataframe$id %in% c(levels(ans_opt_dataframe$id)[1:Questions_p1]), ],
+      ans_opt_datafrm[ans_opt_datafrm$id %in% c(levels(ans_opt_datafrm$id)[1:Questions_p1]), ],
       # Create chart with Answer Option on x-axis and IRC on y-asix
       ggplot2::aes("Answer Option", IRC, fill = Correct, colour = IRC_col_scale)
     )
@@ -516,7 +526,7 @@ GenerateReport <- function(filename, number_students, number_answeroptions,
     if (Questions_p2 != 0) {
       bar_plot_IRC2 <- ggplot2::ggplot(
         # Create subset of first 16 questions
-        ans_opt_dataframe[ans_opt_dataframe$id %in% c(levels(ans_opt_dataframe$id)[(Questions_p1 + 1) : Questions_p2]), ],
+        ans_opt_datafrm[ans_opt_datafrm$id %in% c(levels(ans_opt_datafrm$id)[(Questions_p1 + 1) : Questions_p2]), ],
         # Create chart with Answer Option on x-axis and IRC on y-asix
         ggplot2::aes("Answer Option", IRC, fill = Correct, colour = IRC_col_scale)
       )
@@ -545,7 +555,7 @@ GenerateReport <- function(filename, number_students, number_answeroptions,
     if (Questions_p3 != 0) {
       bar_plot_IRC3 <- ggplot2::ggplot(
         # Create subset of first 16 questions
-        ans_opt_dataframe[ans_opt_dataframe$id %in% c(levels(ans_opt_dataframe$id)[(Questions_p2 + 1) : Questions_p3]), ],
+        ans_opt_datafrm[ans_opt_datafrm$id %in% c(levels(ans_opt_datafrm$id)[(Questions_p2 + 1) : Questions_p3]), ],
         # Create chart with Answer Option on x-axis and IRC on y-asix
         ggplot2::aes("Answer Option", IRC, fill = Correct, colour = IRC_col_scale)
       )
@@ -574,7 +584,7 @@ GenerateReport <- function(filename, number_students, number_answeroptions,
     if (Questions_p4 != 0) {
       bar_plot_IRC4 <- ggplot2::ggplot(
         # Create subset of first 16 questions
-        ans_opt_dataframe[ans_opt_dataframe$id %in% c(levels(ans_opt_dataframe$id)[(Questions_p3 + 1) : Questions_p4]), ],
+        ans_opt_datafrm[ans_opt_datafrm$id %in% c(levels(ans_opt_datafrm$id)[(Questions_p3 + 1) : Questions_p4]), ],
         # Create chart with Answer Option on x-axis and IRC on y-asix
         ggplot2::aes("Answer Option", IRC, fill = Correct, colour = IRC_col_scale)
       )
