@@ -62,9 +62,11 @@ report <- function(
         item_list1[[i]]$"Answer Option",
         levels = c(LETTERS[1 : max(number_answeroptions)], "Missing")
       )
-      item_list1[[i]]$Col_scale <- as.numeric(item_list1[[i]]$Correct) * 2 - 3
-      item_list1[[i]]$IRC_col_scale <- with(item_list1[[i]], IRC * Col_scale)
-      item_list1[[i]]$Perc_col_scale <- with(item_list1[[i]], Percentage)
+      # nolint start
+      item_list1[[i]]$"Col_scale" <- as.numeric(item_list1[[i]]$Correct) * 2 - 3
+      item_list1[[i]]$"IRC_col_scale" <- with(item_list1[[i]], IRC * Col_scale)
+      item_list1[[i]]$"Perc_col_scale" <- with(item_list1[[i]], Percentage)
+      # nolint end
     }
   }
 
