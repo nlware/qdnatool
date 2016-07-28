@@ -1,7 +1,7 @@
 # Get necessary packages
 library(psy)
 
-Analyse <- function(key, input_answers, number_answeroptions) {
+analyse <- function(key, input_answers, number_answeroptions) {
   # Calculates standard psychometric properties of an exam, notably the percentage correct and the item rest
   # correlation (IRC) per item and per answer option and the cronbach's alpha for the whole exam.
   #
