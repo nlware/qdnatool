@@ -3,7 +3,9 @@ library(gplots)
 library(ggplot2)
 library(plyr)
 library(grid)
-library("gridExtra", character.only = TRUE)
+# nolint start
+library(gridExtra)
+# nolint end
 
 report <- function(
   filename, number_students, number_answeroptions, number_questions, cronbach, frequency_answer_options,
