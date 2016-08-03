@@ -7,11 +7,20 @@ library(grid)
 library(gridExtra)
 # nolint end
 
-report <- function(
-  filename, number_students, number_answeroptions, number_questions, cronbach, frequency_answer_options,
-  percentage_answer_options, input_correct, key, correct_frequency, correct_percentage, corrected_item_tot_cor,
-  corrected_item_tot_cor_answ_option, title, item_names
-) {
+report <- function(filename,
+                   number_students,
+                   number_answeroptions,
+                   number_questions,
+                   cronbach,
+                   frequency_answer_options,
+                   percentage_answer_options,
+                   input_correct,
+                   key,
+                   correct_frequency,
+                   correct_percentage,
+                   corrected_item_tot_cor,
+                   corrected_item_tot_cor_answ_option,
+                   title, item_names) {
   # Creating results for each item
   item_list <- list() # Creates list to put item output in
   colnames1 <- c("Answer Option", "Frequency", "Percentage", "IRC")
