@@ -12,5 +12,5 @@ report <- function(filename,
                    item_names,
                    student_scores,
                    categories) {
-  rmarkdown::render("report.Rmd", output_format = "pdf_document", output_file = filename)
+  rmarkdown::render("/home/travis/build/nlware/qdnatool/app/Lib/Rscripts/report.Rmd", output_format = "pdf_document", output_file = filename)
 }
