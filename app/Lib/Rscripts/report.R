@@ -20,7 +20,8 @@ report <- function(filename,
                    correct_percentage,
                    corrected_item_tot_cor,
                    corrected_item_tot_cor_answ_option,
-                   title, item_names) {
+                   title,
+                   item_names) {
   # Creating results for each item
   item_list <- list() # Creates list to put item output in
   colnames1 <- c("Answer Option", "Frequency", "Percentage", "IRC")
