@@ -560,28 +560,22 @@ class Exam extends AppModel {
 			// Create the frequency_answer_options matrix (with given dimensions)
 			// by filling it with a vector (by column)
 			$script[] = sprintf(
-				'frequency_answer_options = matrix(' .
-				'c(%s), max_number_answeroptions + 1, number_questions, byrow = FALSE' .
-				');',
+				'frequency_answer_options = matrix( c( %s ), max_number_answeroptions + 1, number_questions, byrow = FALSE );',
 				implode(',', $frequencyAnswerOptionsMatrix)
 			);
 			// Create the percentage_answer_options matrix (with given dimensions)
 			// by filling it with a vector (by column)
 			$script[] = sprintf(
-				'percentage_answer_options = matrix(' .
-				'c(%s), max_number_answeroptions + 1, number_questions, byrow = FALSE' .
-				');',
+				'percentage_answer_options = matrix( c( %s ), max_number_answeroptions + 1, number_questions, byrow = FALSE );',
 				implode(',', $percentageAnswerOptionsMatrix)
 			);
 			// Create the corrected_item_tot_cor_answ_option matrix (with given dimensions)
 			// by filling it with a vector (by column)
 			$script[] = sprintf(
-				'corrected_item_tot_cor_answ_option = matrix(' .
-				'c(%s), max_number_answeroptions + 1, number_questions, byrow = FALSE' .
-				');',
+				'corrected_item_tot_cor_answ_option = matrix( c( %s ), max_number_answeroptions + 1, number_questions, byrow = FALSE );',
 				implode(',', $correctedItemTotCorAnswOptionMatrix)
 			);
-			$script[] = sprintf('item_names = c(%s);', implode(',', $itemNamesVector));
+			$script[] = sprintf('item_names = c( %s );', implode(',', $itemNamesVector));
 
 			$inputCorrectMatrix = array();
 
@@ -597,7 +591,7 @@ class Exam extends AppModel {
 
 			// Create the input_correct matrix (with given dimensions) by filling it with a vector (by row)
 			$script[] = sprintf(
-				'input_correct = matrix(c(%s), number_students, number_questions, byrow = TRUE);',
+				'input_correct = matrix( c( %s ), number_students, number_questions, byrow = TRUE );',
 				implode(',', $inputCorrectMatrix)
 			);
 
@@ -615,16 +609,16 @@ class Exam extends AppModel {
 
 			// Create the key matrix (with given dimensions) by filling it with a vector (by column)
 			$script[] = sprintf(
-				'key = matrix(c(%s), max_number_answeroptions, number_questions, byrow = FALSE);',
+				'key = matrix( c( %s ), max_number_answeroptions, number_questions, byrow = FALSE );',
 				implode(',', $keyMatrix)
 			);
 
 			$script[] = sprintf(
-				'report(' .
+				'report( ' .
 				'"%s", number_students, number_answeroptions, number_questions, Cronbach, frequency_answer_options, ' .
 				'percentage_answer_options, input_correct, key, correct_frequency, correct_percentage, ' .
 				'corrected_item_tot_cor, corrected_item_tot_cor_answ_option, "%s", item_names' .
-				');',
+				' );',
 				$tempFile, $exam['Exam']['name']
 			);
 
@@ -1516,7 +1510,7 @@ class Exam extends AppModel {
 		// [2,]    2    4
 
 		$script[] = sprintf(
-			'key = matrix(c(%s), %d, %d, byrow = FALSE);',
+			'key = matrix( c( %s ), %d, %d, byrow = FALSE );',
 			implode(',', $keyMatrix), $maxAnswerOptionCount, count($exam['Item'])
 		);
 
@@ -1538,7 +1532,7 @@ class Exam extends AppModel {
 		// [2,]    3    4
 
 		$script[] = sprintf(
-			'input_answers = matrix(c(%s), ndeel, nvragen, byrow = TRUE);',
+			'input_answers = matrix( c( %s ), ndeel, nvragen, byrow = TRUE );',
 			implode(',', $inputAnswersMaxtrix)
 		);
 
@@ -1550,9 +1544,9 @@ class Exam extends AppModel {
 			$numberAnsweroptionsVector[] = $count;
 		}
 
-		$script[] = sprintf('number_answeroptions = c(%s);', implode(',', $numberAnsweroptionsVector));
+		$script[] = sprintf('number_answeroptions = c( %s );', implode(',', $numberAnsweroptionsVector));
 
-		$script[] = 'analyse(key, input_answers, number_answeroptions);';
+		$script[] = 'analyse( key, input_answers, number_answeroptions );';
 
 		$script = implode("\n", $script);
 
