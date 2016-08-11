@@ -40,7 +40,10 @@ before_script:
   - sudo apt-get install -y --force-yes r-base r-cran-rserve
   - sudo apt-get install -y --force-yes libcurl4-gnutls-dev
   - sudo apt-get install -y --force-yes libxml2-dev
-  - sudo apt-get install -y --force-yes pandoc
+  - sudo apt-get install -y --force-yes ghc
+  - sudo apt-get install -y --force-yes cabal-install
+  - sudo cabal update
+  - sudo cabal install pandoc
   - sudo mkdir -p ~/R/Library
   - sudo echo 'R_LIBS=~/R/Library' > ~/.Renviron
   - sudo echo 'options(repos = "http://cran.rstudio.com")' > ~/.Rprofile
