@@ -205,14 +205,13 @@ class RserveTest extends CakeTestCase {
 
 		$script = array();
 		$script[] = file_get_contents(APP . 'Lib' . DS . 'Rscripts' . DS . 'report.R');
-		$script[] = sprintf('file_name = "%s";', $filename);
+		$script[] = sprintf('filename = "%s";', $filename);
 		$script[] = 'number_students = 2;';
 		$script[] = 'number_answeroptions = c( 3, 3, 3 );';
 		$script[] = 'number_questions = 3;';
 		$script[] = 'cronbach = 0.5;';
 		$script[] = 'frequency_answer_options = matrix( c( 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0 ), nrow = 4, ncol = number_questions, byrow = FALSE );';
 		$script[] = 'percentage_answer_options = matrix( c( 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0 ), nrow = 4, ncol = number_questions, byrow = FALSE );';
-		$script[] = 'input_correct = matrix( c( 0, 0, 0, 0, 0, 0 ), nrow = number_students, ncol = number_questions, byrow = TRUE );';
 		$script[] = 'key = matrix( c( 1, 0, 0, 1, 0, 0, 1, 0, 0 ), nrow = 3, ncol = number_questions, byrow = FALSE );';
 		$script[] = 'correct_frequency = c( 0, 0, 0 );';
 		$script[] = 'correct_percentage = c( 0, 0, 0 );';
@@ -220,12 +219,10 @@ class RserveTest extends CakeTestCase {
 		$script[] = 'corrected_item_tot_cor_answ_option = matrix( c( 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0 ), nrow = 4, ncol = number_questions, byrow = FALSE );';
 		$script[] = 'title = "Test Title";';
 		$script[] = 'item_names = c( "Item 1", "Item 2", "Item 3" );';
-		$script[] = 'report( file_name, number_students, number_answeroptions, number_questions, cronbach,
-			frequency_answer_options, percentage_answer_options,
-			input_correct, key, correct_frequency,
-			correct_percentage, corrected_item_tot_cor,
-			corrected_item_tot_cor_answ_option, title,
-			item_names);';
+		$script[] = 'student_scores = c(  );';
+		$script[] = 'categories = c(  );';
+		$script[] = 'report( filename, number_answeroptions, cronbach, frequency_answer_options, percentage_answer_options, key, correct_frequency,
+			correct_percentage, corrected_item_tot_cor, corrected_item_tot_cor_answ_option, title, item_names, student_scores, categories );';
 
 		$script = implode("\n", $script);
 		$result = $this->Rserve->execute($script);
