@@ -599,7 +599,7 @@ class Exam extends AppModel {
 			);
 
 			$script[] = sprintf(
-				'GenerateReport(' .
+				'report(' .
 				'"%s", number_students, number_answeroptions, number_questions, Cronbach, frequency_answer_options, ' .
 				'percentage_answer_options, input_correct, key, correct_frequency, correct_percentage, ' .
 				'corrected_item_tot_cor, corrected_item_tot_cor_answ_option, "%s", item_names' .
@@ -1508,7 +1508,7 @@ class Exam extends AppModel {
 
 		$script[] = sprintf('number_answeroptions = c(%s);', implode(',', $numberAnsweroptionsVector));
 
-		$script[] = 'Analyse(key, input_answers, number_answeroptions);';
+		$script[] = 'analyse(key, input_answers, number_answeroptions);';
 
 		$script = implode("\n", $script);
 

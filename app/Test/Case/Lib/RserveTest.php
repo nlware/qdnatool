@@ -90,7 +90,7 @@ class RserveTest extends CakeTestCase {
 		$script[] = 'key = matrix(c(1,0,0,0,1,0,0,0,1), nrow = 3, ncol = nvragen, byrow = FALSE);';
 		$script[] = 'input_answers = matrix(c(2,1,1,3,1,2,1,1,3,2,1,1,2,3,2,1,1,3), nrow = ndeel, ncol = nvragen, byrow = TRUE);';
 		$script[] = 'number_answeroptions = c(3,3,3);';
-		$script[] = 'Analyse(key, input_answers, number_answeroptions);';
+		$script[] = 'analyse(key, input_answers, number_answeroptions);';
 		$script = implode("\n", $script);
 		$result = $this->Rserve->execute($script);
 		$this->assertTrue((bool)$result);
@@ -116,7 +116,7 @@ class RserveTest extends CakeTestCase {
 		$script[] = 'key = matrix(c(1,0,0,1,0,0,1,0,0), nrow = 3, ncol = nvragen, byrow = FALSE);';
 		$script[] = 'input_answers = matrix(c(1,2,3,1,2,3), nrow = ndeel, ncol = nvragen, byrow = TRUE);';
 		$script[] = 'number_answeroptions = c(3,3,3);';
-		$script[] = 'Analyse(key, input_answers, number_answeroptions);';
+		$script[] = 'analyse(key, input_answers, number_answeroptions);';
 		$script = implode("\n", $script);
 		$result = $this->Rserve->execute($script);
 		$this->assertTrue((bool)$result);
@@ -142,7 +142,7 @@ class RserveTest extends CakeTestCase {
 		$script[] = 'key = matrix(c(1,0,0,0,1,0,0,0,1), nrow = 3, ncol = nvragen, byrow = FALSE);';
 		$script[] = 'input_answers = matrix(c(2,1,1,3,1,2), nrow = ndeel, ncol = nvragen, byrow = TRUE);';
 		$script[] = 'number_answeroptions = c(3,3,3);';
-		$script[] = 'Analyse(key, input_answers, number_answeroptions);';
+		$script[] = 'analyse(key, input_answers, number_answeroptions);';
 		$script = implode("\n", $script);
 		$result = $this->Rserve->execute($script);
 		$this->assertTrue((bool)$result);
@@ -168,7 +168,7 @@ class RserveTest extends CakeTestCase {
 		$script[] = 'key = matrix(c(1,0,0,0,1,0), nrow = 3, ncol = nvragen, byrow = FALSE);';
 		$script[] = 'input_answers = matrix(c(2,1,1,3), nrow = ndeel, ncol = nvragen, byrow = TRUE);';
 		$script[] = 'number_answeroptions = c(3,3);';
-		$script[] = 'Analyse(key, input_answers, number_answeroptions);';
+		$script[] = 'analyse(key, input_answers, number_answeroptions);';
 		$script = implode("\n", $script);
 		$result = $this->Rserve->execute($script);
 		$this->assertFalse($result);
@@ -187,7 +187,7 @@ class RserveTest extends CakeTestCase {
 		$script[] = 'key = matrix(c(1,0,0,0,1,0,0,0,1), nrow = 3, ncol = nvragen, byrow = FALSE);';
 		$script[] = 'input_answers = matrix(c(2,1,1), nrow = ndeel, ncol = nvragen, byrow = TRUE);';
 		$script[] = 'number_answeroptions = c(3,3,3);';
-		$script[] = 'Analyse(key, input_answers, number_answeroptions);';
+		$script[] = 'analyse(key, input_answers, number_answeroptions);';
 		$script = implode("\n", $script);
 		$result = $this->Rserve->execute($script);
 		$this->assertFalse($result);
@@ -220,7 +220,7 @@ class RserveTest extends CakeTestCase {
 		$script[] = 'corrected.item.tot.cor.answ.option = matrix(c(1,0,0,1,0,0,1,0,0,1,0,0), nrow = 4, ncol = number.questions, byrow = FALSE);';
 		$script[] = 'title = "Test Title";';
 		$script[] = 'item.names = c("Item 1","Item 2","Item 3");';
-		$script[] = 'GenerateReport(file.name, number.students, number.answeroptions, number.questions, cronbach,
+		$script[] = 'report(file.name, number.students, number.answeroptions, number.questions, cronbach,
 			frequency.answer.options, percentage.answer.options,
 			input.correct, key, correct.frequency,
 			correct.percentage, corrected.item.tot.cor,
