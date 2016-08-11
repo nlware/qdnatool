@@ -589,12 +589,6 @@ class Exam extends AppModel {
 				}
 			}
 
-			// Create the input_correct matrix (with given dimensions) by filling it with a vector (by row)
-			$script[] = sprintf(
-				'input_correct = matrix( c( %s ), number_students, number_questions, byrow = TRUE );',
-				implode(',', $inputCorrectMatrix)
-			);
-
 			$keyMatrix = array();
 
 			foreach ($exam['Item'] as $i => $item) {
@@ -613,11 +607,15 @@ class Exam extends AppModel {
 				implode(',', $keyMatrix)
 			);
 
+			$script[] = 'student_scores = c(  );';
+
+			$script[] = 'categories = c(  );';
+
 			$script[] = sprintf(
 				'report( ' .
-				'"%s", number_students, number_answeroptions, number_questions, Cronbach, frequency_answer_options, ' .
-				'percentage_answer_options, input_correct, key, correct_frequency, correct_percentage, ' .
-				'corrected_item_tot_cor, corrected_item_tot_cor_answ_option, "%s", item_names' .
+				'"%s", number_answeroptions, Cronbach, frequency_answer_options, percentage_answer_options, key, ' .
+				'correct_frequency, correct_percentage, corrected_item_tot_cor, corrected_item_tot_cor_answ_option, "%s", ' .
+				'item_names, student_scores, categories' .
 				' );',
 				$tempFile, $exam['Exam']['name']
 			);
