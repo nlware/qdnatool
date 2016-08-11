@@ -219,7 +219,7 @@ class RserveTest extends CakeTestCase {
 		$script[] = 'corrected_item_tot_cor_answ_option = matrix( c( 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0 ), nrow = 4, ncol = number_questions, byrow = FALSE );';
 		$script[] = 'title = "Test Title";';
 		$script[] = 'item_names = c( "Item 1", "Item 2", "Item 3" );';
-		$script[] = 'student_scores = c(  );';
+		$script[] = 'student_scores = c( 7, 9 );';
 		$script[] = 'categories = c(  );';
 		$script[] = 'report( filename, number_answeroptions, cronbach, frequency_answer_options, percentage_answer_options, key, correct_frequency,
 			correct_percentage, corrected_item_tot_cor, corrected_item_tot_cor_answ_option, title, item_names, student_scores, categories );';
