@@ -205,7 +205,7 @@ class RserveTest extends CakeTestCase {
 
 		$script = array();
 		$script[] = file_get_contents(APP . 'Lib' . DS . 'Rscripts' . DS . 'report.R');
-		$script[] = sprintf('file.name = "%s";', $filename);
+		$script[] = sprintf('file_name = "%s";', $filename);
 		$script[] = 'number_students = 2;';
 		$script[] = 'number_answeroptions = c( 3, 3, 3 );';
 		$script[] = 'number_questions = 3;';
