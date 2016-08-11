@@ -178,7 +178,7 @@ print_item_tables <- function(item_list, key) {
   }
 }
 
-print_item_tables(item_list, key)
+print_item_tables(item_list, key)
 ```
 
 \pagebreak
