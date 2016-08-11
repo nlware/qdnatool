@@ -1,10 +1,16 @@
-report <- function(filename, title, number_answeroptions, key, item_names,
-                   correct_frequency, correct_percentage,
-                   frequency_answer_options, percentage_answer_options,
-                   corrected_item_tot_cor, corrected_item_tot_cor_answ_option,
-                   cronbach, student_scores, categories) {
-  rmarkdown::render("report_subcategories.Rmd", output_format = "html_document",
-                    output_file = paste0(filename, ".html"))
-  rmarkdown::render("report_subcategories.Rmd", output_format = "pdf_document",
-                    output_file = paste0(filename, ".pdf"))
+report <- function(filename,
+                   number_answeroptions,
+                   cronbach,
+                   frequency_answer_options,
+                   percentage_answer_options,
+                   key,
+                   correct_frequency,
+                   correct_percentage,
+                   corrected_item_tot_cor,
+                   corrected_item_tot_cor_answ_option,
+                   title,
+                   item_names,
+                   student_scores,
+                   categories) {
+  rmarkdown::render("report.Rmd", output_format = "pdf_document", output_file = filename)
 }
