@@ -211,7 +211,7 @@ class RserveTest extends CakeTestCase {
 		$script[] = 'number_questions = 3;';
 		$script[] = 'cronbach = 0.5;';
 		$script[] = 'frequency_answer_options = matrix( c( 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0 ), nrow = 4, ncol = number_questions, byrow = FALSE );';
-		$script[] = 'percentage_answer_options = matrix( c( 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0 ), nrow = 4, ncol = number.questions, byrow = FALSE );';
+		$script[] = 'percentage_answer_options = matrix( c( 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0 ), nrow = 4, ncol = number_questions, byrow = FALSE );';
 		$script[] = 'input_correct = matrix( c( 0, 0, 0, 0, 0, 0 ), nrow = number_students, ncol = number_questions, byrow = TRUE );';
 		$script[] = 'key = matrix( c( 1, 0, 0, 1, 0, 0, 1, 0, 0 ), nrow = 3, ncol = number_questions, byrow = FALSE );';
 		$script[] = 'correct_frequency = c( 0, 0, 0 );';
