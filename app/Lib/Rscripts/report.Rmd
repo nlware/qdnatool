@@ -816,7 +816,7 @@ if (!length(categories) == 0) {
     cat("\n\n")
     cat("## Cumulative Distribution")
     cat("\n\n")
-    plot_cum_hist(categories[[i]]$student_scores, n_item = length(items))
+    cum_hist(categories[[i]]$student_scores, n_item = length(items))
   }
 }
 ```
