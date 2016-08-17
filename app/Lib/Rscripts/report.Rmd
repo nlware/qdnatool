@@ -660,7 +660,7 @@ Cumulative Distribution showing all possible scores and the percentage of
 students that scored that number or higher
 
 ```{r, echo = FALSE, eval = TRUE, message = FALSE, warning = FALSE, fig.width = 11}
-CumHist <- function(student_scores, n_item) {
+cum_hist <- function(student_scores, n_item) {
   # Create a reversed cumulative histogram, i.e. the height of score x is
   # the percentage of students who scores x or higher.
   #
@@ -757,7 +757,7 @@ CumHist <- function(student_scores, n_item) {
   print(g)
 }
 
-plot_cum_hist(student_scores, n_item = ncol(key))
+cum_hist(student_scores, n_item = ncol(key))
 ```
 
 ```{r, echo = FALSE, eval = TRUE, warnings = FALSE, message = FALSE, results = 'asis', fig.width = 11}
