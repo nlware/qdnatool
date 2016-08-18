@@ -739,7 +739,7 @@ cum_hist <- function(student_scores, n_item) {
       size       = 0.75,
       colour     = "black"
     ) +
-    geom_histogram(stat = "identity", binwidth = 1) +
+    geom_bar(stat = "identity") +
     xlab("Total score") +
     ylab("% of students with score or higher") +
     scale_y_continuous(
