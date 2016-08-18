@@ -40,6 +40,7 @@ before_script:
   - sudo apt-get install -y --force-yes r-base r-cran-rserve
   - sudo apt-get install -y --force-yes libcurl4-gnutls-dev
   - sudo apt-get install -y --force-yes libxml2-dev
+  - sudo apt-get install -y --force-yes texlive-full
   - wget https://github.com/jgm/pandoc/releases/download/1.17.2/pandoc-1.17.2-1-amd64.deb
   - sudo dpkg -i pandoc-1.17.2-1-amd64.deb
   - sudo mkdir -p ~/R/Library
