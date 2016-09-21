@@ -50,7 +50,7 @@
 	},
 	"require" : {
 		"composer/installers": "~1.0",
-		"cakephp/cakephp": "2.8.*",
+		"cakephp/cakephp": "2.9.*",
 		"cakephp/debug_kit": "2.2.*",
 		"slywalker/twitter_bootstrap": "1.5.7",
 		"htmlawed/htmlawed": "1.1.*",
