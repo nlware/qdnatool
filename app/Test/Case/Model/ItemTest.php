@@ -19,7 +19,7 @@ class TestItem extends Item {
  *
  * @var mixed False or table name
  */
-	public $useTable = 'Items';
+	public $useTable = 'items';
 
 /**
  * Public test double of `parent::_getMostGivenIncorrectAnswerOption`.
@@ -48,7 +48,7 @@ class ItemTest extends CakeTestCase {
  *
  * @var array
  */
-	public $fixtures = array();
+	public $fixtures = array('app.item');
 
 /**
  * setUp method
@@ -57,6 +57,7 @@ class ItemTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
+
 		$this->Item = ClassRegistry::init('TestItem');
 	}
 
@@ -90,12 +91,83 @@ class ItemTest extends CakeTestCase {
 	}
 
 /**
+ * testGetIds method
+ *
+ * @return void
+ */
+	public function testGetIds() {
+		$this->loadFixtures('Item');
+
+		$expected = array();
+		$examId = 0;
+		$result = $this->Item->getIds($examId);
+		$this->assertEquals($expected, $result);
+
+		$expected = array(1);
+		$examId = 2;
+		$result = $this->Item->getIds($examId);
+		$this->assertEquals($expected, $result);
+
+		$expected = array(21773);
+		$examId = 747;
+		$result = $this->Item->getIds($examId);
+		$this->assertEquals($expected, $result);
+
+		$expected = array(1000000, 1000001, 1000002, 1000003);
+		$examId = 1;
+		$result = $this->Item->getIds($examId);
+		$this->assertEquals($expected, $result);
+
+		$expected = array(1000000, 1000001, 1000003);
+		$examId = 1;
+		$categoryId = 1;
+		$result = $this->Item->getIds($examId, $categoryId);
+		$this->assertEquals($expected, $result);
+
+		$expected = array(1000002);
+		$examId = 1;
+		$categoryId = 2;
+		$result = $this->Item->getIds($examId, $categoryId);
+		$this->assertEquals($expected, $result);
+	}
+
+/**
  * testDuplicate method
  *
  * @return void
  */
 	public function testDuplicate() {
-		$this->markTestIncomplete('testDuplicate not implemented.');
+		$this->loadFixtures('Item');
+
+		$expected = array();
+		$examIds = array();
+		$categoryIds = array();
+		$result = $this->Item->duplicate($examIds, $categoryIds);
+		$this->assertSame($expected, $result);
+
+		$expected = array(1 => 1000004);
+		$examIds = array(2 => 987);
+		$categoryIds = array();
+		$result = $this->Item->duplicate($examIds, $categoryIds);
+		$this->assertEquals($expected, $result);
+
+		$expected = array(
+			1000000 => 1000005,
+			1000001 => 1000006,
+			1000002 => 1000007,
+			1000003 => 1000008
+		);
+		$examIds = array(1 => 1001);
+		$categoryIds = array(1 => 1001, 2 => 1002, 3 => 1003);
+		$result = $this->Item->duplicate($examIds, $categoryIds);
+		$this->assertEquals($expected, $result);
+
+		$expected = array(1000001 => 1000009);
+		$examIds = array(1 => 1001);
+		$categoryIds = array(1 => 1001, 2 => 1002, 3 => 1003);
+		$filteredIds = array(1000001);
+		$result = $this->Item->duplicate($examIds, $categoryIds, $filteredIds);
+		$this->assertEquals($expected, $result);
 	}
 
 /**

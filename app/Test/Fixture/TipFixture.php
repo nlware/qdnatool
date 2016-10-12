@@ -1,10 +1,8 @@
 <?php
-App::uses('ExamFormat', 'Model');
-
 /**
- * ExamFormat Fixture
+ * Tip Fixture
  */
-class ExamFormatFixture extends CakeTestFixture {
+class TipFixture extends CakeTestFixture {
 
 /**
  * Fields
@@ -14,6 +12,7 @@ class ExamFormatFixture extends CakeTestFixture {
 	public $fields = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'content' => array('type' => 'text', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -25,19 +24,6 @@ class ExamFormatFixture extends CakeTestFixture {
  *
  * @var array
  */
-	public $records = array(
-		array(
-			'id' => ExamFormat::TELEFORM,
-			'name' => 'Teleform'
-		),
-		array(
-			'id' => ExamFormat::BLACKBOARD,
-			'name' => 'Blackboard'
-		),
-		array(
-			'id' => ExamFormat::QMP,
-			'name' => 'QMP'
-		),
-	);
+	public $records = array();
 
 }

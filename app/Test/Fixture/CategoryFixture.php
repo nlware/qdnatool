@@ -1,8 +1,8 @@
 <?php
 /**
- * Subject Fixture
+ * Category Fixture
  */
-class SubjectFixture extends CakeTestFixture {
+class CategoryFixture extends CakeTestFixture {
 
 /**
  * Fields
@@ -12,8 +12,9 @@ class SubjectFixture extends CakeTestFixture {
 	public $fields = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
 		'exam_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'index'),
-		'value' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-		'is_second_version' => array('type' => 'boolean', 'null' => false, 'default' => null),
+		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'cronbachs_alpha' => array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '4,3', 'unsigned' => false),
+		'max_answer_option_count' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'unsigned' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'exam_id' => array('column' => 'exam_id', 'unique' => 0)
@@ -29,33 +30,17 @@ class SubjectFixture extends CakeTestFixture {
 	public $records = array(
 		array(
 			'id' => 1,
-			'exam_id' => 2,
-			'value' => '123',
-			'is_second_version' => false
+			'exam_id' => 1,
+			'name' => 'A',
+			'cronbachs_alpha' => null,
+			'max_answer_option_count' => null
 		),
 		array(
 			'id' => 2,
-			'exam_id' => 2,
-			'value' => '123',
-			'is_second_version' => true
-		),
-		array(
-			'id' => 100843,
-			'exam_id' => 747,
-			'value' => '10825363',
-			'is_second_version' => false
-		),
-		array(
-			'id' => 1000000,
 			'exam_id' => 1,
-			'value' => '1000000',
-			'is_second_version' => false
-		),
-		array(
-			'id' => 1000001,
-			'exam_id' => 1,
-			'value' => '1000001',
-			'is_second_version' => false
+			'name' => 'B',
+			'cronbachs_alpha' => null,
+			'max_answer_option_count' => null
 		),
 	);
 

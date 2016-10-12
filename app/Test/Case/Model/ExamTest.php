@@ -46,6 +46,14 @@ class TestExam extends Exam {
 	}
 
 /**
+ * Public test double of `parent::_extractTeleformMappingfile`.
+ *
+ */
+	public function extractTeleformMappingfile($filename) {
+		return parent::_extractTeleformMappingfile($filename);
+	}
+
+/**
  * Public test double of `parent::_decodeLine`.
  *
  */
@@ -73,7 +81,9 @@ class ExamTest extends CakeTestCase {
  *
  * @var array
  */
-	public $fixtures = array('app.answer_option', 'app.exam', 'app.given_answer', 'app.item', 'app.subject');
+	public $fixtures = array(
+		'app.answer_option', 'app.category', 'app.exam', 'app.given_answer', 'app.item', 'app.queued_task', 'app.subject'
+	);
 
 /**
  * setUp method
@@ -251,7 +261,11 @@ class ExamTest extends CakeTestCase {
  * @return void
  */
 	public function testAnalyse() {
-		$this->markTestIncomplete('testAnalyse not implemented.');
+		$this->loadFixtures('AnswerOption', 'Exam', 'GivenAnswer', 'Item', 'QueuedTask', 'Subject');
+
+		$id = 1;
+		$result = $this->Exam->analyse($id);
+		$this->assertTrue((bool)$result);
 	}
 
 /**
@@ -365,7 +379,7 @@ class ExamTest extends CakeTestCase {
 	}
 
 	protected function _testDuplicateExamWithSubjectsWithNonUniqueIdentifiers() {
-		$this->loadFixtures('AnswerOption', 'Exam', 'GivenAnswer', 'Item', 'Subject');
+		$this->loadFixtures('AnswerOption', 'Category', 'Exam', 'GivenAnswer', 'Item', 'Subject');
 
 		$examId = 2;
 		$postData = $this->_createPostDataForDuplicate($examId);
@@ -390,7 +404,7 @@ class ExamTest extends CakeTestCase {
 	}
 
 	protected function _testDuplicateExamWithMissingGivenAnswers() {
-		$this->loadFixtures('AnswerOption', 'Exam', 'GivenAnswer', 'Item', 'Subject');
+		$this->loadFixtures('AnswerOption', 'Category', 'Exam', 'GivenAnswer', 'Item', 'Subject');
 
 		$expected = 748;
 
@@ -425,6 +439,98 @@ class ExamTest extends CakeTestCase {
 			}
 		}
 		return $data;
+	}
+
+/**
+ * testExtractTeleformMappingfile method
+ *
+ * @return void
+ */
+	public function testExtractTeleformMappingfile() {
+		$files = array(
+			'Teleform-mappingfile.csv',
+			'Teleform-mappingfile-with-spaces-in-version-column-headers.csv',
+			'Teleform-mappingfile-with-upper-and-lower-case-in-version-column-headers.csv'
+		);
+
+		$expectedVersionMapping = array(
+			2 => array(
+				1 => 2,
+				2 => 1
+			)
+		);
+		$expectedAnswerOptionCount = array(
+			1 => 3,
+			2 => 3
+		);
+
+		foreach ($files as $file) {
+			$filename = APP . DS . 'Test' . DS . 'File' . DS . 'Exam' . DS . $file;
+			$result = $this->Exam->extractTeleformMappingfile($filename);
+			$this->assertTrue((bool)$result);
+			list($versionMapping, $answerOptionCount, $categories) = $result;
+			$this->assertEquals($expectedVersionMapping, $versionMapping);
+			$this->assertEquals($expectedAnswerOptionCount, $answerOptionCount);
+			$this->assertEmpty($categories);
+		}
+	}
+
+/**
+ * testExtractTeleformMappingfileWithCategory method
+ *
+ * @return void
+ */
+	public function testExtractTeleformMappingfileWithCategory() {
+		$expectedVersionMapping = array(
+			2 => array(
+				1 => 2,
+				2 => 1
+			)
+		);
+		$expectedAnswerOptionCount = array(
+			1 => 3,
+			2 => 3
+		);
+
+		$expectedCategories = array(
+			1 => 'M',
+			2 => 'G'
+		);
+
+		$filename = APP . DS . 'Test' . DS . 'File' . DS . 'Exam' . DS . 'Teleform-mappingfile-with-category.csv';
+		$result = $this->Exam->extractTeleformMappingfile($filename);
+		$this->assertTrue((bool)$result);
+		list($versionMapping, $answerOptionCount, $categories) = $result;
+		$this->assertEquals($expectedVersionMapping, $versionMapping);
+		$this->assertEquals($expectedAnswerOptionCount, $answerOptionCount);
+		$this->assertEquals($expectedCategories, $categories);
+	}
+
+/**
+ * testExtractTeleformMappingfileWithCategoryWithoutAnswerOptionCount method
+ *
+ * @return void
+ */
+	public function testExtractTeleformMappingfileWithCategoryWithoutAnswerOptionCount() {
+		$expectedVersionMapping = array(
+			2 => array(
+				1 => 2,
+				2 => 1
+			)
+		);
+
+		$expectedCategories = array(
+			1 => 'M',
+			2 => 'G'
+		);
+
+		$filename = APP . DS . 'Test' . DS . 'File' . DS . 'Exam' . DS . 'Teleform-mappingfile-with-category-without-answer-option-count.csv';
+		$result = $this->Exam->extractTeleformMappingfile($filename);
+		$this->assertTrue((bool)$result);
+		list($versionMapping, $answerOptionCount, $categories) = $result;
+		$this->assertEquals($expectedVersionMapping, $versionMapping);
+		$this->assertEmpty($answerOptionCount);
+		$this->assertEquals($expectedCategories, $categories);
 	}
 
 /**

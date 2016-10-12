@@ -1,8 +1,10 @@
 <?php
+App::uses('Role', 'Model');
+
 /**
- * Tag Fixture
+ * Role Fixture
  */
-class TagFixture extends CakeTestFixture {
+class RoleFixture extends CakeTestFixture {
 
 /**
  * Fields
@@ -12,12 +14,8 @@ class TagFixture extends CakeTestFixture {
 	public $fields = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
 		'name' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-		'user_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'index'),
-		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
-		'modified' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1),
-			'user_id' => array('column' => 'user_id', 'unique' => 0)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
@@ -27,6 +25,15 @@ class TagFixture extends CakeTestFixture {
  *
  * @var array
  */
-	public $records = array();
+	public $records = array(
+		array(
+			'id' => Role::USER,
+			'name' => 'Ontwikkelaar'
+		),
+		array(
+			'id' => Role::ADMIN,
+			'name' => 'Administrator'
+		),
+	);
 
 }

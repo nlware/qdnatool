@@ -1,7 +1,6 @@
 <?php
 /**
- * AnswerOptionFixture
- *
+ * AnswerOption Fixture
  */
 class AnswerOptionFixture extends CakeTestFixture {
 
@@ -11,14 +10,15 @@ class AnswerOptionFixture extends CakeTestFixture {
  * @var array
  */
 	public $fields = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => false, 'key' => 'primary'),
-		'item_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => false, 'key' => 'index'),
-		'order' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => false),
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
+		'item_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'index'),
+		'order' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true),
 		'value' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'is_correct' => array('type' => 'boolean', 'null' => false, 'default' => null),
-		'given_answer_count' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'unsigned' => false),
-		'given_answer_irc' => array('type' => 'float', 'null' => true, 'default' => null, 'length' => '4,3', 'unsigned' => false),
-		'given_answer_percentage' => array('type' => 'float', 'null' => true, 'default' => null, 'length' => '4,1', 'unsigned' => false),
+		'given_answer_count' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'unsigned' => true),
+		'given_answer_irc' => array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '4,3', 'unsigned' => false),
+		'given_answer_percentage' => array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '4,1', 'unsigned' => true),
+		'category_given_answer_irc' => array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '4,3', 'unsigned' => false),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'item_id' => array('column' => 'item_id', 'unique' => 0)
@@ -77,6 +77,102 @@ class AnswerOptionFixture extends CakeTestFixture {
 			'given_answer_count' => 26,
 			'given_answer_irc' => 0.045,
 			'given_answer_percentage' => 29.9
+		),
+		array(
+			'id' => 1000000,
+			'item_id' => 1000000,
+			'order' => 1,
+			'is_correct' => true,
+		),
+		array(
+			'id' => 1000001,
+			'item_id' => 1000000,
+			'order' => 2,
+			'is_correct' => false,
+		),
+		array(
+			'id' => 1000002,
+			'item_id' => 1000000,
+			'order' => 3,
+			'is_correct' => false,
+		),
+		array(
+			'id' => 1000003,
+			'item_id' => 1000000,
+			'order' => 4,
+			'is_correct' => false,
+		),
+		array(
+			'id' => 1000004,
+			'item_id' => 1000001,
+			'order' => 1,
+			'is_correct' => true,
+		),
+		array(
+			'id' => 1000005,
+			'item_id' => 1000001,
+			'order' => 2,
+			'is_correct' => false,
+		),
+		array(
+			'id' => 1000006,
+			'item_id' => 1000001,
+			'order' => 3,
+			'is_correct' => false,
+		),
+		array(
+			'id' => 1000007,
+			'item_id' => 1000001,
+			'order' => 4,
+			'is_correct' => false,
+		),
+		array(
+			'id' => 1000008,
+			'item_id' => 1000002,
+			'order' => 1,
+			'is_correct' => true,
+		),
+		array(
+			'id' => 1000009,
+			'item_id' => 1000002,
+			'order' => 2,
+			'is_correct' => false,
+		),
+		array(
+			'id' => 1000010,
+			'item_id' => 1000002,
+			'order' => 3,
+			'is_correct' => false,
+		),
+		array(
+			'id' => 1000011,
+			'item_id' => 1000002,
+			'order' => 4,
+			'is_correct' => false,
+		),
+		array(
+			'id' => 1000012,
+			'item_id' => 1000003,
+			'order' => 1,
+			'is_correct' => true,
+		),
+		array(
+			'id' => 1000013,
+			'item_id' => 1000003,
+			'order' => 2,
+			'is_correct' => false,
+		),
+		array(
+			'id' => 1000014,
+			'item_id' => 1000003,
+			'order' => 3,
+			'is_correct' => false,
+		),
+		array(
+			'id' => 1000015,
+			'item_id' => 1000003,
+			'order' => 4,
+			'is_correct' => false,
 		),
 	);
 

@@ -18,12 +18,10 @@ class User extends AppModel {
 			'email' => array(
 				'rule' => 'email',
 				'allowEmpty' => false,
-				'last' => true,
 				'message' => 'Please supply a valid email address.'
 			),
 			'isUnique' => array(
 				'rule' => 'isUnique',
-				'last' => true,
 				'message' => 'This username has already been taken.'
 			),
 			'required' => array(
@@ -35,7 +33,6 @@ class User extends AppModel {
 		'name' => array(
 			'notBlank' => array(
 				'rule' => 'notBlank',
-				'last' => true,
 				'message' => 'This field cannot be left blank'
 			),
 			'required' => array(
@@ -58,7 +55,6 @@ class User extends AppModel {
 			'minLength' => array(
 				'rule' => array('minLength', 6),
 				'allowEmpty' => false,
-				'last' => true,
 				'message' => 'Passwords must be at least 8 characters long.'
 			),
 			'required' => array(
@@ -69,7 +65,6 @@ class User extends AppModel {
 		'role_id' => array(
 			'notBlank' => array(
 				'rule' => 'notBlank',
-				'last' => true,
 				'message' => 'This field cannot be left blank'
 			),
 			'required' => array(

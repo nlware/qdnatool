@@ -12,13 +12,14 @@ App::uses('AppModel', 'Model');
 /**
  * Exam Model
  *
- * @property User $User
- * @property Item $Item
- * @property Subject $Subject
+ * @property Category $Category
+ * @property Exam $Child
  * @property ExamFormat $ExamFormat
  * @property ExamState $ExamState
+ * @property Item $Item
  * @property Exam $Parent
- * @property Exam $Child
+ * @property Subject $Subject
+ * @property User $User
  */
 class Exam extends AppModel {
 
@@ -60,8 +61,7 @@ class Exam extends AppModel {
 			'notBlank' => array(
 				'rule' => 'notBlank',
 				'message' => 'This field cannot be left blank',
-				'required' => 'create',
-				'last' => true
+				'required' => 'create'
 			),
 			'inList' => array(
 				'rule' => array('inList', array(ExamFormat::TELEFORM, ExamFormat::BLACKBOARD, ExamFormat::QMP), false),
@@ -74,13 +74,11 @@ class Exam extends AppModel {
 					'extension', array('csv', 'txt')
 				),
 				'required' => 'create',
-				'message' => 'Please supply a csv or txt file.',
-				'last' => true
+				'message' => 'Please supply a csv or txt file.'
 			),
 			'fileSize' => array(
 				'rule' => array('filesize', '<=', '8MB'),
-				'message' => 'File must be less than 8 MB',
-				'last' => true
+				'message' => 'File must be less than 8 MB'
 			),
 			'uploadError' => array(
 				'rule' => 'uploadError',
@@ -93,14 +91,12 @@ class Exam extends AppModel {
 					'extension', array('csv'),
 				),
 				'allowEmpty' => true,
-				'message' => 'Please supply a csv file.',
-				'last' => true
+				'message' => 'Please supply a csv file.'
 			),
 			'fileSize' => array(
 				'rule' => array('filesize', '<=', '1MB'),
 				'allowEmpty' => true,
-				'message' => 'File must be less than 1 MB',
-				'last' => true
+				'message' => 'File must be less than 1 MB'
 			),
 			'uploadError' => array(
 				'rule' => 'uploadError',
@@ -111,8 +107,7 @@ class Exam extends AppModel {
 			'naturalNumber' => array(
 				'rule' => 'naturalNumber',
 				'required' => 'create',
-				'message' => 'Please supply the default number of answer options.',
-				'last' => true
+				'message' => 'Please supply the default number of answer options.'
 			),
 			'comparison' => array(
 				'rule' => array('comparison', '<=', 8),
@@ -171,6 +166,11 @@ class Exam extends AppModel {
  * @var array
  */
 	public $hasMany = array(
+		'Category' => array(
+			'className' => 'Category',
+			'foreignKey' => 'exam_id',
+			'dependent' => true
+		),
 		'Child' => array(
 			'className' => 'Exam',
 			'foreignKey' => 'parent_id',
@@ -365,29 +365,62 @@ class Exam extends AppModel {
 		$conditions = array('Exam.id' => $id);
 		$exam = $this->find('first', compact('conditions'));
 		if (!empty($exam)) {
-			return $this->_analyse($exam);
+			return $this->_analyse($id);
 		}
 		return false;
 	}
 
 /**
- * _analyse
+ * Analyse an exam
  *
- * @param array $exam Exam data
+ * @param int $id An exam id
  * @return bool
  */
-	protected function _analyse($exam) {
-		$this->id = $exam['Exam']['id'];
+	protected function _analyse($id) {
+		$this->id = $id;
 		$this->saveField('exam_state_id', ExamState::ANALYSING);
 
-		$conditions = array('Exam.id' => $exam['Exam']['id']);
+		$result = $this->doAnalyse($id);
+
+		if ($result) {
+			$result = $this->saveAnalysis($id, $result);
+		}
+
+		if ($result) {
+			$this->scheduleReport($id);
+		} else {
+			$this->id = $id;
+			$this->saveField('exam_state_id', ExamState::ANALYSE_FAILED);
+		}
+
+		return $result;
+	}
+
+/**
+ * Analyse an exam, optionally filter items by a category
+ *
+ * @param int $id An exam id
+ * @param int[optional] $categoryId A category id
+ * @return array
+ */
+	public function doAnalyse($id, $categoryId = null) {
+		$conditions = array('Exam.id' => $id);
 		$contain = array(
-			'Item' => 'AnswerOption',
-			'Subject' => 'GivenAnswer'
+			'Item' => array('AnswerOption'),
+			'Subject' => array('GivenAnswer')
 		);
+		if ($categoryId !== null) {
+			$itemIds = $this->Item->getIds($id, $categoryId);
+
+			$contain['Item']['conditions'] = array('Item.category_id' => $categoryId);
+			$contain['Subject']['GivenAnswer']['conditions'] = array('GivenAnswer.item_id' => $itemIds);
+		}
 		$exam = $this->find('first', compact('conditions', 'contain'));
 		$fields = array('MAX(Item.answer_option_count) as answer_option_count');
 		$conditions = array('Item.exam_id' => $exam['Exam']['id']);
+		if ($categoryId !== null) {
+			$conditions['Item.category_id'] = $categoryId;
+		}
 		$maxAnswerOptionCount = $this->Item->find('first', compact('fields', 'conditions'));
 		$maxAnswerOptionCount = $maxAnswerOptionCount[0]['answer_option_count'];
 
@@ -407,61 +440,7 @@ class Exam extends AppModel {
 			}
 		}
 
-		$result = $this->_executeAnalysis($questionCount, $studentCount, $maxAnswerOptionCount, $exam, $givenAnswers, $answerOptionCount);
-
-		if ($result) {
-			$cronbachsAlpha = $result[0];
-			$maxAnswerOptionCount = $result[1];
-			$correctAnswerCount = $result[2];
-			$correctAnswerPercentage = $result[3];
-			$correctAnswerIrc = $result[4];
-			$givenAnswerOptionCount = $result[5];
-			$givenAnswerOptionPercentage = $result[6];
-			$givenAnswerOptionIrc = $result[7];
-
-			$data = array(
-				'Exam' => array(
-					'id' => $exam['Exam']['id'],
-					'exam_state_id' => ExamState::ANALYSED,
-					'cronbachs_alpha' => $cronbachsAlpha,
-					'max_answer_option_count' => $maxAnswerOptionCount,
-					'analysed' => date('Y-m-d H:i:s')
-				)
-			);
-
-			foreach ($exam['Item'] as $i => $item) {
-				$data['Item'][$i] = array(
-					'id' => $item['id'],
-					'correct_answer_count' => $correctAnswerCount[$i],
-					'correct_answer_percentage' => $correctAnswerPercentage[$i],
-					'correct_answer_irc' => $correctAnswerIrc[$i]
-				);
-				$data['Item'][$i]['missing_answer_count'] = $givenAnswerOptionCount[$i * ($maxAnswerOptionCount + 1)];
-				$data['Item'][$i]['missing_answer_percentage'] = $givenAnswerOptionPercentage[$i * ($maxAnswerOptionCount + 1)];
-
-				for ($j = 0; !empty($item['answer_option_count']) && $j < $item['answer_option_count']; $j++) {
-					if (empty($item['AnswerOption'][$j]['id'])) {
-						$data['Item'][$i]['AnswerOption'][$j]['order'] = ($j + 1);
-					} else {
-						$data['Item'][$i]['AnswerOption'][$j]['id'] = $item['AnswerOption'][$j]['id'];
-					}
-					$data['Item'][$i]['AnswerOption'][$j]['given_answer_count'] = $givenAnswerOptionCount[$i * ($maxAnswerOptionCount + 1) + $j + 1];
-					$data['Item'][$i]['AnswerOption'][$j]['given_answer_percentage'] = $givenAnswerOptionPercentage[$i * ($maxAnswerOptionCount + 1) + $j + 1];
-					$data['Item'][$i]['AnswerOption'][$j]['given_answer_irc'] = (is_nan($givenAnswerOptionIrc[$i * ($maxAnswerOptionCount + 1) + $j + 1])?null:$givenAnswerOptionIrc[$i * ($maxAnswerOptionCount + 1) + $j + 1]);
-				}
-			}
-			$this->id = $exam['Exam']['id'];
-			$result = $this->saveAll($data, array('deep' => true));
-		}
-
-		if ($result) {
-			$this->scheduleReport($exam['Exam']['id']);
-		} else {
-			$this->id = $exam['Exam']['id'];
-			$this->saveField('exam_state_id', ExamState::ANALYSE_FAILED);
-		}
-
-		return $result;
+		return $this->_executeAnalysis($questionCount, $studentCount, $maxAnswerOptionCount, $exam, $givenAnswers, $answerOptionCount);
 	}
 
 /**
@@ -1075,40 +1054,9 @@ class Exam extends AppModel {
 			$versionMappingFilename = Exam::UPLOADS . $exam['Exam']['mapping_filename'];
 		}
 
-		if (!empty($versionMappingFilename)) {
-			ini_set('auto_detect_line_endings', true);
-			if (($handle = fopen($versionMappingFilename, "r")) !== false) {
-				$version1Index = false;
-				$version2Index = false;
-				$answerOptionCountIndex = false;
-				for ($i = 0; !feof($handle); $i++) {
-					$line = fgets($handle);
-					$line = $this->_decodeLine($line, $i == 0);
+		list($versionMapping, $answerOptionCount, $categories) = $this->_extractTeleformMappingfile($versionMappingFilename);
 
-					if ($i == 0) {
-						$header = str_getcsv($line, ';', '"', '"');
-
-						$version1Index = $this->_getIndexOfVersionFromTeleformHeader($header, 1);
-						$version2Index = $this->_getIndexOfVersionFromTeleformHeader($header, 2);
-						$answerOptionCountIndex = array_search('Answer Option Count', $header);
-					} else {
-						$values = str_getcsv($line, ';', '"', '"');
-						if (count($values) <= 1) {
-							continue;
-						}
-						if ($version1Index !== false && $version2Index !== false) {
-							$versionMapping[2][$values[$version1Index]] = intval($values[$version2Index]);
-						}
-
-						if ($version1Index !== false && $answerOptionCountIndex !== false) {
-							$answerOptionCount[$values[$version1Index]] = intval($values[$answerOptionCountIndex]);
-						}
-					}
-				}
-
-				fclose($handle);
-			}
-		}
+		$categoryIds = $this->Category->createCategories($exam['Exam']['id'], $categories);
 
 		$result = true;
 		ini_set('auto_detect_line_endings', true);
@@ -1136,6 +1084,7 @@ class Exam extends AppModel {
 
 						$item = array(
 							'exam_id' => $exam['Exam']['id'],
+							'category_id' => Hash::get($categoryIds, $j - 1),
 							'order' => $j - 1,
 							'second_version_order' => $secondVersionOrder,
 							'value' => $j - 1
@@ -1381,7 +1330,14 @@ class Exam extends AppModel {
 			$examId = $this->id;
 
 			if ($success) {
-				$itemMapping = $this->Item->duplicate(array($parentId => $examId), $filteredItemIds);
+				$categoryMapping = $this->Category->duplicate(array($parentId => $examId));
+				if ($categoryMapping === false) {
+					$success = false;
+				}
+			}
+
+			if ($success) {
+				$itemMapping = $this->Item->duplicate(array($parentId => $examId), $categoryMapping, $filteredItemIds);
 				if ($itemMapping === false) {
 					$success = false;
 				}
@@ -1551,6 +1507,61 @@ class Exam extends AppModel {
 		$script = implode("\n", $script);
 
 		return Rserve::execute($script);
+	}
+
+/**
+ * Extract version mappings, answer option counts and categories from Teleform mapping file
+ *
+ * @param string $filename Filename of a Teleform mapping file
+ * @return array List of verion mappings, answer option counts and categories
+ */
+	protected function _extractTeleformMappingfile($filename) {
+		$versionMappings = array();
+		$answerOptionCounts = array();
+		$categories = array();
+
+		if (!empty($filename) && file_exists($filename)) {
+			ini_set('auto_detect_line_endings', true);
+			if (($handle = fopen($filename, "r")) !== false) {
+				$version1Index = false;
+				$version2Index = false;
+				$answerOptionCountIndex = false;
+				$categoryIndex = false;
+				for ($i = 0; !feof($handle); $i++) {
+					$line = fgets($handle);
+					$line = $this->_decodeLine($line, $i == 0);
+
+					if ($i == 0) {
+						$header = str_getcsv($line, ';', '"', '"');
+
+						$version1Index = $this->_getIndexOfVersionFromTeleformHeader($header, 1);
+						$version2Index = $this->_getIndexOfVersionFromTeleformHeader($header, 2);
+						$answerOptionCountIndex = array_search('Answer Option Count', $header);
+						$categoryIndex = array_search('Category', $header);
+					} else {
+						$values = str_getcsv($line, ';', '"', '"');
+						if (count($values) <= 1) {
+							continue;
+						}
+						if ($version1Index !== false && $version2Index !== false) {
+							$versionMappings[2][$values[$version1Index]] = intval($values[$version2Index]);
+						}
+
+						if ($version1Index !== false && $answerOptionCountIndex !== false) {
+							$answerOptionCounts[$values[$version1Index]] = intval($values[$answerOptionCountIndex]);
+						}
+
+						if ($version1Index !== false && $categoryIndex !== false) {
+							$categories[$values[$version1Index]] = $values[$categoryIndex];
+						}
+					}
+				}
+
+				fclose($handle);
+			}
+		}
+
+		return array($versionMappings, $answerOptionCounts, $categories);
 	}
 
 }
