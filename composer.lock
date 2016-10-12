@@ -9,16 +9,16 @@
     "packages": [
         {
             "name": "cakephp/cakephp",
-            "version": "2.9.0",
+            "version": "2.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/cakephp.git",
-                "reference": "35d04ecb3dcb617ac6eddb109524a76fba3b6688"
+                "reference": "6cdf38c2ef5798692ed9fb22221527b9f4210d19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/35d04ecb3dcb617ac6eddb109524a76fba3b6688",
-                "reference": "35d04ecb3dcb617ac6eddb109524a76fba3b6688",
+                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/6cdf38c2ef5798692ed9fb22221527b9f4210d19",
+                "reference": "6cdf38c2ef5798692ed9fb22221527b9f4210d19",
                 "shasum": ""
             },
             "require": {
@@ -48,7 +48,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2016-09-19 02:24:27"
+            "time": "2016-10-11 01:36:32"
         },
         {
             "name": "cakephp/debug_kit",
@@ -651,7 +651,7 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.8.11",
+            "version": "v2.8.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
