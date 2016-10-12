@@ -200,12 +200,14 @@ class RserveTest extends CakeTestCase {
  */
 	public function testExecuteRscriptsReport() {
 		$filename = $this->__tmpPath . DS . 'testExecuteRscriptsReport.pdf';
+		$template = APP . 'Lib' . DS . 'Rscripts' . DS . 'report.Rmd';
 
 		$this->assertFileNotExists($filename);
 
 		$script = array();
 		$script[] = file_get_contents(APP . 'Lib' . DS . 'Rscripts' . DS . 'report.R');
 		$script[] = sprintf('filename = "%s";', $filename);
+		$script[] = sprintf('template = "%s";', $template);
 		$script[] = 'number_students = 2;';
 		$script[] = 'number_answeroptions = c( 3, 3, 3 );';
 		$script[] = 'number_questions = 3;';
@@ -221,7 +223,7 @@ class RserveTest extends CakeTestCase {
 		$script[] = 'item_names = c( "Item 1", "Item 2", "Item 3" );';
 		$script[] = 'student_scores = c( 7, 9 );';
 		$script[] = 'categories = c(  );';
-		$script[] = 'report( filename, number_answeroptions, cronbach, frequency_answer_options, percentage_answer_options, key, correct_frequency,
+		$script[] = 'report(template, filename, number_answeroptions, cronbach, frequency_answer_options, percentage_answer_options, key, correct_frequency,
 			correct_percentage, corrected_item_tot_cor, corrected_item_tot_cor_answ_option, title, item_names, student_scores, categories );';
 
 		$script = implode("\n", $script);

@@ -611,13 +611,14 @@ class Exam extends AppModel {
 
 			$script[] = 'categories = c(  );';
 
+			$template = APP . 'Lib' . DS . 'Rscripts' . DS . 'report.Rmd';
 			$script[] = sprintf(
 				'report( ' .
-				'"%s", number_answeroptions, Cronbach, frequency_answer_options, percentage_answer_options, key, ' .
+				'"%s", "%s", number_answeroptions, Cronbach, frequency_answer_options, percentage_answer_options, key, ' .
 				'correct_frequency, correct_percentage, corrected_item_tot_cor, corrected_item_tot_cor_answ_option, "%s", ' .
 				'item_names, student_scores, categories' .
 				' );',
-				$tempFile, $exam['Exam']['name']
+				$template, $tempFile, $exam['Exam']['name']
 			);
 
 			$script = implode("\n", $script);
