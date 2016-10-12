@@ -11,15 +11,18 @@
 /build
 /dist
 /tags
-/.settings
-/.buildpath
-/.project
-/nbproject
-*.komodoproject
+*.mo
 /data
 /app/Plugin
 /app/Vendor
-/composer.phar
+
+# IDE and editor specific files #
+#################################
+/nbproject
+.idea
+/.project
+/.buildpath
+/.settings/
 
 # OS generated files #
 ######################
