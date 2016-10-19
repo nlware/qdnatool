@@ -88,12 +88,10 @@ create_item_list <- function(number_answeroptions,
         c(LETTERS[1:number_answeroptions[i]], "Missing"),
         c(frequency_answer_options[c(2:(number_answeroptions[i] + 1), 1), i]),
         c(percentage_answer_options[c(2:(number_answeroptions[i] + 1), 1), i]),
-        c(corrected_item_tot_cor_answ_option[
-          c(2:(number_answeroptions[i] + 1), 1),
-          i
-        ]),
+        c(corrected_item_tot_cor_answ_option[c(2:(number_answeroptions[i] + 1), 1), i]),
         correct,
-        row.names = NULL)
+        row.names = NULL
+      )
       colnames(item_list[[i]]) <- colnames2
 
     } else {
@@ -246,7 +244,8 @@ colours are based on multiple choice items with 3 or 4 answer options.
 
   bar_freq <- ggplot2::ggplot(
     correct_df,
-    ggplot2::aes(item, correct_percentage, fill = perc_col))
+    ggplot2::aes(item, correct_percentage, fill = perc_col)
+  )
   bar_freq <-
     bar_freq +
     # Create bar chart
@@ -305,7 +304,8 @@ thus it is coloured *red*. *Between 0 and .05*, an item is coloured *orange*.
   # Create bar chart
   bar_irc <- ggplot2::ggplot(
     correct_df,
-    ggplot2::aes(item, corrected_item_tot_cor, fill = irc_col))
+    ggplot2::aes(item, corrected_item_tot_cor, fill = irc_col)
+  )
   bar_irc <-
     bar_irc +
     geom_bar(stat = "identity") +
@@ -363,8 +363,8 @@ make_perc_col <- function(percentage, correct) {
       1 / 75 * percentage[correct == "Correct"] - 7 / 30
     )
   )
-  dif <-
-    percentage[correct == "Incorrect"] - min(percentage[correct == "Correct"])
+  dif <- percentage[correct == "Incorrect"] - min(percentage[correct == "Correct"])
+
   perc_col[correct == "Incorrect"] <- ifelse(
     dif >= 0,
     0,
@@ -373,7 +373,7 @@ make_perc_col <- function(percentage, correct) {
   perc_col
 }
 
-make_irc_col <- function(IRC, correct){
+make_irc_col <- function(IRC, correct) {
   # Calculate colours for the percentage answer options.
   #
   # Args:
@@ -383,15 +383,15 @@ make_irc_col <- function(IRC, correct){
   # Returns:
   #  Value between 0 and 1. 0 corresponds to red and 1 to green in the plots.
   #  For the correct answer options:
-  #    < 0: red
-  #    0 - 0.05: orange - green-ish
-  #    > 0.05: green
+  #   * < 0: red
+  #   * 0 - 0.05: orange - green-ish
+  #   * > 0.05: green
   # For the incorrect answer options: difference between correct answer option
   # and incorrect answer option are calculated. Colours are based on this
   # difference:
-  #    > 0: red
-  #    -0.05 - 0: orange - green-ish
-  #    < -0.05: red
+  #   * > 0: red
+  #   * -0.05 - 0: orange - green-ish
+  #   * < -0.05: red
 
   irc_col <- numeric()
   irc_col[correct == "Correct"] <- ifelse(
@@ -425,10 +425,7 @@ make_answ_df <- function(item_list, key, number_answeroptions, item_names) {
 
   for (i in 1:length(item_list)) {
     if (any(key[, i] != 0)) {
-      item_list[[i]]$perc_col <- with(
-        item_list[[i]],
-        make_perc_col(Percentage, Correct)
-      )
+      item_list[[i]]$perc_col <- with(item_list[[i]], make_perc_col(Percentage, Correct))
       item_list[[i]]$irc_col <- with(item_list[[i]], make_irc_col(IRC, Correct))
     }
   }
@@ -472,7 +469,7 @@ calc_n_plot <- function(ans_opt_df, key) {
     if (n_plots > 1) {
       for (i in 2:n_plots) {
         items_in_plot[[i]] <- unique(
-          ans_opt_df[(((i - 1) * answ_opts_per_plot) + 1) : (i * answ_opts_per_plot), 1]
+          ans_opt_df[(( ( i - 1) * answ_opts_per_plot) + 1) : (i * answ_opts_per_plot), 1]
         )
         if (items_in_plot[[i]][1] %in% items_in_plot[[i - 1]]) {
           items_in_plot[[i]] <- items_in_plot[[i]][-1]
