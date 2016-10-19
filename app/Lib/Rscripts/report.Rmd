@@ -333,7 +333,6 @@ plot_overall_irc(correct_df)
 
 ```{r, echo = FALSE, eval = TRUE, warning= FALSE, fig.width = 11}
 
-# Create extra variables for the colours in the bar plots
 make_perc_col <- function(percentage, correct) {
   # Calculate colours for the percentage answer options.
   #
@@ -344,14 +343,14 @@ make_perc_col <- function(percentage, correct) {
   # Returns:
   #  Value between 0 and 1. 0 corresponds to red and 1 to green in the plots.
   #  For the correct options:
-  #    < 40: red
-  #    40 - 70: orange - green-ish
-  #    > 70: green
+  #   * < 40: red
+  #   * 40 - 70: orange - green-ish
+  #   * > 70: green
   #  For the incorrect options: difference between correct answer option and
   #  incorrect answer options are calculated. Colours are based on difference:
-  #    < -10: Green
-  #    -10 - 0: orange - green-ish
-  #    > 0: green
+  #   * < -10: green
+  #   * -10 - 0: orange - green-ish
+  #   * > 0: green
 
   perc_col <- vector("numeric", length = length(correct))
   perc_col[correct == "Correct"] <- ifelse(
@@ -373,7 +372,7 @@ make_perc_col <- function(percentage, correct) {
   perc_col
 }
 
-make_irc_col <- function(IRC, correct) {
+make_irc_col <- function(irc, correct) {
   # Calculate colours for the percentage answer options.
   #
   # Args:
@@ -395,14 +394,14 @@ make_irc_col <- function(IRC, correct) {
 
   irc_col <- numeric()
   irc_col[correct == "Correct"] <- ifelse(
-    IRC[correct == "Correct"] < 0,
+      irc[correct == "Correct"] < 0,
     0,
-    ifelse(IRC[correct == "Correct"] > .05,
+    ifelse(irc[correct == "Correct"] > .05,
       1,
-      8 * IRC[correct == "Correct"] + 3 / 10
+      8 * irc[correct == "Correct"] + 3 / 10
     )
   )
-  dif <- IRC[correct == "Incorrect"] - min(IRC[correct == "Correct"])
+  dif <- irc[correct == "Incorrect"] - min(irc[correct == "Correct"])
   irc_col[correct == "Incorrect"] <- ifelse(
     dif >= 0,
     0,
@@ -469,7 +468,7 @@ calc_n_plot <- function(ans_opt_df, key) {
     if (n_plots > 1) {
       for (i in 2:n_plots) {
         items_in_plot[[i]] <- unique(
-          ans_opt_df[(( ( i - 1) * answ_opts_per_plot) + 1) : (i * answ_opts_per_plot), 1]
+          ans_opt_df[( ( (i - 1) * answ_opts_per_plot) + 1) : (i * answ_opts_per_plot), 1]
         )
         if (items_in_plot[[i]][1] %in% items_in_plot[[i - 1]]) {
           items_in_plot[[i]] <- items_in_plot[[i]][-1]
@@ -615,10 +614,7 @@ this item incorrectly. In between these two, the option is coloured *orange*.
         bar_irc1 +
         geom_bar(aes(x = Answer.Option), stat = "identity", size = 1.5) +
         facet_grid(. ~ id, scales = "free_x", space = "free_x") +
-        scale_fill_manual(
-          values = c("Incorrect" = "Black", "Correct" = "White"),
-          guide  = FALSE
-        ) +
+        scale_fill_manual(values = c("Incorrect" = "Black", "Correct" = "White"), guide  = FALSE) +
         scale_colour_gradient(
           low    = "red",
           high   = "green",
@@ -626,9 +622,7 @@ this item incorrectly. In between these two, the option is coloured *orange*.
           guide  = FALSE
         ) +
         # Change y-axis limit to either the maximum and minimum IRC
-        coord_cartesian(
-          ylim = c(min(ans_opt_df$IRC) - .01, max(ans_opt_df$IRC)  + .01)
-        ) +
+        coord_cartesian(ylim = c(min(ans_opt_df$IRC) - .01, max(ans_opt_df$IRC)  + .01)) +
         labs(x = "Answer Options") +
         theme_bw() +
         theme(
@@ -674,22 +668,13 @@ cum_hist <- function(student_scores, n_item) {
   }
 
   cesuurlijnen <- seq(0.2, 0.8, 0.2) * length(student_scores)
-  gridlijnen <- round(
-    seq(0, length(student_scores), length(student_scores) / 25),
-    0
-  )
+  gridlijnen <- round(seq(0, length(student_scores), length(student_scores) / 25), 0)
 
-  gridlijnen <- gridlijnen[
-    -grep(paste(round(cesuurlijnen, 0), collapse = "|"), gridlijnen)
-  ]
+  gridlijnen <- gridlijnen[grep(paste(round(cesuurlijnen, 0), collapse = "|"), gridlijnen)]
 
   heights <- heights[1:length(unique(student_scores))]
   percent <- heights / length(student_scores) * 100
-  df <- data.frame(
-    score   = sort(unique(student_scores)),
-    total   = heights,
-    percent = round(percent, 2)
-  )
+  df <- data.frame(score   = sort(unique(student_scores)), total   = heights, percent = round(percent, 2))
 
   vec <- df[1, 1]:df[nrow(df), 1] #  save all possible total scores
 
@@ -709,19 +694,14 @@ cum_hist <- function(student_scores, n_item) {
   # if no one gets a certain total score,
   # replace the 0 with the next total score
   suppressWarnings(
-    df[which(df[, 2] == 0, arr.ind = TRUE), 2] <-
-      df[(which(df[, 2] == 0, arr.ind = TRUE) + 1), 2]
+    df[which(df[, 2] == 0, arr.ind = TRUE), 2] <- df[(which(df[, 2] == 0, arr.ind = TRUE) + 1), 2]
   )
   suppressWarnings(
-    df[which(df[, 3] == 0, arr.ind = TRUE), 3] <-
-      df[(which(df[, 3] == 0, arr.ind = TRUE) + 1), 3]
+    df[which(df[, 3] == 0, arr.ind = TRUE), 3] <- df[(which(df[, 3] == 0, arr.ind = TRUE) + 1), 3]
   )
 
   g <-
-    ggplot2::ggplot(
-      data = df,
-      ggplot2::aes(x = score, y = total)
-    ) +
+    ggplot2::ggplot(data = df, ggplot2::aes(x = score, y = total)) +
     geom_hline(
       yintercept = c(gridlijnen),
       linetype   = "solid",
@@ -736,15 +716,8 @@ cum_hist <- function(student_scores, n_item) {
     geom_bar(stat = "identity") +
     xlab("Total score") +
     ylab("% of students with score or higher") +
-    scale_y_continuous(
-      breaks = c(0, cesuurlijnen, length(student_scores)),
-      labels = c(seq(0, 100, 20))
-    ) +
-    scale_x_continuous(
-      limits = c(df[1, 1] - 1, n_item + 1),
-      breaks = 0:n_item,
-      expand = c(0, 0)
-    ) +
+    scale_y_continuous(breaks = c(0, cesuurlijnen, length(student_scores)), labels = c(seq(0, 100, 20))) +
+    scale_x_continuous(limits = c(df[1, 1] - 1, n_item + 1), breaks = 0:n_item, expand = c(0, 0)) +
     theme_bw() +
     theme(panel.grid = element_blank())
 
@@ -785,22 +758,13 @@ if (!length(categories) == 0) {
       key[, items]
     )
 
-    correct_df <- create_df(
-      item_names[items],
-      correct_percentage[items],
-      categories[[i]]$corrected_item_tot_cor
-    )
+    correct_df <- create_df(item_names[items], correct_percentage[items], categories[[i]]$corrected_item_tot_cor)
 
     plot_overall_perc(correct_df)
     plot_overall_irc(correct_df)
 
     if (any(key[, items] != 0)) {
-      ans_opt_df <- make_answ_df(
-        item_list,
-        key[, items],
-        number_answeroptions[items],
-        item_names[items]
-      )
+      ans_opt_df <- make_answ_df(item_list, key[, items], number_answeroptions[items], item_names[items])
       calc_n_plot(ans_opt_df, key[, items])
       plot_perc_answ(ans_opt_df, items_in_plot, key[, items])
       plot_irc_answ(ans_opt_df, items_in_plot, key[, items])
