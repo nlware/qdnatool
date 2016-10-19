@@ -40,6 +40,9 @@ before_script:
   - sudo apt-get install -y --force-yes r-base r-cran-rserve
   - sudo apt-get install -y --force-yes libcurl4-gnutls-dev
   - sudo apt-get install -y --force-yes libxml2-dev
+  - sudo apt-get install -y --force-yes texlive-full
+  - wget https://github.com/jgm/pandoc/releases/download/1.17.2/pandoc-1.17.2-1-amd64.deb
+  - sudo dpkg -i pandoc-1.17.2-1-amd64.deb
   - sudo mkdir -p ~/R/Library
   - sudo echo 'R_LIBS=~/R/Library' > ~/.Renviron
   - sudo echo 'options(repos = "http://cran.rstudio.com")' > ~/.Rprofile
@@ -48,6 +51,7 @@ before_script:
   - sudo Rscript -e 'if(!"gplots" %in% rownames(installed.packages())) { install.packages("gplots", dependencies = TRUE) }'
   - sudo Rscript -e 'if(!"ggplot2" %in% rownames(installed.packages())) { install.packages("ggplot2", dependencies = TRUE) }'
   - sudo Rscript -e 'if(!"gridExtra" %in% rownames(installed.packages())) { install.packages("gridExtra", dependencies = TRUE) }'
+  - sudo Rscript -e 'if(!"pander" %in% rownames(installed.packages())) { install.packages("pander", dependencies = TRUE) }'
   - sudo Rscript -e 'if(!"psy" %in% rownames(installed.packages())) { install.packages("psy", dependencies = TRUE) }'
   - sudo Rscript -e 'update.packages(ask = FALSE, instlib = "~/R/Library")'
   - sudo R CMD Rserve
