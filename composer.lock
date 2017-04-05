@@ -9,16 +9,16 @@
     "packages": [
         {
             "name": "cakephp/cakephp",
-            "version": "2.9.1",
+            "version": "2.9.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/cakephp.git",
-                "reference": "6cdf38c2ef5798692ed9fb22221527b9f4210d19"
+                "reference": "6cdb2d2905813c35bf7674cd77c347f50449c494"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/6cdf38c2ef5798692ed9fb22221527b9f4210d19",
-                "reference": "6cdf38c2ef5798692ed9fb22221527b9f4210d19",
+                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/6cdb2d2905813c35bf7674cd77c347f50449c494",
+                "reference": "6cdb2d2905813c35bf7674cd77c347f50449c494",
                 "shasum": ""
             },
             "require": {
@@ -44,11 +44,11 @@
                 }
             ],
             "description": "The CakePHP framework",
-            "homepage": "http://cakephp.org",
+            "homepage": "https://cakephp.org",
             "keywords": [
                 "framework"
             ],
-            "time": "2016-10-11 01:36:32"
+            "time": "2017-04-02 02:09:17"
         },
         {
             "name": "cakephp/debug_kit",
