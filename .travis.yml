@@ -1,8 +1,6 @@
 language: php
 
 php:
-  - 5.3
-  - 5.4
   - 5.5
   - 5.6
   - 7.0
@@ -49,8 +47,8 @@ before_script:
   - sudo R CMD Rserve
   - sh -c "mysql -e 'CREATE DATABASE qdnatool_test;'"
   - chmod -R 777 ./app/tmp
-  - composer install --dev --no-interaction --prefer-source
-  - sh -c "if [ '$PHPCS' = '1' ]; then ./app/Vendor/bin/phpcs --config-set installed_paths ./app/Vendor/cakephp/cakephp-codesniffer; fi"
+  - composer install --no-interaction --prefer-source
+  - sh -c "if [ '$PHPCS' = '1' ]; then ./app/Vendor/bin/phpcs --config-set installed_paths ~/app/Vendor/cakephp/cakephp-codesniffer; fi"
   - phpenv rehash
   - echo -e "<?php\nclass DATABASE_CONFIG {\n\n\tpublic \$test = array(\n\t\t'datasource' => 'Database/Mysql',\n\t\t'database' => 'qdnatool_test',\n\t\t'host' => '0.0.0.0',\n\t\t'login' => 'travis',\n\t\t'persistent' => false,\n\t);\n}" > app/Config/database.php
   - echo -e "<?php\n\$config = array(\n\t'Rserve' => array(\n\t\t'host' => 'localhost',\n\t\t'port' => 6311,\n\t\t'debug' => false\n\t)\n);\n" > app/Config/rserve.php
