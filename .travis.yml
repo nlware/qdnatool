@@ -5,22 +5,35 @@ php:
   - 5.6
   - 7.0
   - 7.1
+  - 7.2
 
 env:
-  - DB=mysql
+  global:
+    - PHPUNIT=3.7.33
 
 matrix:
   include:
     - php: 5.5
       env:
-        - COVERALLS=1  
-    - php: 5.5
-      env:
-        - PHPCS=1
+        - COVERALLS=1
+
     - php: 5.5
       env:
         - LINTR=1
           LINTR_COMMENT_BOT=false
+
+    - php: 7.0
+      env:
+        - PHPCS=1
+
+    - php: 7.1
+      env:
+        - PHPUNIT=5.7.19
+
+    - php: 7.2
+      env:
+        - PHPUNIT=5.7.19
+
 
 cache:
   directories:
@@ -47,12 +60,13 @@ before_script:
   - sudo R CMD Rserve
   - sh -c "mysql -e 'CREATE DATABASE qdnatool_test;'"
   - chmod -R 777 ./app/tmp
-  - composer install --no-interaction --prefer-source
+  - composer require "phpunit/phpunit=$PHPUNIT"
+  - sh -c "if [ '$PHPCS' = '1' ]; then composer require 'cakephp/cakephp-codesniffer:1.*'; fi"
   - sh -c "if [ '$PHPCS' = '1' ]; then ./app/Vendor/bin/phpcs --config-set installed_paths app/Vendor/cakephp/cakephp-codesniffer; fi"
   - phpenv rehash
   - echo -e "<?php\nclass DATABASE_CONFIG {\n\n\tpublic \$test = array(\n\t\t'datasource' => 'Database/Mysql',\n\t\t'database' => 'qdnatool_test',\n\t\t'host' => '0.0.0.0',\n\t\t'login' => 'travis',\n\t\t'persistent' => false,\n\t);\n}" > app/Config/database.php
   - echo -e "<?php\n\$config = array(\n\t'Rserve' => array(\n\t\t'host' => 'localhost',\n\t\t'port' => 6311,\n\t\t'debug' => false\n\t)\n);\n" > app/Config/rserve.php
- 
+
 script:
   - sh -c "if [ '$COVERALLS' = 1 ]; then cd ./app; Vendor/bin/cake test app All --stderr --coverage-clover ../build/logs/clover.xml --configuration ../phpunit.xml; fi;"
   - sh -c "if [ '$PHPCS' = '1' ]; then ./app/Vendor/bin/phpcs -p --extensions=php --standard=CakePHP --ignore=Plugin --ignore=Vendor --ignore=webroot/js/ckeditor -n ./app; fi;"
