@@ -52,8 +52,7 @@ before_script:
   - sudo Rscript -e 'if(!"gridExtra" %in% rownames(installed.packages())) { install.packages("gridExtra", dependencies = TRUE) }'
   - sudo Rscript -e 'if(!"psy" %in% rownames(installed.packages())) { install.packages("psy", dependencies = TRUE) }'
   - sudo Rscript -e 'update.packages(ask = FALSE, instlib = "~/R/Library")'
-  - sudo sh -c "ln -s /usr/lib/R/site-library/Rserve/libs/Rserve /usr/lib/R/bin/Rserve"
-  - sudo R CMD Rserve
+  - sudo R CMD /usr/lib/R/bin/Rserve
   - sh -c "mysql -e 'CREATE DATABASE qdnatool_test;'"
   - chmod -R 777 ./app/tmp
   - composer install --dev --no-interaction --prefer-source
