@@ -35,10 +35,6 @@ cache:
 before_script:
   - sh -c "composer global require 'phpunit/phpunit=3.7.33'"
   - sh -c "ln -s ~/.composer/vendor/phpunit/phpunit/PHPUnit ./app/Vendor/PHPUnit"
-  - sudo sh -c "echo deb https://cran.rstudio.com/bin/linux/ubuntu trusty/ >> /etc/apt/sources.list.d/rstudio.list"
-  - sudo apt-get update -qq
-  # workaround for missing dependency in r-base which causes the following error: /var/lib/dpkg/info/r-base-core.postinst: 57: /var/lib/dpkg/info/r-base-core.postinst: mktexlsr: not found
-  - sudo apt-get install -y --force-yes texlive-binaries
   - sudo apt-get install -y --force-yes r-base r-cran-rserve
   - sudo apt-get install -y --force-yes libcurl4-gnutls-dev
   - sudo apt-get install -y --force-yes libxml2-dev
