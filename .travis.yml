@@ -1,3 +1,4 @@
+dist: precise
 language: php
 
 php:
@@ -17,7 +18,7 @@ matrix:
   include:
     - php: 5.5
       env:
-        - COVERALLS=1  
+        - COVERALLS=1
     - php: 5.5
       env:
         - PHPCS=1
@@ -60,7 +61,7 @@ before_script:
   - phpenv rehash
   - echo -e "<?php\nclass DATABASE_CONFIG {\n\n\tpublic \$test = array(\n\t\t'datasource' => 'Database/Mysql',\n\t\t'database' => 'qdnatool_test',\n\t\t'host' => '0.0.0.0',\n\t\t'login' => 'travis',\n\t\t'persistent' => false,\n\t);\n}" > app/Config/database.php
   - echo -e "<?php\n\$config = array(\n\t'Rserve' => array(\n\t\t'host' => 'localhost',\n\t\t'port' => 6311,\n\t\t'debug' => false\n\t)\n);\n" > app/Config/rserve.php
- 
+
 script:
   - sh -c "if [ '$COVERALLS' = 1 ]; then cd ./app; Vendor/bin/cake test app All --stderr --coverage-clover ../build/logs/clover.xml --configuration ../phpunit.xml; fi;"
   - sh -c "if [ '$PHPCS' = '1' ]; then ~/.composer/vendor/bin/phpcs -p --extensions=php --standard=CakePHP --ignore=Plugin --ignore=Vendor --ignore=webroot/js/ckeditor -n ./app; fi;"
