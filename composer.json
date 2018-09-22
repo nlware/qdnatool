@@ -2,8 +2,7 @@
 	"minimum-stability": "dev",
 	"prefer-stable" : true,
 	"config" : {
-		"secure-http": false,
-		"vendor-dir" : "app/Vendor"
+		"vendor-dir" : "app/Vendor/"
 	},
 	"repositories" : [
 		{
@@ -13,7 +12,7 @@
 				"version": "1.1.22",
 				"type": "cakephp-vendor",
 				"dist": {
-					"url": "http://www.bioinformatics.org/phplabware/downloads/htmLawed1122.zip",
+					"url": "https://www.bioinformatics.org/phplabware/downloads/htmLawed1122.zip",
 					"type": "zip"
 				},
 				"require": {
