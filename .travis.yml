@@ -16,7 +16,7 @@ env:
 
 matrix:
   allow_failures:
-    - php: hhvm
+    - php: 7.2
 
     - php: 5.5
       env:
@@ -44,6 +44,14 @@ matrix:
     - php: 7.0
       env:
         - PHPCS=1
+
+    - php: 7.1
+      env:
+        - PHPUNIT=5.7.19
+
+    - php: 7.2
+      env:
+        - PHPUNIT=5.7.19
 
 cache:
   directories:
