@@ -108,6 +108,8 @@ before_script:
   - sudo Rscript -e 'if(!"gridExtra" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/gridExtra_0.9.1.tar.gz", repo = NULL, type="source") }'
   - sh -c "wget -nc \"https://cran.r-project.org/src/contrib/psy_1.1.tar.gz\" -O \"$HOME/downloads/psy_1.1.tar.gz\""
   - sudo Rscript -e 'if(!"psy" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/psy_1.1.tar.gz", repo = NULL, type="source") }'
+  - sh -c "wget -nc \"https://cran.r-project.org/src/contrib/Archive/lintr/lintr_0.2.0.tar.gz\" -O \"$HOME/downloads/lintr_0.2.0.tar.gz\""
+  - sudo Rscript -e 'if(!"lintr" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/lintr_0.2.0.tar.gz", repo = NULL, type="source") }'
   - sudo sh -c "rm /usr/lib/R/bin/Rserve"
   - sudo sh -c "rm /usr/lib/R/bin/Rserve.dbg"
   - sudo sh -c "ln -s /usr/lib/R/site-library/Rserve/libs/Rserve /usr/lib/R/bin/Rserve"
@@ -122,12 +124,12 @@ before_script:
   - echo -e "<?php\n\$config = array(\n\t'Rserve' => array(\n\t\t'host' => 'localhost',\n\t\t'port' => 6311,\n\t\t'debug' => false\n\t)\n);\n" > app/Config/rserve.php
 
 script:
-  - sh -c "if [ '$COVERALLS' = 1 ]; then cd $HOME/nlware/qdnatool/app; Vendor/bin/cake test app All --stderr --coverage-clover ../build/logs/clover.xml --configuration ../phpunit.xml; fi;"
-  - sh -c "if [ '$PHPCS' = '1' ]; then cd $HOME/nlware/qdnatool/app; Vendor/bin/phpcs -p --extensions=php --standard=CakePHP --ignore=Plugin --ignore=Vendor --ignore=webroot/js/ckeditor -n ./app; fi;"
-  - sh -c "if [ '$PHPCS' != '1' ] && [ '$COVERALLS' != 1 ] && [ '$LINTR' != 1 ]; then cd $HOME/nlware/qdnatool/app; Vendor/bin/cake test app All --stderr; fi"
-  - sh -c "if [ '$LINTR' = '1' ]; then cd $HOME/nlware/qdnatool; ./bin/travis-linter.sh; fi"
+  - sh -c "if [ '$COVERALLS' = 1 ]; then cd ~/nlware/qdnatool/app; Vendor/bin/cake test app All --stderr --coverage-clover ../build/logs/clover.xml --configuration ../phpunit.xml; fi;"
+  - sh -c "if [ '$PHPCS' = '1' ]; then cd ~/nlware/qdnatool/app; Vendor/bin/phpcs -p --extensions=php --standard=CakePHP --ignore=Plugin --ignore=Vendor --ignore=webroot/js/ckeditor -n ./app; fi;"
+  - sh -c "if [ '$PHPCS' != '1' ] && [ '$COVERALLS' != 1 ] && [ '$LINTR' != 1 ]; then cd ~/nlware/qdnatool/app; Vendor/bin/cake test app All --stderr; fi"
+  - sh -c "if [ '$LINTR' = '1' ]; then cd ~/nlware/qdnatool; ./bin/travis-linter.sh; fi"
 after_success:
-  - sh -c "if [ '$COVERALLS' = '1' ]; then cd $HOME/nlware/qdnatool; php app/Vendor/bin/coveralls -c .coveralls.yml -v; fi"
+  - sh -c "if [ '$COVERALLS' = '1' ]; then cd ~/nlware/qdnatool; php app/Vendor/bin/coveralls -c .coveralls.yml -v; fi"
 
 notifications:
   email: false
