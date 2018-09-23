@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "62e0fbb1b084c0788dade9603ee424d9",
-    "content-hash": "4b26290800626d08aee20bd2ccb03f89",
+    "hash": "c0854102d6c352bfe75a513d2b608f83",
+    "content-hash": "38fccea400ccfeb3212760ced19e6bca",
     "packages": [
         {
             "name": "cakephp/cakephp",
@@ -211,7 +211,7 @@
             "version": "1.1.22",
             "dist": {
                 "type": "zip",
-                "url": "http://www.bioinformatics.org/phplabware/downloads/htmLawed1122.zip",
+                "url": "https://www.bioinformatics.org/phplabware/downloads/htmLawed1122.zip",
                 "reference": null,
                 "shasum": null
             },
