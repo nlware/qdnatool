@@ -64,10 +64,10 @@ before_script:
   - sudo mkdir -p ~/R/Library
   - sudo echo 'R_LIBS=~/R/Library' > ~/.Renviron
   - sudo echo 'options(repos = "https://cran.rstudio.com")' > ~/.Rprofile
-  - sudo Rscript -e 'if(!"gplots" %in% rownames(installed.packages())) { install.packages("https://cran.r-project.org/src/contrib/Archive/gplots/gplots_2.14.1.tar.gz", dependencies = TRUE, repo = NULL, type="source") }'
-  - sudo Rscript -e 'if(!"ggplot2" %in% rownames(installed.packages())) { install.packages("https://cran.r-project.org/src/contrib/Archive/ggplot2/ggplot2_1.0.0.tar.gz", dependencies = TRUE, repo = NULL, type="source") }'
-  - sudo Rscript -e 'if(!"gridExtra" %in% rownames(installed.packages())) { install.packages("https://cran.r-project.org/src/contrib/Archive/gridExtra/gridExtra_0.9.1.tar.gz", dependencies = TRUE, repo = NULL, type="source") }'
-  - sudo Rscript -e 'if(!"psy" %in% rownames(installed.packages())) { install.packages("https://cran.r-project.org/src/contrib/psy_1.1.tar.gz", dependencies = TRUE, repo = NULL, type="source") }'
+  - sudo Rscript -e 'if(!"gplots" %in% rownames(installed.packages())) { library(downloader); download("https://cran.r-project.org/src/contrib/Archive/gplots/gplots_2.14.1.tar.gz", "gplots_2.14.1.tar.gz"); install.packages("gplots_2.14.1.tar.gz", dependencies = TRUE, repo = NULL, type="source") }'
+  - sudo Rscript -e 'if(!"ggplot2" %in% rownames(installed.packages())) { library(downloader); download("https://cran.r-project.org/src/contrib/Archive/ggplot2/ggplot2_1.0.0.tar.gz", "ggplot2_1.0.0.tar.gz"); install.packages("ggplot2_1.0.0.tar.gz", dependencies = TRUE, repo = NULL, type="source") }'
+  - sudo Rscript -e 'if(!"gridExtra" %in% rownames(installed.packages())) { library(downloader); download("https://cran.r-project.org/src/contrib/Archive/gridExtra/gridExtra_0.9.1.tar.gz", "gridExtra_0.9.1.tar.gz"); install.packages("gridExtra_0.9.1.tar.gz", dependencies = TRUE, repo = NULL, type="source") }'
+  - sudo Rscript -e 'if(!"psy" %in% rownames(installed.packages())) { library(downloader); download("https://cran.r-project.org/src/contrib/psy_1.1.tar.gz", "psy_1.1.tar.gz"); install.packages("psy_1.1.tar.gz", dependencies = TRUE, repo = NULL, type="source") }'
   - sudo sh -c "rm /usr/lib/R/bin/Rserve"
   - sudo sh -c "rm /usr/lib/R/bin/Rserve.dbg"
   - sudo sh -c "ln -s /usr/lib/R/site-library/Rserve/libs/Rserve /usr/lib/R/bin/Rserve"
