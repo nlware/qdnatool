@@ -65,25 +65,31 @@ before_script:
   - sudo echo 'R_LIBS=~/R/Library' > ~/.Renviron
   - sudo echo 'options(repos = "https://cran.rstudio.com")' > ~/.Rprofile
   - sh -c "wget \"https://cran.r-project.org/src/contrib/Archive/gtools/gtools_3.4.1.tar.gz\" -O \"gtools_3.4.1.tar.gz\""
-  - sudo Rscript -e 'if(!"gplots" %in% rownames(installed.packages())) { install.packages("gtools_3.4.1.tar.gz", repo = NULL, type="source") }'
+  - sudo Rscript -e 'if(!"gtools" %in% rownames(installed.packages())) { install.packages("gtools_3.4.1.tar.gz", repo = NULL, type="source") }'
   - sh -c "wget \"https://cran.r-project.org/src/contrib/Archive/gdata/gdata_2.13.3.tar.gz\" -O \"gdata_2.13.3.tar.gz\""
-  - sudo Rscript -e 'if(!"gplots" %in% rownames(installed.packages())) { install.packages("gdata_2.13.3.tar.gz", repo = NULL, type="source") }'
+  - sudo Rscript -e 'if(!"gdata" %in% rownames(installed.packages())) { install.packages("gdata_2.13.3.tar.gz", repo = NULL, type="source") }'
+  - sh -c "wget \"https://cran.r-project.org/src/contrib/bitops_1.0-6.tar.gz\" -O \"bitops_1.0-6.tar.gz\""
+  - sudo Rscript -e 'if(!"bitops" %in% rownames(installed.packages())) { install.packages("bitops_1.0-6.tar.gz", repo = NULL, type="source") }'
   - sh -c "wget \"https://cran.r-project.org/src/contrib/Archive/caTools/caTools_1.17.tar.gz\" -O \"caTools_1.17.tar.gz\""
-  - sudo Rscript -e 'if(!"gplots" %in% rownames(installed.packages())) { install.packages("caTools_1.17.tar.gz", repo = NULL, type="source") }'
+  - sudo Rscript -e 'if(!"caTools" %in% rownames(installed.packages())) { install.packages("caTools_1.17.tar.gz", repo = NULL, type="source") }'
   - sh -c "wget \"https://cran.r-project.org/src/contrib/Archive/gplots/gplots_2.14.1.tar.gz\" -O \"gplots_2.14.1.tar.gz\""
   - sudo Rscript -e 'if(!"gplots" %in% rownames(installed.packages())) { install.packages("gplots_2.14.1.tar.gz", repo = NULL, type="source") }'
+  - sh -c "wget \"https://cran.r-project.org/src/contrib/Archive/Rcpp/Rcpp_0.11.2.tar.gz\" -O \"Rcpp_0.11.2.tar.gz\""
+  - sudo Rscript -e 'if(!"Rcpp" %in% rownames(installed.packages())) { install.packages("Rcpp_0.11.2.tar.gz", repo = NULL, type="source") }'
   - sh -c "wget \"https://cran.r-project.org/src/contrib/Archive/plyr/plyr_1.8.1.tar.gz\" -O \"plyr_1.8.1.tar.gz\""
-  - sudo Rscript -e 'if(!"gplots" %in% rownames(installed.packages())) { install.packages("plyr_1.8.1.tar.gz", repo = NULL, type="source") }'
+  - sudo Rscript -e 'if(!"plyr" %in% rownames(installed.packages())) { install.packages("plyr_1.8.1.tar.gz", repo = NULL, type="source") }'
   - sh -c "wget \"https://cran.r-project.org/src/contrib/Archive/digest/digest_0.6.4.tar.gz\" -O \"digest_0.6.4.tar.gz\""
-  - sudo Rscript -e 'if(!"gplots" %in% rownames(installed.packages())) { install.packages("digest_0.6.4.tar.gz", repo = NULL, type="source") }'
+  - sudo Rscript -e 'if(!"digest" %in% rownames(installed.packages())) { install.packages("digest_0.6.4.tar.gz", repo = NULL, type="source") }'
   - sh -c "wget \"https://cran.r-project.org/src/contrib/Archive/gtable/gtable_0.1.2.tar.gz\" -O \"gtable_0.1.2.tar.gz\""
-  - sudo Rscript -e 'if(!"gplots" %in% rownames(installed.packages())) { install.packages("gtable_0.1.2.tar.gz", repo = NULL, type="source") }'
+  - sudo Rscript -e 'if(!"gtable" %in% rownames(installed.packages())) { install.packages("gtable_0.1.2.tar.gz", repo = NULL, type="source") }'
+  - sh -c "wget \"https://cran.r-project.org/src/contrib/Archive/stringr/stringr_0.6.2.tar.gz\" -O \"stringr_0.6.2.tar.gz\""
+  - sudo Rscript -e 'if(!"stringr" %in% rownames(installed.packages())) { install.packages("stringr_0.6.2.tar.gz", repo = NULL, type="source") }'
   - sh -c "wget \"https://cran.r-project.org/src/contrib/Archive/reshape2/reshape2_1.4.tar.gz\" -O \"reshape2_1.4.tar.gz\""
-  - sudo Rscript -e 'if(!"gplots" %in% rownames(installed.packages())) { install.packages("reshape2_1.4.tar.gz", repo = NULL, type="source") }'
+  - sudo Rscript -e 'if(!"reshape2" %in% rownames(installed.packages())) { install.packages("reshape2_1.4.tar.gz", repo = NULL, type="source") }'
   - sh -c "wget \"https://cran.r-project.org/src/contrib/Archive/scales/scales_0.2.4.tar.gz\" -O \"scales_0.2.4.tar.gz\""
-  - sudo Rscript -e 'if(!"gplots" %in% rownames(installed.packages())) { install.packages("scales_0.2.4.tar.gz", repo = NULL, type="source") }'
+  - sudo Rscript -e 'if(!"scales" %in% rownames(installed.packages())) { install.packages("scales_0.2.4.tar.gz", repo = NULL, type="source") }'
   - sh -c "wget \"https://cran.r-project.org/src/contrib/Archive/proto/proto_0.3-10.tar.gz\" -O \"proto_0.3-10.tar.gz\""
-  - sudo Rscript -e 'if(!"gplots" %in% rownames(installed.packages())) { install.packages("proto_0.3-10.tar.gz", repo = NULL, type="source") }'
+  - sudo Rscript -e 'if(!"proto" %in% rownames(installed.packages())) { install.packages("proto_0.3-10.tar.gz", repo = NULL, type="source") }'
   - sh -c "wget \"https://cran.r-project.org/src/contrib/Archive/ggplot2/ggplot2_1.0.0.tar.gz\" -O \"ggplot2_1.0.0.tar.gz\""
   - sudo Rscript -e 'if(!"ggplot2" %in% rownames(installed.packages())) { install.packages("ggplot2_1.0.0.tar.gz", repo = NULL, type="source") }'
   - sh -c "wget \"https://cran.r-project.org/src/contrib/Archive/gridExtra/gridExtra_0.9.1.tar.gz\" -O \"gridExtra_0.9.1.tar.gz\""
