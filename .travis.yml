@@ -55,21 +55,20 @@ before_script:
   - sudo R CMD Rserve
   - sh -c "mysql -e 'CREATE DATABASE qdnatool_test;'"
   - chmod -R 777 ./app/tmp
-  - composer install --dev --no-interaction --prefer-source
-  - sh -c "if [ '$COVERALLS' = '1' ]; then composer global require --dev satooshi/php-coveralls:dev-master; fi"
-  - sh -c "if [ '$PHPCS' = '1' ]; then composer global require 'cakephp/cakephp-codesniffer:1.*'; fi"
-  - sh -c "if [ '$PHPCS' = '1' ]; then ~/.composer/vendor/bin/phpcs --config-set installed_paths ~/.composer/vendor/cakephp/cakephp-codesniffer; fi"
+  - sh -c "if [ '$COVERALLS' = '1' ]; then composer require --dev satooshi/php-coveralls:v1.0.1; fi"
+  - sh -c "if [ '$PHPCS' = '1' ]; then composer require --dev 'cakephp/cakephp-codesniffer:1.*'; fi"
+  - sh -c "if [ '$PHPCS' = '1' ]; then app/Vendor/bin/phpcs --config-set installed_paths app/Vendor/cakephp/cakephp-codesniffer; fi"
   - phpenv rehash
   - echo -e "<?php\nclass DATABASE_CONFIG {\n\n\tpublic \$test = array(\n\t\t'datasource' => 'Database/Mysql',\n\t\t'database' => 'qdnatool_test',\n\t\t'host' => '0.0.0.0',\n\t\t'login' => 'travis',\n\t\t'persistent' => false,\n\t);\n}" > app/Config/database.php
   - echo -e "<?php\n\$config = array(\n\t'Rserve' => array(\n\t\t'host' => 'localhost',\n\t\t'port' => 6311,\n\t\t'debug' => false\n\t)\n);\n" > app/Config/rserve.php
 
 script:
-  - sh -c "if [ '$COVERALLS' = 1 ]; then cd ./app; Vendor/bin/cake test app All --stderr --coverage-clover ../build/logs/clover.xml --configuration ../phpunit.xml; fi;"
-  - sh -c "if [ '$PHPCS' = '1' ]; then ~/.composer/vendor/bin/phpcs -p --extensions=php --standard=CakePHP --ignore=Plugin --ignore=Vendor --ignore=webroot/js/ckeditor -n ./app; fi;"
-  - sh -c "if [ '$PHPCS' != '1' ] && [ '$COVERALLS' != 1 ] && [ '$LINTR' != 1 ]; then cd ./app; Vendor/bin/cake test app All --stderr; fi"
+  - sh -c "if [ '$COVERALLS' = 1 ]; then cd ./app; Vendor/bin/cake test app All --stderr --coverage-clover ../build/logs/clover.xml --configuration ../phpunit.xml; cd ..; fi;"
+  - sh -c "if [ '$PHPCS' = '1' ]; then app/Vendor/bin/phpcs -p --extensions=php --standard=CakePHP --ignore=Plugin --ignore=Vendor --ignore=webroot/js/ckeditor -n ./app; fi;"
+  - sh -c "if [ '$PHPCS' != '1' ] && [ '$COVERALLS' != 1 ] && [ '$LINTR' != 1 ]; then cd ./app; Vendor/bin/cake test app All --stderr; cd ..; fi"
   - sh -c "if [ '$LINTR' = '1' ]; then ./bin/travis-linter.sh; fi"
 after_success:
-  - sh -c "if [ '$COVERALLS' = '1' ]; then php ~/.composer/vendor/bin/coveralls -c .coveralls.yml -v; fi"
+  - sh -c "if [ '$COVERALLS' = '1' ]; then php app/Vendor/bin/coveralls -c .coveralls.yml -v; fi"
 
 notifications:
   email: false
