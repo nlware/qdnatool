@@ -65,6 +65,7 @@ before_script:
   - sudo mkdir -p ~/R/Library
   - sudo echo 'R_LIBS=~/R/Library' > ~/.Renviron
   - sudo echo 'options(repos = "https://cran.rstudio.com")' > ~/.Rprofile
+  - sh -c "mkdir -p downloads"
   - sh -c "wget -nc \"https://cran.r-project.org/src/contrib/Archive/gtools/gtools_3.4.1.tar.gz\" -O \"downloads/gtools_3.4.1.tar.gz\""
   - sudo Rscript -e 'if(!"gtools" %in% rownames(installed.packages())) { install.packages("downloads/gtools_3.4.1.tar.gz", repo = NULL, type="source") }'
   - sh -c "wget -nc \"https://cran.r-project.org/src/contrib/Archive/gdata/gdata_2.13.3.tar.gz\" -O \"downloads/gdata_2.13.3.tar.gz\""
