@@ -90,6 +90,8 @@ before_script:
   - sudo Rscript -e 'if(!"RColorBrewer" %in% rownames(installed.packages())) { install.packages("RColorBrewer_1.0-5.tar.gz", repo = NULL, type="source") }'
   - sh -c "wget \"https://cran.r-project.org/src/contrib/dichromat_2.0-0.tar.gz\" -O \"dichromat_2.0-0.tar.gz\""
   - sudo Rscript -e 'if(!"dichromat" %in% rownames(installed.packages())) { install.packages("dichromat_2.0-0.tar.gz", repo = NULL, type="source") }'
+  - sh -c "wget \"https://cran.r-project.org/src/contrib/Archive/colorspace/colorspace_1.2-4.tar.gz\" -O \"colorspace_1.2-4.tar.gz\""
+  - sudo Rscript -e 'if(!"colorspace" %in% rownames(installed.packages())) { install.packages("colorspace_1.2-4.tar.gz", repo = NULL, type="source") }'
   - sh -c "wget \"https://cran.r-project.org/src/contrib/Archive/munsell/munsell_0.4.2.tar.gz\" -O \"munsell_0.4.2.tar.gz\""
   - sudo Rscript -e 'if(!"munsell" %in% rownames(installed.packages())) { install.packages("munsell_0.4.2.tar.gz", repo = NULL, type="source") }'
   - sh -c "wget \"https://cran.r-project.org/src/contrib/Archive/labeling/labeling_0.2.tar.gz\" -O \"labeling_0.2.tar.gz\""
