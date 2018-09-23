@@ -86,6 +86,14 @@ before_script:
   - sudo Rscript -e 'if(!"stringr" %in% rownames(installed.packages())) { install.packages("stringr_0.6.2.tar.gz", repo = NULL, type="source") }'
   - sh -c "wget \"https://cran.r-project.org/src/contrib/Archive/reshape2/reshape2_1.4.tar.gz\" -O \"reshape2_1.4.tar.gz\""
   - sudo Rscript -e 'if(!"reshape2" %in% rownames(installed.packages())) { install.packages("reshape2_1.4.tar.gz", repo = NULL, type="source") }'
+  - sh -c "wget \"https://cran.r-project.org/src/contrib/Archive/RColorBrewer/RColorBrewer_1.0-5.tar.gz\" -O \"RColorBrewer_1.0-5.tar.gz\""
+  - sudo Rscript -e 'if(!"RColorBrewer" %in% rownames(installed.packages())) { install.packages("RColorBrewer_1.0-5.tar.gz", repo = NULL, type="source") }'
+  - sh -c "wget \"https://cran.r-project.org/src/contrib/dichromat_2.0-0.tar.gz\" -O \"dichromat_2.0-0.tar.gz\""
+  - sudo Rscript -e 'if(!"dichromat" %in% rownames(installed.packages())) { install.packages("dichromat_2.0-0.tar.gz", repo = NULL, type="source") }'
+  - sh -c "wget \"https://cran.r-project.org/src/contrib/Archive/munsell/munsell_0.4.2.tar.gz\" -O \"munsell_0.4.2.tar.gz\""
+  - sudo Rscript -e 'if(!"munsell" %in% rownames(installed.packages())) { install.packages("munsell_0.4.2.tar.gz", repo = NULL, type="source") }'
+  - sh -c "wget \"https://cran.r-project.org/src/contrib/Archive/labeling/labeling_0.2.tar.gz\" -O \"labeling_0.2.tar.gz\""
+  - sudo Rscript -e 'if(!"labeling" %in% rownames(installed.packages())) { install.packages("labeling_0.2.tar.gz", repo = NULL, type="source") }'
   - sh -c "wget \"https://cran.r-project.org/src/contrib/Archive/scales/scales_0.2.4.tar.gz\" -O \"scales_0.2.4.tar.gz\""
   - sudo Rscript -e 'if(!"scales" %in% rownames(installed.packages())) { install.packages("scales_0.2.4.tar.gz", repo = NULL, type="source") }'
   - sh -c "wget \"https://cran.r-project.org/src/contrib/Archive/proto/proto_0.3-10.tar.gz\" -O \"proto_0.3-10.tar.gz\""
