@@ -64,13 +64,13 @@ before_script:
   - sudo mkdir -p ~/R/Library
   - sudo echo 'R_LIBS=~/R/Library' > ~/.Renviron
   - sudo echo 'options(repos = "https://cran.rstudio.com")' > ~/.Rprofile
-  - sudo -c "wget \"https://cran.r-project.org/src/contrib/Archive/gplots/gplots_2.14.1.tar.gz\" -O \"gplots_2.14.1.tar.gz\""
+  - sh -c "wget \"https://cran.r-project.org/src/contrib/Archive/gplots/gplots_2.14.1.tar.gz\" -O \"gplots_2.14.1.tar.gz\""
   - sudo Rscript -e 'if(!"gplots" %in% rownames(installed.packages())) { install.packages("gplots_2.14.1.tar.gz", dependencies = TRUE, repo = NULL, type="source") }'
-  - sudo -c "wget \"https://cran.r-project.org/src/contrib/Archive/ggplot2/ggplot2_1.0.0.tar.gz\" -O \"ggplot2_1.0.0.tar.gz\""
+  - sh -c "wget \"https://cran.r-project.org/src/contrib/Archive/ggplot2/ggplot2_1.0.0.tar.gz\" -O \"ggplot2_1.0.0.tar.gz\""
   - sudo Rscript -e 'if(!"ggplot2" %in% rownames(installed.packages())) { install.packages("ggplot2_1.0.0.tar.gz", dependencies = TRUE, repo = NULL, type="source") }'
-  - sudo -c "wget \"https://cran.r-project.org/src/contrib/Archive/gridExtra/gridExtra_0.9.1.tar.gz\" -O \"gridExtra_0.9.1.tar.gz\""
+  - sh -c "wget \"https://cran.r-project.org/src/contrib/Archive/gridExtra/gridExtra_0.9.1.tar.gz\" -O \"gridExtra_0.9.1.tar.gz\""
   - sudo Rscript -e 'if(!"gridExtra" %in% rownames(installed.packages())) { install.packages("gridExtra_0.9.1.tar.gz", dependencies = TRUE, repo = NULL, type="source") }'
-  - sudo -c "wget \"https://cran.r-project.org/src/contrib/psy_1.1.tar.gz\" -O \"psy_1.1.tar.gz\""
+  - sh -c "wget \"https://cran.r-project.org/src/contrib/psy_1.1.tar.gz\" -O \"psy_1.1.tar.gz\""
   - sudo Rscript -e 'if(!"psy" %in% rownames(installed.packages())) { install.packages("psy_1.1.tar.gz", dependencies = TRUE, repo = NULL, type="source") }'
   - sudo sh -c "rm /usr/lib/R/bin/Rserve"
   - sudo sh -c "rm /usr/lib/R/bin/Rserve.dbg"
