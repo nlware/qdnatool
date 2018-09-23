@@ -3,8 +3,6 @@ set -e
 
 exitstatus=0
 
-Rscript -e 'if(!"lintr" %in% rownames(installed.packages())) { install.packages("lintr", dependencies = TRUE) }'
-
 for file in $(pwd)/app/Lib/Rscripts/*.R
 do
     Rscript -e "lintr::lint(\"$file\")"

@@ -16,6 +16,10 @@ env:
 matrix:
   allow_failures:
     - php: hhvm
+    - php: 5.5
+      env:
+        - LINTR=1
+          LINTR_COMMENT_BOT=false
   include:
     - php: 5.5
       env:
@@ -23,10 +27,6 @@ matrix:
     - php: 5.5
       env:
         - PHPCS=1
-    - php: 5.5
-      env:
-        - LINTR=1
-          LINTR_COMMENT_BOT=false
 
 cache:
   directories:
