@@ -68,6 +68,7 @@ before_script:
   - sudo R CMD Rserve
   - sh -c "mysql -e 'CREATE DATABASE qdnatool_test;'"
   - chmod -R 777 ./app/tmp
+  - composer remove --dev "phpunit/phpunit"
   - composer require "phpunit/phpunit=$PHPUNIT"
   - sh -c "if [ '$PHPCS' = '1' ]; then app/Vendor/bin/phpcs --config-set installed_paths app/Vendor/cakephp/cakephp-codesniffer; fi"
   - phpenv rehash
