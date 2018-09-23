@@ -68,47 +68,47 @@ before_script:
   - sh -c "mkdir -p $HOME/downloads"
   - sh -c "if [ ! -f "$HOME/downloads/gtools_3.4.1.tar.gz" ]; then wget \"https://cran.r-project.org/src/contrib/Archive/gtools/gtools_3.4.1.tar.gz\" -O \"$HOME/downloads/gtools_3.4.1.tar.gz\"; fi"
   - sudo Rscript -e 'if(!"gtools" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/gtools_3.4.1.tar.gz", repo = NULL, type="source") }'
-  - sh -c "if [ ! -f "$HOME/downloads/gdata_2.13.3.tar.gz" ]; then wget \"https://cran.r-project.org/src/contrib/Archive/gdata/gdata_2.13.3.tar.gz\" -O \"$HOME/downloads/gdata_2.13.3.tar.gz\""; fi"
+  - sh -c "if [ ! -f "$HOME/downloads/gdata_2.13.3.tar.gz" ]; then wget \"https://cran.r-project.org/src/contrib/Archive/gdata/gdata_2.13.3.tar.gz\" -O \"$HOME/downloads/gdata_2.13.3.tar.gz\"; fi"
   - sudo Rscript -e 'if(!"gdata" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/gdata_2.13.3.tar.gz", repo = NULL, type="source") }'
-  - sh -c "if [ ! -f "$HOME/downloads/bitops_1.0-6.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/bitops_1.0-6.tar.gz\" -O \"$HOME/downloads/bitops_1.0-6.tar.gz\""
+  - sh -c "if [ ! -f "$HOME/downloads/bitops_1.0-6.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/bitops_1.0-6.tar.gz\" -O \"$HOME/downloads/bitops_1.0-6.tar.gz\"; fi"
   - sudo Rscript -e 'if(!"bitops" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/bitops_1.0-6.tar.gz", repo = NULL, type="source") }'
-  - sh -c "if [ ! -f "$HOME/downloads/caTools_1.17.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/caTools/caTools_1.17.tar.gz\" -O \"$HOME/downloads/caTools_1.17.tar.gz\""
+  - sh -c "if [ ! -f "$HOME/downloads/caTools_1.17.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/caTools/caTools_1.17.tar.gz\" -O \"$HOME/downloads/caTools_1.17.tar.gz\"; fi"
   - sudo Rscript -e 'if(!"caTools" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/caTools_1.17.tar.gz", repo = NULL, type="source") }'
-  - sh -c "if [ ! -f "$HOME/downloads/gplots_2.14.1.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/gplots/gplots_2.14.1.tar.gz\" -O \"$HOME/downloads/gplots_2.14.1.tar.gz\""
+  - sh -c "if [ ! -f "$HOME/downloads/gplots_2.14.1.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/gplots/gplots_2.14.1.tar.gz\" -O \"$HOME/downloads/gplots_2.14.1.tar.gz\"; fi"
   - sudo Rscript -e 'if(!"gplots" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/gplots_2.14.1.tar.gz", repo = NULL, type="source") }'
-  - sh -c "if [ ! -f "$HOME/downloads/Rcpp_0.11.2.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/Rcpp/Rcpp_0.11.2.tar.gz\" -O \"$HOME/downloads/Rcpp_0.11.2.tar.gz\""
+  - sh -c "if [ ! -f "$HOME/downloads/Rcpp_0.11.2.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/Rcpp/Rcpp_0.11.2.tar.gz\" -O \"$HOME/downloads/Rcpp_0.11.2.tar.gz\"; fi"
   - sudo Rscript -e 'if(!"Rcpp" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/Rcpp_0.11.2.tar.gz", repo = NULL, type="source") }'
-  - sh -c "if [ ! -f "$HOME/downloads/plyr_1.8.1.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/plyr/plyr_1.8.1.tar.gz\" -O \"$HOME/downloads/plyr_1.8.1.tar.gz\""
+  - sh -c "if [ ! -f "$HOME/downloads/plyr_1.8.1.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/plyr/plyr_1.8.1.tar.gz\" -O \"$HOME/downloads/plyr_1.8.1.tar.gz\"; fi"
   - sudo Rscript -e 'if(!"plyr" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/plyr_1.8.1.tar.gz", repo = NULL, type="source") }'
-  - sh -c "if [ ! -f "$HOME/downloads/digest_0.6.4.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/digest/digest_0.6.4.tar.gz\" -O \"$HOME/downloads/digest_0.6.4.tar.gz\""
+  - sh -c "if [ ! -f "$HOME/downloads/digest_0.6.4.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/digest/digest_0.6.4.tar.gz\" -O \"$HOME/downloads/digest_0.6.4.tar.gz\"; fi"
   - sudo Rscript -e 'if(!"digest" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/digest_0.6.4.tar.gz", repo = NULL, type="source") }'
-  - sh -c "if [ ! -f "$HOME/downloads/gtable_0.1.2.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/gtable/gtable_0.1.2.tar.gz\" -O \"$HOME/downloads/gtable_0.1.2.tar.gz\""
+  - sh -c "if [ ! -f "$HOME/downloads/gtable_0.1.2.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/gtable/gtable_0.1.2.tar.gz\" -O \"$HOME/downloads/gtable_0.1.2.tar.gz\"; fi"
   - sudo Rscript -e 'if(!"gtable" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/gtable_0.1.2.tar.gz", repo = NULL, type="source") }'
-  - sh -c "if [ ! -f "$HOME/downloads/stringr_0.6.2.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/stringr/stringr_0.6.2.tar.gz\" -O \"$HOME/downloads/stringr_0.6.2.tar.gz\""
+  - sh -c "if [ ! -f "$HOME/downloads/stringr_0.6.2.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/stringr/stringr_0.6.2.tar.gz\" -O \"$HOME/downloads/stringr_0.6.2.tar.gz\"; fi"
   - sudo Rscript -e 'if(!"stringr" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/stringr_0.6.2.tar.gz", repo = NULL, type="source") }'
-  - sh -c "if [ ! -f "$HOME/downloads/reshape2_1.4.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/reshape2/reshape2_1.4.tar.gz\" -O \"$HOME/downloads/reshape2_1.4.tar.gz\""
+  - sh -c "if [ ! -f "$HOME/downloads/reshape2_1.4.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/reshape2/reshape2_1.4.tar.gz\" -O \"$HOME/downloads/reshape2_1.4.tar.gz\"; fi"
   - sudo Rscript -e 'if(!"reshape2" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/reshape2_1.4.tar.gz", repo = NULL, type="source") }'
-  - sh -c "if [ ! -f "$HOME/downloads/RColorBrewer_1.0-5.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/RColorBrewer/RColorBrewer_1.0-5.tar.gz\" -O \"$HOME/downloads/RColorBrewer_1.0-5.tar.gz\""
+  - sh -c "if [ ! -f "$HOME/downloads/RColorBrewer_1.0-5.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/RColorBrewer/RColorBrewer_1.0-5.tar.gz\" -O \"$HOME/downloads/RColorBrewer_1.0-5.tar.gz\"; fi"
   - sudo Rscript -e 'if(!"RColorBrewer" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/RColorBrewer_1.0-5.tar.gz", repo = NULL, type="source") }'
-  - sh -c "if [ ! -f "$HOME/downloads/dichromat_2.0-0.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/dichromat_2.0-0.tar.gz\" -O \"$HOME/downloads/dichromat_2.0-0.tar.gz\""
+  - sh -c "if [ ! -f "$HOME/downloads/dichromat_2.0-0.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/dichromat_2.0-0.tar.gz\" -O \"$HOME/downloads/dichromat_2.0-0.tar.gz\"; fi"
   - sudo Rscript -e 'if(!"dichromat" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/dichromat_2.0-0.tar.gz", repo = NULL, type="source") }'
-  - sh -c "if [ ! -f "$HOME/downloads/colorspace_1.2-4.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/colorspace/colorspace_1.2-4.tar.gz\" -O \"$HOME/downloads/colorspace_1.2-4.tar.gz\""
+  - sh -c "if [ ! -f "$HOME/downloads/colorspace_1.2-4.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/colorspace/colorspace_1.2-4.tar.gz\" -O \"$HOME/downloads/colorspace_1.2-4.tar.gz\"; fi"
   - sudo Rscript -e 'if(!"colorspace" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/colorspace_1.2-4.tar.gz", repo = NULL, type="source") }'
-  - sh -c "if [ ! -f "$HOME/downloads/munsell_0.4.2.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/munsell/munsell_0.4.2.tar.gz\" -O \"$HOME/downloads/munsell_0.4.2.tar.gz\""
+  - sh -c "if [ ! -f "$HOME/downloads/munsell_0.4.2.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/munsell/munsell_0.4.2.tar.gz\" -O \"$HOME/downloads/munsell_0.4.2.tar.gz\"; fi"
   - sudo Rscript -e 'if(!"munsell" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/munsell_0.4.2.tar.gz", repo = NULL, type="source") }'
-  - sh -c "if [ ! -f "$HOME/downloads/labeling_0.2.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/labeling/labeling_0.2.tar.gz\" -O \"$HOME/downloads/labeling_0.2.tar.gz\""
+  - sh -c "if [ ! -f "$HOME/downloads/labeling_0.2.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/labeling/labeling_0.2.tar.gz\" -O \"$HOME/downloads/labeling_0.2.tar.gz\"; fi"
   - sudo Rscript -e 'if(!"labeling" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/labeling_0.2.tar.gz", repo = NULL, type="source") }'
-  - sh -c "if [ ! -f "$HOME/downloads/scales_0.2.4.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/scales/scales_0.2.4.tar.gz\" -O \"$HOME/downloads/scales_0.2.4.tar.gz\""
+  - sh -c "if [ ! -f "$HOME/downloads/scales_0.2.4.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/scales/scales_0.2.4.tar.gz\" -O \"$HOME/downloads/scales_0.2.4.tar.gz\"; fi"
   - sudo Rscript -e 'if(!"scales" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/scales_0.2.4.tar.gz", repo = NULL, type="source") }'
-  - sh -c "if [ ! -f "$HOME/downloads/proto_0.3-10.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/proto/proto_0.3-10.tar.gz\" -O \"$HOME/downloads/proto_0.3-10.tar.gz\""
+  - sh -c "if [ ! -f "$HOME/downloads/proto_0.3-10.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/proto/proto_0.3-10.tar.gz\" -O \"$HOME/downloads/proto_0.3-10.tar.gz\"; fi"
   - sudo Rscript -e 'if(!"proto" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/proto_0.3-10.tar.gz", repo = NULL, type="source") }'
-  - sh -c "if [ ! -f "$HOME/downloads/ggplot2_1.0.0.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/ggplot2/ggplot2_1.0.0.tar.gz\" -O \"$HOME/downloads/ggplot2_1.0.0.tar.gz\""
+  - sh -c "if [ ! -f "$HOME/downloads/ggplot2_1.0.0.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/ggplot2/ggplot2_1.0.0.tar.gz\" -O \"$HOME/downloads/ggplot2_1.0.0.tar.gz\"; fi"
   - sudo Rscript -e 'if(!"ggplot2" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/ggplot2_1.0.0.tar.gz", repo = NULL, type="source") }'
-  - sh -c "if [ ! -f "$HOME/downloads/gridExtra_0.9.1.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/gridExtra/gridExtra_0.9.1.tar.gz\" -O \"$HOME/downloads/gridExtra_0.9.1.tar.gz\""
+  - sh -c "if [ ! -f "$HOME/downloads/gridExtra_0.9.1.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/gridExtra/gridExtra_0.9.1.tar.gz\" -O \"$HOME/downloads/gridExtra_0.9.1.tar.gz\"; fi"
   - sudo Rscript -e 'if(!"gridExtra" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/gridExtra_0.9.1.tar.gz", repo = NULL, type="source") }'
-  - sh -c "if [ ! -f "$HOME/downloads/psy_1.1.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/psy_1.1.tar.gz\" -O \"$HOME/downloads/psy_1.1.tar.gz\""
+  - sh -c "if [ ! -f "$HOME/downloads/psy_1.1.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/psy_1.1.tar.gz\" -O \"$HOME/downloads/psy_1.1.tar.gz\"; fi"
   - sudo Rscript -e 'if(!"psy" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/psy_1.1.tar.gz", repo = NULL, type="source") }'
-  - sh -c "if [ ! -f "$HOME/downloads/lintr_0.2.0.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/lintr/lintr_0.2.0.tar.gz\" -O \"$HOME/downloads/lintr_0.2.0.tar.gz\""
+  - sh -c "if [ ! -f "$HOME/downloads/lintr_0.2.0.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/lintr/lintr_0.2.0.tar.gz\" -O \"$HOME/downloads/lintr_0.2.0.tar.gz\"; fi"
   - sudo Rscript -e 'if(!"lintr" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/lintr_0.2.0.tar.gz", repo = NULL, type="source") }'
   - sudo sh -c "rm /usr/lib/R/bin/Rserve"
   - sudo sh -c "rm /usr/lib/R/bin/Rserve.dbg"
