@@ -27,6 +27,10 @@ matrix:
     - php: 5.5
       env:
         - PHPCS=1
+    - php: 5.5
+      env:
+        - LINTR=1
+          LINTR_COMMENT_BOT=false
 
 cache:
   directories:
