@@ -64,13 +64,10 @@ before_script:
   - sudo mkdir -p ~/R/Library
   - sudo echo 'R_LIBS=~/R/Library' > ~/.Renviron
   - sudo echo 'options(repos = "https://cran.rstudio.com")' > ~/.Rprofile
-  - sudo Rscript -e 'if(!"devtools" %in% rownames(installed.packages())) { install.packages("devtools", dependencies = TRUE) }'
-  - sudo Rscript -e 'if(!"covr" %in% rownames(installed.packages())) { install.packages("covr", dependencies = TRUE) }'
-  - sudo Rscript -e 'if(!"gplots" %in% rownames(installed.packages())) { install.packages("gplots", dependencies = TRUE) }'
-  - sudo Rscript -e 'if(!"ggplot2" %in% rownames(installed.packages())) { install.packages("ggplot2", dependencies = TRUE) }'
-  - sudo Rscript -e 'if(!"gridExtra" %in% rownames(installed.packages())) { install.packages("gridExtra", dependencies = TRUE) }'
-  - sudo Rscript -e 'if(!"psy" %in% rownames(installed.packages())) { install.packages("psy", dependencies = TRUE) }'
-  - sudo Rscript -e 'update.packages(ask = FALSE, instlib = "~/R/Library")'
+  - sudo Rscript -e 'if(!"gplots" %in% rownames(installed.packages())) { install.packages("https://cran.r-project.org/src/contrib/Archive/gplots/gplots_2.14.1.tar.gz", dependencies = TRUE, repos=NULL, type="source") }'
+  - sudo Rscript -e 'if(!"ggplot2" %in% rownames(installed.packages())) { install.packages("https://cran.r-project.org/src/contrib/Archive/ggplot2/ggplot2_1.0.0.tar.gz", dependencies = TRUE, repos=NULL, type="source") }'
+  - sudo Rscript -e 'if(!"gridExtra" %in% rownames(installed.packages())) { install.packages("https://cran.r-project.org/src/contrib/Archive/gridExtra/gridExtra_0.9.1.tar.gz", dependencies = TRUE, repos=NULL, type="source") }'
+  - sudo Rscript -e 'if(!"psy" %in% rownames(installed.packages())) { install.packages("https://cran.r-project.org/src/contrib/psy_1.1.tar.gz", dependencies = TRUE, repos=NULL, type="source") }'
   - sudo sh -c "rm /usr/lib/R/bin/Rserve"
   - sudo sh -c "rm /usr/lib/R/bin/Rserve.dbg"
   - sudo sh -c "ln -s /usr/lib/R/site-library/Rserve/libs/Rserve /usr/lib/R/bin/Rserve"
@@ -85,9 +82,13 @@ before_script:
   - echo -e "<?php\n\$config = array(\n\t'Rserve' => array(\n\t\t'host' => 'localhost',\n\t\t'port' => 6311,\n\t\t'debug' => false\n\t)\n);\n" > app/Config/rserve.php
 
 script:
-  - sh -c "if [ '$COVERALLS' = 1 ]; then cd ./app; Vendor/bin/cake test app All --stderr --coverage-clover ../build/logs/clover.xml --configuration ../phpunit.xml; cd ..; fi;"
+  - sh -c "if [ '$COVERALLS' = 1 ]; then cd ./app; fi;"
+  - sh -c "if [ '$COVERALLS' = 1 ]; then cd Vendor/bin/cake test app All --stderr --coverage-clover ../build/logs/clover.xml --configuration ../phpunit.xml; fi;"
+  - sh -c "if [ '$COVERALLS' = 1 ]; then cd ..; fi;"
   - sh -c "if [ '$PHPCS' = '1' ]; then app/Vendor/bin/phpcs -p --extensions=php --standard=CakePHP --ignore=Plugin --ignore=Vendor --ignore=webroot/js/ckeditor -n ./app; fi;"
-  - sh -c "if [ '$PHPCS' != '1' ] && [ '$COVERALLS' != 1 ] && [ '$LINTR' != 1 ]; then cd ./app; Vendor/bin/cake test app All --stderr; cd ..; fi"
+  - sh -c "if [ '$PHPCS' != '1' ] && [ '$COVERALLS' != 1 ] && [ '$LINTR' != 1 ]; then cd ./app; fi"
+  - sh -c "if [ '$PHPCS' != '1' ] && [ '$COVERALLS' != 1 ] && [ '$LINTR' != 1 ]; then cd Vendor/bin/cake test app All --stderr; fi"
+  - sh -c "if [ '$PHPCS' != '1' ] && [ '$COVERALLS' != 1 ] && [ '$LINTR' != 1 ]; then cd ..; fi"
   - sh -c "if [ '$LINTR' = '1' ]; then ./bin/travis-linter.sh; fi"
 after_success:
   - sh -c "if [ '$COVERALLS' = '1' ]; then php app/Vendor/bin/coveralls -c .coveralls.yml -v; fi"
