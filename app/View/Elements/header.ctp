@@ -45,11 +45,7 @@ $analysisControllers = array('exams');
 			</ul>
 			<?php
 			else:
-				if (Configure::read('debug') > 0):
-					echo $this->Html->link(__('Login'), array('admin' => false, 'controller' => 'users', 'action' => 'classic_login'), array('class' => 'btn btn-primary pull-right'));
-				else:
-					echo $this->Html->link(__('Login'), 'https://www.qdnatool.org/simplesamlphp/module.php/core/as_login.php?AuthId=SURFconext&ReturnTo=https%3A%2F%2Fwww.qdnatool.org%2Fusers%2Fsaml_login', array('class' => 'btn btn-primary pull-right'));
-				endif;
+				echo $this->Html->link(__('Login'), array('controller' => 'users', 'action' => 'saml_login'), array('class' => 'btn btn-primary pull-right'));
 			endif;
 			echo $this->Html->link(__('qDNAtool'), '/', array('class' => 'brand'));
 			?>
