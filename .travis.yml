@@ -66,7 +66,7 @@ before_script:
   - sudo echo 'R_LIBS=~/R/Library' > ~/.Renviron
   - sudo echo 'options(repos = "https://cran.rstudio.com")' > ~/.Rprofile
   - sh -c "mkdir -p $HOME/downloads"
-  - sh -c "cd -p $HOME/downloads"
+  - sh -c "cd $HOME/downloads"
   - sh -c "if [ ! -f "$HOME/downloads/gtools_3.4.1.tar.gz" ]; then wget \"https://cran.r-project.org/src/contrib/Archive/gtools/gtools_3.4.1.tar.gz\" -O \"$HOME/downloads/gtools_3.4.1.tar.gz\"; fi"
   - sudo Rscript -e 'if(!"gtools" %in% rownames(installed.packages())) { install.packages("gtools_3.4.1.tar.gz", repo = NULL, type="source") }'
   - sh -c "if [ ! -f "$HOME/downloads/gdata_2.13.3.tar.gz" ]; then wget \"https://cran.r-project.org/src/contrib/Archive/gdata/gdata_2.13.3.tar.gz\" -O \"$HOME/downloads/gdata_2.13.3.tar.gz\"; fi"
@@ -111,7 +111,7 @@ before_script:
   - sudo Rscript -e 'if(!"psy" %in% rownames(installed.packages())) { install.packages("psy_1.1.tar.gz", repo = NULL, type="source") }'
   - sh -c "if [ ! -f "$HOME/downloads/lintr/lintr_0.2.0.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/lintr/lintr_0.2.0.tar.gz\" -O \"$HOME/downloads/lintr/lintr_0.2.0.tar.gz\"; fi"
   - sudo Rscript -e 'if(!"lintr" %in% rownames(installed.packages())) { install.packages("lintr_0.2.0.tar.gz", repo = NULL, type="source") }'
-  - sh -c "cd -p $HOME"
+  - sh -c "cd $HOME"
   - sudo sh -c "rm /usr/lib/R/bin/Rserve"
   - sudo sh -c "rm /usr/lib/R/bin/Rserve.dbg"
   - sudo sh -c "ln -s /usr/lib/R/site-library/Rserve/libs/Rserve /usr/lib/R/bin/Rserve"
