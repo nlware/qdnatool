@@ -4,54 +4,112 @@ dist: trusty
 language: php
 
 php:
-  - 5.4
   - 5.5
   - 5.6
   - 7.0
-  - hhvm
+  - 7.1
+  - 7.2
 
 env:
-  - DB=mysql
+  global:
+    - PHPUNIT=3.7.33
 
 matrix:
   allow_failures:
-    - php: hhvm
+    - php: 7.2
+
     - php: 5.5
       env:
         - LINTR=1
           LINTR_COMMENT_BOT=false
+
+    - php: 7.1
+      env:
+        - PHPUNIT=5.7.19
+
+    - php: 7.2
+      env:
+        - PHPUNIT=5.7.19
+
   include:
     - php: 5.5
       env:
         - COVERALLS=1
-    - php: 5.5
-      env:
-        - PHPCS=1
+
     - php: 5.5
       env:
         - LINTR=1
           LINTR_COMMENT_BOT=false
 
+    - php: 7.0
+      env:
+        - PHPCS=1
+
+    - php: 7.1
+      env:
+        - PHPUNIT=5.7.19
+
+    - php: 7.2
+      env:
+        - PHPUNIT=5.7.19
+
 cache:
   directories:
     - $HOME/R/Library
+    - $HOME/downloads
 
 before_script:
-  - sh -c "composer global require 'phpunit/phpunit=3.7.33'"
-  - sh -c "ln -s ~/.composer/vendor/phpunit/phpunit/PHPUnit ./app/Vendor/PHPUnit"
   - sudo apt-get install -y --force-yes r-base r-cran-rserve
   - sudo apt-get install -y --force-yes libcurl4-gnutls-dev
   - sudo apt-get install -y --force-yes libxml2-dev
   - sudo mkdir -p ~/R/Library
   - sudo echo 'R_LIBS=~/R/Library' > ~/.Renviron
   - sudo echo 'options(repos = "https://cran.rstudio.com")' > ~/.Rprofile
-  - sudo Rscript -e 'if(!"devtools" %in% rownames(installed.packages())) { install.packages("devtools", dependencies = TRUE) }'
-  - sudo Rscript -e 'if(!"covr" %in% rownames(installed.packages())) { install.packages("covr", dependencies = TRUE) }'
-  - sudo Rscript -e 'if(!"gplots" %in% rownames(installed.packages())) { install.packages("gplots", dependencies = TRUE) }'
-  - sudo Rscript -e 'if(!"ggplot2" %in% rownames(installed.packages())) { install.packages("ggplot2", dependencies = TRUE) }'
-  - sudo Rscript -e 'if(!"gridExtra" %in% rownames(installed.packages())) { install.packages("gridExtra", dependencies = TRUE) }'
-  - sudo Rscript -e 'if(!"psy" %in% rownames(installed.packages())) { install.packages("psy", dependencies = TRUE) }'
-  - sudo Rscript -e 'update.packages(ask = FALSE, instlib = "~/R/Library")'
+  - sh -c "mkdir -p $HOME/downloads"
+  - sh -c "if [ ! -f "$HOME/downloads/gtools_3.4.1.tar.gz" ]; then wget \"https://cran.r-project.org/src/contrib/Archive/gtools/gtools_3.4.1.tar.gz\" -O \"$HOME/downloads/gtools_3.4.1.tar.gz\"; fi"
+  - sudo Rscript -e 'if(!"gtools" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/gtools_3.4.1.tar.gz", repo = NULL, type="source") }'
+  - sh -c "if [ ! -f "$HOME/downloads/gdata_2.13.3.tar.gz" ]; then wget \"https://cran.r-project.org/src/contrib/Archive/gdata/gdata_2.13.3.tar.gz\" -O \"$HOME/downloads/gdata_2.13.3.tar.gz\"; fi"
+  - sudo Rscript -e 'if(!"gdata" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/gdata_2.13.3.tar.gz", repo = NULL, type="source") }'
+  - sh -c "if [ ! -f "$HOME/downloads/bitops_1.0-6.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/bitops_1.0-6.tar.gz\" -O \"$HOME/downloads/bitops_1.0-6.tar.gz\"; fi"
+  - sudo Rscript -e 'if(!"bitops" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/bitops_1.0-6.tar.gz", repo = NULL, type="source") }'
+  - sh -c "if [ ! -f "$HOME/downloads/caTools_1.17.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/caTools/caTools_1.17.tar.gz\" -O \"$HOME/downloads/caTools_1.17.tar.gz\"; fi"
+  - sudo Rscript -e 'if(!"caTools" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/caTools_1.17.tar.gz", repo = NULL, type="source") }'
+  - sh -c "if [ ! -f "$HOME/downloads/gplots_2.14.1.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/gplots/gplots_2.14.1.tar.gz\" -O \"$HOME/downloads/gplots_2.14.1.tar.gz\"; fi"
+  - sudo Rscript -e 'if(!"gplots" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/gplots_2.14.1.tar.gz", repo = NULL, type="source") }'
+  - sh -c "if [ ! -f "$HOME/downloads/Rcpp_0.11.2.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/Rcpp/Rcpp_0.11.2.tar.gz\" -O \"$HOME/downloads/Rcpp_0.11.2.tar.gz\"; fi"
+  - sudo Rscript -e 'if(!"Rcpp" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/Rcpp_0.11.2.tar.gz", repo = NULL, type="source") }'
+  - sh -c "if [ ! -f "$HOME/downloads/plyr_1.8.1.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/plyr/plyr_1.8.1.tar.gz\" -O \"$HOME/downloads/plyr_1.8.1.tar.gz\"; fi"
+  - sudo Rscript -e 'if(!"plyr" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/plyr_1.8.1.tar.gz", repo = NULL, type="source") }'
+  - sh -c "if [ ! -f "$HOME/downloads/digest_0.6.4.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/digest/digest_0.6.4.tar.gz\" -O \"$HOME/downloads/digest_0.6.4.tar.gz\"; fi"
+  - sudo Rscript -e 'if(!"digest" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/digest_0.6.4.tar.gz", repo = NULL, type="source") }'
+  - sh -c "if [ ! -f "$HOME/downloads/gtable_0.1.2.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/gtable/gtable_0.1.2.tar.gz\" -O \"$HOME/downloads/gtable_0.1.2.tar.gz\"; fi"
+  - sudo Rscript -e 'if(!"gtable" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/gtable_0.1.2.tar.gz", repo = NULL, type="source") }'
+  - sh -c "if [ ! -f "$HOME/downloads/stringr_0.6.2.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/stringr/stringr_0.6.2.tar.gz\" -O \"$HOME/downloads/stringr_0.6.2.tar.gz\"; fi"
+  - sudo Rscript -e 'if(!"stringr" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/stringr_0.6.2.tar.gz", repo = NULL, type="source") }'
+  - sh -c "if [ ! -f "$HOME/downloads/reshape2_1.4.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/reshape2/reshape2_1.4.tar.gz\" -O \"$HOME/downloads/reshape2_1.4.tar.gz\"; fi"
+  - sudo Rscript -e 'if(!"reshape2" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/reshape2_1.4.tar.gz", repo = NULL, type="source") }'
+  - sh -c "if [ ! -f "$HOME/downloads/RColorBrewer_1.0-5.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/RColorBrewer/RColorBrewer_1.0-5.tar.gz\" -O \"$HOME/downloads/RColorBrewer_1.0-5.tar.gz\"; fi"
+  - sudo Rscript -e 'if(!"RColorBrewer" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/RColorBrewer_1.0-5.tar.gz", repo = NULL, type="source") }'
+  - sh -c "if [ ! -f "$HOME/downloads/dichromat_2.0-0.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/dichromat_2.0-0.tar.gz\" -O \"$HOME/downloads/dichromat_2.0-0.tar.gz\"; fi"
+  - sudo Rscript -e 'if(!"dichromat" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/dichromat_2.0-0.tar.gz", repo = NULL, type="source") }'
+  - sh -c "if [ ! -f "$HOME/downloads/colorspace_1.2-4.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/colorspace/colorspace_1.2-4.tar.gz\" -O \"$HOME/downloads/colorspace_1.2-4.tar.gz\"; fi"
+  - sudo Rscript -e 'if(!"colorspace" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/colorspace_1.2-4.tar.gz", repo = NULL, type="source") }'
+  - sh -c "if [ ! -f "$HOME/downloads/munsell_0.4.2.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/munsell/munsell_0.4.2.tar.gz\" -O \"$HOME/downloads/munsell_0.4.2.tar.gz\"; fi"
+  - sudo Rscript -e 'if(!"munsell" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/munsell_0.4.2.tar.gz", repo = NULL, type="source") }'
+  - sh -c "if [ ! -f "$HOME/downloads/labeling_0.2.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/labeling/labeling_0.2.tar.gz\" -O \"$HOME/downloads/labeling_0.2.tar.gz\"; fi"
+  - sudo Rscript -e 'if(!"labeling" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/labeling_0.2.tar.gz", repo = NULL, type="source") }'
+  - sh -c "if [ ! -f "$HOME/downloads/scales_0.2.4.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/scales/scales_0.2.4.tar.gz\" -O \"$HOME/downloads/scales_0.2.4.tar.gz\"; fi"
+  - sudo Rscript -e 'if(!"scales" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/scales_0.2.4.tar.gz", repo = NULL, type="source") }'
+  - sh -c "if [ ! -f "$HOME/downloads/proto_0.3-10.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/proto/proto_0.3-10.tar.gz\" -O \"$HOME/downloads/proto_0.3-10.tar.gz\"; fi"
+  - sudo Rscript -e 'if(!"proto" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/proto_0.3-10.tar.gz", repo = NULL, type="source") }'
+  - sh -c "if [ ! -f "$HOME/downloads/ggplot2_1.0.0.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/ggplot2/ggplot2_1.0.0.tar.gz\" -O \"$HOME/downloads/ggplot2_1.0.0.tar.gz\"; fi"
+  - sudo Rscript -e 'if(!"ggplot2" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/ggplot2_1.0.0.tar.gz", repo = NULL, type="source") }'
+  - sh -c "if [ ! -f "$HOME/downloads/gridExtra_0.9.1.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/gridExtra/gridExtra_0.9.1.tar.gz\" -O \"$HOME/downloads/gridExtra_0.9.1.tar.gz\"; fi"
+  - sudo Rscript -e 'if(!"gridExtra" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/gridExtra_0.9.1.tar.gz", repo = NULL, type="source") }'
+  - sh -c "if [ ! -f "$HOME/downloads/psy_1.1.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/psy_1.1.tar.gz\" -O \"$HOME/downloads/psy_1.1.tar.gz\"; fi"
+  - sudo Rscript -e 'if(!"psy" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/psy_1.1.tar.gz", repo = NULL, type="source") }'
+  - sh -c "wget -c \"https://cran.r-project.org/src/contrib/Archive/lintr/lintr_0.2.0.tar.gz\" -O \"$HOME/downloads/lintr_0.2.0.tar.gz\""
+  - sudo Rscript -e 'if(!"lintr" %in% rownames(installed.packages())) { install.packages("$HOME/downloads/lintr_0.2.0.tar.gz", repo = NULL, type="source") }'
   - sudo sh -c "rm /usr/lib/R/bin/Rserve"
   - sudo sh -c "rm /usr/lib/R/bin/Rserve.dbg"
   - sudo sh -c "ln -s /usr/lib/R/site-library/Rserve/libs/Rserve /usr/lib/R/bin/Rserve"
@@ -59,20 +117,19 @@ before_script:
   - sudo R CMD Rserve
   - sh -c "mysql -e 'CREATE DATABASE qdnatool_test;'"
   - chmod -R 777 ./app/tmp
-  - sh -c "if [ '$COVERALLS' = '1' ]; then composer require --dev satooshi/php-coveralls:v1.0.1; fi"
-  - sh -c "if [ '$PHPCS' = '1' ]; then composer require --dev 'cakephp/cakephp-codesniffer:1.*'; fi"
-  - sh -c "if [ '$PHPCS' = '1' ]; then app/Vendor/bin/phpcs --config-set installed_paths app/Vendor/cakephp/cakephp-codesniffer; fi"
+  - composer require "phpunit/phpunit=$PHPUNIT"
+  - sh -c "if [ '$PHPCS' = '1' ]; then cd $TRAVIS_BUILD_DIR/app; Vendor/bin/phpcs --config-set installed_paths Vendor/cakephp/cakephp-codesniffer; fi"
   - phpenv rehash
   - echo -e "<?php\nclass DATABASE_CONFIG {\n\n\tpublic \$test = array(\n\t\t'datasource' => 'Database/Mysql',\n\t\t'database' => 'qdnatool_test',\n\t\t'host' => '0.0.0.0',\n\t\t'login' => 'travis',\n\t\t'persistent' => false,\n\t);\n}" > app/Config/database.php
   - echo -e "<?php\n\$config = array(\n\t'Rserve' => array(\n\t\t'host' => 'localhost',\n\t\t'port' => 6311,\n\t\t'debug' => false\n\t)\n);\n" > app/Config/rserve.php
 
 script:
-  - sh -c "if [ '$COVERALLS' = 1 ]; then cd ./app; Vendor/bin/cake test app All --stderr --coverage-clover ../build/logs/clover.xml --configuration ../phpunit.xml; cd ..; fi;"
-  - sh -c "if [ '$PHPCS' = '1' ]; then app/Vendor/bin/phpcs -p --extensions=php --standard=CakePHP --ignore=Plugin --ignore=Vendor --ignore=webroot/js/ckeditor -n ./app; fi;"
-  - sh -c "if [ '$PHPCS' != '1' ] && [ '$COVERALLS' != 1 ] && [ '$LINTR' != 1 ]; then cd ./app; Vendor/bin/cake test app All --stderr; cd ..; fi"
-  - sh -c "if [ '$LINTR' = '1' ]; then ./bin/travis-linter.sh; fi"
+  - sh -c "if [ '$COVERALLS' = 1 ]; then cd $TRAVIS_BUILD_DIR/app; Vendor/bin/cake test app All --stderr --coverage-clover ../build/logs/clover.xml --configuration ../phpunit.xml; fi;"
+  - sh -c "if [ '$PHPCS' = '1' ]; then cd $TRAVIS_BUILD_DIR/app; Vendor/bin/phpcs -p --extensions=php --standard=CakePHP --ignore=Plugin --ignore=Vendor --ignore=webroot/js/ckeditor -n $TRAVIS_BUILD_DIR; fi;"
+  - sh -c "if [ '$PHPCS' != '1' ] && [ '$COVERALLS' != 1 ] && [ '$LINTR' != 1 ]; then cd $TRAVIS_BUILD_DIR/app; Vendor/bin/cake test app All --stderr; fi"
+  - sh -c "if [ '$LINTR' = '1' ]; then cd $TRAVIS_BUILD_DIR/app; ./bin/travis-linter.sh; fi"
 after_success:
-  - sh -c "if [ '$COVERALLS' = '1' ]; then php app/Vendor/bin/coveralls -c .coveralls.yml -v; fi"
+  - sh -c "if [ '$COVERALLS' = '1' ]; then cd $TRAVIS_BUILD_DIR; php app/Vendor/bin/coveralls -c .coveralls.yml -v; fi"
 
 notifications:
   email: false
