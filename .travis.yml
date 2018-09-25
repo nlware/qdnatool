@@ -109,7 +109,7 @@ before_script:
   - sudo Rscript -e 'if(!"gridExtra" %in% rownames(installed.packages())) { install.packages("gridExtra_0.9.1.tar.gz", repo = NULL, type="source") }'
   - sh -c "if [ ! -f "$HOME/downloads/psy_1.1.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/psy_1.1.tar.gz\" -O \"$HOME/downloads/psy_1.1.tar.gz\"; fi"
   - sudo Rscript -e 'if(!"psy" %in% rownames(installed.packages())) { install.packages("psy_1.1.tar.gz", repo = NULL, type="source") }'
-  - sh -c "if [ ! -f "$HOME/downloads/lintr/lintr_0.2.0.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/lintr/lintr_0.2.0.tar.gz\" -O \"$HOME/downloads/lintr/lintr_0.2.0.tar.gz\"; fi"
+  - sh -c "if [ ! -f "$HOME/downloads/lintr_0.2.0.tar.gz" ]; then wget -c \"https://cran.r-project.org/src/contrib/Archive/lintr/lintr_0.2.0.tar.gz\" -O \"$HOME/downloads/lintr_0.2.0.tar.gz\"; fi"
   - sudo Rscript -e 'if(!"lintr" %in% rownames(installed.packages())) { install.packages("lintr_0.2.0.tar.gz", repo = NULL, type="source") }'
   - sh -c "cd $HOME"
   - sudo sh -c "rm /usr/lib/R/bin/Rserve"
