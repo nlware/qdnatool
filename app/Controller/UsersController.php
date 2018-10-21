@@ -177,16 +177,18 @@ class UsersController extends AppController {
  * @return void
  */
 	public function saml_login() {
-		//App::import('Vendor', 'simplesamlphp', array('file' => DS . 'usr' . DS . 'share' . DS . 'simplesamlphp' . DS . 'lib' . DS . '_autoload.php'));
-		require_once ('/usr/share/simplesamlphp/lib/_autoload.php');
-
 		$as = new SimpleSAML_Auth_Simple('SURFconext');
 
-		$as->requireAuth(array('ReturnTo' => 'https://www.qdnatool.org/users/saml_login'));
+		$as->requireAuth();
 		$nameid = $as->getAuthData("saml:sp:NameID");
 
 		if (!empty($nameid)) {
-			$conditions = array('User.surfconext_identifier' => $nameid['Value']);
+			$conditions = array(
+				'User.surfconext_identifier' => $nameid->value,
+				'NOT' => array(
+					'User.surfconext_identifier' => null
+				)
+			);
 			$user = $this->User->find('first', compact('conditions'));
 			if (empty($user['User'])) {
 				//create user
@@ -197,17 +199,18 @@ class UsersController extends AppController {
 						'username' => $attributes['urn:mace:dir:attribute-def:mail'][0],
 						'name' => $attributes['urn:mace:dir:attribute-def:displayName'][0],
 						'role_id' => Role::USER,
-						'surfconext_identifier' => $nameid['Value'],
+						'surfconext_identifier' => $nameid->value,
 					)
 				);
 
 				$this->User->create();
 				if ($this->User->save($data)) {
-					$conditions = array('User.surfconext_identifier' => $nameid);
+					$conditions = array('User.surfconext_identifier' => $nameid->value);
 					$user = $this->User->find('first', compact('conditions'));
 				}
 			}
 
+			unset($user['User']['password']);
 			if (!empty($user['User'])) {
 				if ($this->Auth->login($user['User'])) {
 					$this->Flash->success(__('Successful login via SURFconext.'));
@@ -225,9 +228,6 @@ class UsersController extends AppController {
  * @return void
  */
 	public function logout() {
-		//App::import('Vendor', 'simplesamlphp', array('file' => DS . 'usr' . DS . 'share' . DS . 'simplesamlphp' . DS . 'lib' . DS . '_autoload.php'));
-		require_once ('/usr/share/simplesamlphp/lib/_autoload.php');
-
 		$as = new SimpleSAML_Auth_Simple('SURFconext');
 		if ($as->isAuthenticated()) {
 			return $this->redirect($as->getLogoutURL($this->Auth->logout()));

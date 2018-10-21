@@ -99,3 +99,5 @@ CakeLog::config('error', array(
 
 //TODO: remove this deprecated configuration (still required by I18nBehavior.php)
 define('DEFAULT_LANGUAGE', 'eng');
+
+App::import('Vendor', array('file' => 'autoload'));
