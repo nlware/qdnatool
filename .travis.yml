@@ -117,6 +117,7 @@ before_script:
   - sudo R CMD Rserve
   - sh -c "mysql -e 'CREATE DATABASE qdnatool_test;'"
   - chmod -R 777 ./app/tmp
+  - sh -c "if [ '$COVERALLS' = '1' ]; then composer require \"satooshi/php-coveralls=v1.0.1\"; fi"
   - composer require "phpunit/phpunit=$PHPUNIT"
   - sh -c "if [ '$PHPCS' = '1' ]; then cd $TRAVIS_BUILD_DIR/app; Vendor/bin/phpcs --config-set installed_paths Vendor/cakephp/cakephp-codesniffer; fi"
   - phpenv rehash
