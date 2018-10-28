@@ -3,21 +3,17 @@
  * AllControllerTest class
  *
  */
-class AllControllerTest extends CakeTestSuite {
+class AllControllerTest extends PHPUnit_Framework_TestSuite {
 
 /**
- * Get the suite object.
+ * suite method, defines tests for this suite.
  *
  * @return CakeTestSuite Suite class instance.
  */
 	public static function suite() {
 		$suite = new CakeTestSuite('All controller tests');
 
-		$path = TESTS . 'Case' . DS . 'Controller';
-
-		$suite->addTestDirectory($path);
-
+		$suite->addTestDirectory(TESTS . 'Case' . DS . 'Controller');
 		return $suite;
 	}
-
 }
