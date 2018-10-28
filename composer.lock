@@ -4,30 +4,33 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "988056f581d4b8a9d331e8aafcb67025",
-    "content-hash": "c012ca53effe339b0e5d80d0cec1c9dc",
+    "hash": "49059507f74af643ed90f8e1a95fbb26",
+    "content-hash": "39f973c10f0096daa667a8cd4368de28",
     "packages": [
         {
             "name": "cakephp/cakephp",
-            "version": "2.9.7",
+            "version": "2.10.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/cakephp.git",
-                "reference": "6cdb2d2905813c35bf7674cd77c347f50449c494"
+                "reference": "29f89c5aa7007cf060f7eb7adc97878b9b1efbb3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/6cdb2d2905813c35bf7674cd77c347f50449c494",
-                "reference": "6cdb2d2905813c35bf7674cd77c347f50449c494",
+                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/29f89c5aa7007cf060f7eb7adc97878b9b1efbb3",
+                "reference": "29f89c5aa7007cf060f7eb7adc97878b9b1efbb3",
                 "shasum": ""
             },
             "require": {
-                "ext-mcrypt": "*",
                 "php": ">=5.3.0"
             },
             "require-dev": {
                 "cakephp/cakephp-codesniffer": "^1.0.0",
-                "phpunit/phpunit": "3.7.*"
+                "phpunit/phpunit": "^3.7"
+            },
+            "suggest": {
+                "ext-mcrypt": "You need to install ext-openssl or ext-mcrypt to use AES-256 encryption",
+                "ext-openssl": "You need to install ext-openssl or ext-mcrypt to use AES-256 encryption"
             },
             "bin": [
                 "lib/Cake/Console/cake"
@@ -48,7 +51,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2017-04-02 02:09:17"
+            "time": "2018-09-03 16:37:15"
         },
         {
             "name": "cakephp/debug_kit",
@@ -462,7 +465,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/robrichards/xmlseclibs/zipball/93f8c07976b36b6050ab341ab5850484dc897ce0",
+                "url": "https://api.github.com/repos/robrichards/xmlseclibs/zipball/3e7787ea42a35982dd41720c9d1a344b9c373441",
                 "reference": "93f8c07976b36b6050ab341ab5850484dc897ce0",
                 "shasum": ""
             },

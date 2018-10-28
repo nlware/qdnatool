@@ -38,6 +38,13 @@ if (!defined('APP_DIR')) {
 }
 
 /**
+ * Config Directory
+ */
+if (!defined('CONFIG')) {
+	define('CONFIG', ROOT . DS . APP_DIR . DS . 'Config' . DS);
+}
+
+/**
  * The absolute path to the "Cake" directory, WITHOUT a trailing DS.
  *
  * For ease of development CakePHP uses PHP's include_path. If you
@@ -46,9 +53,9 @@ if (!defined('APP_DIR')) {
  * Leaving this constant undefined will result in it being defined in Cake/bootstrap.php
  *
  * The following line differs from its sibling
- * /app/webroot/test.php
+ * /lib/Cake/Console/Templates/skel/webroot/test.php
  */
-define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . APP_DIR . DS . 'Vendor' . DS . 'cakephp' . DS . 'cakephp' . DS . 'lib');
+//define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . 'lib');
 
 /**
  * This auto-detects CakePHP as a composer installed library.
@@ -84,7 +91,7 @@ if (!defined('CAKE_CORE_INCLUDE_PATH')) {
 	}
 }
 if (!empty($failed)) {
-	trigger_error("CakePHP core could not be found. Check the value of CAKE_CORE_INCLUDE_PATH in APP/webroot/index.php. It should point to the directory containing your " . DS . "cake core directory and your " . DS . "vendors root directory.", E_USER_ERROR);
+	trigger_error("CakePHP core could not be found. Check the value of CAKE_CORE_INCLUDE_PATH in APP/webroot/test.php. It should point to the directory containing your " . DS . "cake core directory and your " . DS . "vendors root directory.", E_USER_ERROR);
 }
 
 if (Configure::read('debug') < 1) {
