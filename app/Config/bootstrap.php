@@ -13,6 +13,8 @@
  * @since         CakePHP(tm) v 0.10.8.2117
  */
 
+require APP . 'Vendor/autoload.php';
+
 // Setup a 'default' cache configuration for use in the application.
 Cache::config('default', array('engine' => 'File'));
 
@@ -99,5 +101,3 @@ CakeLog::config('error', array(
 
 //TODO: remove this deprecated configuration (still required by I18nBehavior.php)
 define('DEFAULT_LANGUAGE', 'eng');
-
-App::import('Vendor', array('file' => 'autoload'));
