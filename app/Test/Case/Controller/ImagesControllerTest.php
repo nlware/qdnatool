@@ -1,4 +1,5 @@
 <?php
+App::uses('CakeSession', 'Model/Datasource');
 App::uses('ImagesController', 'Controller');
 
 /**
@@ -35,10 +36,7 @@ class ImagesControllerTest extends ControllerTestCase {
 			)
 		));
 
-		$this->Images->Auth->staticExpects($this->any())
-			->method('user')
-			->with('id')
-			->will($this->returnValue(1));
+		CakeSession::write('Auth.User.id', 1);
 
 		$this->loadFixtures('Image');
 	}

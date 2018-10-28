@@ -1,4 +1,5 @@
 <?php
+App::uses('CakeSession', 'Model/Datasource');
 App::uses('UsersController', 'Controller');
 
 /**
@@ -35,10 +36,7 @@ class UsersControllerTest extends ControllerTestCase {
 			)
 		));
 
-		$this->Users->Auth->staticExpects($this->any())
-			->method('user')
-			->with('id')
-			->will($this->returnValue(1));
+		CakeSession::write('Auth.User.id', 1);
 
 		$this->loadFixtures('User');
 	}
