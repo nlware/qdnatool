@@ -21,14 +21,6 @@ matrix:
         - LINTR=1
           LINTR_COMMENT_BOT=false
 
-    - php: 7.1
-      env:
-        - PHPUNIT=5.7.19
-
-    - php: 7.2
-      env:
-        - PHPUNIT=5.7.19
-
   include:
     - php: 5.5
       env:
