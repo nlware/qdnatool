@@ -1,4 +1,5 @@
 <?php
+App::uses('CakeSession', 'Model/Datasource');
 App::uses('ExamsController', 'Controller');
 
 /**
@@ -31,16 +32,9 @@ class ExamsControllerTest extends ControllerTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$this->Exams = $this->generate('Exams', array(
-			'components' => array(
-				'Auth',
-			)
-		));
+		$this->Exams = $this->generate('Exams');
 
-		$this->Exams->Auth->staticExpects($this->any())
-			->method('user')
-			->with('id')
-			->will($this->returnValue(1));
+		CakeSession::write('Auth.User.id', 1);
 
 		$this->loadFixtures('Exam');
 	}
@@ -224,5 +218,4 @@ class ExamsControllerTest extends ControllerTestCase {
 		$this->setExpectedException('NotFoundException');
 		$this->testAction('/exams/missings/0', array('method' => 'get', 'return' => 'contents'));
 	}
-
 }

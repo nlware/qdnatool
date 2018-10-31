@@ -1,4 +1,5 @@
 <?php
+App::uses('CakeSession', 'Model/Datasource');
 App::uses('TagsController', 'Controller');
 
 /**
@@ -29,16 +30,9 @@ class TagsControllerTest extends ControllerTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$this->Tags = $this->generate('Tags', array(
-			'components' => array(
-				'Auth',
-			)
-		));
+		$this->Tags = $this->generate('Tags');
 
-		$this->Tags->Auth->staticExpects($this->any())
-			->method('user')
-			->with('id')
-			->will($this->returnValue(1));
+		CakeSession::write('Auth.User.id', 1);
 
 		$this->loadFixtures('Tag');
 	}

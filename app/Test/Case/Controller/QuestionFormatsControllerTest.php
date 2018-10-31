@@ -1,4 +1,5 @@
 <?php
+App::uses('CakeSession', 'Model/Datasource');
 App::uses('QuestionFormatsController', 'Controller');
 
 /**
@@ -29,16 +30,9 @@ class QuestionFormatsControllerTest extends ControllerTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$this->QuestionFormats = $this->generate('QuestionFormats', array(
-			'components' => array(
-				'Auth',
-			)
-		));
+		$this->QuestionFormats = $this->generate('QuestionFormats');
 
-		$this->QuestionFormats->Auth->staticExpects($this->any())
-			->method('user')
-			->with('id')
-			->will($this->returnValue(1));
+		CakeSession::write('Auth.User.id', 1);
 
 		$this->loadFixtures('QuestionFormat');
 	}
