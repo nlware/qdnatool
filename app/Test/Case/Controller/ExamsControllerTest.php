@@ -32,11 +32,7 @@ class ExamsControllerTest extends ControllerTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$this->Exams = $this->generate('Exams', array(
-			'components' => array(
-				'Auth',
-			)
-		));
+		$this->Exams = $this->generate('Exams');
 
 		CakeSession::write('Auth.User.id', 1);
 

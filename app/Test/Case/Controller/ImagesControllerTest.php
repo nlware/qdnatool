@@ -30,11 +30,7 @@ class ImagesControllerTest extends ControllerTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$this->Images = $this->generate('Images', array(
-			'components' => array(
-				'Auth',
-			)
-		));
+		$this->Images = $this->generate('Images');
 
 		CakeSession::write('Auth.User.id', 1);
 

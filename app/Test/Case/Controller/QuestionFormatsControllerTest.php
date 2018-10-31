@@ -30,11 +30,7 @@ class QuestionFormatsControllerTest extends ControllerTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$this->QuestionFormats = $this->generate('QuestionFormats', array(
-			'components' => array(
-				'Auth',
-			)
-		));
+		$this->QuestionFormats = $this->generate('QuestionFormats');
 
 		CakeSession::write('Auth.User.id', 1);
 

@@ -30,11 +30,7 @@ class UsersControllerTest extends ControllerTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$this->Users = $this->generate('Users', array(
-			'components' => array(
-				'Auth',
-			)
-		));
+		$this->Users = $this->generate('Users');
 
 		CakeSession::write('Auth.User.id', 1);
 

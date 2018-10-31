@@ -30,11 +30,7 @@ class TagsControllerTest extends ControllerTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$this->Tags = $this->generate('Tags', array(
-			'components' => array(
-				'Auth',
-			)
-		));
+		$this->Tags = $this->generate('Tags');
 
 		CakeSession::write('Auth.User.id', 1);
 
