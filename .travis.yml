@@ -14,15 +14,9 @@ php:
 env:
   global:
     - PHPUNIT=3.7.33
-      R=3.0.2
+    - R=3.0.2
 
 matrix:
-  allow_failures:
-    - php: 5.5
-      env:
-        - LINTR=1
-          LINTR_COMMENT_BOT=false
-
   include:
     - php: 5.5
       env:
@@ -31,12 +25,15 @@ matrix:
     - php: 5.5
       env:
         - LINTR=1
-          LINTR_COMMENT_BOT=false
-          R=3.4
+        - LINTR_COMMENT_BOT=false
+        - R=3.4
 
     - php: 7.0
       env:
         - PHPCS=1
+
+    - php: 7.0
+      env:
         - R=3.4
 
     - php: 7.1
