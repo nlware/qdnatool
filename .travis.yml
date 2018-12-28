@@ -9,6 +9,7 @@ php:
   - 7.0
   - 7.1
   - 7.2
+  - 7.3
 
 env:
   global:
@@ -43,8 +44,13 @@ matrix:
       env:
         - PHPUNIT=5.7.19
 
+    - php: 7.3
+      env:
+        - PHPUNIT=5.7.19
+
   exclude:
     - php: 7.2
+    - php: 7.3
 
 cache:
   directories:
