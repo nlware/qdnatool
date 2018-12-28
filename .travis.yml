@@ -111,6 +111,7 @@ before_script:
   - sh -c "if [ '$R' = '3.0.2' ]; then wget \"https://cran.r-project.org/src/contrib/psy_1.1.tar.gz\" -O \"psy_1.1.tar.gz\"; fi"
   - sudo sh -c "if [ '$R' = '3.0.2' ]; then Rscript -e 'if(!\"psy\" %in% rownames(installed.packages())) { install.packages(\"psy_1.1.tar.gz\", repo = NULL, type="source") }'; fi"
   - sudo sh -c "if [ '$R' = '3.4' ]; then Rscript -e 'if(!\"psy\" %in% rownames(installed.packages())) { install.packages(\"psy\", dependencies = TRUE) }'; fi"
+  - sudo sh -c "if [ '$R' = '3.4' ]; then Rscript -e 'if(!\"gplots\" %in% rownames(installed.packages())) { install.packages(\"gplots\", dependencies = TRUE) }'; fi"
   - sudo sh -c "if [ '$LINTR' = '1' ]; then Rscript -e 'if(!\"lintr\" %in% rownames(installed.packages())) { install.packages(\"lintr\", dependencies = TRUE) }'; fi"
   - sudo sh -c "rm /usr/lib/R/bin/Rserve"
   - sudo sh -c "rm /usr/lib/R/bin/Rserve.dbg"
