@@ -37,6 +37,7 @@ matrix:
     - php: 7.0
       env:
         - PHPCS=1
+        - R=3.4
 
     - php: 7.1
       env:
