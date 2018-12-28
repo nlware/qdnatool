@@ -63,6 +63,7 @@ before_script:
 
   - sudo sh -c "if [ '$R' = '3.4' ]; then apt-key adv --keyserver keyserver.ubuntu.com --recv E084DAB9; fi"
   - sudo sh -c "if [ '$R' = '3.4' ]; then add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu trusty/' -y; fi"
+  - sudo sh -c "if [ '$R' = '3.4' ]; then apt-get update -qq; fi"
   - sudo apt-get install -y --force-yes r-base r-cran-rserve
   - sudo apt-get install -y --force-yes libcurl4-gnutls-dev
   - sudo apt-get install -y --force-yes libxml2-dev
