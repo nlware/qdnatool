@@ -112,6 +112,7 @@ before_script:
   - sudo sh -c "if [ '$R' = '3.0.2' ]; then Rscript -e 'if(!\"gridExtra\" %in% rownames(installed.packages())) { install.packages(\"gridExtra_0.9.1.tar.gz\", repo = NULL, type="source") }'; fi"
   - sh -c "if [ '$R' = '3.0.2' ]; then wget \"https://cran.r-project.org/src/contrib/psy_1.1.tar.gz\" -O \"psy_1.1.tar.gz\"; fi"
   - sudo sh -c "if [ '$R' = '3.0.2' ]; then Rscript -e 'if(!\"psy\" %in% rownames(installed.packages())) { install.packages(\"psy_1.1.tar.gz\", repo = NULL, type="source") }'; fi"
+  - sudo sh -c "if [ '$LINTR' = '1' ]; then Rscript -e 'if(!\"lintr\" %in% rownames(installed.packages())) { install.packages(\"lintr\", dependencies = TRUE) }'; fi"
   - sudo sh -c "rm /usr/lib/R/bin/Rserve"
   - sudo sh -c "rm /usr/lib/R/bin/Rserve.dbg"
   - sudo sh -c "ln -s /usr/lib/R/site-library/Rserve/libs/Rserve /usr/lib/R/bin/Rserve"
@@ -128,7 +129,7 @@ before_script:
   - echo -e "<?php\n\$config = array(\n\t'Rserve' => array(\n\t\t'host' => 'localhost',\n\t\t'port' => 6311,\n\t\t'debug' => false\n\t)\n);\n" > app/Config/rserve.php
 
 script:
-  - sh -c "if [ '$COVERALLS' = 1 ]; then cd $TRAVIS_BUILD_DIR/app; Vendor/bin/cake test app AllTests --stderr --coverage-clover ../build/logs/clover.xml --configuration ../phpunit.xml; fi;"
+  - sh -c "if [ '$COVERALLS' = '1' ]; then cd $TRAVIS_BUILD_DIR/app; Vendor/bin/cake test app AllTests --stderr --coverage-clover ../build/logs/clover.xml --configuration ../phpunit.xml; fi;"
   - sh -c "if [ '$PHPCS' = '1' ]; then cd $TRAVIS_BUILD_DIR/app; Vendor/bin/phpcs -p --extensions=php --standard=CakePHP --ignore=Plugin --ignore=Vendor --ignore=webroot/js/ckeditor -n $TRAVIS_BUILD_DIR; fi;"
   - sh -c "if [ '$PHPCS' != '1' ] && [ '$COVERALLS' != 1 ] && [ '$LINTR' != 1 ]; then cd $TRAVIS_BUILD_DIR/app; Vendor/bin/cake test app AllTests --stderr; fi"
   - sh -c "if [ '$LINTR' = '1' ]; then cd $TRAVIS_BUILD_DIR; ./bin/travis-linter.sh; fi"
