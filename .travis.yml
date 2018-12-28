@@ -36,6 +36,10 @@ matrix:
       env:
         - R=3.4
 
+    - php: 7.0
+      env:
+        - R=3.5
+
     - php: 7.1
       env:
         - PHPUNIT=5.7.19
@@ -59,9 +63,10 @@ cache:
 
 before_script:
 
-  - sudo sh -c "if [ '$R' = '3.4' ]; then apt-key adv --keyserver keyserver.ubuntu.com --recv E084DAB9; fi"
+  - sudo sh -c "if [ '$R' = '3.4' ] || [ '$R' = '3.5' ]; then apt-key adv --keyserver keyserver.ubuntu.com --recv E084DAB9; fi"
   - sudo sh -c "if [ '$R' = '3.4' ]; then add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu trusty/' -y; fi"
-  - sudo sh -c "if [ '$R' = '3.4' ]; then apt-get update -qq; fi"
+  - sudo sh -c "if [ '$R' = '3.5' ]; then add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu trusty-cran35/' -y; fi"
+  - sudo sh -c "if [ '$R' = '3.4' ] || [ '$R' = '3.5' ]; then apt-get update -qq; fi"
   - sudo apt-get install -y --force-yes r-base r-cran-rserve
   - sudo apt-get install -y --force-yes libcurl4-gnutls-dev
   - sudo apt-get install -y --force-yes libxml2-dev
