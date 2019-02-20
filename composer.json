@@ -49,15 +49,15 @@
 	},
 	"require" : {
 		"composer/installers": "~1.0",
-		"cakephp/cakephp": "2.10.*",
-		"cakephp/debug_kit": "2.2.*",
+		"cakephp/cakephp": "^2.0",
+		"cakephp/debug_kit": "^2.2",
 		"slywalker/twitter_bootstrap": "1.5.7",
 		"htmlawed/htmlawed": "1.1.*",
 		"nlware/rserve-php": "dev-master",
-		"simplesamlphp/simplesamlphp": "^1.16"
+		"simplesamlphp/simplesamlphp": "^1.0"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "^3.7",
-		"cakephp/cakephp-codesniffer": "1.*"
+		"cakephp/cakephp-codesniffer": "^1.0"
 	}
 }
