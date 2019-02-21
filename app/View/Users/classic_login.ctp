@@ -11,9 +11,13 @@
 	</div>
 	<div class="modal-footer">
 	<?php
-	if (Configure::read('debug') == 0):
-		echo $this->Html->link(__('Sign in via SURFconext'), 'https://www.qdnatool.org/simplesamlphp/module.php/core/as_login.php?AuthId=SURFconext&ReturnTo=https%3A%2F%2Fwww.qdnatool.org%2Fusers%2Fsaml_login', array('class' => 'btn'));
-	endif;
+	$returnToUrl = $this->Html->url(array('controller' => 'users', 'action' => 'saml_login'), true);
+	$params = array(
+		'AuthId' => 'SURFconext',
+		'ReturnTo' => $returnToUrl
+	);
+	$url = '/simplesamlphp/module.php/core/as_login.php?' . http_build_query($params);
+	echo $this->Html->link(__('Sign in via SURFconext'), $url, array('class' => 'btn'));
 	echo $this->Form->submit(__('Sign in'), array('class' => 'btn btn-primary', 'div' => false));
 	?>
 	</div>
