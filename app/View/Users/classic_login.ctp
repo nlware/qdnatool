@@ -16,7 +16,7 @@
 		'AuthId' => 'SURFconext',
 		'ReturnTo' => $returnToUrl
 	);
-	$url = '/simplesamlphp/module.php/core/as_login.php?' . http_build_query($params);
+	$url = '/simplesaml/module.php/core/as_login.php?' . http_build_query($params);
 	echo $this->Html->link(__('Sign in via SURFconext'), $url, array('class' => 'btn'));
 	echo $this->Form->submit(__('Sign in'), array('class' => 'btn btn-primary', 'div' => false));
 	?>
