@@ -19,26 +19,6 @@
 					"composer/installers": "*"
 				}
 			}
-		},
-		{
-			"type": "package",
-			"package": {
-				"name": "nlware/rserve-php",
-				"version": "dev-master",
-				"type": "cakephp-vendor",
-				"dist": {
-					"type": "zip",
-					"url": "https://github.com/nlware/rserve-php/archive/master.zip"
-				},
-				"source": {
-					"type": "git",
-					"url": "https://github.com/nlware/rserve-php",
-					"reference": "master"
-				},
-				"require": {
-					"composer/installers": "*"
-				}
-			}
 		}
 	],
 	"extra": {
@@ -53,8 +33,8 @@
 		"cakephp/debug_kit": "^2.2",
 		"slywalker/twitter_bootstrap": "1.5.7",
 		"htmlawed/htmlawed": "1.1.*",
-		"nlware/rserve-php": "dev-master",
-		"simplesamlphp/simplesamlphp": "^1.0"
+		"simplesamlphp/simplesamlphp": "^1.0",
+		"cturbelin/rserve-php": "2.0.x-dev"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "^3.7",
