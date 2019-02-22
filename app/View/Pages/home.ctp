@@ -193,18 +193,3 @@ if (isset($filePresent)):
 </p>
 <?php
 endif;
-
-if (file_exists('/usr/share/simplesamlphp/lib/_autoload.php')):
-	echo '<div class="alert alert-success">';
-	echo __d('cake_dev', 'SimpleSAMLphp is present');
-	echo '</div>';
-else:
-	echo '<div class="alert alert-error">';
-	echo __d(
-		'cake_dev',
-		'%s is not installed. It is needed to log in with %s.',
-		$this->Html->link('SimpleSAMLphp', 'http://simplesamlphp.org/'),
-		$this->Html->link('SURFconext', 'http://www.surfnet.nl/nl/Thema/coin')
-	);
-	echo '</div>';
-endif;
