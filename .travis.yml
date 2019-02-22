@@ -65,7 +65,10 @@ before_script:
   - sudo sh -c "if [ '$R' = '3.4' ]; then add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu trusty/' -y; fi"
   - sudo sh -c "if [ '$R' = '3.5' ]; then add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu trusty-cran35/' -y; fi"
   - sudo sh -c "if [ '$R' = '3.4' ] || [ '$R' = '3.5' ]; then apt-get update -qq; fi"
-  - sudo apt-get install -y --force-yes r-base r-cran-rserve
+  - sudo apt-get install -y --force-yes r-base
+  - sudo sh -c "if [ '$R' != '3.5' ]; then apt-get install -y --force-yes r-cran-rserve; fi"
+  - sudo sh -c "if [ '$R' = '3.5' ]; then wget \"https://www.rforge.net/snapshot/Rserve_1.8-6.tar.gz\"; fi"
+  - sudo sh -c "if [ '$R' = '3.5' ]; thenR CMD INSTALL Rserve_1.8-6.tar.gz; fi"
   - sudo apt-get install -y --force-yes libcurl4-gnutls-dev
   - sudo apt-get install -y --force-yes libxml2-dev
   - sudo mkdir -p ~/R/Library
