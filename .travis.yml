@@ -32,18 +32,11 @@ matrix:
       env:
         - LINTR=1
         - LINTR_COMMENT_BOT=false
+        - R=3.5
 
     - php: 7.0
       env:
         - PHPCS=1
-
-    - php: 7.0
-      env:
-        - R=3.4
-
-    - php: 7.0
-      env:
-        - R=3.5
 
     - php: 7.1
       env:
