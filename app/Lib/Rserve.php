@@ -1,4 +1,5 @@
 <?php
+App::import('Vendor', 'RserveConnection', array('file' => 'nlware' . DS . 'rserve-php' . DS . 'Connection.php'));
 class Rserve {
 
 	public static $configs = null;
@@ -41,7 +42,7 @@ class Rserve {
 		$connection = null;
 		try {
 			$params = array('debug' => self::getConfig('debug'));
-			$connection = new Sentiweb\Rserve\Connection(self::getConfig('host'), self::getConfig('port'), $params);
+			$connection = new Rserve_Connection(self::getConfig('host'), self::getConfig('port'), $params);
 		} catch(Exception $e) {
 			$connection = false;
 		}

@@ -13,7 +13,7 @@
  * @since         CakePHP(tm) v 0.10.8.2117
  */
 
-App::import('Vendor', array('file' => 'autoload'));
+require APP . 'Vendor/autoload.php';
 
 // Setup a 'default' cache configuration for use in the application.
 Cache::config('default', array('engine' => 'File'));

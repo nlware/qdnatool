@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "71af019e908ca3afa0bb0bbeb0d93e0b",
+    "content-hash": "ed00f3b5f88e6c1bb4a1446567510823",
     "packages": [
         {
             "name": "cakephp/cakephp",
@@ -212,52 +212,6 @@
             "time": "2016-08-13T20:53:52+00:00"
         },
         {
-            "name": "cturbelin/rserve-php",
-            "version": "2.0.x-dev",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/cturbelin/rserve-php.git",
-                "reference": "6396557908bbbd0116a0c9c618300ca84465a6f2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/cturbelin/rserve-php/zipball/6396557908bbbd0116a0c9c618300ca84465a6f2",
-                "reference": "6396557908bbbd0116a0c9c618300ca84465a6f2",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2.0"
-            },
-            "require-dev": {
-                "jakub-onderka/php-parallel-lint": "^0.9",
-                "phpunit/phpunit": "*"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "src/lib/helpers.php"
-                ],
-                "psr-4": {
-                    "Sentiweb\\Rserve\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "authors": [
-                {
-                    "name": "ClÃ©ment Turbelin",
-                    "email": "clement.turbelin@gmail.com"
-                }
-            ],
-            "description": "Rserve client library for PHP",
-            "homepage": "https://github.com/cturbelin/rserve-php",
-            "keywords": [
-                "Rserve",
-                "r",
-                "stats"
-            ],
-            "time": "2018-06-28T12:23:05+00:00"
-        },
-        {
             "name": "gettext/gettext",
             "version": "v3.6.1",
             "source": {
@@ -435,6 +389,26 @@
                 "twig"
             ],
             "time": "2016-10-03T12:34:15+00:00"
+        },
+        {
+            "name": "nlware/rserve-php",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nlware/rserve-php",
+                "reference": "master"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/nlware/rserve-php/archive/master.zip",
+                "reference": "master",
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "*"
+            },
+            "type": "cakephp-vendor",
+            "time": "2015-12-09 13:03:30"
         },
         {
             "name": "psr/log",
@@ -1460,7 +1434,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "cturbelin/rserve-php": 20
+        "nlware/rserve-php": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
