@@ -58,8 +58,7 @@ cache:
 before_script:
 
   - sudo apt-get install -y --force-yes r-base r-cran-rserve
-  - sudo apt-get install -y --force-yes libcurl4-gnutls-dev
-  - sudo apt-get install -y --force-yes libxml2-dev
+  - sudo apt-get install -y --force-yes build-essential libcurl4-gnutls-dev libxml2-dev libssl-dev
   - sudo mkdir -p ~/R/Library
   - sudo echo 'R_LIBS=~/R/Library' > ~/.Renviron
   - sudo echo 'options(repos = "https://cran.rstudio.com")' > ~/.Rprofile
@@ -103,8 +102,7 @@ before_script:
   - sudo sh -c "if [ '$R' = '3.0.2' ]; then Rscript -e 'if(!\"ggplot2\" %in% rownames(installed.packages())) { install.packages(\"ggplot2_1.0.0.tar.gz\", repo = NULL, type=\"source\") }'; fi"
   - sh -c "if [ '$R' = '3.0.2' ]; then wget \"https://cran.r-project.org/src/contrib/Archive/gridExtra/gridExtra_0.9.1.tar.gz\" -O \"gridExtra_0.9.1.tar.gz\"; fi"
   - sudo sh -c "if [ '$R' = '3.0.2' ]; then Rscript -e 'if(!\"gridExtra\" %in% rownames(installed.packages())) { install.packages(\"gridExtra_0.9.1.tar.gz\", repo = NULL, type=\"source\") }'; fi"
-  - sh -c "if [ '$R' = '3.0.2' ]; then wget \"https://cran.r-project.org/src/contrib/psy_1.1.tar.gz\" -O \"psy_1.1.tar.gz\"; fi"
-  - sudo sh -c "if [ '$R' = '3.0.2' ]; then Rscript -e 'if(!\"psy\" %in% rownames(installed.packages())) { install.packages(\"psy_1.1.tar.gz\", repo = NULL, type=\"source\") }'; fi"
+  - sudo sh -c "if [ '$R' = '3.2.3' ]; then Rscript -e 'if(!\"psy\" %in% rownames(installed.packages())) { install.packages(\"psy\", dependencies = TRUE) }'; fi"
   - sudo sh -c "if [ '$LINTR' = '1' ]; then Rscript -e 'if(!\"lintr\" %in% rownames(installed.packages())) { install.packages(\"lintr\", dependencies = TRUE) }'; fi"
   - sudo sh -c "rm /usr/lib/R/bin/Rserve"
   - sudo sh -c "rm /usr/lib/R/bin/Rserve.dbg"
