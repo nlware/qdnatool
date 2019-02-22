@@ -34,7 +34,6 @@ matrix:
       env:
         - LINTR=1
           LINTR_COMMENT_BOT=false
-          R=3.5
 
     - php: 7.0
       env:
@@ -63,9 +62,6 @@ cache:
 
 before_script:
 
-  - sudo sh -c "if [ '$R' = '3.5' ]; then apt-key adv --keyserver keyserver.ubuntu.com --recv E084DAB9; fi"
-  - sudo sh -c "if [ '$R' = '3.5' ]; then add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu xenial-cran35/' -y; fi"
-  - sudo sh -c "if [ '$R' = '3.5' ]; then apt-get update -qq; fi"
   - sudo apt-get install -y --force-yes r-base r-cran-rserve
   - sudo apt-get install -y --force-yes libcurl4-gnutls-dev
   - sudo apt-get install -y --force-yes libxml2-dev
