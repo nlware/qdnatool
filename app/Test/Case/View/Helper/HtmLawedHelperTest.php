@@ -90,7 +90,7 @@ class HtmLawedHelperTest extends CakeTestCase {
 public function testDisplayWithNotAllowedHtml() {
 		$expected = '&lt;html&gt;&lt;/html';
 		$html = '<html></html';
-		$result = $this->HtmLawed->display();
+		$result = $this->HtmLawed->display($html);
 		$this->assertEquals($expected, $result);
 	}
 
