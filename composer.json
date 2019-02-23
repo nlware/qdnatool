@@ -8,15 +8,15 @@
 		{
 			"type": "package",
 			"package": {
-				"name": "htmlawed/htmlawed",
-				"version": "1.1.22",
+				"name": "phplabware/htmlawed",
+				"version": "1.2.4.1",
 				"type": "cakephp-vendor",
 				"dist": {
-					"url": "https://www.bioinformatics.org/phplabware/downloads/htmLawed1122.zip",
+					"url": "https://www.bioinformatics.org/phplabware/downloads/htmLawed1241.zip",
 					"type": "zip"
 				},
-				"require": {
-					"composer/installers": "*"
+				"autoload": {
+					"files": ["htmLawed.php"]
 				}
 			}
 		}
@@ -32,7 +32,7 @@
 		"cakephp/cakephp": "^2.0",
 		"cakephp/debug_kit": "^2.2",
 		"slywalker/twitter_bootstrap": "1.5.7",
-		"htmlawed/htmlawed": "1.1.*",
+		"phplabware/htmlawed": "^1.0",
 		"simplesamlphp/simplesamlphp": "^1.0",
 		"cturbelin/rserve-php": "2.0.x-dev"
 	},
