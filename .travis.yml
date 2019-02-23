@@ -26,6 +26,7 @@ matrix:
     - php: 5.5
       env:
         - COVERALLS=1
+        - R=3.0.2
 
     - php: 5.5
       env:
@@ -40,6 +41,7 @@ matrix:
     - php: 7.1
       env:
         - PHPUNIT=5.7.19
+        - R=3.4
 
     - php: 7.2
       env:
