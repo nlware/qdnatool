@@ -1,6 +1,6 @@
 <?php
 App::uses('AppHelper', 'View/Helper');
-App::import('Vendor', 'htmLawed', array('file' => 'htmlawed' . DS . 'htmlawed' . DS . 'htmLawed.php'));
+
 /**
  * HtmLawed Helper.
  */
@@ -31,6 +31,7 @@ class HtmLawedHelper extends AppHelper {
  */
 	public function display($html, $options = array()) {
 		$options = array_merge($this->__config, $options);
+
 		return $this->_htmLawed($html, $options);
 	}
 

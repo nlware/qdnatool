@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "71af019e908ca3afa0bb0bbeb0d93e0b",
+    "content-hash": "215c253199c1c59e4d5925ce280ebbb1",
     "packages": [
         {
             "name": "cakephp/cakephp",
@@ -379,20 +379,6 @@
             "time": "2018-11-13T22:06:07+00:00"
         },
         {
-            "name": "htmlawed/htmlawed",
-            "version": "1.1.22",
-            "dist": {
-                "type": "zip",
-                "url": "https://www.bioinformatics.org/phplabware/downloads/htmLawed1122.zip",
-                "reference": null,
-                "shasum": null
-            },
-            "require": {
-                "composer/installers": "*"
-            },
-            "type": "cakephp-vendor"
-        },
-        {
             "name": "jaimeperez/twig-configurable-i18n",
             "version": "v1.2",
             "source": {
@@ -435,6 +421,22 @@
                 "twig"
             ],
             "time": "2016-10-03T12:34:15+00:00"
+        },
+        {
+            "name": "phplabware/htmlawed",
+            "version": "1.2.4.1",
+            "dist": {
+                "type": "zip",
+                "url": "https://www.bioinformatics.org/phplabware/downloads/htmLawed1241.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "cakephp-vendor",
+            "autoload": {
+                "files": [
+                    "htmLawed.php"
+                ]
+            }
         },
         {
             "name": "psr/log",
