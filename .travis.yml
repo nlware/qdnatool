@@ -57,8 +57,8 @@ cache:
 
 before_script:
 
-  - sudo apt-get install -y --force-yes r-base r-cran-rserve
-  - sudo sh -c "if [ '$LINTR' = '1' ]; then sudo apt-get install -y --force-yes r-base-dev; fi"
+  - sudo apt-get install --yes r-base r-cran-rserve
+  - sudo sh -c "if [ '$LINTR' = '1' ]; then sudo apt-get install --yes r-base-dev; fi"
   - sudo mkdir -p ~/R/Library
   - sudo echo 'R_LIBS=~/R/Library' > ~/.Renviron
   - sudo echo 'options(repos = "https://cran.rstudio.com")' > ~/.Rprofile
