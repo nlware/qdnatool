@@ -51,11 +51,9 @@ matrix:
 
   exclude:
     - php: 7.2
-      env:
-        - PHPUNIT=3.7.33
+      env: PHPUNIT=3.7.33
     - php: 7.3
-      env:
-        - PHPUNIT=3.7.33
+      env: PHPUNIT=3.7.33
 
 cache:
   directories:
