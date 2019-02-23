@@ -109,7 +109,7 @@ before_script:
   - sudo echo 'options(repos = "https://cran.rstudio.com")' > ~/.Rprofile
   - sudo sh -c "Rscript -e 'if(!\"psy\" %in% rownames(installed.packages())) { install.packages(\"psy\", dependencies = TRUE) }';"
   - sudo sh -c "Rscript -e 'if(!\"gplots\" %in% rownames(installed.packages())) { install.packages(\"gplots\", dependencies = TRUE) }'"
-  - sudo sh -c "then Rscript -e 'if(!\"ggplot2\" %in% rownames(installed.packages())) { install.packages(\"ggplot2\", dependencies = TRUE) }'"
+  - sudo sh -c "Rscript -e 'if(!\"ggplot2\" %in% rownames(installed.packages())) { install.packages(\"ggplot2\", dependencies = TRUE) }'"
   - sudo sh -c "if [ '$LINTR' = '1' ]; then Rscript -e 'if(!\"lintr\" %in% rownames(installed.packages())) { install.packages(\"lintr\", dependencies = TRUE) }'; fi"
   - sudo R CMD Rserve
   - sh -c "mysql -e 'CREATE DATABASE qdnatool_test;'"
