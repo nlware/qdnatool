@@ -20,10 +20,10 @@ class HtmLawedHelperTest extends CakeTestCase {
 	}
 
 /**
-* tearDown method
-*
-* @return void
-*/
+ * tearDown method
+ *
+ * @return void
+ */
 	public function tearDown() {
 		unset($this->HtmLawed);
 
@@ -87,7 +87,7 @@ class HtmLawedHelperTest extends CakeTestCase {
  *
  * @return void
  */
-public function testDisplayWithNotAllowedHtml() {
+	public function testDisplayWithNotAllowedHtml() {
 		$expected = '&lt;html&gt;&lt;/html';
 		$html = '<html></html';
 		$result = $this->HtmLawed->display($html);
