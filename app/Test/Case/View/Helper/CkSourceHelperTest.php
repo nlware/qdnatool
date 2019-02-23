@@ -15,6 +15,7 @@ class CkSourceHelperTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
+
 		$View = new View();
 		$this->CkSource = new CkSourceHelper($View);
 	}

@@ -15,6 +15,7 @@ class OutputHelperTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
+
 		$View = new View();
 		$this->Output = new OutputHelper($View);
 	}
