@@ -14,6 +14,10 @@ php:
   - 7.3
 
 env:
+  matrix:
+    - R=3.0.2
+    - R=3.4
+    - R=3.5
   global:
     - PHPUNIT=3.7.33
       R=3.2.3
@@ -24,6 +28,7 @@ matrix:
     - php: 7.0
       env:
         - COVERALLS=1
+        - R=3.0.2
 
     - php: 7.0
       env:
@@ -37,18 +42,51 @@ matrix:
     - php: 7.1
       env:
         - PHPUNIT=5.7.19
+        - R=3.4
 
     - php: 7.2
       env:
         - PHPUNIT=5.7.19
+        - R=3.0.2
+
+    - php: 7.2
+      env:
+        - PHPUNIT=5.7.19
+        - R=3.4
+
+    - php: 7.2
+      env:
+        - PHPUNIT=5.7.19
+        - R=3.5
 
     - php: 7.3
       env:
         - PHPUNIT=5.7.19
+        - R=3.0.2
+
+    - php: 7.3
+      env:
+        - PHPUNIT=5.7.19
+        - R=3.4
+
+    - php: 7.3
+      env:
+        - PHPUNIT=5.7.19
+        - R=3.5
 
   exclude:
     - php: 7.2
+      env: R=3.0.2
+    - php: 7.2
+      env: R=3.4
+    - php: 7.2
+      env: R=3.5
     - php: 7.3
+      env: R=3.0.2
+    - php: 7.3
+      env: R=3.4
+    - php: 7.3
+      env: R=3.5
 
 cache:
   directories:
@@ -57,14 +95,21 @@ cache:
 
 before_script:
 
-  - sudo apt-get install --yes r-base r-cran-rserve
+  - sudo sh -c "if [ '$R' = '3.4' ] || [ '$R' = '3.5' ]; then apt-key adv --keyserver keyserver.ubuntu.com --recv E084DAB9; fi"
+  - sudo sh -c "if [ '$R' = '3.4' ]; then add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu trusty/' -y; fi"
+  - sudo sh -c "if [ '$R' = '3.5' ]; then add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu trusty-cran35/' -y; fi"
+  - sudo sh -c "if [ '$R' = '3.4' ] || [ '$R' = '3.5' ]; then apt-get update -qq; fi"
+  - sudo apt-get install -y --force-yes r-base
+  - sudo sh -c "if [ '$R' != '3.5' ]; then apt-get install -y --force-yes r-cran-rserve; fi"
+  - sudo sh -c "if [ '$R' = '3.5' ]; then wget \"https://www.rforge.net/Rserve/snapshot/Rserve_1.8-6.tar.gz\"; fi"
+  - sudo sh -c "if [ '$R' = '3.5' ]; then R CMD INSTALL Rserve_1.8-6.tar.gz; fi"
   - sudo sh -c "if [ '$LINTR' = '1' ]; then sudo apt-get install --yes r-base-dev; fi"
   - sudo mkdir -p ~/R/Library
   - sudo echo 'R_LIBS=~/R/Library' > ~/.Renviron
   - sudo echo 'options(repos = "https://cran.rstudio.com")' > ~/.Rprofile
-  - sudo sh -c "if [ '$R' = '3.2.3' ]; then Rscript -e 'if(!\"psy\" %in% rownames(installed.packages())) { install.packages(\"psy\", dependencies = TRUE) }'; fi"
-  - sudo sh -c "if [ '$R' = '3.2.3' ]; then Rscript -e 'if(!\"gplots\" %in% rownames(installed.packages())) { install.packages(\"gplots\", dependencies = TRUE) }'; fi"
-  - sudo sh -c "if [ '$R' = '3.2.3' ]; then Rscript -e 'if(!\"ggplot2\" %in% rownames(installed.packages())) { install.packages(\"ggplot2\", dependencies = TRUE) }'; fi"
+  - sudo sh -c "Rscript -e 'if(!\"psy\" %in% rownames(installed.packages())) { install.packages(\"psy\", dependencies = TRUE) }';"
+  - sudo sh -c "Rscript -e 'if(!\"gplots\" %in% rownames(installed.packages())) { install.packages(\"gplots\", dependencies = TRUE) }'"
+  - sudo sh -c "then Rscript -e 'if(!\"ggplot2\" %in% rownames(installed.packages())) { install.packages(\"ggplot2\", dependencies = TRUE) }'"
   - sudo sh -c "if [ '$LINTR' = '1' ]; then Rscript -e 'if(!\"lintr\" %in% rownames(installed.packages())) { install.packages(\"lintr\", dependencies = TRUE) }'; fi"
   - sudo R CMD Rserve
   - sh -c "mysql -e 'CREATE DATABASE qdnatool_test;'"
