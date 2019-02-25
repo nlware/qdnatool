@@ -2,7 +2,7 @@
 App::uses('ExamState', 'Model');
 
 /**
- * ExamStateFixture
+ * ExamState Fixture
  *
  */
 class ExamStateFixture extends CakeTestFixture {
@@ -13,7 +13,7 @@ class ExamStateFixture extends CakeTestFixture {
  * @var array
  */
 	public $fields = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'key' => 'primary'),
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
 		'name_eng' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'name_nld' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'indexes' => array(
