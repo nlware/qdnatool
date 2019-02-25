@@ -21,8 +21,8 @@ class QuestionFixture extends CakeTestFixture {
 		'answer' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'feedback_when_wrong' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'feedback_when_correct' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
-		'updated' => array('type' => 'datetime', 'null' => true, 'default' => null),
+		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'updated' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'user_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'key' => 'index'),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),

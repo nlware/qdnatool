@@ -325,14 +325,14 @@ class AppSchema extends CakeSchema {
 		'max_answer_option_count' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10),
 		'cronbachs_alpha' => array('type' => 'float', 'null' => true, 'default' => null, 'length' => '4,3'),
 		'report_filename' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-		'uploaded' => array('type' => 'datetime', 'null' => true, 'default' => null),
-		'imported' => array('type' => 'datetime', 'null' => true, 'default' => null),
-		'duplicated' => array('type' => 'datetime', 'null' => true, 'default' => null),
-		'analysed' => array('type' => 'datetime', 'null' => true, 'default' => null),
-		'report_generated' => array('type' => 'datetime', 'null' => true, 'default' => null),
-		'deleted' => array('type' => 'datetime', 'null' => true, 'default' => null),
-		'created' => array('type' => 'datetime', 'null' => false, 'default' => null),
-		'modified' => array('type' => 'datetime', 'null' => false, 'default' => null),
+		'uploaded' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'imported' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'duplicated' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'analysed' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'report_generated' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'deleted' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'user_id' => array('column' => 'user_id', 'unique' => 0),
@@ -365,7 +365,7 @@ class AppSchema extends CakeSchema {
 		'extension' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'filesize' => array('type' => 'integer', 'null' => true, 'default' => null),
 		'file_type' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
+		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -379,7 +379,7 @@ class AppSchema extends CakeSchema {
 		'url' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'content' => array('type' => 'text', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-		'modified' => array('type' => 'datetime', 'null' => true, 'default' => null),
+		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'development_phase_id' => array('column' => 'development_phase_id', 'unique' => 0),
@@ -441,8 +441,8 @@ class AppSchema extends CakeSchema {
 		'answer' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'feedback_when_wrong' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'feedback_when_correct' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
-		'updated' => array('type' => 'datetime', 'null' => true, 'default' => null),
+		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'updated' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'user_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'key' => 'index'),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
@@ -455,8 +455,8 @@ class AppSchema extends CakeSchema {
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary'),
 		'question_id' => array('type' => 'integer', 'null' => false, 'default' => null),
 		'tag_id' => array('type' => 'integer', 'null' => false, 'default' => null),
-		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
-		'modified' => array('type' => 'datetime', 'null' => true, 'default' => null),
+		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -469,13 +469,13 @@ class AppSchema extends CakeSchema {
 		'data' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'group' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'reference' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-		'not_before' => array('type' => 'datetime', 'null' => true, 'default' => null),
-		'fetched' => array('type' => 'datetime', 'null' => true, 'default' => null),
-		'completed' => array('type' => 'datetime', 'null' => true, 'default' => null),
+		'not_before' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'fetched' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'completed' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'failed' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10),
 		'failure_message' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'worker_key' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-		'created' => array('type' => 'datetime', 'null' => false, 'default' => null),
+		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -507,8 +507,8 @@ class AppSchema extends CakeSchema {
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary'),
 		'name' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'user_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'index'),
-		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
-		'modified' => array('type' => 'datetime', 'null' => true, 'default' => null),
+		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'user_id' => array('column' => 'user_id', 'unique' => 0)
