@@ -33,7 +33,7 @@ class UserFixture extends CakeTestFixture {
  *
  * @var array
  */
-public $records = array();
+	public $records = array();
 
 /**
  * Initialize the fixture
