@@ -21,7 +21,7 @@ class ExamsControllerTest extends ControllerTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'app.exam', 'app.exam_format', 'app.exam_state', 'app.item', 'app.user'
+		'app.role', 'app.user', 'app.exam_format', 'app.exam_state', 'app.exam', 'app.item'
 	);
 
 /**
@@ -36,7 +36,7 @@ class ExamsControllerTest extends ControllerTestCase {
 
 		CakeSession::write('Auth.User.id', 1);
 
-		$this->loadFixtures('Exam');
+		$this->loadFixtures('Role', 'User', 'ExamFormat', 'ExamState', 'Exam');
 	}
 
 /**
@@ -56,8 +56,6 @@ class ExamsControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testIndexGet() {
-		$this->loadFixtures('ExamState');
-
 		$this->testAction('/exams/index', array('method' => 'get', 'return' => 'contents'));
 		$this->assertInternalType('array', $this->vars['exams']);
 		$this->assertRegExp('/<html/', $this->contents);
@@ -70,7 +68,7 @@ class ExamsControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testViewGet() {
-		$this->loadFixtures('Item', 'User');
+		$this->loadFixtures('Item');
 
 		$this->testAction('/exams/view/1', array('method' => 'get', 'return' => 'contents'));
 		$this->assertInternalType('array', $this->vars['exam']);
@@ -84,8 +82,7 @@ class ExamsControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testViewGetNotFound() {
-		$this->loadFixtures('Item', 'User');
-
+		$this->loadFixtures('Item');
 		$this->setExpectedException('NotFoundException');
 		$this->testAction('/exams/view/0', array('method' => 'get', 'return' => 'contents'));
 	}
@@ -96,8 +93,6 @@ class ExamsControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testAddGet() {
-		$this->loadFixtures('ExamFormat');
-
 		$this->testAction('/exams/add', array('method' => 'get', 'return' => 'contents'));
 		$this->assertInternalType('array', $this->vars['examFormats']);
 		$this->assertRegExp('/<html/', $this->contents);
@@ -119,8 +114,6 @@ class ExamsControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testDeleteGet() {
-		$this->loadFixtures('ExamFormat');
-
 		$this->setExpectedException('MethodNotAllowedException');
 		$this->testAction('/exams/delete/1', array('method' => 'get', 'return' => 'contents'));
 	}

@@ -84,6 +84,8 @@ class ExamTest extends CakeTestCase {
 		parent::setUp();
 
 		$this->Exam = ClassRegistry::init('TestExam');
+
+		$this->loadFixtures('Role', 'User', 'ExamFormat', 'ExamState', 'Exam', 'Item', 'Subject');
 	}
 
 /**

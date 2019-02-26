@@ -20,7 +20,7 @@ class ImagesControllerTest extends ControllerTestCase {
  *
  * @var array
  */
-	public $fixtures = array('app.image');
+	public $fixtures = array('app.development_phase', 'app.question_format', 'app.role', 'app.user', 'app.question', 'app.image');
 
 /**
  * setUp method
@@ -34,7 +34,7 @@ class ImagesControllerTest extends ControllerTestCase {
 
 		CakeSession::write('Auth.User.id', 1);
 
-		$this->loadFixtures('Image');
+		$this->loadFixtures('DevelopmentPhase', 'QuestionFormat', 'Role', 'User', 'Question', 'Image');
 	}
 
 /**

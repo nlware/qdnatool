@@ -20,7 +20,7 @@ class QuestionsTagsControllerTest extends ControllerTestCase {
  *
  * @var array
  */
-	public $fixtures = array('app.questions_tag');
+	public $fixtures = array('app.question', 'app.tag', 'app.questions_tag');
 
 /**
  * setUp method
@@ -34,7 +34,7 @@ class QuestionsTagsControllerTest extends ControllerTestCase {
 
 		CakeSession::write('Auth.User.id', 1);
 
-		$this->loadFixtures('QuestionsTag');
+		$this->loadFixtures('Question', 'Tag', 'QuestionsTag');
 	}
 
 /**

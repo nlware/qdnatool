@@ -14,6 +14,7 @@ class AllHelperTest extends PHPUnit_Framework_TestSuite {
 		$suite = new CakeTestSuite('All Helper tests');
 
 		$suite->addTestDirectory(TESTS . 'Case' . DS . 'View' . DS . 'Helper');
+
 		return $suite;
 	}
 }
