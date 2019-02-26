@@ -63,6 +63,19 @@ class ItemFixture extends AppFixture {
 			'missing_answer_count' => 1,
 			'missing_answer_percentage' => 1.1
 		),
+		array(
+			'id' => 100000,
+			'exam_id' => 747,
+			'order' => 1,
+			'second_version_order' => null,
+			'value' => '35 (dup)',
+			'answer_option_count' => 4,
+			'correct_answer_count' => 16,
+			'correct_answer_percentage' => 18.4,
+			'correct_answer_irc' => -0.187,
+			'missing_answer_count' => 1,
+			'missing_answer_percentage' => 1.1
+		),
 	);
 
 }
