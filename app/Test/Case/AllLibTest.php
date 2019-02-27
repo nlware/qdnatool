@@ -14,6 +14,7 @@ class AllLibTest extends PHPUnit_Framework_TestSuite {
 		$suite = new CakeTestSuite('All model tests');
 
 		$suite->addTestDirectory(TESTS . 'Case' . DS . 'Lib');
+
 		return $suite;
 	}
 }

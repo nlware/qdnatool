@@ -8,11 +8,20 @@ App::uses('AnswerOption', 'Model');
 class AnswerOptionTest extends CakeTestCase {
 
 /**
+ * autoFixtures property
+ *
+ * @var bool
+ */
+	public $autoFixtures = false;
+
+/**
  * Fixtures
  *
  * @var array
  */
-	public $fixtures = array('app.answer_option');
+	public $fixtures = array(
+		'app.role', 'app.user', 'app.exam_format', 'app.exam_state', 'app.exam', 'app.item', 'app.answer_option'
+	);
 
 /**
  * setUp method
@@ -23,6 +32,8 @@ class AnswerOptionTest extends CakeTestCase {
 		parent::setUp();
 
 		$this->AnswerOption = ClassRegistry::init('AnswerOption');
+
+		$this->loadFixtures('Role', 'User', 'ExamFormat', 'ExamState', 'Exam', 'Item', 'AnswerOption');
 	}
 
 /**

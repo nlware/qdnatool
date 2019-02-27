@@ -1,11 +1,12 @@
 <?php
+App::uses('AppFixture', 'Test/Fixture');
 App::uses('ExamState', 'Model');
 
 /**
  * ExamState Fixture
  *
  */
-class ExamStateFixture extends CakeTestFixture {
+class ExamStateFixture extends AppFixture {
 
 /**
  * Fields

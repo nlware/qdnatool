@@ -113,4 +113,93 @@ class AppModel extends Model {
 		unset($this->_schema[$fieldname]);
 	}
 
+/**
+ * Create foreign key constraints for all belongsTo relations.
+ *
+ * @param DboSource[optional] $db An instance of the database object
+ * @return void
+ */
+	public function addForeignKeyConstraints($db = null) {
+		if ($db === null) {
+			$db = $this->getDataSource();
+		}
+
+		if (!empty($this->belongsTo)) {
+			$query = '';
+
+			foreach ($this->belongsTo as $name => $belongsTo) {
+				$query .= sprintf(
+					'ALTER TABLE %s ADD FOREIGN KEY (%s) REFERENCES %s (%s);',
+					$db->name($this->useTable),
+					$db->name($belongsTo['foreignKey']),
+					$db->name($this->{$name}->useTable),
+					$db->name($this->primaryKey)
+				);
+			}
+
+			$db->execute($query);
+		}
+	}
+
+/**
+ * Drop all foreign key constraints that target the table of the current model.
+ *
+ * @param DboSource[optional] $db An instance of the database object
+ * @return void
+ */
+	public function dropForeignKeyConstraints($db = null) {
+		if ($db === null) {
+			$db = $this->getDataSource();
+		}
+
+		$constraints = $this->_getIncomingForeignKeyConstraints($db);
+
+		if (!empty($constraints)) {
+			$query = '';
+
+			foreach ($constraints as $constraint) {
+				$query .= sprintf(
+					'ALTER TABLE %s DROP FOREIGN KEY %s;',
+					$db->name($constraint['source_table']),
+					$db->name($constraint['name'])
+				);
+			}
+
+			$db->execute($query);
+		}
+	}
+
+/**
+ * Fetch all foreign key constraints that target the table of the current model.
+ *
+ * @param DboSource $db An instance of the database object
+ * @return array A list with name and source table of the constraints
+ */
+	protected function _getIncomingForeignKeyConstraints($db) {
+		$schema = $db->getSchemaName();
+
+		$query = '' .
+			'SELECT ' .
+			'  `CONSTRAINT_NAME` as `name`, ' .
+			'  `TABLE_NAME` as `source_table` ' .
+			'FROM ' .
+			'  `information_schema`.`KEY_COLUMN_USAGE` ' .
+			'WHERE ' .
+			'  `CONSTRAINT_SCHEMA` = ? AND ' .
+			'  `TABLE_SCHEMA` = ? AND ' .
+			'  `REFERENCED_TABLE_SCHEMA`= ? AND ' .
+			'  `REFERENCED_TABLE_NAME` = ? ;';
+
+		$constraints = $db->fetchAll($query, array($schema, $schema, $schema, $this->useTable));
+
+		$constraints = array_map(function ($constraint) {
+			return [
+				'name' => $constraint['KEY_COLUMN_USAGE']['name'],
+				'source_table' => $constraint['KEY_COLUMN_USAGE']['source_table']
+			];
+		}, $constraints);
+
+		return $constraints;
+	}
+
 }

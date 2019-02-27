@@ -1,9 +1,11 @@
 <?php
+App::uses('AppFixture', 'Test/Fixture');
+
 /**
  * Image Fixture
  *
  */
-class ImageFixture extends CakeTestFixture {
+class ImageFixture extends AppFixture {
 
 /**
  * Fields

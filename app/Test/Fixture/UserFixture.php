@@ -1,4 +1,5 @@
 <?php
+App::uses('AppFixture', 'Test/Fixture');
 App::uses('Role', 'Model');
 App::uses('Security', 'Utility');
 
@@ -6,7 +7,7 @@ App::uses('Security', 'Utility');
  * User Fixture
  *
  */
-class UserFixture extends CakeTestFixture {
+class UserFixture extends AppFixture {
 
 /**
  * Fields
@@ -44,7 +45,7 @@ class UserFixture extends CakeTestFixture {
 	public function init() {
 		$this->records = array(
 			array(
-				'id' => '1',
+				'id' => 1,
 				'username' => 'test@test.nl',
 				'name' => 'Test',
 				'password' => Security::hash('testtest', 'sha1', true),
@@ -52,6 +53,7 @@ class UserFixture extends CakeTestFixture {
 				'surfconext_identifier' => null
 			),
 		);
+
 		parent::init();
 	}
 
