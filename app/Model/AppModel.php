@@ -192,7 +192,7 @@ class AppModel extends Model {
 
 		$constraints = $db->fetchAll($query, array($schema, $schema, $schema, $this->useTable));
 
-		$constraints = array_map(function($constraint) {
+		$constraints = array_map(function ($constraint) {
 			return [
 				'name' => $constraint['KEY_COLUMN_USAGE']['name'],
 				'source_table' => $constraint['KEY_COLUMN_USAGE']['source_table']

@@ -12,10 +12,10 @@ class AppFixture extends CakeTestFixture {
  * @see CakeTestFixture::create()
  */
 	public function create($db) {
-        parent::create($db);
+		parent::create($db);
 
-        ClassRegistry::init($this->name)->addForeignKeyConstraints($db);
-    }
+		ClassRegistry::init($this->name)->addForeignKeyConstraints($db);
+	}
 
 /**
  * Temporarily disable foreign key checks to make truncate possible.
@@ -23,15 +23,15 @@ class AppFixture extends CakeTestFixture {
  * @return void
  * @see CakeTestFixture::truncate()
  */
-    public function truncate($db) {
-        $db->execute('SET FOREIGN_KEY_CHECKS = 0;');
+	public function truncate($db) {
+		$db->execute('SET FOREIGN_KEY_CHECKS = 0;');
 
-        $return = parent::truncate($db);
+		$return = parent::truncate($db);
 
-        $db->execute('SET FOREIGN_KEY_CHECKS = 1;');
+		$db->execute('SET FOREIGN_KEY_CHECKS = 1;');
 
-        return $return;
-    }
+		return $return;
+	}
 
 /**
  * Drop foreign key constraints before dropping the table.
@@ -39,10 +39,10 @@ class AppFixture extends CakeTestFixture {
  * @return void
  * @see CakeTestFixture::drop()
  */
-    public function drop($db) {
-        ClassRegistry::init($this->name)->dropForeignKeyConstraints($db);
+	public function drop($db) {
+		ClassRegistry::init($this->name)->dropForeignKeyConstraints($db);
 
-        return parent::drop($db);
-    }
+		return parent::drop($db);
+	}
 
 }
