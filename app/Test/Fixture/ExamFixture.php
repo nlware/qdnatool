@@ -1,4 +1,5 @@
 <?php
+App::uses('AppFixture', 'Test/Fixture');
 App::uses('ExamFormat', 'Model');
 App::uses('ExamState', 'Model');
 
@@ -6,7 +7,7 @@ App::uses('ExamState', 'Model');
  * Exam Fixture
  *
  */
-class ExamFixture extends CakeTestFixture {
+class ExamFixture extends AppFixture {
 
 /**
  * Fields

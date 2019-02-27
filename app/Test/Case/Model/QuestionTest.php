@@ -114,6 +114,7 @@ class QuestionTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
+
 		$this->Question = ClassRegistry::init('TestQuestion');
 	}
 

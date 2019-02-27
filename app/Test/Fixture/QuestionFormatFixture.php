@@ -1,11 +1,12 @@
 <?php
+App::uses('AppFixture', 'Test/Fixture');
 App::uses('QuestionFormat', 'Model');
 
 /**
  * QuestionFormat Fixture
  *
  */
-class QuestionFormatFixture extends CakeTestFixture {
+class QuestionFormatFixture extends AppFixture {
 
 /**
  * Fields
@@ -30,25 +31,25 @@ class QuestionFormatFixture extends CakeTestFixture {
  */
 	public $records = array(
 		array(
-			'id' => '1',
+			'id' => 1,
 			'name' => QuestionFormat::TRUE_FALSE,
 			'question_info_diverge_url' => 'http://testdevelopment.nl/qdst/qdst-nl/pro-con-q-formats/dive-t-f.htm',
 			'question_info_converge_url' => 'http://testdevelopment.nl/qdst/qdst-nl/pro-con-q-formats/conv-t-f.htm'
 		),
 		array(
-			'id' => '2',
+			'id' => 2,
 			'name' => QuestionFormat::MULTIPLE_CHOICE,
 			'question_info_diverge_url' => 'http://testdevelopment.nl/qdst/qdst-nl/pro-con-q-formats/dive-mcq.htm',
 			'question_info_converge_url' => 'http://testdevelopment.nl/qdst/qdst-nl/pro-con-q-formats/conv-mcq.htm'
 		),
 		array(
-			'id' => '3',
+			'id' => 3,
 			'name' => QuestionFormat::MULTIPLE_RESPONSE,
 			'question_info_diverge_url' => 'http://testdevelopment.nl/qdst/qdst-nl/pro-con-q-formats/dive-mrq.htm',
 			'question_info_converge_url' => 'http://testdevelopment.nl/qdst/qdst-nl/pro-con-q-formats/conv-mrq.htm'
 		),
 		array(
-			'id' => '4',
+			'id' => 4,
 			'name' => QuestionFormat::OPEN_ANSWER,
 			'question_info_diverge_url' => 'http://testdevelopment.nl/qdst/qdst-nl/pro-con-q-formats/pro-con-general.htm',
 			'question_info_converge_url' => 'http://testdevelopment.nl/qdst/qdst-nl/pro-con-q-formats/pro-con-general.htm'

@@ -50,6 +50,7 @@ class QuestionsTagTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
+
 		$this->QuestionsTag = ClassRegistry::init('TestQuestionsTag');
 	}
 

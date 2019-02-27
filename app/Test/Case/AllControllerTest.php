@@ -14,6 +14,7 @@ class AllControllerTest extends PHPUnit_Framework_TestSuite {
 		$suite = new CakeTestSuite('All controller tests');
 
 		$suite->addTestDirectory(TESTS . 'Case' . DS . 'Controller');
+
 		return $suite;
 	}
 }

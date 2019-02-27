@@ -1,9 +1,11 @@
 <?php
+App::uses('AppFixture', 'Test/Fixture');
+
 /**
  * GivenAnswer Fixture
  *
  */
-class GivenAnswerFixture extends CakeTestFixture {
+class GivenAnswerFixture extends AppFixture {
 
 /**
  * Fields
