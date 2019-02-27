@@ -20,7 +20,7 @@ class UsersControllerTest extends ControllerTestCase {
  *
  * @var array
  */
-	public $fixtures = array('app.user');
+	public $fixtures = array('app.role', 'app.user');
 
 /**
  * setUp method
@@ -34,7 +34,7 @@ class UsersControllerTest extends ControllerTestCase {
 
 		CakeSession::write('Auth.User.id', 1);
 
-		$this->loadFixtures('User');
+		$this->loadFixtures('Role', 'User');
 	}
 
 /**
