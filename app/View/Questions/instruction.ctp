@@ -8,8 +8,8 @@ $(document).ready(function() {
 ';
 echo $this->Html->scriptBlock($script, array('inline' => false));
 if (!empty($instruction)):
-?>
+	?>
 	<h4><?php echo h($instruction['Instruction']['name']); ?></h4>
-<?php
+	<?php
 	echo str_replace('target="_self"', 'target="_blank"', $instruction['Instruction']['content']);
 endif;

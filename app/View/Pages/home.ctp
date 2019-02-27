@@ -14,26 +14,22 @@ App::uses('Debugger', 'Utility');
 ?>
 <h2><?php echo __d('cake_dev', 'Release Notes for CakePHP %s.', Configure::version()); ?></h2>
 <p>
-	<?php echo $this->Html->link(__d('cake_dev', 'Read the changelog'), 'http://cakephp.org/changelogs/' . Configure::version()); ?>
+	<?php echo $this->Html->link(__d('cake_dev', 'Read the changelog'), 'https://cakephp.org/changelogs/' . Configure::version()); ?>
 </p>
 <?php
 if (Configure::read('debug') > 0):
 	Debugger::checkSecurityKeys();
 endif;
 ?>
-<?php
-if (file_exists(WWW_ROOT . 'css' . DS . 'cake.generic.css')):
-?>
-<div class="alert alert-error">
-	<?php echo __d('cake_dev', 'URL rewriting is not properly configured on your server.'); ?>
-	<ol>
-		<li><a target="_blank" href="http://book.cakephp.org/2.0/en/installation/url-rewriting.html" style="color:#fff;">Help me configure it</a></li>
-		<li><a target="_blank" href="http://book.cakephp.org/2.0/en/development/configuration.html#cakephp-core-configuration" style="color:#fff;">I don't / can't use URL rewriting</a></li>
-	</ol>
-</div>
-<?php
-endif;
-?>
+<?php if (file_exists(WWW_ROOT . 'css' . DS . 'cake.generic.css')): ?>
+	<div class="alert alert-error">
+		<?php echo __d('cake_dev', 'URL rewriting is not properly configured on your server.'); ?>
+		<ol>
+			<li><a target="_blank" href="https://book.cakephp.org/2.0/en/installation/url-rewriting.html" style="color:#fff;">Help me configure it</a></li>
+			<li><a target="_blank" href="https://book.cakephp.org/2.0/en/development/configuration.html#cakephp-core-configuration" style="color:#fff;">I don't / can't use URL rewriting</a></li>
+		</ol>
+	</div>
+<?php endif; ?>
 <p>
 	<?php
 	if (version_compare(PHP_VERSION, '5.2.8', '>=')):
@@ -65,11 +61,11 @@ endif;
 	$settings = Cache::settings();
 	if (!empty($settings)):
 		echo '<div class="alert alert-success">';
-		echo __d('cake_dev', 'The %s is being used for core caching. To change the config edit %s', '<em>' . $settings['engine'] . 'Engine</em>', 'APP/Config/core.php');
+		echo __d('cake_dev', 'The %s is being used for core caching. To change the config edit %s', '<em>' . $settings['engine'] . 'Engine</em>', CONFIG . 'core.php');
 		echo '</div>';
 	else:
 		echo '<div class="alert alert-error">';
-		echo __d('cake_dev', 'Your cache is NOT working. Please check the settings in %s', 'APP/Config/core.php');
+		echo __d('cake_dev', 'Your cache is NOT working. Please check the settings in %s', CONFIG . 'core.php');
 		echo '</div>';
 	endif;
 	?>
@@ -77,7 +73,7 @@ endif;
 <p>
 	<?php
 	$filePresent = null;
-	if (file_exists(APP . 'Config' . DS . 'database.php')):
+	if (file_exists(CONFIG . 'database.php')):
 		echo '<div class="alert alert-success">';
 		echo __d('cake_dev', 'Your database configuration file is present.');
 		$filePresent = true;
@@ -86,7 +82,7 @@ endif;
 		echo '<div class="alert alert-error">';
 		echo __d('cake_dev', 'Your database configuration file is NOT present.');
 		echo '<br/>';
-		echo __d('cake_dev', 'Rename %s to %s', 'APP/Config/database.php.default', 'APP/Config/database.php');
+		echo __d('cake_dev', 'Rename %s to %s', CONFIG . 'database.php.default', CONFIG . 'database.php');
 		echo '</div>';
 	endif;
 	?>
@@ -106,22 +102,22 @@ if (isset($filePresent)):
 			endif;
 		endif;
 	}
-?>
-<p>
-	<?php
-	if ($connected && $connected->isConnected()):
-		echo '<div class="alert alert-success">';
-		echo __d('cake_dev', 'CakePHP is able to connect to the database.');
-		echo '</div>';
-	else:
-		echo '<div class="alert alert-error">';
-		echo __d('cake_dev', 'CakePHP is NOT able to connect to the database.');
-		echo '<br /><br />';
-		echo $errorMsg;
-		echo '</div>';
-	endif;
-?>
-</p>
+	?>
+	<p>
+		<?php
+		if ($connected && $connected->isConnected()):
+			echo '<div class="alert alert-success">';
+			echo __d('cake_dev', 'CakePHP is able to connect to the database.');
+			echo '</div>';
+		else:
+			echo '<div class="alert alert-error">';
+			echo __d('cake_dev', 'CakePHP is NOT able to connect to the database.');
+			echo '<br /><br />';
+			echo $errorMsg;
+			echo '</div>';
+		endif;
+		?>
+	</p>
 <?php
 endif;
 
@@ -177,19 +173,19 @@ if (isset($filePresent)):
 	else:
 		$connected = false;
 	endif;
-?>
-<p>
-	<?php
-	if ($connected):
-		echo '<div class="alert alert-success">';
-		echo __d('cake_dev', 'Cake is able to connect to Rserve.');
-		echo '</div>';
-	else:
-		echo '<div class="alert alert-error">';
-		echo __d('cake_dev', 'Cake is NOT able to connect to Rserve.');
-		echo '</div>';
-	endif;
 	?>
-</p>
-<?php
+	<p>
+		<?php
+		if ($connected):
+			echo '<div class="alert alert-success">';
+			echo __d('cake_dev', 'Cake is able to connect to Rserve.');
+			echo '</div>';
+		else:
+			echo '<div class="alert alert-error">';
+			echo __d('cake_dev', 'Cake is NOT able to connect to Rserve.');
+			echo '</div>';
+		endif;
+		?>
+	</p>
+	<?php
 endif;
