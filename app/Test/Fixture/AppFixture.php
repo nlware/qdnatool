@@ -8,6 +8,7 @@ class AppFixture extends CakeTestFixture {
 /**
  * Add foreign key constraints after creating the table.
  *
+ * @param DboSource $db An instance of the database object
  * @return void
  * @see CakeTestFixture::create()
  */
@@ -20,6 +21,7 @@ class AppFixture extends CakeTestFixture {
 /**
  * Temporarily disable foreign key checks to make truncate possible.
  *
+ * @param DboSource $db An instance of the database object
  * @return void
  * @see CakeTestFixture::truncate()
  */
@@ -36,6 +38,7 @@ class AppFixture extends CakeTestFixture {
 /**
  * Drop foreign key constraints before dropping the table.
  *
+ * @param DboSource $db An instance of the database object
  * @return void
  * @see CakeTestFixture::drop()
  */
