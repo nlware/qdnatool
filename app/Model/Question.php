@@ -307,11 +307,11 @@ class Question extends AppModel {
 			if ($question['Question']['development_phase_id'] == DevelopmentPhase::CONVERGE) {
 				// Controleer alle Stimulus_RT invoer
 				if ($wordCountStimulus <= 8) {
-					$messages[] = '<p>Uw stimulus bestaat uit minder dan tien woorden. Stelt u wel een <i>vraag?</i></p>
-	<p>Het komt vaak voor dat heel korte stimuli samengaan met stellingvragen of vragen waar niet echt een vraag of probleem wordt gepresenteerd.</p>
-	<p>Klik <a href="http://docs.qdnatool.org/2012/11/26/wat-kan-er-beter-aan-deze-vraag-2/" target="_blank">hier</a> voor een voorbeeld van stellingvragen.</p>
-	<p>Klik <a href="http://docs.qdnatool.org/?p=489" target="_blank">hier</a> voor een voorbeeld van een vraag zonder probleem.</p>
-	<p>Klik <a href="http://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/multiple-choice-vraag/convergeer-multiple-choicevragen/convergeer-multiple-choicevragen-vervolg-1/" target="_blank">hier</a> voor	algemene informatie om toetsvragen zo helder mogelijk te maken.</p>';
+					$messages[] = '<p>Uw stimulus bestaat uit minder dan tien woorden. Stelt u wel een <i>vraag?</i></p>' .
+						'<p>Het komt vaak voor dat heel korte stimuli samengaan met stellingvragen of vragen waar niet echt een vraag of probleem wordt gepresenteerd.</p>' .
+						'<p>Klik <a href="https://docs.qdnatool.org/2012/11/26/wat-kan-er-beter-aan-deze-vraag-2/" target="_blank">hier</a> voor een voorbeeld van stellingvragen.</p>' .
+						'<p>Klik <a href="https://docs.qdnatool.org/?p=489" target="_blank">hier</a> voor een voorbeeld van een vraag zonder probleem.</p>' .
+						'<p>Klik <a href="https://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/multiple-choice-vraag/convergeer-multiple-choicevragen/convergeer-multiple-choicevragen-vervolg-1/" target="_blank">hier</a> voor	algemene informatie om toetsvragen zo helder mogelijk te maken.</p>';
 				}
 				if ($wordCountStimulus >= 40) {
 					$messages[] = 'Uw stimulus bestaat uit meer dan veertig woorden. Is uw schrijfstijl niet te breedsprakig? Probeert u uw studenten niet iets nieuws te leren? Geeft u niet - in feite - irrelevante informatie? <br>Hou uw stimulus beknopt en vraag hetgeen u wilt weten van de student zo rechtstreeks mogelijk. Dat voorkomt veel interpretatiefouten door overbodig leeswerk.';

@@ -1,5 +1,5 @@
 # Dutch (nld) translation of qDNAtool
-# Copyright (c) NLWare B.V. (http://www.nlware.com)
+# Copyright (c) NLWare B.V. (https://www.nlware.com)
 #
 msgid ""
 msgstr ""
