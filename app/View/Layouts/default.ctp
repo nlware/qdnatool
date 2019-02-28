@@ -15,36 +15,36 @@
 	</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<?php
-		echo $this->Html->meta('icon');
-		echo $this->Html->css('bootstrap.min');
-		echo $this->Html->css('application');
+	echo $this->Html->meta('icon');
+	echo $this->Html->css('bootstrap.min');
+	echo $this->Html->css('application');
 	?>
 	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 	<!--[if lt IE 9]>
 		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 	<?php
-		echo $this->fetch('meta');
-		echo $this->fetch('css');
+	echo $this->fetch('meta');
+	echo $this->fetch('css');
 	?>
 </head>
 <body>
 	<?php
-		echo $this->element('analytics');
-		echo $this->element('header');
+	echo $this->element('analytics');
+	echo $this->element('header');
 	?>
 	<div class="container">
 		<?php
-			echo $this->Flash->render();
-			echo $this->fetch('content');
+		echo $this->Flash->render();
+		echo $this->fetch('content');
 		?>
 		<div id="footer"></div>
 	</div>
 	<?php
-		echo $this->Html->script('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js');
-		echo $this->Html->script('bootstrap.min');
-		echo $this->fetch('script');
-		echo $this->Js->writeBuffer();
+	echo $this->Html->script('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js');
+	echo $this->Html->script('bootstrap.min');
+	echo $this->fetch('script');
+	echo $this->Js->writeBuffer();
 	?>
 </body>
 </html>

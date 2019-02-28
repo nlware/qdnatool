@@ -2,7 +2,7 @@
 $this->addScript('<style type="text/css">body {font-family: \'Arial\',sans-serif;font-size: 14px; } img {margin-bottom: 1em;} ol ol {clear:left; list-style-type: upper-alpha;}</style>');
 ?>
 <ol>
-<?php foreach ($questions as $i => $question): ?>
+	<?php foreach ($questions as $i => $question): ?>
 	<li>
 		<p><?php echo $this->HtmLawed->display($question['Question']['stimulus']); ?></p>
 		<?php
@@ -13,9 +13,9 @@ $this->addScript('<style type="text/css">body {font-family: \'Arial\',sans-serif
 			<?php
 			if (!empty($question['QuestionAnswer'])):
 				foreach ($question['QuestionAnswer'] as $questionAnswer):
-			?>
-			<li><?php echo $this->HtmLawed->display($questionAnswer['name']); ?></li>
-			<?php
+				?>
+				<li><?php echo $this->HtmLawed->display($questionAnswer['name']); ?></li>
+				<?php
 				endforeach;
 			endif;
 			?>
@@ -29,9 +29,9 @@ $this->addScript('<style type="text/css">body {font-family: \'Arial\',sans-serif
 			<?php
 			if (!empty($question['QuestionAnswer'])):
 				foreach ($question['QuestionAnswer'] as $questionAnswer):
-			?>
-			<li><?php echo $this->HtmLawed->display($questionAnswer['name']); ?></li>
-			<?php
+				?>
+				<li><?php echo $this->HtmLawed->display($questionAnswer['name']); ?></li>
+				<?php
 				endforeach;
 			endif;
 			?>
@@ -50,7 +50,7 @@ $this->addScript('<style type="text/css">body {font-family: \'Arial\',sans-serif
 </ol>
 <p><strong><?php echo __('Correct answers'); ?></strong></p>
 <ol>
-    <?php foreach ($questions as $question): ?>
+	<?php foreach ($questions as $question): ?>
 	<li>
 		<?php
 		$correctAnswers = array();

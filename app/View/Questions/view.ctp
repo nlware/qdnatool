@@ -1,7 +1,24 @@
 <div class="row">
 	<div class="span9">
-		<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $question['Question']['id']), array('class' => 'btn btn-primary pull-right')); ?>
-		<?php echo $this->Html->link('<i class="icon-chevron-left"></i>', $referer, array('class' => 'btn pull-right', 'escapeTitle' => false, 'title' => __('Go back one page'))); ?>
+		<?php
+		echo $this->Html->link(
+			__('Edit'), array(
+				'action' => 'edit', $question['Question']['id']
+			), array(
+				'class' => 'btn btn-primary pull-right'
+			)
+		);
+		?>
+		<?php
+		echo $this->Html->link(
+			'<i class="icon-chevron-left"></i>',
+			$referer, array(
+				'class' => 'btn pull-right',
+				'escapeTitle' => false,
+				'title' => __('Go back one page')
+			)
+		);
+		?>
 		<h4><?php echo h($question['Question']['code']); ?></h4>
 		<div class="row">
 			<div class="span6">
@@ -81,7 +98,11 @@
 				if (!empty($question['QuestionsTag'])):
 					foreach ($question['QuestionsTag'] as $questionsTag):
 				?>
-				<span class="label label-info" title="<?php echo h($questionsTag['Tag']['name']); ?>"><?php echo h(CakeText::truncate($questionsTag['Tag']['name'], 20, array('ellipsis' => '...'))); ?></span>
+				<span class="label label-info" title="<?php echo h($questionsTag['Tag']['name']); ?>">
+					<?php
+					echo h(CakeText::truncate($questionsTag['Tag']['name'], 20, array('ellipsis' => '...')));
+					?>
+				</span>
 				<?php
 					endforeach;
 				endif;
@@ -103,7 +124,17 @@
 	</div>
 	<div class="offset9 span3 affix">
 		<ul class="nav nav-tabs">
-			<li class="active"><?php echo $this->Html->link(__('Analyses'), array($this->Form->value('Question.id'), '#' => 'analyses'), array('data-toggle' => 'tab'));	?></li>
+			<li class="active">
+				<?php
+				echo $this->Html->link(
+					__('Analyses'), array(
+						$this->Form->value('Question.id'), '#' => 'analyses'
+					), array(
+						'data-toggle' => 'tab'
+					)
+				);
+				?>
+			</li>
 		</ul>
 		<div class="tab-content">
 			<div class="tab-pane active" id="analyses">
