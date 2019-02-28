@@ -114,13 +114,13 @@ class OutputHelperTest extends CakeTestCase {
  * @return void
  */
 	public function testHtml() {
-		$expected = '<a target="_blank" href="http://www.example.org">link</a>';
-		$value = '<a href="http://www.example.org">link</a>';
+		$expected = '<a target="_blank" href="https://www.example.org">link</a>';
+		$value = '<a href="https://www.example.org">link</a>';
 		$result = $this->Output->html($value);
 		$this->assertEquals($expected, $result);
 
-		$expected = '<a target="_blank" href="http://www.example.org">link</a>';
-		$value = '<a href="http://www.example.org" target="_self">link</a>';
+		$expected = '<a target="_blank" href="https://www.example.org">link</a>';
+		$value = '<a href="https://www.example.org" target="_self">link</a>';
 		$result = $this->Output->html($value);
 		$this->assertEquals($expected, $result);
 	}

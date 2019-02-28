@@ -4,7 +4,7 @@
  *
  * Use it to configure core behavior of Cake.
  *
- * @link          http://cakephp.org CakePHP(tm) Project
+ * @link          https://cakephp.org CakePHP(tm) Project
  * @package       app.Config
  * @since         CakePHP(tm) v 0.2.9
  */
@@ -107,9 +107,16 @@ Configure::write('Config.language', 'nld');
  * for any URL generation inside the application, set the following
  * configuration variable to the http(s) address to your domain. This
  * will override the automatic detection of full base URL and can be
- * useful when generating links from the CLI (e.g. sending emails)
+ * useful when generating links from the CLI (e.g. sending emails).
+ * If the application runs in a subfolder, you should also set App.base.
  */
 	//Configure::write('App.fullBaseUrl', 'http://example.com');
+
+/**
+ * The base directory the app resides in. Should be used if the
+ * application runs in a subfolder and App.fullBaseUrl is set.
+ */
+	//Configure::write('App.base', '/my_app');
 
 /**
  * Web path to the public images directory under webroot.
@@ -182,6 +189,7 @@ Configure::write('Config.language', 'nld');
  *
  * - `Session.cookie` - The name of the cookie to use. Defaults to 'CAKEPHP'
  * - `Session.timeout` - The number of minutes you want sessions to live for. This timeout is handled by CakePHP
+ * - `Session.useForwardsCompatibleTimeout` - Whether or not to make timeout 3.x compatible.
  * - `Session.cookieTimeout` - The number of minutes you want session cookies to live for.
  * - `Session.checkAgent` - Do you want the user agent to be checked when starting sessions? You might want to set the
  *    value to false, when dealing with older versions of IE, Chrome Frame or certain web-browsing devices and AJAX
@@ -193,7 +201,7 @@ Configure::write('Config.language', 'nld');
  * - `Session.autoRegenerate` - Enabling this setting, turns on automatic renewal of sessions, and
  *    sessionids that change frequently. See CakeSession::$requestCountdown.
  * - `Session.cacheLimiter` - Configure the cache control headers used for the session cookie.
- *   See http://php.net/session_cache_limiter for accepted values. *
+ *   See http://php.net/session_cache_limiter for accepted values.
  * - `Session.ini` - An associative array of additional ini values to set.
  *
  * The built in defaults are:
@@ -264,6 +272,14 @@ Configure::write('Config.language', 'nld');
 	date_default_timezone_set('UTC');
 
 /**
+ * `Config.timezone` is available in which you can set users' timezone string.
+ * If a method of CakeTime class is called with $timezone parameter as null and `Config.timezone` is set,
+ * then the value of `Config.timezone` will be used. This feature allows you to set users' timezone just
+ * once instead of passing it each time in function calls.
+ */
+	//Configure::write('Config.timezone', 'Europe/Paris');
+
+/**
  * Cache Engine Configuration
  * Default settings provided below
  *
@@ -300,18 +316,20 @@ Configure::write('Config.language', 'nld');
  *		'password' => 'password', //plaintext password (xcache.admin.pass)
  *	));
  *
- * Memcache (http://www.danga.com/memcached/)
+ * Memcached (http://www.danga.com/memcached/)
+ *
+ * Uses the memcached extension. See http://php.net/memcached
  *
  * 	 Cache::config('default', array(
- *		'engine' => 'Memcache', //[required]
+ *		'engine' => 'Memcached', //[required]
  *		'duration' => 3600, //[optional]
  *		'probability' => 100, //[optional]
  * 		'prefix' => Inflector::slug(APP_DIR) . '_', //[optional]  prefix every cache file with this string
  * 		'servers' => array(
  * 			'127.0.0.1:11211' // localhost, default port 11211
  * 		), //[optional]
- * 		'persistent' => true, // [optional] set this to false for non-persistent connections
- * 		'compress' => false, // [optional] compress data in Memcache (slower, but uses less memory)
+ * 		'persistent' => 'my_connection', // [optional] The name of the persistent connection.
+ * 		'compress' => false, // [optional] compress data in Memcached (slower, but uses less memory)
  *	));
  *
  *  Wincache (http://php.net/wincache)

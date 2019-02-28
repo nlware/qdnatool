@@ -2,7 +2,7 @@
 /**
  * The Front Controller for handling every request
  *
- * @link          http://cakephp.org CakePHP(tm) Project
+ * @link          https://cakephp.org CakePHP(tm) Project
  * @package       app.webroot
  * @since         CakePHP(tm) v 0.2.9
  */
