@@ -1,13 +1,13 @@
 <?php
 $script = '
 $(document).ready(function() {
-  $(".tab-content").each(function()
-  { $(this).height($(window).height()-$(this).offset().top);
+  $(".tab-content").each(function() {
+		$(this).height($(window).height()-$(this).offset().top);
   });
 
   $(window).resize(function(){
-    $(".tab-content").each(function()
-    { $(this).height($(window).height()-$(this).offset().top);
+    $(".tab-content").each(function() {
+			$(this).height($(window).height()-$(this).offset().top);
     });
   });
 });
@@ -19,9 +19,9 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
 	<?php
 	echo $this->Form->create('Question');
 	$script =
-		' function analyse()
-      { $.ajax
-        ({  async:false,
+		' function analyse() {
+				$.ajax({
+					async:false,
           data:$("#QuestionAddForm").find("input, select[class~=analyse], textarea[class~=analyse]").serialize(),
     			dataType:"html",
           success:function (data, textStatus)
@@ -33,9 +33,9 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
         });
       }
 
-      function showHelp()
-      { $.ajax
-        ({  async:false,
+      function showHelp() {
+				$.ajax({
+					async:false,
           data:$("#QuestionAddForm").find("select[class~=show_help]").serialize(),
           dataType:"html",
           success:function (data, textStatus)
@@ -47,99 +47,102 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
         });
       }
       $(document).ready(function() {
+	      $("#QuestionStartSentencesId").change(function() {
+  	      CKEDITOR.instances.QuestionStimulus.setData("<p>" + $(this).val() + "</p>" + CKEDITOR.instances.QuestionStimulus.getData());
+    	  });
 
-      $("#QuestionStartSentencesId").change(function()
-      {
-        CKEDITOR.instances.QuestionStimulus.setData("<p>" + $(this).val() + "</p>" + CKEDITOR.instances.QuestionStimulus.getData());
-      });
+				$(".typeahead").typeahead({
+					source: function (query, process) {
+						$.get(\'' . $this->Html->url(array('controller' => 'tags', 'action' => 'autocomplete', 'ext' => 'json')) . '\', {
+							query: query }, function (data) {
+								process(data)
+						})
+					}
+				});
 
-      $(".typeahead").typeahead({
-        source: function (query, process) {
-          $.get(\'' . $this->Html->url(array('controller' => 'tags', 'action' => 'autocomplete', 'ext' => 'json')) . '\', {
-            query: query }, function (data) {
-              process(data)
-          })
-        }
-      });
+				$("#QuestionQuestionFormatId").change(
+					function() {
+						if($(this).val() == ' . QuestionFormat::OPEN_ANSWER . ') {
+							$(\'#btnAddAnswer\').hide();
+							$(\'#QuestionAnswer\').parent().parent().show();
 
-      $("#QuestionQuestionFormatId").change
-      ( function()
-        {
-    			if($(this).val() == ' . QuestionFormat::OPEN_ANSWER.')
-          {
-            $(\'#btnAddAnswer\').hide();
-            $(\'#QuestionAnswer\').parent().parent().show();
+							fieldsets = $(\'fieldset\');
+							fieldsets.hide();
+							fieldsets.find(\'input[type=hidden]:first\').val(\'1\');
+						} else if($(this).val() == ' . QuestionFormat::TRUE_FALSE . ') {
+							$(\'#btnAddAnswer\').hide();
+							$(\'#QuestionAnswer\').parent().parent().hide();
 
-            fieldsets = $(\'fieldset\');
-            fieldsets.hide();
-            fieldsets.find(\'input[type=hidden]:first\').val(\'1\');
-          }
-          else if($(this).val() == ' . QuestionFormat::TRUE_FALSE.')
-          {
-            $(\'#btnAddAnswer\').hide();
-            $(\'#QuestionAnswer\').parent().parent().hide();
+							fieldsets = $(\'fieldset:gt(1)\');
+							fieldsets.hide();
+							fieldsets.find(\'input[type=hidden]:first\').val(\'1\');
 
-            fieldsets = $(\'fieldset:gt(1)\');
-            fieldsets.hide();
-            fieldsets.find(\'input[type=hidden]:first\').val(\'1\');
+							fieldsets = $(\'fieldset:lt(2)\');
+							fieldsets.show();
+							fieldsets.find(\'input[type=hidden]:first\').val(\'0\');
+						} else if(($(this).val() == ' . QuestionFormat::MULTIPLE_CHOICE . ') ||
+									($(this).val() == ' . QuestionFormat::MULTIPLE_RESPONSE . ')) {
+							$(\'#btnAddAnswer\').show();
+							$(\'#QuestionAnswer\').parent().parent().hide();
 
-            fieldsets = $(\'fieldset:lt(2)\');
-            fieldsets.show();
-            fieldsets.find(\'input[type=hidden]:first\').val(\'0\');
-          }
-          else if(($(this).val() == ' . QuestionFormat::MULTIPLE_CHOICE.') ||
-          	     ($(this).val() == ' . QuestionFormat::MULTIPLE_RESPONSE.'))
-          {
-            $(\'#btnAddAnswer\').show();
-            $(\'#QuestionAnswer\').parent().parent().hide();
+							fieldsets = $(\'fieldset:gt(2)\');
+							fieldsets.hide();
+							fieldsets.find(\'input[type=hidden]:first\').val(\'1\');
 
-            fieldsets = $(\'fieldset:gt(2)\');
-            fieldsets.hide();
-            fieldsets.find(\'input[type=hidden]:first\').val(\'1\');
+							fieldsets = $(\'fieldset:lt(3)\');
+							fieldsets.show();
+							fieldsets.find(\'input[type=hidden]:first\').val(\'0\');
+						} else {
+							$(\'#btnAddAnswer\').hide();
+							$(\'#QuestionAnswer\').parent().parent().hide();
 
-            fieldsets = $(\'fieldset:lt(3)\');
-            fieldsets.show();
-            fieldsets.find(\'input[type=hidden]:first\').val(\'0\');
-          }
-          else
-          {
-            $(\'#btnAddAnswer\').hide();
-            $(\'#QuestionAnswer\').parent().parent().hide();
+							fieldsets = $(\'fieldset\');
+							fieldsets.hide();
+							fieldsets.find(\'input[type=hidden]:first\').val(\'1\');
+						}
+					}
+				);
 
-            fieldsets = $(\'fieldset\');
-            fieldsets.hide();
-            fieldsets.find(\'input[type=hidden]:first\').val(\'1\');
-          }
-        }
-      );
+				$("select[class~=show_help]").change(function() {
+					showHelp();
+				});
 
-      $("select[class~=show_help]").change
-      (  function(){showHelp();}
-      );
+				$("select[class~=analyse]").change(function() {
+					analyse();
+				});
 
-      $("select[class~=analyse]").change
-      (  function(){analyse();}
-      );
-
-      $("input[class~=analyse], , textarea[class~=analyse]").blur
-      (  function(){analyse();}
-      );
+				$("input[class~=analyse], , textarea[class~=analyse]").blur(function() {
+					analyse();
+				});
       });
     ';
 	echo $this->Html->scriptBlock($script, array('inline' => false));
 	echo $this->Form->input('id');
 	echo $this->Form->submit(__('Save'), array('class' => 'btn btn-primary pull-right', 'div' => false));
 	?>
-	<?php echo $this->Html->link('<i class="icon-chevron-left"></i>', $referer, array('class' => 'btn pull-right', 'escapeTitle' => false, 'title' => __('Go back one page'))); ?>
+	<?php
+	echo $this->Html->link(
+		'<i class="icon-chevron-left"></i>',
+		$referer, array(
+			'class' => 'btn pull-right',
+			'escapeTitle' => false,
+			'title' => __('Go back one page')
+		)
+	);
+	?>
 		<h4><?php echo __('Add Question'); ?></h4>
 		<div class="row">
 			<div class="span6">
 				<div class="row">
 					<div class="span3">
-					<?php echo $this->Form->input('question_format_id', array('empty' => true, 'class' => 'span3 analyse show_help')); ?>
+						<?php
+						echo $this->Form->input('question_format_id', array('empty' => true, 'class' => 'span3 analyse show_help'));
+						?>
 					</div>
 					<div class="span3">
-					<?php echo $this->Form->input('development_phase_id', array('class' => 'span3 analyse show_help', 'default' => DevelopmentPhase::DIVERGE)); ?>
+						<?php
+						echo $this->Form->input('development_phase_id', array('class' => 'span3 analyse show_help', 'default' => DevelopmentPhase::DIVERGE));
+						?>
 					</div>
 				</div>
 			<?php
@@ -152,7 +155,15 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
 					'onclick' => ''
 				)
 			);
-			echo $this->CkSource->ckeditor('stimulus', array('class' => 'analyse', 'id' => 'QuestionStimulus', 'events' => array('blur' => 'function(){this.updateElement();analyse();}')));
+			echo $this->CkSource->ckeditor(
+				'stimulus', array(
+					'class' => 'analyse',
+					'id' => 'QuestionStimulus',
+					'events' => array(
+						'blur' => 'function(){this.updateElement();analyse();}'
+					)
+				)
+			);
 
 			$options = array();
 			echo $this->CkSource->ckeditor(
@@ -269,7 +280,13 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
 						</tr>
 					</thead>
 					<tbody>
-						<?php for ($i = 0; $i < ((empty($this->request->data['QuestionsTag'])?0:count($this->request->data['QuestionsTag'])) + 10); $i++): ?>
+						<?php
+						$tagCount = 0;
+						if (!empty($this->request->data['QuestionsTag'])):
+							$tagCount = count($this->request->data['QuestionsTag']);
+						endif;
+						for ($i = 0; $i < $tagCount + 10; $i++):
+						?>
 						<tr<?php echo ($this->Form->value('QuestionsTag.' . $i . '.destroy') == '0')?'':' style="display:none;"'; ?>>
 							<td>
 								<?php
@@ -310,7 +327,9 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
 								?>
 							</td>
 						</tr>
-						<?php endfor; ?>
+						<?php
+						endfor;
+						?>
 						<tr>
 							<td colspan="2"><a href="#" onclick="$(this).parent().parent().parent().children(':hidden:first').children(':first').find('input[type=hidden]:first').val('0');$(this).parent().parent().parent().children(':hidden:first').show();return false;" class="btn"><i class="icon-plus"></i> <?php echo __('Add Tag'); ?></a></td>
 						</tr>

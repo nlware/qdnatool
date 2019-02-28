@@ -206,7 +206,7 @@ class Exam extends AppModel {
  * Returns (default) pagination settings for a given user.
  *
  * @param int $userId A user id
- * @var array Hash with pagination settings (conditions, contain and order)
+ * @return array Hash with pagination settings (conditions, contain and order)
  */
 	public function getPaginationSettings($userId) {
 		$conditions = array(
@@ -1480,7 +1480,7 @@ class Exam extends AppModel {
  * @param int $questionCount Number of questions
  * @param int $studentCount Number of students
  * @param int $maxAnswerOptionCount Maximum number of answer options
- * @param array $exam
+ * @param array $exam An exam
  * @param array $givenAnswers
  * @param array $answerOptionCount Array of number of answer options per question
  * @return array

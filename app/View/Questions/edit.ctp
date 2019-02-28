@@ -253,7 +253,12 @@
 						</tr>
 					</thead>
 					<tbody>
-						<?php for ($i = 0; $i < ((empty($this->request->data['QuestionsTag'])?0:count($this->request->data['QuestionsTag'])) + 10); $i++): ?>
+						<?php
+						$tagCount = 0;
+						if (!empty($this->request->data['QuestionsTag'])):
+							$tagCount = count($this->request->data['QuestionsTag']);
+						endif;
+						for ($i = 0; $i < $tagCount + 10; $i++): ?>
 						<tr<?php echo ($this->Form->value('QuestionsTag.' . $i . '.destroy') == '0')?'':' style="display:none;"'; ?>>
 							<td>
 							<?php
@@ -294,36 +299,38 @@
 							?>
 							</td>
 						</tr>
-						<?php endfor; ?>
+						<?php
+						endfor;
+						?>
 						<tr>
 							<td colspan="2">
-							<?php
-							echo $this->Html->link(
-								'<i class="icon-plus"></i> ' . __('Add Tag'),
-								'#', array(
-									'onclick' => 'typeahead=$(\'tr:hidden input.typeahead:first\');
-										if(typeahead.length>0) {
-											typeahead.val(\'\');
-											row = typeahead.parent().parent().parent().parent();
-											row.show();
-											row.children(\':first\').find(\'input[type=hidden]:first\').val(\'0\');
-										}
-										return false;',
-									'class' => 'btn',
-									'escapeTitle' => false
-								)
-							);
-							?>
+								<?php
+								echo $this->Html->link(
+									'<i class="icon-plus"></i> ' . __('Add Tag'),
+									'#', array(
+										'onclick' => 'typeahead=$(\'tr:hidden input.typeahead:first\');
+											if(typeahead.length>0) {
+												typeahead.val(\'\');
+												row = typeahead.parent().parent().parent().parent();
+												row.show();
+												row.children(\':first\').find(\'input[type=hidden]:first\').val(\'0\');
+											}
+											return false;',
+										'class' => 'btn',
+										'escapeTitle' => false
+									)
+								);
+								?>
 							</td>
 						</tr>
 					</tbody>
 				</table>
-			<?php echo $this->Form->input('comment', array('label' => __('Comments'), 'rows' => 10)); ?>
+				<?php echo $this->Form->input('comment', array('label' => __('Comments'), 'rows' => 10)); ?>
 			</div>
 		</div>
 		<div class="form-actions">
-		<?php echo $this->Form->submit(__('Save'), array('class' => 'btn btn-primary', 'div' => false)); ?>
-		<?php echo $this->Html->link(__('Cancel'), $referer, array('class' => 'btn')); ?>
+			<?php echo $this->Form->submit(__('Save'), array('class' => 'btn btn-primary', 'div' => false)); ?>
+			<?php echo $this->Html->link(__('Cancel'), $referer, array('class' => 'btn')); ?>
 		</div>
 	</div>
 <?php echo $this->Form->end(); ?>
@@ -337,9 +344,9 @@
 				<div id="tabHelp">
 					<?php
 					if (!empty($instruction)):
-					?>
-					<h4><?php echo h($instruction['Instruction']['name']); ?></h4>
-					<?php
+						?>
+						<h4><?php echo h($instruction['Instruction']['name']); ?></h4>
+						<?php
 						echo $this->Output->html($instruction['Instruction']['content']);
 					endif;
 					?>

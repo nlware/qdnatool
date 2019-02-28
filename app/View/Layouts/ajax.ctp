@@ -10,4 +10,3 @@
 echo $this->fetch('content');
 echo $this->fetch('script');
 echo $this->Js->writeBuffer();
-?>

@@ -59,11 +59,14 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
 							<?php
 							if (!empty($question['QuestionAnswer'])):
 								foreach ($question['QuestionAnswer'] as $questionAnswer):
-							?>
-							<li><a rel="tooltip" href="#" data-original-title="<?php echo ($questionAnswer['is_correct']?__('Correct answer'):__('Wrong answer')); ?>"><i class="<?php echo ($questionAnswer['is_correct']?'icon-thumbs-up':'icon-thumbs-down'); ?>"></i></a>
-								<?php echo h(strip_tags($questionAnswer['name'])); ?>
-							</li>
-							<?php
+								?>
+								<li>
+									<a rel="tooltip" href="#" data-original-title="<?php echo ($questionAnswer['is_correct']?__('Correct answer'):__('Wrong answer')); ?>">
+										<i class="<?php echo ($questionAnswer['is_correct']?'icon-thumbs-up':'icon-thumbs-down'); ?>"></i>
+									</a>
+									<?php echo h(strip_tags($questionAnswer['name'])); ?>
+								</li>
+								<?php
 								endforeach;
 							endif;
 							?>
@@ -71,9 +74,11 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
 						<?php
 						if (!empty($question['Tag'])):
 							foreach ($question['Tag'] as $tag):
-						?>
-						<span class="label label-info" title="<?php echo h($tag['name']); ?>"><?php echo h(CakeText::truncate($tag['name'], 20, array('ellipsis' => '...'))); ?></span>
-						<?php
+							?>
+							<span class="label label-info" title="<?php echo h($tag['name']); ?>">
+								<?php echo h(CakeText::truncate($tag['name'], 20, array('ellipsis' => '...'))); ?>
+							</span>
+							<?php
 							endforeach;
 						endif;
 						?>
@@ -104,9 +109,9 @@ echo $this->Html->scriptBlock($script, array('inline' => false));
 			<div class="tab-pane active" id="tip-of-the-day">
 				<?php
 				if (!empty($tip)):
-				?>
-				<h4><?php echo h($tip['Tip']['name']); ?></h4>
-				<?php
+					?>
+					<h4><?php echo h($tip['Tip']['name']); ?></h4>
+					<?php
 					echo $this->Output->html($tip['Tip']['content']);
 				endif;
 				?>

@@ -61,7 +61,9 @@ $analysisControllers = array('exams');
 						<li><?php echo $this->Html->link(__('Analyse'), array('admin' => false, 'controller' => 'exams', 'action' => 'index')); ?></li>
 					</ul>
 				</li>
-				<?php elseif (in_array($this->request->controller, $analysisControllers)): ?>
+					<?php
+					elseif (in_array($this->request->controller, $analysisControllers)):
+					?>
 				<li class="dropdown active">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo __('Analyse'); ?> <b class="caret"></b></a>
 					<ul class="dropdown-menu">
