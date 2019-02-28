@@ -8,20 +8,47 @@ $analysisControllers = array('exams');
 		<h3><?php echo __('About qDNAtool'); ?></h3>
 	</div>
 	<div class="modal-body">
-		<p><?php echo __('This project was made possible by the support of SURF, the higher education and research partnership organisation for Information and Communications Technology (ICT). For more information about SURF, please visit %s.', $this->Html->link('www.surf.nl', 'http://www.surf.nl', array('target' => '_blank'))); ?></p>
 		<p>
-		<?php
-		echo $this->Html->link($this->Html->image('logo-vu.png', array('onmouseout' => 'this.src=\'' . $this->Html->url('/img/logo-vu.png') . '\';', 'onmouseover' => 'this.src=\'' . $this->Html->url('/img/logo-vu-cl.png') . '\';')), 'http://www.vu.nl', array('target' => '_blank', 'escapeTitle' => false));
-		echo $this->Html->link($this->Html->image('logo-uva.png'), 'http://www.uva.nl', array('target' => '_blank', 'escapeTitle' => false));
-		echo $this->Html->link($this->Html->image('logo-nlware.png', array('onmouseout' => 'this.src=\'' . $this->Html->url('/img/logo-nlware.png') . '\';', 'onmouseover' => 'this.src=\'' . $this->Html->url('/img/logo-nlware-cl.png') . '\';')), 'http://www.nlware.com', array('target' => '_blank', 'escapeTitle' => false));
-		echo $this->Html->link($this->Html->image('logo-surf.png'), 'http://www.surf.nl', array('target' => '_blank', 'escapeTitle' => false));
-		?>
+			<?php
+			echo __(
+				'This project was made possible by the support of SURF, the higher education and research partnership organisation for Information and Communications Technology (ICT). For more information about SURF, please visit %s.',
+				$this->Html->link('www.surf.nl', 'https://www.surf.nl', array('target' => '_blank'))
+			);
+			?>
 		</p>
 		<p>
-		<?php
-		echo __('CakePHP version %s', Configure::version());
-		echo $this->Html->link(__('GitHub'), 'https://github.com/nlware/qdnatool', array('target' => '_blank'));
-		?>
+			<?php
+			echo $this->Html->link(
+				$this->Html->image('logo-vu.png', array('onmouseout' => 'this.src=\'' . $this->Html->url('/img/logo-vu.png') . '\';', 'onmouseover' => 'this.src=\'' . $this->Html->url('/img/logo-vu-cl.png') . '\';')),
+				'https://www.vu.nl', array(
+					'target' => '_blank', 'escapeTitle' => false
+				)
+			);
+			echo $this->Html->link(
+				$this->Html->image('logo-uva.png'),
+				'https://www.uva.nl', array(
+					'target' => '_blank', 'escapeTitle' => false
+				)
+			);
+			echo $this->Html->link(
+				$this->Html->image('logo-nlware.png', array('onmouseout' => 'this.src=\'' . $this->Html->url('/img/logo-nlware.png') . '\';', 'onmouseover' => 'this.src=\'' . $this->Html->url('/img/logo-nlware-cl.png') . '\';')),
+				'https://www.nlware.com', array(
+					'target' => '_blank', 'escapeTitle' => false
+				)
+			);
+			echo $this->Html->link(
+				$this->Html->image('logo-surf.png'),
+				'https://www.surf.nl', array(
+					'target' => '_blank', 'escapeTitle' => false
+				)
+			);
+			?>
+		</p>
+			<p>
+			<?php
+			echo __('CakePHP version %s', Configure::version());
+			echo $this->Html->link(__('GitHub'), 'https://github.com/nlware/qdnatool', array('target' => '_blank'));
+			?>
 		</p>
 	</div>
 	<div class="modal-footer">
@@ -78,7 +105,7 @@ $analysisControllers = array('exams');
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo __('Help'); ?> <b class="caret"></b></a>
 					<ul class="dropdown-menu">
-						<li><?php echo $this->Html->link(__('qDNAtool Help'), 'http://docs.qdnatool.org/ontwerpen/about/', array('target' => '_blank')); ?></li>
+						<li><?php echo $this->Html->link(__('qDNAtool Help'), 'https://docs.qdnatool.org/ontwerpen/about/', array('target' => '_blank')); ?></li>
 						<li><?php echo $this->Html->link(__('About qDNAtool'), array('#' => 'modalAbout'), array('data-toggle' => 'modal')); ?></li>
 					</ul>
 				</li>

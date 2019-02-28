@@ -166,61 +166,61 @@ class AppSchema extends CakeSchema {
 				'id' => 1,
 				'development_phase_id' => DevelopmentPhase::DIVERGE,
 				'question_format_id' => null,
-				'url' => 'http://docs.qdnatool.org/ontwerpen/generating-questions/'
+				'url' => 'https://docs.qdnatool.org/ontwerpen/generating-questions/'
 			),
 			array(
 				'id' => 2,
 				'development_phase_id' => DevelopmentPhase::CONVERGE,
 				'question_format_id' => null,
-				'url' => 'http://docs.qdnatool.org/ontwerpen/convergeer-vragen/'
+				'url' => 'https://docs.qdnatool.org/ontwerpen/convergeer-vragen/'
 			),
 			array(
 				'id' => 3,
 				'development_phase_id' => DevelopmentPhase::DIVERGE,
 				'question_format_id' => QuestionFormat::TRUE_FALSE,
-				'url' => 'http://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/wat-is/genereer-juistonjuist-vragen/'
+				'url' => 'https://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/wat-is/genereer-juistonjuist-vragen/'
 			),
 			array(
 				'id' => 4,
 				'development_phase_id' => DevelopmentPhase::CONVERGE,
 				'question_format_id' => QuestionFormat::TRUE_FALSE,
-				'url' => 'http://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/wat-is/bijschaafregels-voor-juistonjuist-vragen/'
+				'url' => 'https://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/wat-is/bijschaafregels-voor-juistonjuist-vragen/'
 			),
 			array(
 				'id' => 5,
 				'development_phase_id' => DevelopmentPhase::DIVERGE,
 				'question_format_id' => QuestionFormat::MULTIPLE_CHOICE,
-				'url' => 'http://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/multiple-choice-vraag/divergeer-multiple-choice-vragen/'
+				'url' => 'https://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/multiple-choice-vraag/divergeer-multiple-choice-vragen/'
 			),
 			array(
 				'id' => 6,
 				'development_phase_id' => DevelopmentPhase::CONVERGE,
 				'question_format_id' => QuestionFormat::MULTIPLE_CHOICE,
-				'url' => 'http://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/multiple-choice-vraag/convergeer-multiple-choicevragen/'
+				'url' => 'https://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/multiple-choice-vraag/convergeer-multiple-choicevragen/'
 			),
 			array(
 				'id' => 7,
 				'development_phase_id' => DevelopmentPhase::DIVERGE,
 				'question_format_id' => QuestionFormat::MULTIPLE_RESPONSE,
-				'url' => 'http://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/multiple-responsvraag/divergeer-multiple-responsvraag/'
+				'url' => 'https://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/multiple-responsvraag/divergeer-multiple-responsvraag/'
 			),
 			array(
 				'id' => 8,
 				'development_phase_id' => DevelopmentPhase::CONVERGE,
 				'question_format_id' => QuestionFormat::MULTIPLE_RESPONSE,
-				'url' => 'http://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/multiple-responsvraag/convergeer-multiple-responsvragen/'
+				'url' => 'https://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/multiple-responsvraag/convergeer-multiple-responsvragen/'
 			),
 			array(
 				'id' => 9,
 				'development_phase_id' => DevelopmentPhase::DIVERGE,
 				'question_format_id' => QuestionFormat::OPEN_ANSWER,
-				'url' => 'http://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/1-2-open-vraag/divergeer-open-vraag/'
+				'url' => 'https://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/1-2-open-vraag/divergeer-open-vraag/'
 			),
 			array(
 				'id' => 10,
 				'development_phase_id' => DevelopmentPhase::CONVERGE,
 				'question_format_id' => QuestionFormat::OPEN_ANSWER,
-				'url' => 'http://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/1-2-open-vraag/convergeer-open-vraag/'
+				'url' => 'https://docs.qdnatool.org/ontwerpen/1-4-voor-en-nadelen-open-en-gesloten-vragen/1-2-open-vraag/convergeer-open-vraag/'
 			),
 		),
 		'question_formats' => array(

@@ -50,7 +50,7 @@ App::uses('I18n', 'I18n');
  * @version         $Revision:	$
  * @modifiedby      $LastChangedBy:	$
  * @lastmodified    $Date: $
- * @license         http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @license         https://www.opensource.org/licenses/mit-license.php The MIT License
  */
 class I18nBehavior extends ModelBehavior {
 
