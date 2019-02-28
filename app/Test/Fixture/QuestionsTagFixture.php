@@ -23,7 +23,7 @@ class QuestionsTagFixture extends AppFixture {
 			'question_id' => array('column' => 'question_id', 'unique' => 0),
 			'tag_id' => array('column' => 'tag_id', 'unique' => 0)
 		),
-		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
+		'tableParameters' => array('charset' => 'utf8mb4', 'collate' => 'utf8mb4_general_ci', 'engine' => 'InnoDB')
 	);
 
 /**
