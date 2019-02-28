@@ -6,7 +6,7 @@
  * Routes are very important mechanism that allows you to freely connect
  * different URLs to chosen controllers and their actions (functions).
  *
- * @link          http://cakephp.org CakePHP(tm) Project
+ * @link          https://cakephp.org CakePHP(tm) Project
  * @package       app.Config
  * @since         CakePHP(tm) v 0.2.9
  */
@@ -16,11 +16,11 @@
  * its action called 'display', and we pass a param to select the view file
  * to use (in this case, /app/View/Pages/home.ctp)...
  */
-	if (Configure::read('debug') > 0):
-		Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
-	else:
-		Router::connect('/', array('controller' => 'users', 'action' => 'home'));
-	endif;
+if (Configure::read('debug') > 0):
+	Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
+else:
+	Router::connect('/', array('controller' => 'users', 'action' => 'home'));
+endif;
 /**
  * ...and connect the rest of 'Pages' controller's URLs.
  */
