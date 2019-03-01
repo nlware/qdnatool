@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "215c253199c1c59e4d5925ce280ebbb1",
+    "content-hash": "4cd63d2fee2daf07247f9a7faea1cf65",
     "packages": [
         {
             "name": "cakephp/cakephp",
@@ -379,6 +379,35 @@
             "time": "2018-11-13T22:06:07+00:00"
         },
         {
+            "name": "htmlawed/htmlawed",
+            "version": "1.2.4.1",
+            "dist": {
+                "type": "zip",
+                "url": "https://www.bioinformatics.org/phplabware/downloads/htmLawed1241.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "htmLawed.php"
+                ]
+            },
+            "license": [
+                "LGPL-3.0-only",
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Santosh Patnaik",
+                    "email": "drpatnaik@yahoo.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Official htmLawed PHP library for HTML filtering",
+            "homepage": "https://www.bioinformatics.org/phplabware/internal_utilities/htmLawed"
+        },
+        {
             "name": "jaimeperez/twig-configurable-i18n",
             "version": "v1.2",
             "source": {
@@ -421,22 +450,6 @@
                 "twig"
             ],
             "time": "2016-10-03T12:34:15+00:00"
-        },
-        {
-            "name": "phplabware/htmlawed",
-            "version": "1.2.4.1",
-            "dist": {
-                "type": "zip",
-                "url": "https://www.bioinformatics.org/phplabware/downloads/htmLawed1241.zip",
-                "reference": null,
-                "shasum": null
-            },
-            "type": "cakephp-vendor",
-            "autoload": {
-                "files": [
-                    "htmLawed.php"
-                ]
-            }
         },
         {
             "name": "psr/log",
