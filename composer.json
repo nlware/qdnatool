@@ -4,23 +4,12 @@
 	"config" : {
 		"vendor-dir" : "app/Vendor/"
 	},
-	"repositories" : [
-		{
-			"type": "package",
-			"package": {
-				"name": "phplabware/htmlawed",
-				"version": "1.2.4.1",
-				"type": "cakephp-vendor",
-				"dist": {
-					"url": "https://www.bioinformatics.org/phplabware/downloads/htmLawed1241.zip",
-					"type": "zip"
-				},
-				"autoload": {
-					"files": ["htmLawed.php"]
-				}
-			}
+	"repositories": {
+		"htmlawed": {
+			"type": "composer",
+			"url": "https://www.bioinformatics.org/phplabware/downloads/"
 		}
-	],
+	},
 	"extra": {
 		"installer-paths": {
 			"app/Plugin/DebugKit": ["cakephp/debug_kit"],
@@ -32,9 +21,9 @@
 		"cakephp/cakephp": "^2.0",
 		"cakephp/debug_kit": "^2.2",
 		"slywalker/twitter_bootstrap": "1.5.7",
-		"phplabware/htmlawed": "^1.0",
 		"simplesamlphp/simplesamlphp": "^1.0",
-		"cturbelin/rserve-php": "2.0.x-dev"
+		"cturbelin/rserve-php": "2.0.x-dev",
+		"htmlawed/htmlawed": "^1.0"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "^3.7",
