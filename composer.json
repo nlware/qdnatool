@@ -23,10 +23,10 @@
 		"slywalker/twitter_bootstrap": "1.5.7",
 		"simplesamlphp/simplesamlphp": "^1.0",
 		"cturbelin/rserve-php": "2.0.x-dev",
-		"htmlawed/htmlawed": "^1.0",
-		"phpunit/phpunit": "5.7.19"
+		"htmlawed/htmlawed": "^1.0"
 	},
 	"require-dev": {
+		"phpunit/phpunit": "^3.7",
 		"cakephp/cakephp-codesniffer": "^1.0"
 	}
 }
