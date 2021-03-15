@@ -11,7 +11,7 @@
         }
     },
     "require": {
-        "simplesamlphp/simplesamlphp": "1.17.*",
+        "simplesamlphp/simplesamlphp": "1.18.*",
         "cakephp/cakephp": "^2.0",
         "cakephp/debug_kit": "^2.2",
         "slywalker/twitter_bootstrap": "1.5.7",
